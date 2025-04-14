@@ -1,0 +1,158 @@
+.container{
+    margin-top: 4rem;
+}
+.header{
+    width: 100%;
+    padding: 0 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 6rem;
+    border: none;
+    border-bottom: 1px solid #eeeff3;
+}
+.header h1{
+    color: #292621;
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 2px;
+}
+.nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+}
+.headerLink{
+    font-family: "Jost", sans-serif;
+    color: #292621;
+    font-size: 16px;
+    font-weight: 600;
+    border: 0;
+    padding: 36px 12px;
+    padding-top: 0;
+    border-bottom: 4px solid transparent;
+    margin-right: 15px;
+    text-decoration: none;
+    transition: all .3s linear;
+}
+.headerLink:hover{
+    border-bottom: 4px solid #FF2020;
+}
+.headerLink:active{
+    color: #FF2020;
+    border-bottom: 4px solid #FF2020;
+}
+.cardContainer{
+    width: 100%;
+    padding: 0 5rem;
+    margin: 0 auto;
+    margin-top: 3rem;
+}
+.customLeftArrow {
+    padding: 2rem 1rem;
+    position: absolute;
+    left: 0; 
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+    border-radius: .25rem;
+    transition: all .2s linear;
+}
+
+.customRightArrow {
+    border-radius: .25rem;
+    padding: 2rem 1rem;
+    position: absolute;
+    font-size: 24px;
+    right: 15px; 
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: all .2s linear;
+}
+.customRightArrow:hover, .customLeftArrow:hover{
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+
+.testimonial {
+    margin-top: 7rem;
+    background-color: #F3EAD8;
+    padding: 80px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.innerContainer {
+    max-width: 800px; 
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.testimonial h1 {
+    font-family: "Jost", sans-serif;
+    font-size: 34px;
+    color: #292621;
+    margin-bottom: 30px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.testimonial p {
+    font-size: 18px;
+    color: #292621;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.profile {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+}
+
+.profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.text {
+    text-align: left;
+}
+
+.authorName {
+    font-size: 1.2rem;
+    color: #302f2b;
+    font-weight: bold;
+}
+
+.specialty {
+    font-size: 0.9rem;
+    color: #76726f;
+    margin-top: 0.2rem;
+}
