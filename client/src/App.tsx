@@ -1,34 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+"use client"
+
+import type React from "react"
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { createContext, useState } from "react"
+import { routes } from "./routes"
+import Layout from "./components/Layout"
+import "./styles/App.scss"
+
+const router = createBrowserRouter(routes)
+
+interface LoginContextType {
+  isLogin: boolean
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>
+  isAdmin: boolean
+  setIsAdmin: React.Dispatch<React.SetStateAction<boolean>>
+  isInWishlist: boolean
+  setIsInWishlist: React.Dispatch<React.SetStateAction<boolean>>
+  isInCart: boolean
+  setIsInCart: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const LoginContext = createContext<LoginContextType>({
+  isLogin: false,
+  setIsLogin: () => {},
+  isAdmin: false,
+  setIsAdmin: () => {},
+  isInWishlist: false,
+  setIsInWishlist: () => {},
+  isInCart: false,
+  setIsInCart: () => {},
+})
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isLogin, setIsLogin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [isInWishlist, setIsInWishlist] = useState(false)
+  const [isInCart, setIsInCart] = useState(false)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <LoginContext.Provider
+      value={{
+        isLogin,
+        setIsLogin,
+        isAdmin,
+        setIsAdmin,
+        isInWishlist,
+        setIsInWishlist,
+        isInCart,
+        setIsInCart,
+      }}
+    >
+      <Layout>
+        <RouterProvider router={router} />
+      </Layout>
+    </LoginContext.Provider>
   )
 }
 

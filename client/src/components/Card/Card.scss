@@ -1,0 +1,113 @@
+.card {
+  position: relative;
+  height: 480px;
+  width: 95%;
+  cursor: pointer;
+  overflow: hidden;
+
+  &__link {
+    text-decoration: none;
+  }
+
+  &__tools {
+    position: absolute;
+    bottom: 85px;
+    left: 50%;
+    z-index: 20;
+    display: flex;
+    transform: translateX(-50%);
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    opacity: 0;
+    transition: opacity $transition-normal;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__tool {
+    padding: $spacing-md $spacing-lg;
+    font-size: 24px;
+    color: $text-color;
+    transition: all $transition-normal;
+
+    &:hover {
+      background-color: $primary-color;
+      color: white;
+    }
+  }
+
+  &__image-container {
+    height: 75%;
+    width: 100%;
+  }
+
+  &__image {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    transition: transform $transition-normal;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &__title {
+    margin-top: $spacing-lg;
+    margin-left: $spacing-lg;
+    height: 32px;
+    text-align: left;
+    font-size: $font-size-base;
+    font-weight: $font-weight-normal;
+    color: $text-color;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  &__price {
+    margin-top: $spacing-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-current {
+      cursor: pointer;
+      font-size: $font-size-base;
+      font-weight: $font-weight-medium;
+      color: $muted-color;
+      transition: color $transition-fast;
+
+      &:hover {
+        color: $text-color;
+      }
+    }
+
+    &-original {
+      margin-left: $spacing-md;
+      cursor: pointer;
+      font-size: $font-size-base;
+      font-weight: $font-weight-medium;
+      color: $accent-color;
+      text-decoration: line-through;
+    }
+  }
+
+  &:hover {
+    .card__tools {
+      opacity: 1;
+    }
+  }
+}

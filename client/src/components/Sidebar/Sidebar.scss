@@ -1,0 +1,137 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-index-fixed;
+  height: 100%;
+  width: 250px;
+  background-color: white;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transform: translateX(-100%);
+  transition: transform $transition-normal;
+
+  @include responsive(md) {
+    transform: translateX(0);
+  }
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    border-bottom: 1px solid $border-color;
+
+    a {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $primary-color;
+    }
+  }
+
+  &__nav {
+    flex: 1;
+    padding: $spacing-lg $spacing-md;
+    overflow-y: auto;
+  }
+
+  &__section {
+    margin-bottom: $spacing-xl;
+
+    &-title {
+      font-size: $font-size-sm;
+      text-transform: uppercase;
+      color: $light-text-color;
+      margin-bottom: $spacing-md;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    padding: $spacing-sm $spacing-md;
+    margin-bottom: $spacing-xs;
+    border-radius: $border-radius-md;
+    color: $text-color;
+    transition: all $transition-fast;
+
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+    }
+
+    &.active {
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  &__icon {
+    margin-right: $spacing-md;
+  }
+
+  &__footer {
+    padding: $spacing-md;
+    border-top: 1px solid $border-color;
+  }
+
+  &__cart-button {
+    @include button($primary-color, white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.sidebar-toggle {
+  position: fixed;
+  top: $spacing-md;
+  left: $spacing-md;
+  z-index: $z-index-fixed + 1;
+
+  @include responsive(md) {
+    display: none;
+  }
+
+  button {
+    padding: $spacing-sm;
+    background-color: white;
+    border-radius: $border-radius-md;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: $text-color;
+
+    &:hover {
+      background-color: $light-background;
+    }
+  }
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: $z-index-modal-backdrop;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
+  @include responsive(md) {
+    display: none;
+  }
+}

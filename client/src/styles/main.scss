@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+@import "variables";
+@import "reset";
+@import "mixins";
+
+body {
+  font-family: "Jost", sans-serif;
+  color: $text-color;
+  background-color: $background-color;
+  line-height: 1.5;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+@media (max-width: $breakpoint-md) {
+  .container {
+    padding: 0 10px;
+  }
+}

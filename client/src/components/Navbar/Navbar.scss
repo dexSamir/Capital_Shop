@@ -1,0 +1,80 @@
+.navbar {
+  display: flex;
+  height: 40px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid $border-color;
+  padding: 0 $spacing-xl;
+
+  &__left {
+    @include responsive(md) {
+      display: none;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+  }
+
+  &__item {
+    margin-right: $spacing-xl;
+  }
+
+  &__link {
+    font-size: $font-size-sm;
+    color: $text-color;
+    text-decoration: none;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include responsive(md) {
+      margin-left: auto;
+    }
+  }
+
+  &__wishlist {
+    border-right: 1px solid $border-color;
+    padding: 0 $spacing-md;
+
+    @include responsive(md) {
+      display: none;
+    }
+  }
+
+  &__order {
+    border-right: 1px solid $border-color;
+    padding: 0 $spacing-lg;
+
+    @include responsive(md) {
+      display: none;
+    }
+  }
+
+  &__social {
+    display: flex;
+    padding: 0 $spacing-md;
+
+    &-icon {
+      margin-right: $spacing-md;
+      color: $muted-color;
+      transition: transform $transition-normal, color $transition-normal;
+
+      &:hover {
+        color: $primary-color;
+        transform: rotateY(180deg);
+      }
+    }
+  }
+}
