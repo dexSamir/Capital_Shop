@@ -1,17 +1,38 @@
-// Colors
-$primary-color: #ff2020;
-$secondary-color: #292621;
-$accent-color: #cebd9c;
-$muted-color: #74706b;
-$background-color: #ffffff;
-$text-color: #292621;
-$light-text-color: #74706b;
-$border-color: #eeeff3;
-$dark-background: #171613;
-$light-background: #f3ebd8;
+:root {
+  $primary-color: #ff2020;
+  --secondary-color: #292621;
+  --accent-color: #cebd9c;
+  --muted-color: #74706b;
+  --background-color: #ffffff;
+  --text-color: #292621;
+  --light-text-color: #74706b;
+  --border-color: #eeeff3;
+  --dark-background: #171613;
+  --light-background: #f3ebd8;
+  --card-background: #ffffff;
+  --input-background: #ffffff;
+  --footer-text: #bbb9b5;
+  --footer-link-hover: #ffffff;
+}
 
-// Typography
-$font-family: 'Jost', sans-serif;
+[data-theme="dark"] {
+  $primary-color: #ff4040;
+  --secondary-color: #3a3631;
+  --accent-color: #d9c9a8;
+  --muted-color: #a09b96;
+  --background-color: #121212;
+  --text-color: #e0e0e0;
+  --light-text-color: #a0a0a0;
+  --border-color: #2a2a2a;
+  --dark-background: #0a0a0a;
+  --light-background: #1e1e1e;
+  --card-background: #1e1e1e;
+  --input-background: #2a2a2a;
+  --footer-text: #a0a0a0;
+  --footer-link-hover: #ffffff;
+}
+
+$font-family: "Jost", sans-serif;
 $font-size-base: 16px;
 $font-size-sm: 14px;
 $font-size-lg: 18px;
@@ -22,7 +43,6 @@ $font-weight-medium: 500;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
-// Spacing
 $spacing-xs: 4px;
 $spacing-sm: 8px;
 $spacing-md: 16px;
@@ -30,26 +50,22 @@ $spacing-lg: 24px;
 $spacing-xl: 32px;
 $spacing-xxl: 48px;
 
-// Breakpoints
 $breakpoint-xs: 480px;
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
 
-// Border radius
 $border-radius-sm: 4px;
 $border-radius-md: 8px;
 $border-radius-lg: 16px;
 $border-radius-xl: 24px;
 $border-radius-full: 9999px;
 
-// Transitions
 $transition-fast: 0.2s ease;
 $transition-normal: 0.3s ease;
 $transition-slow: 0.5s ease;
 
-// Z-index
 $z-index-dropdown: 1000;
 $z-index-sticky: 1020;
 $z-index-fixed: 1030;

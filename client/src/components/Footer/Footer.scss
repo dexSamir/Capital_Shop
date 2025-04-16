@@ -3,7 +3,7 @@
 
 .footer {
     width: 100%;
-    background-color: $dark-background;
+    background-color: var(--dark-background);
     padding: 0 $spacing-lg;
     border-bottom: 1px solid rgba(255, 255, 255, 0.14);
     
@@ -70,10 +70,10 @@
         height: 60px;
         width: 100%;
         border: 1px solid rgba(255, 255, 255, 0.2);
-        background-color: white;
+        background-color: var(--input-background);
         padding: 15px 24px;
         font-size: $font-size-base;
-        color: black;
+        color: var(--text-color);
         
         &:focus {
           outline: none;
@@ -85,11 +85,16 @@
         height: 60px;
         cursor: pointer;
         border: none;
-        background-color: $primary-color;
+        background-color: var(--primary-color);
         padding: 13px 24px;
         font-size: $font-size-base;
         font-weight: $font-weight-medium;
         color: white;
+        transition: background-color $transition-normal;
+        
+        &:hover {
+            background-color: color-mix(in srgb, var(--primary-color), black 10%);
+        }
       }
     }
     
@@ -104,26 +109,30 @@
         
         &:hover {
           transform: rotateY(180deg);
-          color: $primary-color;
+          color: var(--primary-color);
         }
       }
     }
     
     &__links {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(5, 1fr);
       gap: $spacing-xl;
       width: 100%;
       padding: 0 $spacing-md $spacing-xxl * 2;
       border-bottom: 1px solid #272622;
+      
+      @include responsive(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
       
       @include responsive(md) {
         grid-template-columns: repeat(2, 1fr);
         padding: 0 $spacing-xl $spacing-xxl * 2;
       }
       
-      @include responsive(lg) {
-        grid-template-columns: repeat(5, 1fr);
+      @include responsive(sm) {
+        grid-template-columns: 1fr;
       }
     }
     
@@ -150,12 +159,13 @@
     &__link {
       font-size: $font-size-base;
       font-weight: $font-weight-normal;
-      color: #bbb9b5;
+      color: var(--footer-text);
       text-decoration: none;
       transition: all $transition-fast;
       
       &:hover {
         letter-spacing: 0.5px;
+        color: var(--footer-link-hover);
         text-decoration: underline;
       }
     }
@@ -170,8 +180,7 @@
         font-size: $font-size-base;
         font-weight: 300;
         line-height: 2;
-        color: #bbb9b5;
+        color: var(--footer-text);
       }
     }
   }
-  

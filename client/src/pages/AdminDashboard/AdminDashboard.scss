@@ -13,6 +13,6 @@
   }
 
   &__error {
-    color: $primary-color;
+    color: var(--primary-color);
   }
 }

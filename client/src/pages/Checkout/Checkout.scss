@@ -11,14 +11,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $light-background;
+    background-color: var(--light-background);
   }
 
   &__title {
     margin-bottom: $spacing-sm;
     font-size: $font-size-xxl;
     font-weight: $font-weight-semibold;
-    color: $text-color;
+    color: var(--text-color);
   }
 
   &__breadcrumb {
@@ -32,7 +32,7 @@
       font-weight: $font-weight-normal;
       text-transform: capitalize;
       line-height: 1;
-      color: $light-text-color;
+      color: var(--light-text-color);
       text-decoration: none;
     }
 
@@ -40,7 +40,7 @@
       padding: 0 $spacing-sm;
       font-size: $font-size-sm;
       font-weight: $font-weight-medium;
-      color: $primary-color;
+      color: var(--primary-color);
     }
 
     &-separator {
@@ -48,7 +48,7 @@
       height: 1.25rem;
       width: 1px;
       border: none;
-      border-left: 1px solid $light-text-color;
+      border-left: 1px solid var(--light-text-color);
       font-weight: $font-weight-semibold;
     }
   }
@@ -81,31 +81,31 @@
       justify-content: center;
       font-weight: $font-weight-bold;
       margin-bottom: $spacing-sm;
-      color: $text-color;
+      color: var(--text-color);
       transition: all $transition-normal;
     }
 
     &-label {
       font-size: $font-size-sm;
-      color: $light-text-color;
+      color: var(--light-text-color);
       transition: all $transition-normal;
     }
 
     &.active {
       .checkout__step-number {
-        background-color: $primary-color;
+        background-color: var(--primary-color);
         color: white;
       }
 
       .checkout__step-label {
-        color: $primary-color;
+        color: var(--primary-color);
         font-weight: $font-weight-medium;
       }
     }
 
     &.completed {
       .checkout__step-number {
-        background-color: $secondary-color;
+        background-color: var(--secondary-color);
         color: white;
       }
     }
@@ -144,7 +144,7 @@
     &-title {
       font-size: $font-size-xl;
       margin-bottom: $spacing-xl;
-      color: $text-color;
+      color: var(--text-color);
     }
 
     &-row {
@@ -165,30 +165,30 @@
         display: block;
         margin-bottom: $spacing-xs;
         font-size: $font-size-sm;
-        color: $text-color;
+        color: var(--text-color);
       }
 
       input,
       select {
         width: 100%;
         padding: $spacing-md;
-        border: 1px solid $border-color;
+        border: 1px solid var(--border-color);
         border-radius: $border-radius-sm;
         font-size: $font-size-base;
 
         &:focus {
           outline: none;
-          border-color: $primary-color;
+          border-color: var(--primary-color);
         }
 
         &.error {
-          border-color: $primary-color;
+          border-color: var(--primary-color) r;
         }
       }
     }
 
     &-error {
-      color: $primary-color;
+      color: var(--primary-color);
       font-size: $font-size-sm;
       margin-top: $spacing-xs;
     }
@@ -215,8 +215,8 @@
 
   &__back-button {
     background-color: white;
-    border: 1px solid $border-color;
-    color: $text-color;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
 
     &:hover {
       background-color: #f5f5f5;
@@ -224,12 +224,12 @@
   }
 
   &__next-button {
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     border: none;
     color: white;
 
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: color-mix(in srgb, var(--primary-color), black 10%);
     }
   }
 
@@ -248,7 +248,7 @@
     &-title {
       font-size: $font-size-lg;
       margin-bottom: $spacing-xl;
-      color: $text-color;
+      color: var(--text-color);
     }
 
     &-items {
@@ -261,7 +261,7 @@
       display: flex;
       margin-bottom: $spacing-md;
       padding-bottom: $spacing-md;
-      border-bottom: 1px solid $border-color;
+      border-bottom: 1px solid var(--border-color);
 
       &:last-child {
         margin-bottom: 0;
@@ -289,12 +289,12 @@
       &-name {
         font-size: $font-size-base;
         margin-bottom: $spacing-xs;
-        color: $text-color;
+        color: var(--text-color);
       }
 
       &-meta {
         font-size: $font-size-sm;
-        color: $light-text-color;
+        color: var(--light-text-color);
         margin-bottom: $spacing-xs;
 
         span {
@@ -310,12 +310,12 @@
         display: flex;
         justify-content: space-between;
         font-size: $font-size-sm;
-        color: $text-color;
+        color: var(--text-color);
       }
     }
 
     &-totals {
-      border-top: 1px solid $border-color;
+      border-top: 1px solid var(--border-color);
       padding-top: $spacing-md;
     }
 
@@ -324,7 +324,7 @@
       justify-content: space-between;
       margin-bottom: $spacing-sm;
       font-size: $font-size-base;
-      color: $text-color;
+      color: var(--text-color);
     }
 
     &-total {
@@ -332,7 +332,7 @@
       font-size: $font-size-lg;
       margin-top: $spacing-md;
       padding-top: $spacing-md;
-      border-top: 1px solid $border-color;
+      border-top: 1px solid var(--border-color);
     }
   }
 
@@ -349,14 +349,14 @@
   &__continue-shopping {
     display: inline-block;
     padding: $spacing-md $spacing-xl;
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     color: white;
     border-radius: $border-radius-md;
     text-decoration: none;
     transition: background-color $transition-normal;
 
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: color-mix(in srgb, var(--primary-color), black 10%);
     }
   }
 }

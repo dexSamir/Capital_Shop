@@ -2,115 +2,154 @@
 @use "../../styles/mixins" as *;
 
 .slider {
+  &__swiper {
+    width: 100%;
+    height: 600px;
+    
+    @include responsive(md) {
+      height: 500px;
+    }
+    
+    @include responsive(sm) {
+      height: 400px;
+    }
+    
+    :global(.swiper-button-next),
+    :global(.swiper-button-prev) {
+      color: var(--primary-color);
+    }
+    
+    :global(.swiper-pagination-bullet-active) {
+      background-color: var(--primary-color);
+    }
+  }
+
   &__hero {
     position: relative;
     width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: var(--light-background);
   }
 
   &__content {
     position: absolute;
-    left: $spacing-xl * 2;
-    top: 15rem;
-    display: flex;
-    width: 30rem;
-    flex-direction: column;
-    align-items: center;
-    justify-content: between;
+    left: 10%;
+    max-width: 500px;
     z-index: 10;
+    
+    @include responsive(md) {
+      left: 5%;
+      max-width: 400px;
+    }
+    
+    @include responsive(sm) {
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      width: 90%;
+    }
 
     &--right {
       left: auto;
-      right: $spacing-xl * 2;
-    }
-
-    @include responsive(md) {
-      width: 80%;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 10rem;
-
-      &--right {
-        left: 50%;
-        right: auto;
+      right: 10%;
+      
+      @include responsive(md) {
+        right: 5%;
       }
-    }
-
-    @include responsive(sm) {
-      top: 5rem;
+      
+      @include responsive(sm) {
+        right: auto;
+        left: 50%;
+      }
     }
   }
 
   &__subtitle {
-    margin-bottom: 1px;
-    font-family: "Clicker Script", cursive;
+    font-family: 'Clicker Script', cursive;
     font-size: $font-size-xxl;
     font-weight: $font-weight-normal;
     line-height: 1.2;
-    color: $primary-color;
+    color: var(--primary-color);
+    margin-bottom: $spacing-md;
+    display: block;
   }
 
   &__title {
-    margin-bottom: 2px;
-    font-size: $font-size-xxl;
-    font-weight: $font-weight-semibold;
+    font-size: $font-size-xxl * 1.5;
+    font-weight: $font-weight-bold;
     line-height: 1.2;
-    color: $text-color;
+    color: var(--text-color);
+    margin-bottom: $spacing-lg;
+    
+    @include responsive(md) {
+      font-size: $font-size-xxl;
+    }
   }
 
   &__description {
     margin-bottom: $spacing-xl;
-    padding: 0 $spacing-xl;
-    text-align: center;
     font-size: $font-size-lg;
     font-weight: $font-weight-normal;
-    line-height: 2;
-    color: $light-text-color;
-    animation-delay: 0.4s;
+    line-height: 1.6;
+    color: var(--light-text-color);
+    
+    @include responsive(md) {
+      font-size: $font-size-base;
+    }
   }
 
   &__button {
     display: inline-block;
-    border: 1px solid $secondary-color;
-    background-color: $secondary-color;
+    border: 1px solid var(--secondary-color);
+    background-color: var(--secondary-color);
     padding: $spacing-md $spacing-xl;
-    font-size: $font-size-sm;
+    font-size: $font-size-base;
     font-weight: $font-weight-medium;
     text-transform: uppercase;
     line-height: 1;
     color: white;
     text-decoration: none;
     transition: all $transition-normal;
-    animation-delay: 0.7s;
 
     &:hover {
       background-color: transparent;
-      color: $secondary-color;
+      color: var(--secondary-color);
     }
   }
 
   &__image {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
   }
 
   &__categories {
-    margin-top: $spacing-md;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    gap: $spacing-lg;
-    padding: 0 $spacing-xl * 2;
-
-    @include responsive(md) {
-      flex-direction: column;
+    margin-top: $spacing-xl;
+    padding: $spacing-xl 0;
+    
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: $spacing-lg;
+      
+      @include responsive(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      @include responsive(sm) {
+        grid-template-columns: 1fr;
+      }
     }
   }
 
   &__category {
     position: relative;
     overflow: hidden;
-
+    border-radius: $border-radius-md;
+    height: 300px;
+    
     &:hover {
       .slider__category-overlay {
         opacity: 1;
@@ -122,7 +161,11 @@
       }
 
       .slider__category-title {
-        bottom: $spacing-xl;
+        bottom: $spacing-xl * 2;
+      }
+      
+      .slider__category-image {
+        transform: scale(1.05);
       }
     }
   }
@@ -146,9 +189,10 @@
     width: 100%;
     cursor: pointer;
     text-align: center;
-    color: $accent-color;
+    color: var(--accent-color);
     opacity: 0;
     transition: all $transition-normal;
+    text-decoration: none;
 
     &:hover {
       letter-spacing: 0.05em;
@@ -157,21 +201,19 @@
 
   &__category-image {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-normal;
   }
 
   &__category-overlay {
     position: absolute;
     bottom: 0;
     z-index: 1;
-    height: 40%;
+    height: 50%;
     width: 100%;
-    background: linear-gradient(
-      to bottom,
-      rgba(41, 38, 33, 0),
-      $secondary-color
-    );
-    opacity: 0;
+    background: linear-gradient(to bottom, rgba(41, 38, 33, 0), var(--secondary-color));
+    opacity: 0.8;
     transition: opacity $transition-normal;
   }
 }

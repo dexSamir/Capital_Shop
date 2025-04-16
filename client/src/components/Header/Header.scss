@@ -9,6 +9,8 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 $spacing-xl;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
   }
 
   &__logo {
@@ -32,16 +34,16 @@
     &-link {
       font-size: $font-size-base;
       font-weight: $font-weight-bold;
-      color: $text-color;
+      color: var(--text-color);
       text-decoration: none;
       transition: all $transition-normal;
 
       &:hover {
-        color: $primary-color;
+        color: var(--primary-color);
       }
 
       &.active {
-        color: $primary-color;
+        color: var(--primary-color);
         position: relative;
         
         &::after {
@@ -51,7 +53,7 @@
           left: 0;
           width: 100%;
           height: 2px;
-          background-color: $primary-color;
+          background-color: var(--primary-color);
         }
       }
     }
@@ -74,11 +76,13 @@
       border-bottom: 1px solid transparent;
       outline: none;
       transition: all $transition-normal;
+      background-color: transparent;
+      color: var(--text-color);
       
       &.active {
         width: 200px;
         padding: $spacing-xs $spacing-sm;
-        border-bottom: 1px solid $border-color;
+        border-bottom: 1px solid var(--border-color);
       }
     }
     
@@ -86,9 +90,10 @@
       cursor: pointer;
       font-size: 1.5rem;
       transition: all $transition-normal;
+      color: var(--text-color);
       
       &:hover {
-        color: $primary-color;
+        color: var(--primary-color);
       }
     }
   }
@@ -99,14 +104,15 @@
       font-size: 1.5rem;
       cursor: pointer;
       transition: all $transition-normal;
+      color: var(--text-color);
 
       &:hover {
-        color: $primary-color;
+        color: var(--primary-color);
       }
     }
 
     &-link {
-      color: $text-color;
+      color: var(--text-color);
       text-decoration: none;
     }
   }
@@ -118,7 +124,7 @@
       position: absolute;
       top: -8px;
       right: -8px;
-      background-color: $primary-color;
+      background-color: var(--primary-color);
       color: white;
       font-size: 0.7rem;
       width: 18px;
@@ -136,13 +142,13 @@
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    background-color: $secondary-color;
+    background-color: var(--secondary-color);
     font-size: $font-size-base;
     color: white;
 
     &-link {
       margin-left: $spacing-xs;
-      color: $accent-color;
+      color: var(--accent-color);
       transition: all $transition-normal;
 
       &:hover {

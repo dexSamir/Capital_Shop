@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from "react"
 import Carousel from "react-multi-carousel"
-import "react-multi-carousel/lib/styles.css"
-import Card from "../Card"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick"
 import { testimonials } from "../../data/Data"
 import { getAllproducts } from "../../middleware/products"
+import Card from "../Card"
 import "./Trend.scss"
+import "react-multi-carousel/lib/styles.css"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+
 
 interface Product {
   id: number
@@ -58,11 +59,17 @@ const responsive = {
 
 function Trend() {
   const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getAllproducts().then((res) => {
-      setProducts(res)
-    })
+    setLoading(true)
+    getAllproducts()
+      .then((res) => {
+        setProducts(res)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [])
 
   const settings = {
@@ -72,7 +79,7 @@ function Trend() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
     arrows: true,
   }
 
@@ -85,22 +92,22 @@ function Trend() {
         <div className="trend__categories">
           <ul className="trend__category-list">
             <li className="trend__category-item">
-              <a href="" className="trend__category-link">
+              <a href="#" className="trend__category-link">
                 Men
               </a>
             </li>
             <li className="trend__category-item">
-              <a href="" className="trend__category-link">
+              <a href="#" className="trend__category-link">
                 Women
               </a>
             </li>
             <li className="trend__category-item">
-              <a href="" className="trend__category-link">
+              <a href="#" className="trend__category-link">
                 Baby
               </a>
             </li>
             <li className="trend__category-item">
-              <a href="" className="trend__category-link">
+              <a href="#" className="trend__category-link">
                 Fashion
               </a>
             </li>
@@ -109,35 +116,43 @@ function Trend() {
       </div>
 
       <div className="trend__carousel">
-        <Carousel
-          responsive={responsive}
-          infinite={true}
-          autoPlay={true}
-          autoPlaySpeed={2000}
-          pauseOnHover={true}
-          customLeftArrow={<CustomLeftArrow />}
-          customRightArrow={<CustomRightArrow />}
-        >
-          {products &&
-            products.map((item) => (
-              <Card
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                img={item.img}
-                price={item.price}
-                withoutDiscount={item.withoutDiscount}
-                product={item}
-              />
-            ))}
-        </Carousel>
+        {loading ? (
+          <div className="trend__loading">
+            <div className="trend__loading-spinner"></div>
+            <p>Loading trending products...</p>
+          </div>
+        ) : (
+          <Carousel
+            responsive={responsive}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={2000}
+            pauseOnHover={true}
+            customLeftArrow={<CustomLeftArrow />}
+            customRightArrow={<CustomRightArrow />}
+          >
+            {products &&
+              products.map((item) => (
+                <div className="trend__card-wrapper" key={item.id}>
+                  <Card
+                    id={item.id}
+                    name={item.name}
+                    img={item.img}
+                    price={item.price}
+                    withoutDiscount={item.withoutDiscount}
+                    product={item}
+                  />
+                </div>
+              ))}
+          </Carousel>
+        )}
       </div>
       <div className="trend__testimonials">
+        <h2 className="trend__testimonials-title">What Our Customers Say</h2>
         <Slider {...settings}>
           {testimonials &&
             testimonials.map((testimonial, index) => (
               <div key={index} className="trend__testimonial">
-                <h1 className="trend__testimonial-title">Customer Testimonial</h1>
                 <p className="trend__testimonial-text">{testimonial.text}</p>
                 <div className="trend__testimonial-author">
                   <div className="trend__testimonial-image-container">

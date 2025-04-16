@@ -11,14 +11,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $light-background;
+    background-color: var(--light-background);
   }
 
   &__title {
     margin-bottom: $spacing-sm;
     font-size: $font-size-xxl;
     font-weight: $font-weight-semibold;
-    color: $text-color;
+    color: var(--text-color);
   }
 
   &__breadcrumb {
@@ -32,7 +32,7 @@
       font-weight: $font-weight-normal;
       text-transform: capitalize;
       line-height: 1;
-      color: $light-text-color;
+      color:  var(--light-text-color);
       text-decoration: none;
     }
 
@@ -41,7 +41,7 @@
       height: 1.25rem;
       width: 1px;
       border: none;
-      border-left: 1px solid $light-text-color;
+      border-left: 1px solid  var(--light-text-color);
       font-weight: $font-weight-semibold;
     }
   }
@@ -64,7 +64,7 @@
       padding: $spacing-md;
       font-size: $font-size-sm;
       font-weight: $font-weight-medium;
-      color: $light-text-color;
+      color:  var(--light-text-color);
     }
 
     td {
@@ -74,7 +74,7 @@
 
   &__item {
     margin-bottom: $spacing-xl;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid  var(--border-color);
 
     &-image {
       width: 4rem;
@@ -105,7 +105,7 @@
     &-input {
       height: 50px;
       width: 60px;
-      border: 1px solid $border-color;
+      border: 1px solid var(--border-color);
       border-right: 0;
       padding: 0 $spacing-md;
       text-align: center;
@@ -125,7 +125,7 @@
       cursor: pointer;
       align-items: center;
       justify-content: center;
-      border: 1px solid $border-color;
+      border: 1px solid  var(--border-color);
       padding: 0 $spacing-sm;
       font-size: $font-size-lg;
       transition: background-color $transition-normal;
@@ -148,11 +148,11 @@
     margin-left: $spacing-md;
     cursor: pointer;
     font-size: $font-size-xl;
-    color: $text-color;
+    color:  var(--text-color);
     transition: all $transition-normal;
 
     &:hover {
-      color: $primary-color;
+      color: var(--primary-color);
     }
   }
 
@@ -161,7 +161,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid  var(--border-color);
     padding: $spacing-xl 0;
     padding-right: $spacing-xl;
   }
@@ -183,7 +183,7 @@
     cursor: pointer;
     overflow: hidden;
     border-radius: 35px;
-    background-color: $primary-color;
+    background-color:  var(--primary-color);
     padding: $spacing-md $spacing-lg;
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
@@ -203,7 +203,7 @@
       z-index: 0;
       height: 100%;
       width: 100%;
-      background-color: darken($primary-color, 10%);
+      background-color: color-mix(in srgb, var(--primary-color), black 10%);
       transition: left $transition-normal;
     }
 

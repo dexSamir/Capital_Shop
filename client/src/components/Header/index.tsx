@@ -10,6 +10,7 @@ import { SlBasket } from "react-icons/sl"
 import { IoIosLogOut } from "react-icons/io"
 import { useAppSelector } from "../../store/hooks"
 import Tooltip from "../Tooltip"
+import ThemeToggle from "../ThemeToggle"
 import logo from "../../assets/images/logo.png"
 import "./Header.scss"
 
@@ -93,6 +94,7 @@ function Header() {
               <CiSearch className="header__search-icon" onClick={handleSearchClick} />
             </Tooltip>
           </form>
+          <ThemeToggle />
           <Link to={isAuthenticated ? "/logout" : "/login"} className="header__action-link">
             <Tooltip TooltipText={isAuthenticated ? "Logout" : "Login"}>
               {isAuthenticated ? (

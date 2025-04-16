@@ -2,48 +2,64 @@
 
 .card {
   position: relative;
-  height: 480px;
-  width: 95%;
+  height: 380px;
+  width: 100%;
   cursor: pointer;
   overflow: hidden;
-
-  &__link {
-    text-decoration: none;
+  background-color: var(--card-background);
+  border-radius: $border-radius-md;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform $transition-normal, box-shadow $transition-normal;
+  padding: $spacing-md;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    
+    .card__tools {
+      opacity: 1;
+    }
+    
+    .card__image {
+      transform: scale(1.05);
+    }
   }
 
   &__tools {
     position: absolute;
-    bottom: 85px;
+    bottom: 120px;
     left: 50%;
     z-index: 20;
     display: flex;
     transform: translateX(-50%);
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: var(--background-color);
     opacity: 0;
     transition: opacity $transition-normal;
-
-    &:hover {
-      opacity: 1;
-    }
+    border-radius: $border-radius-md;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
   &__tool {
-    padding: $spacing-md $spacing-lg;
-    font-size: 24px;
-    color: $text-color;
+    padding: $spacing-md;
+    font-size: 20px;
+    color: var(--text-color);
     transition: all $transition-normal;
 
     &:hover {
-      background-color: $primary-color;
+      background-color: var(--primary-color);
       color: white;
     }
   }
 
   &__image-container {
-    height: 75%;
+    height: 220px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing-md;
   }
 
   &__image {
@@ -51,65 +67,48 @@
     width: 100%;
     object-fit: contain;
     transition: transform $transition-normal;
-
-    &:hover {
-      transform: scale(1.05);
-    }
   }
 
   &__content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
+    padding: $spacing-sm;
   }
 
   &__title {
-    margin-top: $spacing-lg;
-    margin-left: $spacing-lg;
-    height: 32px;
-    text-align: left;
+    margin-bottom: $spacing-md;
+    height: 40px;
     font-size: $font-size-base;
-    font-weight: $font-weight-normal;
-    color: $text-color;
+    font-weight: $font-weight-medium;
+    color: var(--text-color);
     transition: color $transition-fast;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 
     &:hover {
-      color: $primary-color;
+      color: var(--primary-color);
     }
   }
 
   &__price {
-    margin-top: $spacing-sm;
     display: flex;
     align-items: center;
-    justify-content: center;
 
     &-current {
-      cursor: pointer;
       font-size: $font-size-base;
-      font-weight: $font-weight-medium;
-      color: $muted-color;
-      transition: color $transition-fast;
-
-      &:hover {
-        color: $text-color;
-      }
+      font-weight: $font-weight-bold;
+      color: var(--text-color);
+      margin-right: $spacing-md;
     }
 
     &-original {
-      margin-left: $spacing-md;
-      cursor: pointer;
-      font-size: $font-size-base;
-      font-weight: $font-weight-medium;
-      color: $accent-color;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-normal;
+      color: var(--muted-color);
       text-decoration: line-through;
-    }
-  }
-
-  &:hover {
-    .card__tools {
-      opacity: 1;
     }
   }
 }

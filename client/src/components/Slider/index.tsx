@@ -1,9 +1,5 @@
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules"
+import { Navigation, Pagination, Autoplay } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
-import "swiper/css"
-import "swiper/css/navigation"
-import "swiper/css/pagination"
-import "swiper/css/scrollbar"
 import { Link } from "react-router-dom"
 import hero1 from "../../assets/images/h1_hero1.jpg"
 import hero2 from "../../assets/images/h1_hero2.jpg"
@@ -15,7 +11,15 @@ import "./Slider.scss"
 function Slider() {
   return (
     <>
-      <Swiper modules={[Navigation, Pagination, Scrollbar, A11y]} spaceBetween={100} slidesPerView={1} navigation>
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        spaceBetween={0}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 5000 }}
+        className="slider__swiper"
+      >
         <SwiperSlide>
           <div className="slider__hero">
             <div className="slider__content">
@@ -50,29 +54,33 @@ function Slider() {
         </SwiperSlide>
       </Swiper>
       <div className="slider__categories">
-        <div className="slider__category">
-          <h1 className="slider__category-title">Men's Fashion</h1>
-          <Link to="/products" className="slider__category-link">
-            Shop Now
-          </Link>
-          <img src={item1 || "/placeholder.svg"} alt="Men's Fashion" className="slider__category-image" />
-          <div className="slider__category-overlay"></div>
-        </div>
-        <div className="slider__category">
-          <h1 className="slider__category-title">Women's Fashion</h1>
-          <Link to="/products" className="slider__category-link">
-            Shop Now
-          </Link>
-          <img src={item2 || "/placeholder.svg"} alt="Women's Fashion" className="slider__category-image" />
-          <div className="slider__category-overlay"></div>
-        </div>
-        <div className="slider__category">
-          <h1 className="slider__category-title">Baby Fashion</h1>
-          <Link to="/products" className="slider__category-link">
-            Shop Now
-          </Link>
-          <img src={item3 || "/placeholder.svg"} alt="Baby Fashion" className="slider__category-image" />
-          <div className="slider__category-overlay"></div>
+        <div className="container">
+          <div className="slider__categories-grid">
+            <div className="slider__category">
+              <h1 className="slider__category-title">Men's Fashion</h1>
+              <Link to="/products" className="slider__category-link">
+                Shop Now
+              </Link>
+              <img src={item1 || "/placeholder.svg"} alt="Men's Fashion" className="slider__category-image" />
+              <div className="slider__category-overlay"></div>
+            </div>
+            <div className="slider__category">
+              <h1 className="slider__category-title">Women's Fashion</h1>
+              <Link to="/products" className="slider__category-link">
+                Shop Now
+              </Link>
+              <img src={item2 || "/placeholder.svg"} alt="Women's Fashion" className="slider__category-image" />
+              <div className="slider__category-overlay"></div>
+            </div>
+            <div className="slider__category">
+              <h1 className="slider__category-title">Baby Fashion</h1>
+              <Link to="/products" className="slider__category-link">
+                Shop Now
+              </Link>
+              <img src={item3 || "/placeholder.svg"} alt="Baby Fashion" className="slider__category-image" />
+              <div className="slider__category-overlay"></div>
+            </div>
+          </div>
         </div>
       </div>
     </>

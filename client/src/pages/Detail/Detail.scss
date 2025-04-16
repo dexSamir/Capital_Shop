@@ -5,7 +5,9 @@
   width: 100%;
   overflow-x: hidden;
 
-  &__loading, &__error, &__not-found {
+  &__loading,
+  &__error,
+  &__not-found {
     padding: $spacing-xl * 2;
     text-align: center;
     font-size: $font-size-lg;
@@ -15,16 +17,16 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   &__loading-spinner {
     width: 50px;
     height: 50px;
     border: 5px solid rgba(0, 0, 0, 0.1);
     border-radius: 50%;
-    border-top-color: $primary-color;
+    border-top-color: var(--primary-color);
     animation: spin 1s ease-in-out infinite;
     margin-bottom: $spacing-lg;
-    
+
     @keyframes spin {
       to {
         transform: rotate(360deg);
@@ -33,21 +35,21 @@
   }
 
   &__error {
-    color: $primary-color;
+    color: var(--primary-color);
   }
-  
+
   &__back-button {
     margin-top: $spacing-lg;
     display: inline-block;
     padding: $spacing-md $spacing-xl;
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     color: white;
     border-radius: $border-radius-md;
     text-decoration: none;
     transition: background-color $transition-normal;
-    
+
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: color-mix(in srgb, var(--primary-color), black 10%);
     }
   }
 
@@ -58,14 +60,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: $light-background;
+    background-color: var(--light-background);
   }
 
   &__title {
     margin-bottom: $spacing-sm;
     font-size: $font-size-xxl;
     font-weight: $font-weight-semibold;
-    color: $text-color;
+    color: var(--text-color);
   }
 
   &__breadcrumb {
@@ -79,15 +81,15 @@
       font-weight: $font-weight-normal;
       text-transform: capitalize;
       line-height: 1;
-      color: $light-text-color;
+      color: var(--light-text-color);
       text-decoration: none;
     }
-    
+
     &-current {
       padding: 0 $spacing-sm;
       font-size: $font-size-sm;
       font-weight: $font-weight-medium;
-      color: $primary-color;
+      color: var(--primary-color);
     }
 
     &-separator {
@@ -95,7 +97,7 @@
       height: 1.25rem;
       width: 1px;
       border: none;
-      border-left: 1px solid $light-text-color;
+      border-left: 1px solid var(--light-text-color);
       font-weight: $font-weight-semibold;
     }
   }
@@ -114,7 +116,7 @@
     padding: $spacing-xl;
     border-radius: $border-radius-lg;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    
+
     @include responsive(md) {
       flex-direction: column;
     }
@@ -125,7 +127,7 @@
     padding: $spacing-lg;
     background-color: #f9f9f9;
     border-radius: $border-radius-md;
-    
+
     @include responsive(md) {
       width: 100%;
       margin-bottom: $spacing-xl;
@@ -141,7 +143,7 @@
     flex: 1;
     min-width: 0;
     padding-left: $spacing-xl;
-    
+
     @include responsive(md) {
       padding-left: 0;
     }
@@ -151,21 +153,21 @@
     font-size: $font-size-xxl;
     font-weight: $font-weight-bold;
     line-height: 1.2;
-    color: $text-color;
+    color: var(--text-color);
     margin-bottom: $spacing-md;
   }
 
   &__product-category {
     text-align: left;
     font-size: $font-size-base;
-    color: $light-text-color;
+    color: var(--light-text-color);
     margin-bottom: $spacing-sm;
   }
 
   &__product-color {
     margin-bottom: $spacing-xl;
     font-size: $font-size-base;
-    color: $light-text-color;
+    color: var(--light-text-color);
   }
 
   &__product-price {
@@ -178,18 +180,18 @@
     margin-right: $spacing-md;
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
-    color: $text-color;
+    color: var(--text-color);
   }
 
   &__price-original {
     font-size: $font-size-lg;
-    color: $light-text-color;
+    color: var(--light-text-color);
     text-decoration: line-through;
     margin-right: $spacing-md;
   }
-  
+
   &__price-discount {
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     color: white;
     padding: $spacing-xs $spacing-sm;
     border-radius: $border-radius-sm;
@@ -209,8 +211,8 @@
     cursor: pointer;
     overflow: hidden;
     border-radius: 50px;
-    background-color: $primary-color;
-    border: 1px solid $primary-color;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
     padding: $spacing-md $spacing-xl;
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
@@ -220,11 +222,12 @@
 
     &:hover {
       background-color: white;
-      color: $primary-color;
+      color: var(--primary-color);
     }
   }
 
-  &__wishlist-button, &__share-button {
+  &__wishlist-button,
+  &__share-button {
     position: relative;
     z-index: 1;
     margin-right: $spacing-md;
@@ -236,16 +239,16 @@
     justify-content: center;
     overflow: hidden;
     border-radius: 50%;
-    border: 1px solid $border-color;
+    border: 1px solid var(--border-color);
     background-color: white;
     font-size: $font-size-lg;
-    color: $text-color;
+    color: var(--text-color);
     transition: all $transition-normal;
 
     &:hover {
-      background-color: $primary-color;
+      background-color: var(--primary-color);
       color: white;
-      border-color: $primary-color;
+      border-color: var(--primary-color);
     }
   }
 }

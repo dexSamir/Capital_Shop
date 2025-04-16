@@ -101,7 +101,7 @@
   &__login-link {
     font-size: $font-size-sm;
     font-weight: $font-weight-normal;
-    color: $primary-color;
+    color: var(--primary-color);
     text-decoration: none;
   }
 
@@ -109,7 +109,7 @@
     height: 60px;
     cursor: pointer;
     border: 0;
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     padding: 10px 43px;
     font-size: $font-size-base;
     text-transform: capitalize;
@@ -117,7 +117,7 @@
     transition: background-color $transition-normal;
 
     &:hover {
-      background-color: darken($primary-color, 10%);
+        background-color: color-mix(in srgb, var(--primary-color), black 10%);
     }
   }
 }

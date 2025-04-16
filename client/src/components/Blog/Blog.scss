@@ -19,7 +19,7 @@
   &__category {
     display: block;
     margin-top: $spacing-lg;
-    color: $muted-color;
+    color: var(--muted-color);
   }
 
   &__title {
@@ -27,11 +27,11 @@
     margin-top: 0;
     font-size: $font-size-xl;
     font-weight: $font-weight-medium;
-    color: $text-color;
+    color:  var(--text-color);
     transition: all $transition-normal;
 
     &:hover {
-      color: $primary-color;
+      color: var(--primary-color);
     }
   }
 
@@ -40,12 +40,12 @@
     font-size: $font-size-base;
     font-weight: $font-weight-normal;
     line-height: 1.5;
-    color: $muted-color;
+    color:  var(--muted-color);
   }
 
   &__link {
     font-weight: $font-weight-medium;
-    color: $text-color;
+    color:  var(--text-color);
     text-decoration: underline;
     transition: all $transition-normal;
 

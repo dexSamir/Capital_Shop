@@ -8,7 +8,7 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid  var(--border-color);
   padding: 0 $spacing-xl;
 
   &__left {
@@ -30,11 +30,11 @@
 
   &__link {
     font-size: $font-size-sm;
-    color: $text-color;
+    color:  var(--text-color);
     text-decoration: none;
 
     &:hover {
-      color: $primary-color;
+      color:  var(--primary-color);
     }
   }
 
@@ -49,7 +49,7 @@
   }
 
   &__wishlist {
-    border-right: 1px solid $border-color;
+    border-right: 1px solid var(--border-color);
     padding: 0 $spacing-md;
 
     @include responsive(md) {
@@ -58,7 +58,7 @@
   }
 
   &__order {
-    border-right: 1px solid $border-color;
+    border-right: 1px solid var(--border-color);
     padding: 0 $spacing-lg;
 
     @include responsive(md) {
@@ -72,11 +72,11 @@
 
     &-icon {
       margin-right: $spacing-md;
-      color: $muted-color;
+      color: var(--muted-color);
       transition: transform $transition-normal, color $transition-normal;
 
       &:hover {
-        color: $primary-color;
+        color: var(--primary-color);
         transform: rotateY(180deg);
       }
     }

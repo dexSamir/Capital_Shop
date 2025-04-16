@@ -5,9 +5,10 @@
 
 body {
   font-family: "Jost", sans-serif;
-  color: $text-color;
-  background-color: $background-color;
+  color: var(--text-color);
+  background-color: var(--background-color);
   line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {

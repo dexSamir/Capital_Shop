@@ -47,7 +47,7 @@
     transition: all $transition-normal;
 
     &:hover {
-      color: $primary-color;
+      color: var(--primary-color);
     }
   }
 
@@ -69,7 +69,7 @@
     transition: all $transition-normal;
 
     &:hover {
-      color: $primary-color;
+        color: var(--primary-color);
     }
   }
 }
