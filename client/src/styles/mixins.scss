@@ -1,3 +1,4 @@
+@use "./variables" as v;
 
 @mixin flex(
   $direction: row,
@@ -33,43 +34,43 @@
 
 @mixin responsive($breakpoint) {
   @if $breakpoint == xs {
-    @media (max-width: $breakpoint-xs) {
+    @media (max-width: v.$breakpoint-xs) {
       @content;
     }
   } @else if $breakpoint == sm {
-    @media (max-width: $breakpoint-sm) {
+    @media (max-width: v.$breakpoint-sm) {
       @content;
     }
   } @else if $breakpoint == md {
-    @media (max-width: $breakpoint-md) {
+    @media (max-width: v.$breakpoint-md) {
       @content;
     }
   } @else if $breakpoint == lg {
-    @media (max-width: $breakpoint-lg) {
+    @media (max-width: v.$breakpoint-lg) {
       @content;
     }
   } @else if $breakpoint == xl {
-    @media (max-width: $breakpoint-xl) {
+    @media (max-width: v.$breakpoint-xl) {
       @content;
     }
   }
 }
 
 @mixin button(
-  $bg-color: $primary-color,
+  $bg-color: v.$primary-color,
   $text-color: white,
   $hover-bg: darken($bg-color, 10%),
   $hover-text: white
 ) {
   display: inline-block;
-  padding: $spacing-md $spacing-xl;
+  padding: v.$spacing-md v.$spacing-xl;
   background-color: $bg-color;
   color: $text-color;
   border: none;
-  border-radius: $border-radius-md;
-  font-weight: $font-weight-medium;
+  border-radius: v.$border-radius-md;
+  font-weight: v.$font-weight-medium;
   cursor: pointer;
-  transition: all $transition-normal;
+  transition: all v.$transition-normal;
 
   &:hover {
     background-color: $hover-bg;
