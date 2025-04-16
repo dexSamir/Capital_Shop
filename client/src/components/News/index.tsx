@@ -1,5 +1,5 @@
-import { news } from "../data/Data"
-import Blog from "./Blog"
+import { news } from "../../data/Data"
+import Blog from "../Blog"
 
 function News() {
   return (

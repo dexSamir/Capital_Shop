@@ -2,7 +2,7 @@
 
 import { useContext } from "react"
 import { Link } from "react-router-dom"
-import { LoginContext } from "../App"
+import { LoginContext } from "../../App"
 
 function Logout() {
   const { setIsLogin } = useContext(LoginContext)

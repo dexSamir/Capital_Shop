@@ -7,8 +7,8 @@ import axios from "axios"
 import { useParams, Link } from "react-router-dom"
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io"
 import { FaShareAlt } from "react-icons/fa"
-import { base_url } from "../data/Data"
-import { LoginContext } from "../App"
+import { base_url } from "../../data/Data"
+import { LoginContext } from "../../App"
 
 interface Product {
   id: number

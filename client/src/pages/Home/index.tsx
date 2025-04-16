@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useEffect, useContext } from "react"
-import Slider from "../components/Slider"
-import Trend from "../components/Trend"
-import MayLike from "../components/MayLike"
-import News from "../components/News"
-import Services from "../components/Services"
-import { getAllproducts } from "../middleware/products"
-import { LoginContext } from "../App"
+import Slider from "../../components/Slider"
+import Trend from "../../components/Trend"
+import MayLike from "../../components/MayLike"
+import News from "../../components/News"
+import Services from "../../components/Services"
+import { getAllproducts } from "../../middleware/products"
+import { LoginContext } from "../../App"
 
 interface Product {
   id: number

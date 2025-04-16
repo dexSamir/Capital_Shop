@@ -4,8 +4,8 @@ import type React from "react"
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { createContext, useState } from "react"
-import { routes } from "./routes"
-import Layout from "./components/Layout"
+import { routes } from "./routers/routes"
+import Layout from "./layout"
 import "./styles/App.scss"
 
 const router = createBrowserRouter(routes)

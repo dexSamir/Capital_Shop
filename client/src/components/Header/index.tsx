@@ -6,9 +6,9 @@ import { CiSearch } from "react-icons/ci"
 import { LuUser } from "react-icons/lu"
 import { SlBasket } from "react-icons/sl"
 import { IoIosLogOut } from "react-icons/io"
-import { LoginContext } from "../App"
-import Tooltip from "./Tooltip"
-import logo from "../assets/images/logo.png"
+import { LoginContext } from "../../App"
+import Tooltip from "../Tooltip"
+import logo from "../../assets/images/logo.png"
 
 function Header() {
   const { isLogin, setIsLogin, isAdmin } = useContext(LoginContext)

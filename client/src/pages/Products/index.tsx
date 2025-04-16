@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import Card from "../components/Card"
+import Card from "../../components/Card"
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"
-import { getAllproducts } from "../middleware/products"
+import { getAllproducts } from "../../middleware/products"
 
 interface Product {
   id: number

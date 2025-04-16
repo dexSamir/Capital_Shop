@@ -5,11 +5,11 @@ import "swiper/css/navigation"
 import "swiper/css/pagination"
 import "swiper/css/scrollbar"
 import { Link } from "react-router-dom"
-import hero1 from "../assets/images/h1_hero1.jpg"
-import hero2 from "../assets/images/h1_hero2.jpg"
-import item1 from "../assets/images/items1.jpg"
-import item2 from "../assets/images/items2.jpg"
-import item3 from "../assets/images/items3.jpg"
+import hero1 from "../../assets/images/h1_hero1.jpg"
+import hero2 from "../../assets/images/h1_hero2.jpg"
+import item1 from "../../assets/images/items1.jpg"
+import item2 from "../../assets/images/items2.jpg"
+import item3 from "../../assets/images/items3.jpg"
 
 function Slider() {
   return (

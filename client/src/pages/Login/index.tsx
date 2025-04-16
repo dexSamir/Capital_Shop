@@ -5,9 +5,9 @@ import { useFormik } from "formik"
 import * as Yup from "yup"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { base_url } from "../data/Data"
+import { base_url } from "../../data/Data"
 import Swal from "sweetalert2"
-import { LoginContext } from "../App"
+import { LoginContext } from "../../App"
 
 interface User {
   id: number

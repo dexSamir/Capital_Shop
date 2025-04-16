@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getAllproducts, deleteProducts } from "../../../middleware/products"
-import AdminSearchbar from "../../../components/admin/AdminSearchbar"
-import AdminTable from "../../../components/admin/AdminTable"
+import { getAllproducts, deleteProducts } from "../../middleware/products"
+import AdminSearchbar from "../../components/AdminSearchbar"
+import AdminTable from "../../components/AdminTable"
 
 interface Product {
   id: number

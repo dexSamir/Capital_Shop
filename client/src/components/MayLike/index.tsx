@@ -2,7 +2,7 @@
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Card from "./Card";
+import Card from "../Card";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface Product {

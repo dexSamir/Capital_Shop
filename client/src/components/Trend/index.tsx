@@ -3,13 +3,14 @@
 import { useState, useEffect } from "react"
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
-import Card from "./Card"
+import Card from "../Card"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick"
-import { testimonials } from "../data/Data"
-import { getAllproducts } from "../middleware/products"
+
+import { testimonials } from "../../data/Data"
+import { getAllproducts } from "../../middleware/products"
 
 interface Product {
   id: number

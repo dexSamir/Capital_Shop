@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { Link, useNavigate } from "react-router-dom"
-import { base_url } from "../data/Data"
+import { base_url } from "../../data/Data"
 import axios from "axios"
 import Swal from "sweetalert2"
 
