@@ -1,149 +1,198 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import Card from "../../components/Card"
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"
-import { getAllproducts } from "../../middleware/products"
-
-interface Product {
-  id: number
-  name: string
-  price: number
-  withoutDiscount: number
-  img: string
-  category: string
-  size?: string
-  color?: string
-}
+import { useAppDispatch, useAppSelector } from "../../store/hooks"
+import { fetchProducts, setFilter } from "../../store/slices/productSlice"
+import "./Products.scss"
 
 const categories = ["All", "men's clothing", "women's clothing", "baby's clothing", "accessory"]
 const sizes = ["All", "small", "medium", "large"]
 const colors = ["All", "multi-colored", "black", "green", "red", "white", "blue", "gray", "brown"]
 
 function Products() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [filters, setFilters] = useState({
-    category: "All",
-    color: "All",
-    size: "All",
-  })
+  const dispatch = useAppDispatch()
+  const { items, filteredItems, loading, filters } = useAppSelector((state) => state.products)
   const [openFilter, setOpenFilter] = useState("")
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 200 })
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [dispatch])
+
+  useEffect(() => {
+    const searchQuery = searchParams.get("search")
+    if (searchQuery) {
+      dispatch(setFilter({ key: "search", value: searchQuery }))
+    }
+  }, [searchParams, dispatch])
 
   const toggleFilterDropdown = (filterType: string) => {
     setOpenFilter((prev) => (prev === filterType ? "" : filterType))
   }
 
   const handleFilterChange = (value: string, filterType: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      [filterType]: value,
-    }))
+    dispatch(setFilter({ key: filterType, value }))
     setOpenFilter("")
   }
 
-  useEffect(() => {
-    getAllproducts().then((res) => {
-      setProducts(res)
-    })
-  }, [])
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>, type: "min" | "max") => {
+    const value = Number.parseInt(e.target.value)
+    setPriceRange((prev) => ({
+      ...prev,
+      [type]: value,
+    }))
+  }
 
-  const filteredProducts = products.filter((product) => {
-    const categoryMatch = filters.category === "All" || product.category === filters.category
-    const sizeMatch = filters.size === "All" || product.size === filters.size
-    const colorMatch = filters.color === "All" || product.color === filters.color
+  const applyPriceFilter = () => {
+    dispatch(setFilter({ key: "priceMin", value: priceRange.min.toString() }))
+    dispatch(setFilter({ key: "priceMax", value: priceRange.max.toString() }))
+  }
 
-    return categoryMatch && sizeMatch && colorMatch
-  })
+  const resetFilters = () => {
+    dispatch(setFilter({ key: "category", value: "All" }))
+    dispatch(setFilter({ key: "size", value: "All" }))
+    dispatch(setFilter({ key: "color", value: "All" }))
+    dispatch(setFilter({ key: "priceMin", value: "0" }))
+    dispatch(setFilter({ key: "priceMax", value: "1000" }))
+    dispatch(setFilter({ key: "search", value: "" }))
+    setPriceRange({ min: 0, max: 200 })
+    setSearchParams({})
+  }
 
   return (
-    <div className="w-full">
-      <div className="flex min-h-[150px] w-full flex-col items-center justify-center bg-[#f3ebd8]">
-        <h1 className="mb-3 text-[35px] font-semibold text-[#292621]">Products</h1>
-        <div className="flex">
-          <Link
-            to="/"
-            className="border-none px-2 text-sm font-normal capitalize leading-none text-[#74706b] no-underline"
-          >
+    <div className="products">
+      <div className="products__header">
+        <h1 className="products__title">Products</h1>
+        <div className="products__breadcrumb">
+          <Link to="/" className="products__breadcrumb-link">
             Home
           </Link>
-          <hr className="h-5 w-[1px] rotate-0 border-none border-l border-[#74706b] font-semibold" />
-          <Link
-            to="/products"
-            className="border-none px-2 text-sm font-normal capitalize leading-none text-[#74706b] no-underline"
-          >
+          <span className="products__breadcrumb-separator"></span>
+          <Link to="/products" className="products__breadcrumb-link">
             Products
           </Link>
         </div>
       </div>
-      <div className="mt-12 flex w-full justify-between gap-5 px-20">
-        <div className="mb-[50px] h-[60rem] max-w-[25rem] border border-[#edeff2] p-[30px_19px_30px_16px]">
-          <div className="content">
-            <div className="categories">
-              {["category", "size", "color"].map((filterType, index) => (
-                <div className="mb-4 w-[250px] rounded-lg bg-white p-[15px]" key={index}>
-                  <div className="relative cursor-pointer" onClick={() => toggleFilterDropdown(filterType)}>
-                    <div className="flex items-center justify-between rounded-[40px] border border-[#ededef] p-[10px] pl-5">
-                      <span>
-                        {filters[filterType as keyof typeof filters] !== "All"
-                          ? filters[filterType as keyof typeof filters]
-                          : `Select ${filterType.charAt(0).toUpperCase() + filterType.slice(1)}`}
-                      </span>
-                      <span
-                        className={`transition-transform duration-300 ${openFilter === filterType ? "rotate-180" : ""}`}
-                      >
-                        {openFilter === filterType ? (
-                          <FaChevronUp style={{ color: "#bab9b5" }} />
-                        ) : (
-                          <FaChevronDown style={{ color: "#bab9b5" }} />
-                        )}
-                      </span>
-                    </div>
-                    <ul
-                      className={`absolute top-[110%] left-0 z-[1000] m-0 w-[220px] list-none border border-[#f4f4f4] bg-white p-0 opacity-0 pointer-events-none transition-all duration-300 ${
-                        openFilter === filterType
-                          ? "translate-y-0 opacity-100 pointer-events-auto"
-                          : "-translate-y-[10px]"
-                      }`}
-                    >
-                      {(filterType === "category" ? categories : filterType === "size" ? sizes : colors).map(
-                        (item, idx) => (
-                          <li
-                            key={idx}
-                            onClick={() => {
-                              handleFilterChange(item, filterType)
-                              toggleFilterDropdown(filterType)
-                            }}
-                            className={`cursor-pointer p-[15px] text-sm hover:bg-[#f1f1f1] ${
-                              filters[filterType as keyof typeof filters] === item ? "bg-[#f1f1f1]" : ""
-                            }`}
-                          >
-                            {item}
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  </div>
+
+      <div className="products__content">
+        <div className="products__sidebar">
+          <div className="products__filters">
+            <div className="products__filter-header">
+              <h3>Filters</h3>
+              <button className="products__filter-reset" onClick={resetFilters}>
+                Reset All
+              </button>
+            </div>
+
+            <div className="products__filter products__filter--price">
+              <h4 className="products__filter-title">Price Range</h4>
+              <div className="products__price-inputs">
+                <div className="products__price-field">
+                  <label>Min ($)</label>
+                  <input type="number" min="0" value={priceRange.min} onChange={(e) => handlePriceChange(e, "min")} />
                 </div>
-              ))}
+                <div className="products__price-field">
+                  <label>Max ($)</label>
+                  <input type="number" min="0" value={priceRange.max} onChange={(e) => handlePriceChange(e, "max")} />
+                </div>
+              </div>
+              <button className="products__price-apply" onClick={applyPriceFilter}>
+                Apply
+              </button>
+            </div>
+
+            <div className="products__filter">
+              <div className="products__filter-header" onClick={() => toggleFilterDropdown("category")}>
+                <span className="products__filter-title">
+                  {filters.category !== "All" ? filters.category : `Select Category`}
+                </span>
+                <span className={`products__filter-icon ${openFilter === "category" ? "open" : ""}`}>
+                  {openFilter === "category" ? <FaChevronUp /> : <FaChevronDown />}
+                </span>
+              </div>
+
+              <ul className={`products__filter-dropdown ${openFilter === "category" ? "open" : ""}`}>
+                {categories.map((item, idx) => (
+                  <li
+                    key={idx}
+                    onClick={() => handleFilterChange(item, "category")}
+                    className={`products__filter-option ${filters.category === item ? "active" : ""}`}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="products__filter">
+              <div className="products__filter-header" onClick={() => toggleFilterDropdown("size")}>
+                <span className="products__filter-title">{filters.size !== "All" ? filters.size : `Select Size`}</span>
+                <span className={`products__filter-icon ${openFilter === "size" ? "open" : ""}`}>
+                  {openFilter === "size" ? <FaChevronUp /> : <FaChevronDown />}
+                </span>
+              </div>
+
+              <ul className={`products__filter-dropdown ${openFilter === "size" ? "open" : ""}`}>
+                {sizes.map((item, idx) => (
+                  <li
+                    key={idx}
+                    onClick={() => handleFilterChange(item, "size")}
+                    className={`products__filter-option ${filters.size === item ? "active" : ""}`}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="products__filter">
+              <div className="products__filter-header" onClick={() => toggleFilterDropdown("color")}>
+                <span className="products__filter-title">
+                  {filters.color !== "All" ? filters.color : `Select Color`}
+                </span>
+                <span className={`products__filter-icon ${openFilter === "color" ? "open" : ""}`}>
+                  {openFilter === "color" ? <FaChevronUp /> : <FaChevronDown />}
+                </span>
+              </div>
+
+              <ul className={`products__filter-dropdown ${openFilter === "color" ? "open" : ""}`}>
+                {colors.map((item, idx) => (
+                  <li
+                    key={idx}
+                    onClick={() => handleFilterChange(item, "color")}
+                    className={`products__filter-option ${filters.color === item ? "active" : ""}`}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-5">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((prod) => (
+
+        <div className="products__grid">
+          {loading ? (
+            <div className="products__loading">Loading products...</div>
+          ) : filteredItems.length > 0 ? (
+            filteredItems.map((product) => (
               <Card
-                id={prod.id}
-                key={prod.id}
-                name={prod.name}
-                img={prod.img}
-                price={prod.price}
-                withoutDiscount={prod.withoutDiscount}
-                products={products}
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                img={product.img}
+                price={product.price}
+                withoutDiscount={product.withoutDiscount}
+                product={product}
               />
             ))
           ) : (
-            <p>No products found.</p>
+            <div className="products__empty">No products found.</div>
           )}
         </div>
       </div>

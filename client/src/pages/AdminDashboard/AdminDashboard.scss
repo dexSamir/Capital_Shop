@@ -1,0 +1,18 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.admin-dashboard {
+  width: 100%;
+  padding: $spacing-xl;
+
+  &__loading,
+  &__error {
+    text-align: center;
+    padding: $spacing-xl * 2;
+    font-size: $font-size-lg;
+  }
+
+  &__error {
+    color: $primary-color;
+  }
+}

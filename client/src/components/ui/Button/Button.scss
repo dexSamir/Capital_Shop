@@ -1,0 +1,85 @@
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $border-radius-md;
+  font-weight: $font-weight-medium;
+  transition: all $transition-normal;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  // Variants
+  &--primary {
+    background-color: $primary-color;
+    color: white;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  &--secondary {
+    background-color: $secondary-color;
+    color: white;
+
+    &:hover {
+      background-color: darken($secondary-color, 10%);
+    }
+  }
+
+  &--outline {
+    border: 1px solid $border-color;
+    background-color: transparent;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+
+  &--ghost {
+    background-color: transparent;
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+
+  &--link {
+    background-color: transparent;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  // Sizes
+  &--sm {
+    height: 2rem;
+    padding: 0 $spacing-sm;
+    font-size: $font-size-sm;
+  }
+
+  &--md {
+    height: 2.5rem;
+    padding: 0 $spacing-md;
+    font-size: $font-size-base;
+  }
+
+  &--lg {
+    height: 3rem;
+    padding: 0 $spacing-lg;
+    font-size: $font-size-lg;
+  }
+}

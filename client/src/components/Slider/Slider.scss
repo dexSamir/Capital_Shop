@@ -1,0 +1,177 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.slider {
+  &__hero {
+    position: relative;
+    width: 100%;
+  }
+
+  &__content {
+    position: absolute;
+    left: $spacing-xl * 2;
+    top: 15rem;
+    display: flex;
+    width: 30rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: between;
+    z-index: 10;
+
+    &--right {
+      left: auto;
+      right: $spacing-xl * 2;
+    }
+
+    @include responsive(md) {
+      width: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 10rem;
+
+      &--right {
+        left: 50%;
+        right: auto;
+      }
+    }
+
+    @include responsive(sm) {
+      top: 5rem;
+    }
+  }
+
+  &__subtitle {
+    margin-bottom: 1px;
+    font-family: "Clicker Script", cursive;
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-normal;
+    line-height: 1.2;
+    color: $primary-color;
+  }
+
+  &__title {
+    margin-bottom: 2px;
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-semibold;
+    line-height: 1.2;
+    color: $text-color;
+  }
+
+  &__description {
+    margin-bottom: $spacing-xl;
+    padding: 0 $spacing-xl;
+    text-align: center;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-normal;
+    line-height: 2;
+    color: $light-text-color;
+    animation-delay: 0.4s;
+  }
+
+  &__button {
+    display: inline-block;
+    border: 1px solid $secondary-color;
+    background-color: $secondary-color;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    line-height: 1;
+    color: white;
+    text-decoration: none;
+    transition: all $transition-normal;
+    animation-delay: 0.7s;
+
+    &:hover {
+      background-color: transparent;
+      color: $secondary-color;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+  }
+
+  &__categories {
+    margin-top: $spacing-md;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-lg;
+    padding: 0 $spacing-xl * 2;
+
+    @include responsive(md) {
+      flex-direction: column;
+    }
+  }
+
+  &__category {
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      .slider__category-overlay {
+        opacity: 1;
+      }
+
+      .slider__category-link {
+        opacity: 1;
+        bottom: $spacing-lg;
+      }
+
+      .slider__category-title {
+        bottom: $spacing-xl;
+      }
+    }
+  }
+
+  &__category-title {
+    position: absolute;
+    bottom: $spacing-md;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: white;
+    transition: all $transition-normal;
+  }
+
+  &__category-link {
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    color: $accent-color;
+    opacity: 0;
+    transition: all $transition-normal;
+
+    &:hover {
+      letter-spacing: 0.05em;
+    }
+  }
+
+  &__category-image {
+    width: 100%;
+    height: auto;
+  }
+
+  &__category-overlay {
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    height: 40%;
+    width: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(41, 38, 33, 0),
+      $secondary-color
+    );
+    opacity: 0;
+    transition: opacity $transition-normal;
+  }
+}

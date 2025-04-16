@@ -1,15 +1,9 @@
 "use client"
 
-import { useContext } from "react"
 import { Link } from "react-router-dom"
-import { LoginContext } from "../../App"
 
 function Logout() {
-  const { setIsLogin } = useContext(LoginContext)
 
-  const handleLogout = () => {
-    setIsLogin(false)
-  }
 
   return (
     <div className="flex h-screen items-center justify-center">
@@ -35,7 +29,6 @@ function Logout() {
           </Link>
           <Link
             className="group relative overflow-hidden rounded-[50px] bg-[#ff2020] px-[26px] py-[15px] text-sm font-medium text-white no-underline"
-            onClick={handleLogout}
             to="/login"
           >
             Logout

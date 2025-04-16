@@ -1,0 +1,60 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.forbidden {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__error {
+    margin-bottom: $spacing-lg;
+    font-size: $font-size-lg;
+    color: #333333;
+    display: flex;
+    align-items: center;
+  }
+
+  &__code {
+    font-size: 96px;
+    font-weight: $font-weight-bold;
+    color: #ff9800;
+  }
+
+  &__icon {
+    font-size: 70px;
+    font-weight: 800;
+    color: #ff9800;
+  }
+
+  &__message {
+    margin-left: $spacing-sm;
+  }
+
+  &__text {
+    margin-bottom: $spacing-xl;
+    font-size: $font-size-base;
+    color: #666666;
+  }
+
+  &__action {
+    cursor: pointer;
+  }
+
+  &__button {
+    display: inline-block;
+    border-radius: $border-radius-md;
+    background-color: #2196f3;
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-size-base;
+    color: white;
+    text-decoration: none;
+    transition: opacity $transition-normal;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

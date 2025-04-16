@@ -2,153 +2,150 @@
 
 import type React from "react"
 
-import { useState, useEffect, useContext } from "react"
-import axios from "axios"
-import { useParams, Link } from "react-router-dom"
+import { useEffect } from "react"
+import { useParams, Link, useNavigate } from "react-router-dom"
 import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io"
 import { FaShareAlt } from "react-icons/fa"
-import { base_url } from "../../data/Data"
-import { LoginContext } from "../../App"
-
-interface Product {
-  id: number
-  price: number
-  withoutDiscount: number
-  category: string
-  name: string
-  img: string
-  color?: string
-  count?: number
-}
+import { useAppDispatch, useAppSelector } from "../../store/hooks"
+import { fetchProductById, clearSelectedProduct } from "../../store/slices/productSlice"
+import { addToCart } from "../../store/slices/cartSlice"
+import { toggleWishlistItem } from "../../store/slices/wishlistSlice"
+import "./Detail.scss"
 
 function Detail() {
   const { id } = useParams<{ id: string }>()
-  const [product, setProduct] = useState<Product | null>(null)
-  const { isInWishlist, setIsInWishlist, isInCart, setIsInCart } = useContext(LoginContext)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const { selectedProduct, loading, error } = useAppSelector((state) => state.products)
+  const wishlistItems = useAppSelector((state) => state.wishlist.items)
+  const isInWishlist = selectedProduct ? wishlistItems.some((item) => item.id === selectedProduct.id) : false
 
   useEffect(() => {
     if (id) {
-      axios(`${base_url}products/${id}`).then((res) => {
-        setProduct(res.data)
-      })
+      dispatch(fetchProductById(id))
     }
-  }, [id])
 
-  useEffect(() => {
-    if (id) {
-      const wishlistArr = JSON.parse(localStorage.getItem("wishlist") || "[]")
-      const inWishlist = wishlistArr.some((elem: Product) => elem.id.toString() === id)
-      const cartArr = JSON.parse(localStorage.getItem("basket") || "[]")
-      const inCart = cartArr.some((elem: Product) => elem.id.toString() === id)
-      setIsInWishlist(inWishlist)
-      setIsInCart(inCart)
+    return () => {
+      dispatch(clearSelectedProduct())
     }
-  }, [id, setIsInWishlist, setIsInCart])
+  }, [dispatch, id])
 
   const handleWishlistClick = (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (!product || !id) return
+    if (!selectedProduct) return
 
-    let wishlistArr = JSON.parse(localStorage.getItem("wishlist") || "[]")
-    if (isInWishlist) {
-      wishlistArr = wishlistArr.filter((item: Product) => item.id.toString() !== id)
-    } else {
-      wishlistArr.push(product)
-    }
-    localStorage.setItem("wishlist", JSON.stringify(wishlistArr))
-    setIsInWishlist(!isInWishlist)
+    dispatch(toggleWishlistItem(selectedProduct))
   }
 
   const handleCartClick = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    if (!product || !id) return
+    if (!selectedProduct) return
 
-    const cartArr = JSON.parse(localStorage.getItem("basket") || "[]")
-    const existingProduct = cartArr.find((elem: Product) => elem.id.toString() === id)
-
-    if (existingProduct) {
-      existingProduct.count = (existingProduct.count || 1) + 1
-    } else {
-      cartArr.push({ ...product, count: 1 })
-    }
-
-    localStorage.setItem("basket", JSON.stringify(cartArr))
-    setIsInCart(true)
+    dispatch(addToCart({ ...selectedProduct, count: 1 }))
+    navigate("/basket")
   }
 
-  return (
-    <div className="w-full overflow-x-hidden">
-      <div className="flex min-h-[150px] w-full flex-col items-center justify-center bg-[#f3ebd8]">
-        <h1 className="mb-3 text-[35px] font-semibold text-[#292621]">Product Detail</h1>
-        <div className="flex">
-          <Link
-            to="/"
-            className="border-none px-2 text-sm font-normal capitalize leading-none text-[#74706b] no-underline"
-          >
-            Home
-          </Link>
-          <hr className="h-5 w-[1px] rotate-0 border-none border-l border-[#74706b] font-semibold" />
-          <Link
-            to="/contact"
-            className="border-none px-2 text-sm font-normal capitalize leading-none text-[#74706b] no-underline"
-          >
-            Product Detail
+  if (loading) {
+    return (
+      <div className="detail">
+        <div className="detail__loading">
+          <div className="detail__loading-spinner"></div>
+          <p>Loading product details...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="detail">
+        <div className="detail__error">
+          <h2>Error</h2>
+          <p>{error}</p>
+          <Link to="/products" className="detail__back-button">
+            Back to Products
           </Link>
         </div>
       </div>
-      {product ? (
-        <div className="w-full px-20 py-12">
-          <div className="flex w-full items-center justify-start bg-[#ff1f1f] p-8 px-20">
-            <div className="w-full max-w-[15rem]">
-              <img src={product.img || "/placeholder.svg"} alt={product.name} className="w-full object-cover" />
+    )
+  }
+
+  if (!selectedProduct) {
+    return (
+      <div className="detail">
+        <div className="detail__not-found">
+          <h2>Product not found</h2>
+          <p>The product you're looking for doesn't exist or has been removed.</p>
+          <Link to="/products" className="detail__back-button">
+            Back to Products
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="detail">
+      <div className="detail__header">
+        <h1 className="detail__title">Product Detail</h1>
+        <div className="detail__breadcrumb">
+          <Link to="/" className="detail__breadcrumb-link">
+            Home
+          </Link>
+          <span className="detail__breadcrumb-separator"></span>
+          <Link to="/products" className="detail__breadcrumb-link">
+            Products
+          </Link>
+          <span className="detail__breadcrumb-separator"></span>
+          <span className="detail__breadcrumb-current">{selectedProduct.name}</span>
+        </div>
+      </div>
+
+      <div className="detail__content">
+        <div className="detail__product">
+          <div className="detail__image">
+            <img src={selectedProduct.img || "/placeholder.svg"} alt={selectedProduct.name} />
+          </div>
+          <div className="detail__info">
+            <h3 className="detail__product-name">
+              {selectedProduct.name.charAt(0).toUpperCase() + selectedProduct.name.slice(1)}
+            </h3>
+            <p className="detail__product-category">
+              Category: {selectedProduct.category.charAt(0).toUpperCase() + selectedProduct.category.slice(1)}
+            </p>
+            <div className="detail__product-color">
+              <span>
+                Color:{" "}
+                {selectedProduct.color
+                  ? selectedProduct.color.charAt(0).toUpperCase() + selectedProduct.color.slice(1)
+                  : "N/A"}
+              </span>
             </div>
-            <div className="flex-1 min-w-0 bg-transparent pl-8">
-              <div className="flex flex-col items-start justify-center bg-transparent">
-                <h3 className="text-4xl font-normal leading-tight text-white">
-                  {product.name.charAt(0).toUpperCase() + product.name.slice(1)}
-                </h3>
-                <p className="text-left text-sm text-white">
-                  Category: {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
-                </p>
-              </div>
-              <div className="mb-[30px] text-sm text-white">
-                <span>
-                  Color: {product.color ? product.color.charAt(0).toUpperCase() + product.color.slice(1) : "N/A"}
-                </span>
-              </div>
-              <div className="flex items-center justify-start">
-                <h1 className="mr-12 inline overflow-hidden text-ellipsis whitespace-nowrap text-3xl font-medium text-white">
-                  ${product.price}
-                </h1>
-                <span className="text-xl text-[#cebd9c] line-through">${product.withoutDiscount}</span>
-              </div>
-              <div className="flex items-center justify-start">
-                <Link
-                  className="relative z-[1] mr-4 cursor-pointer overflow-hidden rounded-[50px] bg-white px-[26px] py-[15px] text-sm font-medium capitalize text-[#222222] no-underline transition-colors duration-400 hover:text-white hover:shadow-[0px_3px_31px_2px_rgba(207,207,207,0.7)]"
-                  onClick={handleCartClick}
-                >
-                  <span className="relative z-[1]">Add To Cart</span>
-                  <div className="absolute left-[-100%] top-0 z-[-1] h-full w-full bg-[#ff2020] transition-all duration-300"></div>
-                </Link>
-                <div
-                  className="relative z-[1] mr-4 flex h-[50px] w-[53px] cursor-pointer items-center justify-center overflow-hidden rounded-[50%] border border-white bg-[#ff2020] text-2xl font-medium text-white transition-colors duration-400 hover:text-[#ff2020] hover:shadow-[0px_3px_31px_2px_rgba(207,207,207,0.7)]"
-                  onClick={handleWishlistClick}
-                >
-                  {isInWishlist ? <IoIosHeart /> : <IoIosHeartEmpty />}
-                  <div className="absolute left-0 top-[-101%] z-[-1] h-[101%] w-[101%] bg-white transition-transform duration-500"></div>
-                </div>
-                <Link className="relative z-[1] flex h-[50px] w-[53px] cursor-pointer items-center justify-center overflow-hidden rounded-[50%] border border-white bg-[#ff2020] text-base font-medium text-white transition-colors duration-400 hover:text-[#ff2020] hover:shadow-[0px_3px_31px_2px_rgba(207,207,207,0.7)]">
-                  <FaShareAlt />
-                  <div className="absolute left-0 top-[-101%] z-[-1] h-[101%] w-[101%] bg-white transition-transform duration-500"></div>
-                </Link>
-              </div>
+            <div className="detail__product-price">
+              <h1 className="detail__price-current">${selectedProduct.price}</h1>
+              <span className="detail__price-original">${selectedProduct.withoutDiscount}</span>
+              <span className="detail__price-discount">
+                {Math.round(
+                  ((selectedProduct.withoutDiscount - selectedProduct.price) / selectedProduct.withoutDiscount) * 100,
+                )}
+                % OFF
+              </span>
+            </div>
+            <div className="detail__actions">
+              <button className="detail__add-to-cart" onClick={handleCartClick}>
+                <span>Add To Cart</span>
+              </button>
+              <button className="detail__wishlist-button" onClick={handleWishlistClick}>
+                {isInWishlist ? <IoIosHeart /> : <IoIosHeartEmpty />}
+              </button>
+              <button className="detail__share-button">
+                <FaShareAlt />
+              </button>
             </div>
           </div>
         </div>
-      ) : (
-        <p className="p-8 text-center">Product not found</p>
-      )}
+      </div>
     </div>
   )
 }

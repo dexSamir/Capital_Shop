@@ -1,0 +1,17 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.user-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__main {
+    flex: 1;
+    padding: $spacing-lg $spacing-md;
+
+    @include responsive(md) {
+      padding: $spacing-lg $spacing-xl;
+    }
+  }
+}

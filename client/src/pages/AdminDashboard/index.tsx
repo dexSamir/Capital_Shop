@@ -1,81 +1,62 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getAllproducts, deleteProducts } from "../../middleware/products"
 import AdminSearchbar from "../../components/AdminSearchbar"
 import AdminTable from "../../components/AdminTable"
-
-interface Product {
-  id: number
-  name: string
-  price: number
-  withoutDiscount: number
-  img: string
-  category: string
-}
+import { useAppDispatch, useAppSelector } from "../../store/hooks"
+import { fetchProducts, deleteProduct, setFilter } from "../../store/slices/productSlice"
+import "./AdminDashboard.scss"
 
 function Dashboard() {
+  const dispatch = useAppDispatch()
+  const { items, filteredItems, loading, error } = useAppSelector((state) => state.products)
   const [search, setSearch] = useState("")
-  const [products, setProducts] = useState<Product[]>([])
-  const [sortByName, setSortByName] = useState("")
-  const [sortByPrice, setSortByPrice] = useState("")
-  const [sortByDiscount, setSortByDiscount] = useState("")
 
   useEffect(() => {
-    getAllproducts().then((res) => setProducts(res))
-  }, [])
+    dispatch(fetchProducts())
+  }, [dispatch])
 
   const handleSearch = (search: string) => {
     setSearch(search)
+    dispatch(setFilter({ key: "search", value: search }))
   }
 
   const handleSortByDiscount = (order: string) => {
-    setSortByDiscount(order)
+    if (order === "MintoMax") {
+      dispatch(setFilter({ key: "sortBy", value: "discount" }))
+      dispatch(setFilter({ key: "sortOrder", value: "asc" }))
+    } else if (order === "MaxtoMin") {
+      dispatch(setFilter({ key: "sortBy", value: "discount" }))
+      dispatch(setFilter({ key: "sortOrder", value: "desc" }))
+    }
   }
 
   const handleSortByName = (order: string) => {
-    setSortByName(order)
+    if (order === "AtoZ") {
+      dispatch(setFilter({ key: "sortBy", value: "name" }))
+      dispatch(setFilter({ key: "sortOrder", value: "asc" }))
+    } else if (order === "ZtoA") {
+      dispatch(setFilter({ key: "sortBy", value: "name" }))
+      dispatch(setFilter({ key: "sortOrder", value: "desc" }))
+    }
   }
 
   const handleSortByPrice = (order: string) => {
-    setSortByPrice(order)
+    if (order === "MintoMax") {
+      dispatch(setFilter({ key: "sortBy", value: "price" }))
+      dispatch(setFilter({ key: "sortOrder", value: "asc" }))
+    } else if (order === "MaxtoMin") {
+      dispatch(setFilter({ key: "sortBy", value: "price" }))
+      dispatch(setFilter({ key: "sortOrder", value: "desc" }))
+    }
   }
 
-  const filteredProducts = products
-    .filter((item) => {
-      const machesSearch = item.name.toLowerCase().includes(search.toLowerCase())
-      return machesSearch
-    })
-    .sort((a, b) => {
-      if (sortByName === "SortByName") return a.id - b.id
-      if (sortByName === "AtoZ") return a.name.localeCompare(b.name)
-      if (sortByName === "ZtoA") return b.name.localeCompare(a.name)
-      return 0
-    })
-    .sort((a, b) => {
-      if (sortByPrice === "sortByPrice") return a.id - b.id
-      if (sortByPrice === "MintoMax") return a.price - b.price
-      if (sortByPrice === "MaxtoMin") return b.price - a.price
-      return 0
-    })
-    .sort((a, b) => {
-      if (sortByDiscount === "sortByDiscount") return a.id - b.id
-      if (sortByDiscount === "MintoMax")
-        return (b.price / b.withoutDiscount) * 100 - (a.price / a.withoutDiscount) * 100
-      if (sortByDiscount === "MaxtoMin")
-        return (a.price / a.withoutDiscount) * 100 - (b.price / b.withoutDiscount) * 100
-      return 0
-    })
-
   const handleDelete = (id: number) => {
-    let arr = [...products]
-    arr = arr.filter((item) => item.id !== id)
-    setProducts(arr)
-    deleteProducts(id)
+    dispatch(deleteProduct(id))
   }
 
   return (
-    <div>
+    <div className="admin-dashboard">
       <AdminSearchbar
         search={search}
         onSearch={handleSearch}
@@ -83,7 +64,14 @@ function Dashboard() {
         onhandleSortByName={handleSortByName}
         onhandleSortByDiscount={handleSortByDiscount}
       />
-      <AdminTable onDelete={handleDelete} datas={filteredProducts} />
+
+      {loading ? (
+        <div className="admin-dashboard__loading">Loading products...</div>
+      ) : error ? (
+        <div className="admin-dashboard__error">Error: {error}</div>
+      ) : (
+        <AdminTable onDelete={handleDelete} datas={filteredItems} />
+      )}
     </div>
   )
 }

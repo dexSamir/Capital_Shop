@@ -1,0 +1,79 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.home {
+  width: 100%;
+
+  &__featured {
+    padding: $spacing-xl 0;
+    background-color: $light-background;
+
+    &-title {
+      text-align: center;
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-xl;
+      color: $text-color;
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: $spacing-lg;
+      padding: 0 $spacing-xl;
+
+      @include responsive(lg) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @include responsive(md) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include responsive(sm) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  &__banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $primary-color;
+    padding: $spacing-xl * 2;
+    margin: $spacing-xl 0;
+
+    &-content {
+      text-align: center;
+      color: white;
+    }
+
+    &-title {
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-md;
+    }
+
+    &-text {
+      font-size: $font-size-lg;
+      margin-bottom: $spacing-xl;
+      max-width: 600px;
+    }
+
+    &-button {
+      display: inline-block;
+      background-color: white;
+      color: $primary-color;
+      padding: $spacing-md $spacing-xl;
+      border-radius: $border-radius-md;
+      font-weight: $font-weight-bold;
+      transition: all $transition-normal;
+
+      &:hover {
+        background-color: $secondary-color;
+        color: white;
+      }
+    }
+  }
+}

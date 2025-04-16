@@ -1,0 +1,47 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.admin-searchbar {
+  margin: $spacing-xl auto;
+  display: flex;
+  width: 70%;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-sm;
+
+  &__input {
+    flex-grow: 1;
+    border-radius: $border-radius-md;
+    border: 1px solid #eeeeee;
+    padding: $spacing-md;
+    color: #888;
+    outline: none;
+  }
+
+  &__filters {
+    display: flex;
+    align-items: center;
+  }
+
+  &__select {
+    margin-right: $spacing-sm;
+    cursor: pointer;
+    border-radius: $border-radius-md;
+    background-color: #f5f5f5;
+    padding: $spacing-md;
+    color: #333;
+
+    &:hover {
+      border-color: #888;
+    }
+
+    &:focus {
+      border-color: #3182ce;
+      outline: none;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

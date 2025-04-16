@@ -1,0 +1,83 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.logout {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    min-width: 700px;
+    background-color: white;
+    padding: 55px 60px 50px 50px;
+    box-shadow: 0px 10px 30px 0px rgba(13, 12, 13, 0.2);
+
+    @include responsive(md) {
+      min-width: auto;
+      width: 90%;
+      padding: $spacing-xl;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__title {
+    margin-bottom: $spacing-md;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: #140c40;
+  }
+
+  &__text {
+    margin-bottom: $spacing-md;
+    font-size: $font-size-base;
+    font-weight: $font-weight-normal;
+    line-height: 1.5;
+    color: #301a22;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+  }
+
+  &__button {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50px;
+    background-color: $primary-color;
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: white;
+    text-decoration: none;
+    z-index: 1;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      z-index: -1;
+      height: 100%;
+      width: 100%;
+      background-color: white;
+      transition: all $transition-normal;
+    }
+
+    &:hover {
+      color: $primary-color;
+
+      &::before {
+        left: 0;
+      }
+    }
+  }
+}

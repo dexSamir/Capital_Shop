@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import "./AdminSearchbar.scss"
 
 interface SearchbarProps {
   search: string
@@ -34,39 +35,22 @@ function AdminSearchbar({
   }
 
   return (
-    <div className="mx-auto mt-20 flex w-[70%] items-center justify-between gap-2">
-      <input
-        placeholder="Search..."
-        className="flex-grow rounded-md border border-[#eeeeee] p-4 text-[#888] outline-none"
-        value={search}
-        onChange={handleInputChange}
-      />
-      <div className="flex items-center">
-        <select
-          placeholder="Name"
-          className="mr-2 cursor-pointer rounded-md bg-[#f5f5f5] p-4 text-[#333] hover:border-[#888] focus:border-[#3182ce] focus:outline-none"
-          onChange={handleSortOrderChange}
-        >
+    <div className="admin-searchbar">
+      <input placeholder="Search..." className="admin-searchbar__input" value={search} onChange={handleInputChange} />
+      <div className="admin-searchbar__filters">
+        <select placeholder="Name" className="admin-searchbar__select" onChange={handleSortOrderChange}>
           <option value="SortByName">Sort by Name</option>
           <option value="AtoZ">A to Z</option>
           <option value="ZtoA">Z to A</option>
         </select>
 
-        <select
-          placeholder="Price"
-          className="mr-2 cursor-pointer rounded-md bg-[#f5f5f5] p-4 text-[#333] hover:border-[#888] focus:border-[#3182ce] focus:outline-none"
-          onChange={handleSortPriceChange}
-        >
+        <select placeholder="Price" className="admin-searchbar__select" onChange={handleSortPriceChange}>
           <option value="sortByPrice">Sort by Price</option>
           <option value="MintoMax">Min. to Max.</option>
           <option value="MaxtoMin">Max. to Min.</option>
         </select>
 
-        <select
-          placeholder="Discount"
-          className="cursor-pointer rounded-md bg-[#f5f5f5] p-4 text-[#333] hover:border-[#888] focus:border-[#3182ce] focus:outline-none"
-          onChange={handleSortDiscountChange}
-        >
+        <select placeholder="Discount" className="admin-searchbar__select" onChange={handleSortDiscountChange}>
           <option value="sortByDiscount">Sort by Discount</option>
           <option value="MintoMax">Min. to Max.</option>
           <option value="MaxtoMin">Max. to Min.</option>

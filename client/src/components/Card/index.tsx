@@ -2,11 +2,12 @@
 
 import type React from "react";
 
+import { Link, useNavigate } from "react-router-dom";
 import { PiShoppingCartLight } from "react-icons/pi";
 import { IoIosHeartEmpty, IoIosHeart, IoIosSearch } from "react-icons/io";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { addToCart } from "../../store/slices/cartSlice.ts";
+import { toggleWishlistItem } from "../../store/slices/wishlistSlice";
 import "./Card.scss";
 
 interface Product {
@@ -15,6 +16,7 @@ interface Product {
   price: number;
   withoutDiscount: number;
   img: string;
+  category: string;
   count?: number;
 }
 
@@ -24,65 +26,31 @@ interface CardProps {
   withoutDiscount: number;
   img: string;
   id: number;
-  products: Product[];
+  product: Product;
 }
 
-function Card({ name, price, withoutDiscount, img, id, products }: CardProps) {
-  const [isInWishlist, setIsInWishlist] = useState(false);
-  const [isInCart, setIsInCart] = useState(false);
-
+function Card({ name, price, withoutDiscount, img, id, product }: CardProps) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const wishlistItems = useAppSelector((state) => state.wishlist.items);
 
-  useEffect(() => {
-    const wishlistArr = JSON.parse(localStorage.getItem("wishlist") || "[]");
-    const inWishlist = wishlistArr.some((elem: Product) => elem.id == id);
-
-    const cartArr = JSON.parse(localStorage.getItem("basket") || "[]");
-    const inCart = cartArr.some((elem: Product) => elem.id == id);
-
-    setIsInWishlist(inWishlist);
-    setIsInCart(inCart);
-  }, [id]);
+  const isInWishlist = wishlistItems.some((item) => item.id === id);
 
   const handleWishlistClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-
-    let wishlistArr = JSON.parse(localStorage.getItem("wishlist") || "[]");
-    const product = products.find((elem) => elem.id == id);
-
-    if (isInWishlist) {
-      wishlistArr = wishlistArr.filter((item: Product) => item.id !== id);
-    } else if (product) {
-      wishlistArr.push(product);
-    }
-
-    localStorage.setItem("wishlist", JSON.stringify(wishlistArr));
-    setIsInWishlist(!isInWishlist);
+    dispatch(toggleWishlistItem(product));
   };
 
   const handleCartClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const cartArr = JSON.parse(localStorage.getItem("basket") || "[]");
-    const product = products.find((elem) => elem.id == id);
-
-    if (!product) return;
-
-    const existingProduct = cartArr.find((elem: Product) => elem.id == id);
-    if (existingProduct) {
-      existingProduct.count = (existingProduct.count || 1) + 1;
-    } else {
-      cartArr.push({ ...product, count: 1 });
-    }
-
-    localStorage.setItem("basket", JSON.stringify(cartArr));
-    setIsInCart(true);
+    dispatch(addToCart({ ...product, count: 1 }));
   };
 
   return (
     <div className="card">
-      <Link className="card__link" onClick={() => navigate("/detail/" + id)}>
+      <Link className="card__link" onClick={() => navigate(`/detail/${id}`)}>
         <div className="card__tools">
           <div className="card__tool" onClick={handleCartClick}>
             <PiShoppingCartLight />

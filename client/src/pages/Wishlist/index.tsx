@@ -1,60 +1,48 @@
-"use client"
-
-import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Card from "../../components/Card"
-
-interface Product {
-  id: number
-  name: string
-  price: number
-  withoutDiscount: number
-  img: string
-}
+import { useAppSelector } from "../../store/hooks"
+import "./Wishlist.scss"
 
 function Wishlist() {
-  const [wishlistArr, setWishlistArr] = useState<Product[]>([])
-
-  useEffect(() => {
-    const storedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]")
-    setWishlistArr(storedWishlist)
-  }, [])
+  const { items } = useAppSelector((state) => state.wishlist)
 
   return (
-    <div>
-      <div className="flex min-h-[150px] w-full flex-col items-center justify-center bg-[#f3ebd8]">
-        <h1 className="mb-3 text-[35px] font-semibold text-[#292621]">Wishlist</h1>
-        <div className="flex">
-          <Link
-            to="/"
-            className="border-none px-2 text-sm font-normal capitalize leading-none text-[#74706b] no-underline"
-          >
+    <div className="wishlist">
+      <div className="wishlist__header">
+        <h1 className="wishlist__title">Wishlist</h1>
+        <div className="wishlist__breadcrumb">
+          <Link to="/" className="wishlist__breadcrumb-link">
             Home
           </Link>
-          <hr className="h-5 w-[1px] rotate-0 border-none border-l border-[#74706b] font-semibold" />
-          <Link
-            to="/wishlist"
-            className="border-none px-2 text-sm font-normal capitalize leading-none text-[#74706b] no-underline"
-          >
+          <span className="wishlist__breadcrumb-separator"></span>
+          <Link to="/wishlist" className="wishlist__breadcrumb-link">
             Wishlist
           </Link>
         </div>
       </div>
-      <div className="mt-12 flex w-full justify-center gap-5 px-20">
-        {wishlistArr.length > 0 ? (
-          wishlistArr.map((elem) => (
-            <Card
-              key={elem.id}
-              id={elem.id}
-              name={elem.name}
-              img={elem.img}
-              price={elem.price}
-              withoutDiscount={elem.withoutDiscount}
-              products={wishlistArr}
-            />
-          ))
+
+      <div className="wishlist__content">
+        {items.length > 0 ? (
+          <div className="wishlist__grid">
+            {items.map((product) => (
+              <Card
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                img={product.img}
+                price={product.price}
+                withoutDiscount={product.withoutDiscount}
+                product={product}
+              />
+            ))}
+          </div>
         ) : (
-          <p>Your wishlist is empty.</p>
+          <div className="wishlist__empty">
+            <p>Your wishlist is empty.</p>
+            <Link to="/products" className="wishlist__shop-link">
+              Continue Shopping
+            </Link>
+          </div>
         )}
       </div>
     </div>

@@ -1,0 +1,75 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.admin-table {
+  margin: $spacing-xl auto;
+  max-width: 100%;
+  padding: 0 $spacing-xl;
+  overflow-x: auto;
+
+  &__container {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      padding: $spacing-sm;
+      text-align: left;
+      font-weight: $font-weight-medium;
+      color: #797979;
+    }
+  }
+
+  &__row {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: #f9f9f9;
+    }
+  }
+
+  td {
+    padding: $spacing-sm;
+  }
+
+  &__image {
+    height: 4rem;
+    width: 4rem;
+    object-fit: cover;
+  }
+
+  &__link {
+    transition: all $transition-normal;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  &__edit-icon {
+    margin: 0 auto;
+    cursor: pointer;
+    font-size: $font-size-lg;
+    transition: all $transition-normal;
+
+    &:hover {
+      color: #8cc9f8;
+    }
+  }
+
+  &__delete-icon {
+    margin: 0 auto;
+    cursor: pointer;
+    font-size: $font-size-lg;
+    transition: all $transition-normal;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}

@@ -1,42 +1,76 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useContext } from "react"
-import Slider from "../../components/Slider"
-import Trend from "../../components/Trend"
-import MayLike from "../../components/MayLike"
-import News from "../../components/News"
-import Services from "../../components/Services"
-import { getAllproducts } from "../../middleware/products"
-import { LoginContext } from "../../App"
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Slider from "../../components/Slider";
+import Trend from "../../components/Trend";
+import MayLike from "../../components/MayLike";
+import News from "../../components/News";
+import Services from "../../components/Services";
+import Card from "../../components/Card";
+import { getAllproducts } from "../../middleware/products";
+import "./Home.scss";
 
 interface Product {
-  id: number
-  name: string
-  price: number
-  withoutDiscount: number
-  img: string
-  category: string
+  id: number;
+  name: string;
+  price: number;
+  withoutDiscount: number;
+  img: string;
+  category: string;
 }
 
 function Home() {
-  const [products, setProducts] = useState<Product[]>([])
-  const { isAdmin } = useContext(LoginContext)
+  const [products, setProducts] = useState<Product[]>([]);
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     getAllproducts().then((res) => {
-      setProducts(res)
-    })
-  }, [])
+      setProducts(res);
+      const shuffled = [...res].sort(() => 0.5 - Math.random());
+      setFeaturedProducts(shuffled.slice(0, 4));
+    });
+  }, []);
 
   return (
-    <div>
+    <div className="home">
       <Slider />
+
+      <section className="home__featured">
+        <h2 className="home__featured-title">Featured Products</h2>
+        <div className="home__featured-grid">
+          {featuredProducts.map((product) => (
+            <Card
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              img={product.img}
+              price={product.price}
+              withoutDiscount={product.withoutDiscount}
+              product={product}
+            />
+          ))}
+        </div>
+      </section>
+
+      <div className="home__banner">
+        <div className="home__banner-content">
+          <h2 className="home__banner-title">Special Summer Sale</h2>
+          <p className="home__banner-text">
+            Get up to 50% off on our summer collection. Limited time offer!
+          </p>
+          <Link to="/products" className="home__banner-button">
+            Shop Now
+          </Link>
+        </div>
+      </div>
+
       <Trend />
       <MayLike products={products} />
       <News />
       <Services />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

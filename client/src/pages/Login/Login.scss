@@ -1,0 +1,151 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.login {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    min-width: 700px;
+    background-color: white;
+    padding: 55px 60px 50px 50px;
+    box-shadow: 0px 10px 30px 0px rgba(13, 12, 13, 0.2);
+  }
+
+  &__header {
+    text-align: center;
+  }
+
+  &__title {
+    margin-bottom: $spacing-md;
+    display: block;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    text-transform: capitalize;
+    color: #140c40;
+  }
+
+  &__subtitle {
+    margin-bottom: $spacing-md;
+    font-size: $font-size-base;
+    font-weight: $font-weight-normal;
+    line-height: 1.5;
+    color: #301a22;
+  }
+
+  &__form {
+    &-group {
+      margin-top: $spacing-lg;
+    }
+  }
+
+  &__label {
+    margin-bottom: 6px;
+    display: block;
+    font-size: 17px;
+    font-weight: $font-weight-medium;
+    text-transform: capitalize;
+    color: #140c40;
+    text-align: left;
+  }
+
+  &__input {
+    height: 50px;
+    width: 100%;
+    border: 1px solid #c9c9c9;
+    padding: 0 25px;
+    color: black;
+
+    &:focus {
+      outline: none;
+    }
+
+    &--error {
+      border: 2px solid red;
+    }
+  }
+
+  &__error {
+    font-size: $font-size-sm;
+    color: red;
+    margin-top: $spacing-xs;
+
+    &--general {
+      margin: $spacing-md 0;
+      text-align: center;
+    }
+  }
+
+  &__options {
+    margin-top: $spacing-lg;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 17px;
+  }
+
+  &__remember {
+    display: flex;
+    align-items: center;
+
+    &-label {
+      margin-left: 5px;
+      margin-bottom: 6px;
+      font-size: 17px;
+      font-weight: $font-weight-medium;
+      text-transform: capitalize;
+      color: #140c40;
+      text-align: left;
+    }
+  }
+
+  &__forgot {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-normal;
+    color: $primary-color;
+    text-decoration: none;
+  }
+
+  &__actions {
+    margin-top: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__register {
+    &-text {
+      font-size: $font-size-base;
+    }
+
+    &-link {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-normal;
+      color: $primary-color;
+      text-decoration: none;
+    }
+  }
+
+  &__button {
+    height: 60px;
+    cursor: pointer;
+    border: 0;
+    background-color: $primary-color;
+    padding: 10px 43px;
+    font-size: $font-size-base;
+    text-transform: capitalize;
+    color: white;
+    transition: background-color $transition-normal;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+
+    &:disabled {
+      background-color: lighten($primary-color, 20%);
+      cursor: not-allowed;
+    }
+  }
+}

@@ -8,9 +8,9 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Slider from "react-slick"
-
 import { testimonials } from "../../data/Data"
 import { getAllproducts } from "../../middleware/products"
+import "./Trend.scss"
 
 interface Product {
   id: number
@@ -23,10 +23,7 @@ interface Product {
 
 const CustomLeftArrow = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <button
-      className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded border-none bg-[rgba(0,0,0,0.5)] px-4 py-8 text-2xl text-white transition-all duration-200 hover:bg-[rgba(0,0,0,0.9)]"
-      onClick={onClick}
-    >
+    <button className="trend__arrow trend__arrow--left" onClick={onClick}>
       <FaChevronLeft />
     </button>
   )
@@ -34,10 +31,7 @@ const CustomLeftArrow = ({ onClick }: { onClick?: () => void }) => {
 
 const CustomRightArrow = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <button
-      className="absolute right-[15px] top-1/2 z-10 -translate-y-1/2 rounded border-none bg-[rgba(0,0,0,0.5)] px-4 py-8 text-2xl text-white transition-all duration-200 hover:bg-[rgba(0,0,0,0.9)]"
-      onClick={onClick}
-    >
+    <button className="trend__arrow trend__arrow--right" onClick={onClick}>
       <FaChevronRight />
     </button>
   )
@@ -83,42 +77,30 @@ function Trend() {
   }
 
   return (
-    <div className="mt-16">
-      <div className="flex h-24 w-full items-center justify-between border-b border-[#eeeff3] px-20">
-        <div>
-          <h1 className="text-[34px] font-medium leading-tight text-[#292621]">Trending This Week</h1>
+    <div className="trend">
+      <div className="trend__header">
+        <div className="trend__title-container">
+          <h1 className="trend__title">Trending This Week</h1>
         </div>
-        <div>
-          <ul className="flex items-center justify-center list-none">
-            <li>
-              <a
-                href=""
-                className="mr-[15px] border-b-4 border-transparent pb-0 pt-0 px-3 text-base font-semibold text-[#292621] no-underline transition-all duration-300 hover:border-[#ff2020]"
-              >
+        <div className="trend__categories">
+          <ul className="trend__category-list">
+            <li className="trend__category-item">
+              <a href="" className="trend__category-link">
                 Men
               </a>
             </li>
-            <li>
-              <a
-                href=""
-                className="mr-[15px] border-b-4 border-transparent pb-0 pt-0 px-3 text-base font-semibold text-[#292621] no-underline transition-all duration-300 hover:border-[#ff2020]"
-              >
+            <li className="trend__category-item">
+              <a href="" className="trend__category-link">
                 Women
               </a>
             </li>
-            <li>
-              <a
-                href=""
-                className="mr-[15px] border-b-4 border-transparent pb-0 pt-0 px-3 text-base font-semibold text-[#292621] no-underline transition-all duration-300 hover:border-[#ff2020]"
-              >
+            <li className="trend__category-item">
+              <a href="" className="trend__category-link">
                 Baby
               </a>
             </li>
-            <li>
-              <a
-                href=""
-                className="mr-[15px] border-b-4 border-transparent pb-0 pt-0 px-3 text-base font-semibold text-[#292621] no-underline transition-all duration-300 hover:border-[#ff2020]"
-              >
+            <li className="trend__category-item">
+              <a href="" className="trend__category-link">
                 Fashion
               </a>
             </li>
@@ -126,7 +108,7 @@ function Trend() {
         </div>
       </div>
 
-      <div className="mx-auto mt-12 w-full px-20">
+      <div className="trend__carousel">
         <Carousel
           responsive={responsive}
           infinite={true}
@@ -145,33 +127,29 @@ function Trend() {
                 img={item.img}
                 price={item.price}
                 withoutDiscount={item.withoutDiscount}
-                products={products}
+                product={item}
               />
             ))}
         </Carousel>
       </div>
-      <div className="mt-28 rounded-[10px] bg-[#f3ead8] p-20 text-center">
+      <div className="trend__testimonials">
         <Slider {...settings}>
           {testimonials &&
             testimonials.map((testimonial, index) => (
-              <div key={index} className="mx-auto max-w-[800px] p-5 text-center">
-                <h1 className="mb-[30px] whitespace-nowrap font-['Jost',sans-serif] text-[34px] font-semibold text-[#292621]">
-                  Customer Testimonial
-                </h1>
-                <p className="mx-auto mb-8 max-w-[600px] text-lg font-normal leading-relaxed text-[#292621]">
-                  {testimonial.text}
-                </p>
-                <div className="mt-8 flex items-center justify-center">
-                  <div className="mr-4 h-[60px] w-[60px] overflow-hidden rounded-full">
+              <div key={index} className="trend__testimonial">
+                <h1 className="trend__testimonial-title">Customer Testimonial</h1>
+                <p className="trend__testimonial-text">{testimonial.text}</p>
+                <div className="trend__testimonial-author">
+                  <div className="trend__testimonial-image-container">
                     <img
                       src={testimonial.image || "/placeholder.svg"}
                       alt={testimonial.name}
-                      className="h-full w-full object-cover"
+                      className="trend__testimonial-image"
                     />
                   </div>
-                  <div className="text-left">
-                    <span className="text-xl font-bold text-[#302f2b]">{testimonial.name}</span>
-                    <p className="mt-[0.2rem] text-[0.9rem] text-[#76726f]">{testimonial.specialty}</p>
+                  <div className="trend__testimonial-info">
+                    <span className="trend__testimonial-name">{testimonial.name}</span>
+                    <p className="trend__testimonial-specialty">{testimonial.specialty}</p>
                   </div>
                 </div>
               </div>

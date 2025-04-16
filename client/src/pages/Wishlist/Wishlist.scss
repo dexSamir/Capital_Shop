@@ -1,0 +1,110 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.wishlist {
+  width: 100%;
+
+  &__header {
+    display: flex;
+    min-height: 150px;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $light-background;
+  }
+
+  &__title {
+    margin-bottom: $spacing-sm;
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-semibold;
+    color: $text-color;
+  }
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+
+    &-link {
+      border: none;
+      padding: 0 $spacing-sm;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-normal;
+      text-transform: capitalize;
+      line-height: 1;
+      color: $light-text-color;
+      text-decoration: none;
+    }
+
+    &-separator {
+      display: inline-block;
+      height: 1.25rem;
+      width: 1px;
+      border: none;
+      border-left: 1px solid $light-text-color;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__content {
+    margin-top: $spacing-xl;
+    padding: 0 $spacing-xl * 2;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: $spacing-lg;
+  }
+
+  &__empty {
+    text-align: center;
+    padding: $spacing-xl * 2;
+
+    p {
+      margin-bottom: $spacing-xl;
+      font-size: $font-size-lg;
+    }
+  }
+
+  &__shop-link {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 35px;
+    background-color: $primary-color;
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: white;
+    text-decoration: none;
+    transition: all $transition-normal;
+
+    &:hover {
+      box-shadow: 0px 3px 31px 2px rgba(207, 207, 207, 0.7);
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -100%;
+      top: 0;
+      z-index: 0;
+      height: 100%;
+      width: 100%;
+      background-color: darken($primary-color, 10%);
+      transition: left $transition-normal;
+    }
+
+    &:hover::before {
+      left: 0;
+    }
+
+    span {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}

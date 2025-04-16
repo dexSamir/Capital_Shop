@@ -1,44 +1,39 @@
-"use client";
+"use client"
 
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import Card from "../Card";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import Carousel from "react-multi-carousel"
+import "react-multi-carousel/lib/styles.css"
+import Card from "../Card"
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
+import "./MayLike.scss"
 
 interface Product {
-  id: number;
-  name: string;
-  price: number;
-  withoutDiscount: number;
-  img: string;
-  category: string;
+  id: number
+  name: string
+  price: number
+  withoutDiscount: number
+  img: string
+  category: string
 }
 
 interface MayLikeProps {
-  products: Product[];
+  products: Product[]
 }
 
 const CustomLeftArrow = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <button
-      className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded border-none bg-[rgba(0,0,0,0.5)] px-4 py-8 text-2xl text-white transition-all duration-200 hover:bg-[rgba(0,0,0,0.9)]"
-      onClick={onClick}
-    >
+    <button className="may-like__arrow may-like__arrow--left" onClick={onClick}>
       <FaChevronLeft />
     </button>
-  );
-};
+  )
+}
 
 const CustomRightArrow = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <button
-      className="absolute right-[15px] top-1/2 z-10 -translate-y-1/2 rounded border-none bg-[rgba(0,0,0,0.5)] px-4 py-8 text-2xl text-white transition-all duration-200 hover:bg-[rgba(0,0,0,0.9)]"
-      onClick={onClick}
-    >
+    <button className="may-like__arrow may-like__arrow--right" onClick={onClick}>
       <FaChevronRight />
     </button>
-  );
-};
+  )
+}
 
 const responsive = {
   superLargeDesktop: {
@@ -57,14 +52,14 @@ const responsive = {
     breakpoint: { max: 464, min: 0 },
     items: 1,
   },
-};
+}
 
 function MayLike({ products }: MayLikeProps) {
+  const accessoryProducts = products.filter((item) => item.category === "accessory")
+
   return (
-    <div className="mx-auto mt-20 w-full px-20">
-      <h1 className="mb-[22px] block text-center text-[30px] font-medium leading-relaxed text-[#292621] font-['Jost',sans-serif]">
-        You May Like
-      </h1>
+    <div className="may-like">
+      <h1 className="may-like__title">You May Like</h1>
       <Carousel
         responsive={responsive}
         infinite={true}
@@ -74,24 +69,20 @@ function MayLike({ products }: MayLikeProps) {
         customLeftArrow={<CustomLeftArrow />}
         customRightArrow={<CustomRightArrow />}
       >
-        {products &&
-          products.map(
-            (item) =>
-              item.category === "accessory" && (
-                <Card
-                  id={item.id}
-                  key={item.id}
-                  name={item.name}
-                  img={item.img}
-                  price={item.price}
-                  withoutDiscount={item.withoutDiscount}
-                  products={products}
-                />
-              )
-          )}
+        {accessoryProducts.map((item) => (
+          <Card
+            id={item.id}
+            key={item.id}
+            name={item.name}
+            img={item.img}
+            price={item.price}
+            withoutDiscount={item.withoutDiscount}
+            product={item}
+          />
+        ))}
       </Carousel>
     </div>
-  );
+  )
 }
 
-export default MayLike;
+export default MayLike

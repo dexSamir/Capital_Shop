@@ -1,11 +1,12 @@
 import { news } from "../../data/Data"
 import Blog from "../Blog"
+import "./News.scss"
 
 function News() {
   return (
-    <div className="bg-[#f6f6f6] pb-44">
-      <h1 className="pt-20 mt-32 text-center text-[30px] leading-relaxed">Latest News</h1>
-      <div className="mx-auto my-8 flex w-full items-center justify-center gap-5 px-20">
+    <div className="news">
+      <h1 className="news__title">Latest News</h1>
+      <div className="news__content">
         {news && news.map((blog, i) => <Blog name={blog.name} description={blog.description} key={i} img={blog.img} />)}
       </div>
     </div>

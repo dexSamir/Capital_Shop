@@ -1,13 +1,15 @@
 "use client"
 
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect } from "react"
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { base_url } from "../../data/Data"
 import Swal from "sweetalert2"
-import { LoginContext } from "../../App"
+import { useAppDispatch, useAppSelector } from "../../store/hooks"
+import { loginStart, loginSuccess, loginFailure } from "../../store/slices/authSlice"
+import "./Login.scss"
 
 interface User {
   id: number
@@ -18,21 +20,23 @@ interface User {
 }
 
 function Login() {
-  const { isLogin, setIsLogin, isAdmin, setIsAdmin } = useContext(LoginContext)
+  const dispatch = useAppDispatch()
+  const { isAuthenticated, loading, error } = useAppSelector((state) => state.auth)
   const [submitCount, setSubmitCount] = useState(0)
-  const [users, setUsers] = useState<User[]>([])
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get(base_url + "users").then((res) => setUsers(res.data))
-  }, [])
+    if (isAuthenticated) {
+      navigate("/")
+    }
+  }, [isAuthenticated, navigate])
 
   const handleSubmitCount = () => {
     setSubmitCount((prevCount) => prevCount + 1)
   }
 
   const validationSchema = Yup.object().shape({
-    firstInput: Yup.string().required("Required!").email("Please enter a valid email address!"),
+    email: Yup.string().required("Required!").email("Please enter a valid email address!"),
     password: Yup.string()
       .required("Required!")
       .min(6, "Password must be at least 6 characters long!")
@@ -44,106 +48,106 @@ function Login() {
 
   const formik = useFormik({
     initialValues: {
-      firstInput: "",
+      email: "",
       password: "",
     },
     validationSchema,
-    onSubmit: (values) => {
-      const { firstInput, password } = values
-      const user = users.find((user) => user.email === firstInput && user.password === password)
+    onSubmit: async (values) => {
+      dispatch(loginStart())
+      try {
+        const response = await axios.get(`${base_url}users`)
+        const users = response.data
+        const user = users.find((user: User) => user.email === values.email && user.password === values.password)
 
-      if (user) {
-        setIsLogin(true)
-        if (user.isAdmin) {
-          setIsAdmin(true)
-          navigate("/admin/dashboard")
+        if (user) {
+          dispatch(loginSuccess(user))
+          if (user.isAdmin) {
+            navigate("/admin/dashboard")
+          } else {
+            navigate("/")
+          }
         } else {
-          navigate("/")
+          dispatch(loginFailure("Invalid email or password"))
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Invalid Email address or password",
+          })
         }
-      } else {
+      } catch (error) {
+        dispatch(loginFailure("Login failed"))
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Invalid Email address or password",
+          text: "Something went wrong. Please try again.",
         })
       }
     },
   })
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="min-w-[700px] bg-white p-[55px_60px_50px_50px] shadow-[0px_10px_30px_0px_rgba(13,12,13,0.2)]">
-        <div className="text-center">
-          <h1 className="mb-4 block text-[30px] font-semibold capitalize text-[#140c40]">Logout</h1>
-          <p className="mb-[15px] text-base font-normal leading-relaxed text-[#301a22]">You are already logged in.</p>
+    <div className="login">
+      <div className="login__container">
+        <div className="login__header">
+          <h1 className="login__title">Login</h1>
+          <p className="login__subtitle">Sign in to your account</p>
         </div>
-        <div className="form">
+        <div className="login__form">
           <form onSubmit={formik.handleSubmit}>
-            <div className="mt-5">
-              <label
-                htmlFor="firstInput"
-                className="mb-[6px] block text-[17px] font-medium capitalize text-[#140c40] text-left"
-              >
+            <div className="login__form-group">
+              <label htmlFor="email" className="login__label">
                 Email Address
               </label>
               <input
                 placeholder="Email address"
-                className="h-[50px] w-full border border-[#c9c9c9] p-[0_25px] text-black focus:outline-none"
+                className={`login__input ${formik.errors.email && submitCount > 0 ? "login__input--error" : ""}`}
                 type="text"
-                id="firstInput"
-                name="firstInput"
+                id="email"
+                name="email"
                 onChange={formik.handleChange}
-                value={formik.values.firstInput}
-                style={formik.errors.firstInput && submitCount > 0 ? { border: "2px solid red" } : undefined}
+                value={formik.values.email}
               />
-              {submitCount > 0 && formik.errors.firstInput && (
-                <div className="text-sm text-red-600">{formik.errors.firstInput}</div>
-              )}
+              {submitCount > 0 && formik.errors.email && <div className="login__error">{formik.errors.email}</div>}
             </div>
-            <div className="mt-5">
-              <label
-                htmlFor="password"
-                className="mb-[6px] block text-[17px] font-medium capitalize text-[#140c40] text-left"
-              >
+            <div className="login__form-group">
+              <label htmlFor="password" className="login__label">
                 Password
               </label>
               <input
                 placeholder="Password"
-                className="h-[50px] w-full border border-[#c9c9c9] p-[0_25px] text-black focus:outline-none"
+                className={`login__input ${formik.errors.password && submitCount > 0 ? "login__input--error" : ""}`}
                 type="password"
                 id="password"
                 name="password"
                 onChange={formik.handleChange}
                 value={formik.values.password}
-                style={formik.errors.password && submitCount > 0 ? { border: "2px solid red" } : undefined}
               />
               {submitCount > 0 && formik.errors.password && (
-                <div className="text-sm text-red-600">{formik.errors.password}</div>
+                <div className="login__error">{formik.errors.password}</div>
               )}
             </div>
-            <div className="mt-5 flex items-center justify-between text-[17px]">
-              <div className="flex items-center">
-                <input type="checkbox" />
-                <label className="ml-[5px] mb-[6px] text-[17px] font-medium capitalize text-[#140c40] text-left">
+            <div className="login__options">
+              <div className="login__remember">
+                <input type="checkbox" id="remember" />
+                <label htmlFor="remember" className="login__remember-label">
                   Keep me logged in
                 </label>
               </div>
-              <Link className="text-sm font-normal text-[#ff2020] no-underline">Forgot Password?</Link>
+              <Link to="/forgot-password" className="login__forgot">
+                Forgot Password?
+              </Link>
             </div>
-            <div className="mt-[75px] flex items-center justify-between">
-              <p>
+            {error && <div className="login__error login__error--general">{error}</div>}
+            <div className="login__actions">
+              <p className="login__register-text">
                 Don't have an account?{" "}
-                <Link to="/register" className="text-sm font-normal text-[#ff2020] no-underline">
+                <Link to="/register" className="login__register-link">
                   Sign Up
                 </Link>{" "}
                 here
               </p>
-              <button
-                className="h-[60px] cursor-pointer border-0 bg-[#ff2020] px-[43px] py-[10px] text-base capitalize text-white"
-                onClick={handleSubmitCount}
-                type="submit"
-              >
-                Login
+              <button className="login__button" onClick={handleSubmitCount} type="submit" disabled={loading}>
+                {loading ? "Logging in..." : "Login"}
               </button>
             </div>
           </form>

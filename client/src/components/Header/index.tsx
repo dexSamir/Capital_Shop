@@ -1,91 +1,124 @@
 "use client"
 
-import { useContext } from "react"
-import { Link } from "react-router-dom"
+import type React from "react"
+
+import { useState } from "react"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import { CiSearch } from "react-icons/ci"
 import { LuUser } from "react-icons/lu"
 import { SlBasket } from "react-icons/sl"
 import { IoIosLogOut } from "react-icons/io"
-import { LoginContext } from "../../App"
+import { useAppSelector } from "../../store/hooks"
 import Tooltip from "../Tooltip"
 import logo from "../../assets/images/logo.png"
+import "./Header.scss"
 
 function Header() {
-  const { isLogin, setIsLogin, isAdmin } = useContext(LoginContext)
+  const { isAuthenticated, user } = useAppSelector((state) => state.auth)
+  const cartItemsCount = useAppSelector((state) => state.cart.totalCount)
+  const [searchActive, setSearchActive] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("")
+  const navigate = useNavigate()
+
+  const handleSearchClick = () => {
+    setSearchActive(!searchActive)
+  }
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value)
+  }
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`)
+      setSearchQuery("")
+      setSearchActive(false)
+    }
+  }
 
   return (
-    <>
-      <div className="flex h-[100px] w-full items-center justify-between px-20">
-        <div className="logo">
+    <div className="header">
+      <div className="header__top">
+        <div className="header__logo">
           <Link to="/">
             <img src={logo || "/placeholder.svg"} alt="Logo" />
           </Link>
         </div>
-        <div className="middle">
-          <ul className="flex items-center justify-center list-none">
-            <li className="mx-8">
-              <Link
-                to="/"
-                className="text-base font-extrabold text-[#292621] transition-all duration-300 hover:text-red-600 no-underline"
-              >
+        <div className="header__nav">
+          <ul className="header__nav-list">
+            <li className="header__nav-item">
+              <NavLink to="/" className={({ isActive }) => (isActive ? "header__nav-link active" : "header__nav-link")}>
                 Home
-              </Link>
+              </NavLink>
             </li>
-            <li className="mx-8">
-              <Link
+            <li className="header__nav-item">
+              <NavLink
                 to="/products"
-                className="text-base font-extrabold text-[#292621] transition-all duration-300 hover:text-red-600 no-underline"
+                className={({ isActive }) => (isActive ? "header__nav-link active" : "header__nav-link")}
               >
                 Products
-              </Link>
+              </NavLink>
             </li>
-            <li className="mx-8">
-              <Link
+            <li className="header__nav-item">
+              <NavLink
                 to="/contact"
-                className="text-base font-extrabold text-[#292621] transition-all duration-300 hover:text-red-600 no-underline"
+                className={({ isActive }) => (isActive ? "header__nav-link active" : "header__nav-link")}
               >
                 Contact
-              </Link>
+              </NavLink>
             </li>
-            {isAdmin ? (
-              <li className="mx-8">
-                <Link
+            {user?.isAdmin && (
+              <li className="header__nav-item">
+                <NavLink
                   to="/admin/dashboard"
-                  className="text-base font-extrabold text-[#292621] transition-all duration-300 hover:text-red-600 no-underline"
+                  className={({ isActive }) => (isActive ? "header__nav-link active" : "header__nav-link")}
                 >
-                  Table
-                </Link>
+                  Admin
+                </NavLink>
               </li>
-            ) : null}
+            )}
           </ul>
         </div>
-        <div className="flex items-center justify-center">
-          <Tooltip TooltipText="Search">
-            <CiSearch className="mx-[0.8rem] cursor-pointer text-3xl transition-all duration-300 hover:text-red-600" />
-          </Tooltip>
-          <Link to={isLogin ? "/logout" : "/login"} className="text-[#16151a]">
-            <Tooltip TooltipText={isLogin ? "Logout" : "Login"}>
-              {isLogin ? (
-                <IoIosLogOut className="mx-[0.8rem] cursor-pointer text-3xl transition-all duration-300 hover:text-red-600" />
+        <div className="header__actions">
+          <form onSubmit={handleSearchSubmit} className="header__search">
+            <input
+              type="text"
+              className={`header__search-input ${searchActive ? "active" : ""}`}
+              placeholder="Search products..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+            <Tooltip TooltipText="Search">
+              <CiSearch className="header__search-icon" onClick={handleSearchClick} />
+            </Tooltip>
+          </form>
+          <Link to={isAuthenticated ? "/logout" : "/login"} className="header__action-link">
+            <Tooltip TooltipText={isAuthenticated ? "Logout" : "Login"}>
+              {isAuthenticated ? (
+                <IoIosLogOut className="header__action-icon" />
               ) : (
-                <LuUser className="mx-[0.8rem] cursor-pointer text-3xl transition-all duration-300 hover:text-red-600" />
+                <LuUser className="header__action-icon" />
               )}
             </Tooltip>
           </Link>
           <Tooltip TooltipText="Basket">
-            <Link to="/basket" className="text-[#16151a]">
-              <SlBasket className="mx-[0.8rem] cursor-pointer text-3xl transition-all duration-300 hover:text-red-600" />
+            <Link to="/basket" className="header__action-link">
+              <div className="header__cart">
+                <SlBasket className="header__action-icon" />
+                {cartItemsCount > 0 && <span className="header__cart-count">{cartItemsCount}</span>}
+              </div>
             </Link>
           </Tooltip>
         </div>
       </div>
-      <div className="flex h-[50px] cursor-pointer items-center justify-center bg-[#16151a] text-base text-white">
-        Sale Up To 50% Biggest Discounts. Hurry! Limited Perriod Offer{" "}
-        <Link className="ml-1 text-[#cdbd9c] transition-all duration-300 hover:tracking-wider" to="/products">
+      <div className="header__banner">
+        Sale Up To 50% Biggest Discounts. Hurry! Limited Period Offer{" "}
+        <Link className="header__banner-link" to="/products">
           Shop Now
         </Link>
       </div>
-    </>
+    </div>
   )
 }
 
