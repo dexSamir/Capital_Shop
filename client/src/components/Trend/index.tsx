@@ -3,15 +3,11 @@
 import { useState, useEffect } from "react"
 import Carousel from "react-multi-carousel"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
-import Slider from "react-slick"
 import { testimonials } from "../../data/Data"
 import { getAllproducts } from "../../middleware/products"
 import Card from "../Card"
 import "./Trend.scss"
 import "react-multi-carousel/lib/styles.css"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
-
 
 interface Product {
   id: number
@@ -71,17 +67,6 @@ function Trend() {
         setLoading(false)
       })
   }, [])
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: true,
-  }
 
   return (
     <div className="trend">
@@ -147,29 +132,38 @@ function Trend() {
           </Carousel>
         )}
       </div>
+
       <div className="trend__testimonials">
         <h2 className="trend__testimonials-title">What Our Customers Say</h2>
-        <Slider {...settings}>
-          {testimonials &&
-            testimonials.map((testimonial, index) => (
-              <div key={index} className="trend__testimonial">
+        <div className="trend__testimonials-carousel">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="trend__testimonial">
+              <div className="trend__testimonial-content">
                 <p className="trend__testimonial-text">{testimonial.text}</p>
-                <div className="trend__testimonial-author">
-                  <div className="trend__testimonial-image-container">
-                    <img
-                      src={testimonial.image || "/placeholder.svg"}
-                      alt={testimonial.name}
-                      className="trend__testimonial-image"
-                    />
-                  </div>
-                  <div className="trend__testimonial-info">
-                    <span className="trend__testimonial-name">{testimonial.name}</span>
-                    <p className="trend__testimonial-specialty">{testimonial.specialty}</p>
-                  </div>
+                <div className="trend__testimonial-rating">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="trend__testimonial-star">
+                      ★
+                    </span>
+                  ))}
                 </div>
               </div>
-            ))}
-        </Slider>
+              <div className="trend__testimonial-author">
+                <div className="trend__testimonial-image-container">
+                  <img
+                    src={testimonial.image || "/placeholder.svg"}
+                    alt={testimonial.name}
+                    className="trend__testimonial-image"
+                  />
+                </div>
+                <div className="trend__testimonial-info">
+                  <span className="trend__testimonial-name">{testimonial.name}</span>
+                  <p className="trend__testimonial-specialty">{testimonial.specialty}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

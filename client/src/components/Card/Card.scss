@@ -11,6 +11,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   transition: transform $transition-normal, box-shadow $transition-normal;
   padding: $spacing-md;
+  margin: $spacing-md;
   
   &:hover {
     transform: translateY(-5px);
@@ -18,6 +19,7 @@
     
     .card__tools {
       opacity: 1;
+      transform: translateY(0);
     }
     
     .card__image {
@@ -31,25 +33,34 @@
     left: 50%;
     z-index: 20;
     display: flex;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(20px);
     align-items: center;
     justify-content: center;
     background-color: var(--background-color);
     opacity: 0;
-    transition: opacity $transition-normal;
+    transition: opacity $transition-normal, transform $transition-normal;
     border-radius: $border-radius-md;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
   &__tool {
     padding: $spacing-md;
-    font-size: 20px;
+    font-size: 24px;
     color: var(--text-color);
     transition: all $transition-normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $border-radius-md;
 
     &:hover {
       background-color: var(--primary-color);
       color: white;
+      transform: translateY(-3px);
+    }
+    
+    &-icon--active {
+      color: var(--primary-color);
     }
   }
 
@@ -60,6 +71,8 @@
     align-items: center;
     justify-content: center;
     margin-bottom: $spacing-md;
+    position: relative;
+    overflow: hidden;
   }
 
   &__image {
@@ -68,11 +81,45 @@
     object-fit: contain;
     transition: transform $transition-normal;
   }
+  
+  &__discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #ff6b6b 100%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: pulse 2s infinite;
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  }
 
   &__content {
     display: flex;
     flex-direction: column;
     padding: $spacing-sm;
+  }
+  
+  &__category {
+    font-size: $font-size-sm;
+    color: var(--light-text-color);
+    text-transform: capitalize;
+    margin-bottom: $spacing-xs;
   }
 
   &__title {
@@ -100,7 +147,7 @@
     &-current {
       font-size: $font-size-base;
       font-weight: $font-weight-bold;
-      color: var(--text-color);
+      color: var(--primary-color);
       margin-right: $spacing-md;
     }
 
@@ -111,4 +158,61 @@
       text-decoration: line-through;
     }
   }
+}
+
+// Global notification styles
+.global-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  color: #333;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  z-index: 9999;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  max-width: 300px;
+  
+  &.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  &.notification-cart {
+    border-left: 4px solid var(--success-color);
+    
+    .notification-icon {
+      color: var(--success-color);
+    }
+  }
+  
+  &.notification-wishlist {
+    border-left: 4px solid var(--primary-color);
+    
+    .notification-icon {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.notification-icon {
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-text {
+  font-weight: 500;
+}
+
+[data-theme="dark"] .global-notification {
+  background-color: #333;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }

@@ -37,23 +37,33 @@
       color: var(--text-color);
       text-decoration: none;
       transition: all $transition-normal;
+      position: relative;
+      padding-bottom: 5px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease;
+      }
 
       &:hover {
         color: var(--primary-color);
+        
+        &::after {
+          width: 100%;
+        }
       }
 
       &.active {
         color: var(--primary-color);
-        position: relative;
         
         &::after {
-          content: '';
-          position: absolute;
-          bottom: -5px;
-          left: 0;
           width: 100%;
-          height: 2px;
-          background-color: var(--primary-color);
         }
       }
     }
@@ -68,6 +78,11 @@
   &__search {
     position: relative;
     margin-right: $spacing-lg;
+    
+    &-form {
+      display: flex;
+      align-items: center;
+    }
     
     &-input {
       width: 0;
@@ -96,6 +111,79 @@
         color: var(--primary-color);
       }
     }
+    
+    &-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+      background-color: var(--background-color);
+      border: 1px solid var(--border-color);
+      border-radius: $border-radius-md;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      margin-top: 5px;
+    }
+    
+    &-result {
+      &-item {
+        display: flex;
+        align-items: center;
+        padding: $spacing-sm;
+        border-bottom: 1px solid var(--border-color);
+        cursor: pointer;
+        transition: background-color $transition-normal;
+        
+        &:hover {
+          background-color: var(--light-background);
+        }
+        
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+      
+      &-image {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin-right: $spacing-sm;
+        border-radius: $border-radius-sm;
+      }
+      
+      &-info {
+        flex: 1;
+      }
+      
+      &-name {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+        margin-bottom: 2px;
+        color: var(--text-color);
+      }
+      
+      &-price {
+        font-size: $font-size-sm;
+        color: var(--primary-color);
+        font-weight: $font-weight-bold;
+      }
+      
+      &-view-all {
+        padding: $spacing-sm;
+        text-align: center;
+        font-weight: $font-weight-medium;
+        background-color: var(--light-background);
+        color: var(--primary-color);
+        cursor: pointer;
+        
+        &:hover {
+          background-color: var(--primary-color);
+          color: white;
+        }
+      }
+    }
   }
 
   &__action {
@@ -108,6 +196,7 @@
 
       &:hover {
         color: var(--primary-color);
+        transform: translateY(-3px);
       }
     }
 
@@ -133,6 +222,19 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      animation: pulse 1.5s infinite;
+      
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
     }
   }
 
@@ -147,12 +249,29 @@
     color: white;
 
     &-link {
+      position: relative;
       margin-left: $spacing-xs;
       color: var(--accent-color);
       transition: all $transition-normal;
+      overflow: hidden;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: var(--accent-color);
+        transition: width 0.3s ease;
+      }
 
       &:hover {
         letter-spacing: 0.5px;
+        
+        &::after {
+          width: 100%;
+        }
       }
     }
   }

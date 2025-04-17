@@ -1,34 +1,60 @@
 @use "../../styles/variables" as *;
+@use "@/styles/mixins" as *;
 
 .blog {
-  height: 320px;
+  height: 100%;
+  background-color: var(--card-background);
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform $transition-normal;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    
+    .blog__image {
+      transform: scale(1.05);
+    }
+    
+    .blog__title {
+      color: var(--primary-color);
+    }
+  }
 
   &__image-container {
+    height: 200px;
+    overflow: hidden;
     margin-bottom: $spacing-md;
   }
 
   &__image {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-normal;
   }
 
   &__content {
-    padding: $spacing-md 0;
+    padding: $spacing-lg;
   }
 
   &__category {
     display: block;
-    margin-top: $spacing-lg;
-    color: var(--muted-color);
+    margin-bottom: $spacing-sm;
+    color: var(--primary-color);
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
   }
 
   &__title {
     margin-bottom: $spacing-sm;
     margin-top: 0;
-    font-size: $font-size-xl;
+    font-size: $font-size-lg;
     font-weight: $font-weight-medium;
-    color:  var(--text-color);
+    color: var(--text-color);
     transition: all $transition-normal;
+    @include truncate(2);
 
     &:hover {
       color: var(--primary-color);
@@ -40,17 +66,35 @@
     font-size: $font-size-base;
     font-weight: $font-weight-normal;
     line-height: 1.5;
-    color:  var(--muted-color);
+    color: var(--light-text-color);
+    @include truncate(3);
   }
 
   &__link {
     font-weight: $font-weight-medium;
-    color:  var(--text-color);
-    text-decoration: underline;
+    color: var(--primary-color);
+    text-decoration: none;
     transition: all $transition-normal;
+    display: inline-block;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: width $transition-normal;
+    }
 
     &:hover {
       letter-spacing: 0.5px;
+      
+      &::after {
+        width: 100%;
+      }
     }
   }
 }

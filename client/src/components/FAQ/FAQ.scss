@@ -1,0 +1,103 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.faq {
+  margin: $spacing-xl * 2 0;
+  padding: $spacing-xl;
+  background-color: var(--light-background);
+  border-radius: $border-radius-lg;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+
+  &__title {
+    text-align: center;
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-xl;
+    color: var(--text-color);
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+  }
+
+  &__container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__item {
+    margin-bottom: $spacing-md;
+    border: 1px solid var(--border-color);
+    border-radius: $border-radius-md;
+    background-color: var(--card-background);
+    overflow: hidden;
+    transition: all $transition-normal;
+
+    &.active {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+      .faq__question {
+        background-color: var(--light-background);
+
+        h3 {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+
+  &__question {
+    padding: $spacing-lg;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all $transition-normal;
+
+    &:hover {
+      background-color: var(--light-background);
+    }
+
+    h3 {
+      margin: 0;
+      font-size: $font-size-base;
+      font-weight: $font-weight-medium;
+      color: var(--text-color);
+      transition: color $transition-normal;
+    }
+  }
+
+  &__icon {
+    color: var(--light-text-color);
+    transition: transform $transition-normal;
+
+    .active & {
+      color: var(--primary-color);
+      transform: rotate(180deg);
+    }
+  }
+
+  &__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+
+    &.active {
+      max-height: 500px;
+      padding: 0 $spacing-lg $spacing-lg;
+    }
+
+    p {
+      margin: 0;
+      color: var(--light-text-color);
+      line-height: 1.6;
+    }
+  }
+}

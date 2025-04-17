@@ -3,6 +3,7 @@
 
 .checkout {
   width: 100%;
+  background-color: var(--background-color);
 
   &__header {
     display: flex;
@@ -34,6 +35,10 @@
       line-height: 1;
       color: var(--light-text-color);
       text-decoration: none;
+      
+      &:hover {
+        color: var(--primary-color);
+      }
     }
 
     &-current {
@@ -75,7 +80,7 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background-color: #f0f0f0;
+      background-color: var(--light-background);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -114,7 +119,7 @@
   &__step-connector {
     width: 80px;
     height: 2px;
-    background-color: #f0f0f0;
+    background-color: var(--border-color);
     margin: 0 $spacing-md;
 
     @include responsive(sm) {
@@ -136,10 +141,11 @@
   }
 
   &__form {
-    background-color: white;
+    background-color: var(--card-background);
     padding: $spacing-xl;
     border-radius: $border-radius-md;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
 
     &-title {
       font-size: $font-size-xl;
@@ -175,6 +181,8 @@
         border: 1px solid var(--border-color);
         border-radius: $border-radius-sm;
         font-size: $font-size-base;
+        background-color: var(--input-background);
+        color: var(--text-color);
 
         &:focus {
           outline: none;
@@ -182,13 +190,13 @@
         }
 
         &.error {
-          border-color: var(--primary-color) r;
+          border-color: var(--error-color);
         }
       }
     }
 
     &-error {
-      color: var(--primary-color);
+      color: var(--error-color);
       font-size: $font-size-sm;
       margin-top: $spacing-xs;
     }
@@ -214,12 +222,12 @@
   }
 
   &__back-button {
-    background-color: white;
+    background-color: var(--card-background);
     border: 1px solid var(--border-color);
     color: var(--text-color);
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: var(--light-background);
     }
   }
 
@@ -229,17 +237,20 @@
     color: white;
 
     &:hover {
-      background-color: color-mix(in srgb, var(--primary-color), black 10%);
+      background-color: var(--button-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 32, 32, 0.2);
     }
   }
 
   &__summary {
     width: 350px;
-    background-color: white;
+    background-color: var(--card-background);
     padding: $spacing-xl;
     border-radius: $border-radius-md;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     align-self: flex-start;
+    border: 1px solid var(--border-color);
 
     @include responsive(lg) {
       width: 100%;
@@ -343,6 +354,7 @@
     p {
       margin-bottom: $spacing-xl;
       font-size: $font-size-lg;
+      color: var(--text-color);
     }
   }
 
@@ -353,10 +365,12 @@
     color: white;
     border-radius: $border-radius-md;
     text-decoration: none;
-    transition: background-color $transition-normal;
+    transition: all $transition-normal;
 
     &:hover {
-      background-color: color-mix(in srgb, var(--primary-color), black 10%);
+      background-color: var(--button-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 32, 32, 0.2);
     }
   }
 }

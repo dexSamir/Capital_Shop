@@ -10,6 +10,7 @@ import Services from "../../components/Services"
 import Card from "../../components/Card"
 import { getAllproducts } from "../../middleware/products"
 import "./Home.scss"
+import FAQ from "../../components/FAQ"
 
 interface Product {
   id: number
@@ -30,7 +31,6 @@ function Home() {
     getAllproducts()
       .then((res) => {
         setProducts(res)
-        // Get 4 random products for featured section
         const shuffled = [...res].sort(() => 0.5 - Math.random())
         setFeaturedProducts(shuffled.slice(0, 4))
       })
@@ -88,6 +88,7 @@ function Home() {
 
       <News />
       <Services />
+      <FAQ />
     </div>
   )
 }
