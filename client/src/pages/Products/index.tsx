@@ -5,7 +5,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import Card from "../../components/Card"
-import { FaChevronDown, FaChevronUp, FaFilter } from "react-icons/fa"
+import { FaChevronDown, FaChevronUp, FaFilter, FaTimes, FaCheck } from "react-icons/fa"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { fetchProducts, setFilter } from "../../store/slices/productSlice"
 import "./Products.scss"
@@ -50,6 +50,47 @@ function Products() {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 200 })
   const [searchParams, setSearchParams] = useSearchParams()
   const [showFilters, setShowFilters] = useState(true)
+  const [expandedFilters, setExpandedFilters] = useState<string[]>(["category"])
+
+  const toggleFilter = (filterName: string) => {
+    setExpandedFilters((prev) =>
+      prev.includes(filterName) ? prev.filter((f) => f !== filterName) : [...prev, filterName],
+    )
+  }
+
+  const isFilterExpanded = (filterName: string) => {
+    return expandedFilters.includes(filterName)
+  }
+
+  const getActiveFilters = () => {
+    const active = []
+
+    if (filters.category !== "All") {
+      active.push({ key: "category", value: filters.category })
+    }
+
+    if (filters.size !== "All") {
+      active.push({ key: "size", value: filters.size })
+    }
+
+    if (filters.color !== "All") {
+      active.push({ key: "color", value: filters.color })
+    }
+
+    if (filters.brand !== "All") {
+      active.push({ key: "brand", value: filters.brand })
+    }
+
+    if (filters.rating !== "All") {
+      active.push({ key: "rating", value: filters.rating })
+    }
+
+    if (filters.priceMin !== "0" || filters.priceMax !== "1000") {
+      active.push({ key: "price", value: `$${filters.priceMin} - $${filters.priceMax}` })
+    }
+
+    return active
+  }
 
   useEffect(() => {
     dispatch(fetchProducts())
@@ -117,7 +158,7 @@ function Products() {
       </div>
 
       <div className="products__content">
-        <div className={`products__sidebar ${showFilters ? "active" : ""}`}>
+        <div className="products__sidebar">
           <div className="products__filters">
             <div className="products__filter-header">
               <h3>Filters</h3>
@@ -126,152 +167,240 @@ function Products() {
               </button>
             </div>
 
-            <div className="products__filter products__filter--price">
-              <h4 className="products__filter-title">Price Range</h4>
-              <div className="products__price-slider">
-                <input
-                  type="range"
-                  min="0"
-                  max="1000"
-                  value={priceRange.min}
-                  onChange={(e) => handlePriceChange(e, "min")}
-                  className="products__price-range"
-                />
-                <input
-                  type="range"
-                  min="0"
-                  max="1000"
-                  value={priceRange.max}
-                  onChange={(e) => handlePriceChange(e, "max")}
-                  className="products__price-range"
-                />
+            {getActiveFilters().length > 0 && (
+              <div className="products__active-filters">
+                {getActiveFilters().map((filter, index) => (
+                  <div key={index} className="products__active-filters-tag">
+                    <span>{filter.key === "price" ? filter.value : `${filter.key}: ${filter.value}`}</span>
+                    <span
+                      className="products__active-filters-tag-remove"
+                      onClick={() => {
+                        const filterKey = filter.key
+                        if (filterKey === "price") {
+                          dispatch(setFilter({ key: "priceMin", value: "0" }))
+                          dispatch(setFilter({ key: "priceMax", value: "1000" }))
+                        } else {
+                          dispatch(setFilter({ key: filter.key, value: "All" }))
+                        }
+                      }}
+                    >
+                      <FaTimes />
+                    </span>
+                  </div>
+                ))}
+                <button className="products__active-filters-clear" onClick={resetFilters}>
+                  Clear All
+                </button>
               </div>
-              <div className="products__price-inputs">
-                <div className="products__price-field">
-                  <label>Min ($)</label>
-                  <input type="number" min="0" value={priceRange.min} onChange={(e) => handlePriceChange(e, "min")} />
+            )}
+
+            <div className="products__filter">
+              <div className="products__filter-header" onClick={() => toggleFilter("category")}>
+                <h4>Category</h4>
+                <span className={`products__filter-icon ${isFilterExpanded("category") ? "open" : ""}`}>
+                  {isFilterExpanded("category") ? <FaChevronUp /> : <FaChevronDown />}
+                </span>
+              </div>
+              <div className={`products__filter-content ${isFilterExpanded("category") ? "open" : ""}`}>
+                <div className="products__filter-options">
+                  {categories.map((category, index) => (
+                    <div
+                      key={index}
+                      className={`products__filter-option ${filters.category === category ? "active" : ""}`}
+                      onClick={() => handleFilterChange(category, "category")}
+                    >
+                      {category}
+                    </div>
+                  ))}
                 </div>
-                <div className="products__price-field">
-                  <label>Max ($)</label>
-                  <input type="number" min="0" value={priceRange.max} onChange={(e) => handlePriceChange(e, "max")} />
+              </div>
+            </div>
+
+            <div className="products__filter">
+              <div className="products__filter-header" onClick={() => toggleFilter("size")}>
+                <h4>Size</h4>
+                <span className={`products__filter-icon ${isFilterExpanded("size") ? "open" : ""}`}>
+                  {isFilterExpanded("size") ? <FaChevronUp /> : <FaChevronDown />}
+                </span>
+              </div>
+              <div className={`products__filter-content ${isFilterExpanded("size") ? "open" : ""}`}>
+                <div className="products__filter-options">
+                  {sizes.map((size, index) => (
+                    <div
+                      key={index}
+                      className={`products__filter-option ${filters.size === size ? "active" : ""}`}
+                      onClick={() => handleFilterChange(size, "size")}
+                    >
+                      {size}
+                    </div>
+                  ))}
                 </div>
               </div>
-              <button className="products__price-apply" onClick={applyPriceFilter}>
-                Apply
-              </button>
             </div>
 
             <div className="products__filter">
-              <div className="products__filter-header" onClick={() => toggleFilterDropdown("category")}>
-                <span className="products__filter-title">
-                  {filters.category !== "All" ? filters.category : `Select Category`}
-                </span>
-                <span className={`products__filter-icon ${openFilter === "category" ? "open" : ""}`}>
-                  {openFilter === "category" ? <FaChevronUp /> : <FaChevronDown />}
+              <div className="products__filter-header" onClick={() => toggleFilter("color")}>
+                <h4>Color</h4>
+                <span className={`products__filter-icon ${isFilterExpanded("color") ? "open" : ""}`}>
+                  {isFilterExpanded("color") ? <FaChevronUp /> : <FaChevronDown />}
                 </span>
               </div>
+              <div className={`products__filter-content ${isFilterExpanded("color") ? "open" : ""}`}>
+                <div className="products__filter-color-options">
+                  {colors.map((color, index) => {
+                    const colorCode =
+                      color.toLowerCase() === "black"
+                        ? "#000"
+                        : color.toLowerCase() === "white"
+                          ? "#fff"
+                          : color.toLowerCase() === "red"
+                            ? "#ff4040"
+                            : color.toLowerCase() === "blue"
+                              ? "#4040ff"
+                              : color.toLowerCase() === "green"
+                                ? "#40ff40"
+                                : color.toLowerCase() === "yellow"
+                                  ? "#ffff40"
+                                  : color.toLowerCase() === "brown"
+                                    ? "#8B4513"
+                                    : color.toLowerCase() === "gray"
+                                      ? "#808080"
+                                      : color.toLowerCase() === "pink"
+                                        ? "#FFC0CB"
+                                        : color.toLowerCase() === "purple"
+                                          ? "#800080"
+                                          : color.toLowerCase() === "orange"
+                                            ? "#FFA500"
+                                            : color.toLowerCase() === "multi-colored"
+                                              ? "linear-gradient(45deg, red, blue, green, yellow)"
+                                              : "#000"
 
-              <ul className={`products__filter-dropdown ${openFilter === "category" ? "open" : ""}`}>
-                {categories.map((item, idx) => (
-                  <li
-                    key={idx}
-                    onClick={() => handleFilterChange(item, "category")}
-                    className={`products__filter-option ${filters.category === item ? "active" : ""}`}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
+                    return (
+                      <div
+                        key={index}
+                        className={`products__filter-color ${filters.color === color ? "active" : ""}`}
+                        style={{ background: colorCode }}
+                        onClick={() => handleFilterChange(color, "color")}
+                        title={color}
+                      >
+                        {filters.color === color && (
+                          <FaCheck color={color.toLowerCase() === "white" ? "#000" : "#fff"} />
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
 
             <div className="products__filter">
-              <div className="products__filter-header" onClick={() => toggleFilterDropdown("size")}>
-                <span className="products__filter-title">{filters.size !== "All" ? filters.size : `Select Size`}</span>
-                <span className={`products__filter-icon ${openFilter === "size" ? "open" : ""}`}>
-                  {openFilter === "size" ? <FaChevronUp /> : <FaChevronDown />}
+              <div className="products__filter-header" onClick={() => toggleFilter("brand")}>
+                <h4>Brand</h4>
+                <span className={`products__filter-icon ${isFilterExpanded("brand") ? "open" : ""}`}>
+                  {isFilterExpanded("brand") ? <FaChevronUp /> : <FaChevronDown />}
                 </span>
               </div>
-
-              <ul className={`products__filter-dropdown ${openFilter === "size" ? "open" : ""}`}>
-                {sizes.map((item, idx) => (
-                  <li
-                    key={idx}
-                    onClick={() => handleFilterChange(item, "size")}
-                    className={`products__filter-option ${filters.size === item ? "active" : ""}`}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <div className={`products__filter-content ${isFilterExpanded("brand") ? "open" : ""}`}>
+                <div className="products__filter-options">
+                  {brands.map((brand, index) => (
+                    <div
+                      key={index}
+                      className={`products__filter-option ${filters.brand === brand ? "active" : ""}`}
+                      onClick={() => handleFilterChange(brand, "brand")}
+                    >
+                      {brand}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="products__filter">
-              <div className="products__filter-header" onClick={() => toggleFilterDropdown("color")}>
-                <span className="products__filter-title">
-                  {filters.color !== "All" ? filters.color : `Select Color`}
-                </span>
-                <span className={`products__filter-icon ${openFilter === "color" ? "open" : ""}`}>
-                  {openFilter === "color" ? <FaChevronUp /> : <FaChevronDown />}
+              <div className="products__filter-header" onClick={() => toggleFilter("price")}>
+                <h4>Price Range</h4>
+                <span className={`products__filter-icon ${isFilterExpanded("price") ? "open" : ""}`}>
+                  {isFilterExpanded("price") ? <FaChevronUp /> : <FaChevronDown />}
                 </span>
               </div>
-
-              <ul className={`products__filter-dropdown ${openFilter === "color" ? "open" : ""}`}>
-                {colors.map((item, idx) => (
-                  <li
-                    key={idx}
-                    onClick={() => handleFilterChange(item, "color")}
-                    className={`products__filter-option ${filters.color === item ? "active" : ""}`}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <div className={`products__filter-content ${isFilterExpanded("price") ? "open" : ""}`}>
+                <div className="products__filter-price">
+                  <div className="products__filter-price-range">
+                    <input
+                      type="range"
+                      min="0"
+                      max="1000"
+                      value={priceRange.min}
+                      onChange={(e) => handlePriceChange(e, "min")}
+                      className="products__price-range"
+                    />
+                    <input
+                      type="range"
+                      min="0"
+                      max="1000"
+                      value={priceRange.max}
+                      onChange={(e) => handlePriceChange(e, "max")}
+                      className="products__price-range"
+                    />
+                  </div>
+                  <div className="products__filter-price-inputs">
+                    <div className="products__price-field">
+                      <label>Min ($)</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={priceRange.min}
+                        onChange={(e) => handlePriceChange(e, "min")}
+                      />
+                    </div>
+                    <div className="products__price-field">
+                      <label>Max ($)</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={priceRange.max}
+                        onChange={(e) => handlePriceChange(e, "max")}
+                      />
+                    </div>
+                  </div>
+                  <div className="products__filter-actions">
+                    <button className="products__filter-actions-apply" onClick={applyPriceFilter}>
+                      Apply
+                    </button>
+                    <button
+                      className="products__filter-actions-reset"
+                      onClick={() => {
+                        setPriceRange({ min: 0, max: 200 })
+                        dispatch(setFilter({ key: "priceMin", value: "0" }))
+                        dispatch(setFilter({ key: "priceMax", value: "1000" }))
+                      }}
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="products__filter">
-              <div className="products__filter-header" onClick={() => toggleFilterDropdown("brand")}>
-                <span className="products__filter-title">
-                  {filters.brand !== "All" ? filters.brand : `Select Brand`}
-                </span>
-                <span className={`products__filter-icon ${openFilter === "brand" ? "open" : ""}`}>
-                  {openFilter === "brand" ? <FaChevronUp /> : <FaChevronDown />}
+              <div className="products__filter-header" onClick={() => toggleFilter("rating")}>
+                <h4>Rating</h4>
+                <span className={`products__filter-icon ${isFilterExpanded("rating") ? "open" : ""}`}>
+                  {isFilterExpanded("rating") ? <FaChevronUp /> : <FaChevronDown />}
                 </span>
               </div>
-
-              <ul className={`products__filter-dropdown ${openFilter === "brand" ? "open" : ""}`}>
-                {brands.map((item, idx) => (
-                  <li
-                    key={idx}
-                    onClick={() => handleFilterChange(item, "brand")}
-                    className={`products__filter-option ${filters.brand === item ? "active" : ""}`}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="products__filter">
-              <div className="products__filter-header" onClick={() => toggleFilterDropdown("rating")}>
-                <span className="products__filter-title">
-                  {filters.rating !== "All" ? filters.rating : `Select Rating`}
-                </span>
-                <span className={`products__filter-icon ${openFilter === "rating" ? "open" : ""}`}>
-                  {openFilter === "rating" ? <FaChevronUp /> : <FaChevronDown />}
-                </span>
+              <div className={`products__filter-content ${isFilterExpanded("rating") ? "open" : ""}`}>
+                <div className="products__filter-options">
+                  {ratings.map((rating, index) => (
+                    <div
+                      key={index}
+                      className={`products__filter-option ${filters.rating === rating ? "active" : ""}`}
+                      onClick={() => handleFilterChange(rating, "rating")}
+                    >
+                      {rating}
+                    </div>
+                  ))}
+                </div>
               </div>
-
-              <ul className={`products__filter-dropdown ${openFilter === "rating" ? "open" : ""}`}>
-                {ratings.map((item, idx) => (
-                  <li
-                    key={idx}
-                    onClick={() => handleFilterChange(item, "rating")}
-                    className={`products__filter-option ${filters.rating === item ? "active" : ""}`}
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>

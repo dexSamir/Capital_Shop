@@ -60,27 +60,30 @@ function MayLike({ products }: MayLikeProps) {
   return (
     <div className="may-like">
       <h1 className="may-like__title">You May Like</h1>
-      <Carousel
-        responsive={responsive}
-        infinite={true}
-        autoPlay={true}
-        autoPlaySpeed={2000}
-        pauseOnHover={true}
-        customLeftArrow={<CustomLeftArrow />}
-        customRightArrow={<CustomRightArrow />}
-      >
-        {accessoryProducts.map((item) => (
-          <Card
-            id={item.id}
-            key={item.id}
-            name={item.name}
-            img={item.img}
-            price={item.price}
-            withoutDiscount={item.withoutDiscount}
-            product={item}
-          />
-        ))}
-      </Carousel>
+      <div className="may-like__carousel">
+        <Carousel
+          responsive={responsive}
+          infinite={true}
+          autoPlay={true}
+          autoPlaySpeed={2000}
+          pauseOnHover={true}
+          customLeftArrow={<CustomLeftArrow />}
+          customRightArrow={<CustomRightArrow />}
+        >
+          {accessoryProducts.map((item) => (
+            <div className="may-like__card-wrapper" key={item.id}>
+              <Card
+                id={item.id}
+                name={item.name}
+                img={item.img}
+                price={item.price}
+                withoutDiscount={item.withoutDiscount}
+                product={item}
+              />
+            </div>
+          ))}
+        </Carousel>
+      </div>
     </div>
   )
 }

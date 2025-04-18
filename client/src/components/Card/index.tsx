@@ -59,11 +59,9 @@ function Card({ name, price, withoutDiscount, img, id, product }: CardProps) {
   }
 
   const showNotification = (message: string, type: "cart" | "wishlist") => {
-    // Create notification element
     const notification = document.createElement("div")
     notification.className = `global-notification ${type === "cart" ? "notification-cart" : "notification-wishlist"}`
 
-    // Create icon
     const icon = document.createElement("span")
     icon.className = "notification-icon"
     icon.innerHTML =
@@ -71,24 +69,19 @@ function Card({ name, price, withoutDiscount, img, id, product }: CardProps) {
         ? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>'
         : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>'
 
-    // Create message
     const text = document.createElement("span")
     text.className = "notification-text"
     text.textContent = message
 
-    // Add elements to notification
     notification.appendChild(icon)
     notification.appendChild(text)
 
-    // Add to document
     document.body.appendChild(notification)
 
-    // Animate in
     setTimeout(() => {
       notification.classList.add("show")
     }, 10)
 
-    // Remove after delay
     setTimeout(() => {
       notification.classList.remove("show")
       setTimeout(() => {
@@ -103,7 +96,7 @@ function Card({ name, price, withoutDiscount, img, id, product }: CardProps) {
     <div className="card" onClick={handleCardClick}>
       <div className="card__tools">
         <div className="card__tool" onClick={handleCartClick} title="Add to cart">
-          <PiShoppingCartLight />
+          <PiShoppingCartLight className="card__tool-icon"/>
         </div>
         <div
           className="card__tool"
@@ -113,7 +106,7 @@ function Card({ name, price, withoutDiscount, img, id, product }: CardProps) {
           {isInWishlist ? <IoIosHeart className="card__tool-icon--active" /> : <IoIosHeartEmpty />}
         </div>
         <div className="card__tool" onClick={handleSearchClick} title="View details">
-          <IoIosSearch />
+          <IoIosSearch className="card__tool-icon"/>
         </div>
       </div>
       <div className="card__image-container">

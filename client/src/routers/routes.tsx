@@ -13,6 +13,7 @@ import Register from "../pages/Register"
 import Wishlist from "../pages/Wishlist"
 import UserLayout from "../layout/UserLayout/"
 import AdminLayout from "../layout/AdminLayout"
+import Reviews from "../pages/Reviews"
 
 export const routes = [
   {
@@ -46,6 +47,10 @@ export const routes = [
       {
         path: "/checkout",
         element: <Checkout />,
+      },
+      {
+        path: "/reviews/:id",
+        element: <Reviews />,
       },
     ],
   },

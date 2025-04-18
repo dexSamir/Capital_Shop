@@ -117,110 +117,213 @@
   }
 
   &__filter {
-    margin-bottom: $spacing-md;
-    border-radius: $border-radius-lg;
+    margin-bottom: $spacing-xl;
     background-color: var(--card-background);
+    border-radius: $border-radius-lg;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
     
-    &--price {
-      padding: $spacing-md 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-    
-    &-title {
-      font-size: $font-size-base;
-      font-weight: $font-weight-medium;
-      margin-bottom: $spacing-sm;
-      color: var(--text-color);
-    }
-
     &-header {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: $spacing-md $spacing-lg;
+      background-color: var(--light-background);
       cursor: pointer;
-      border-radius: 40px;
-      border: 1px solid var(--border-color);
-      padding: 12px 16px;
-      background-color: var(--card-background);
-      transition: all 0.3s ease;
+      border-bottom: 1px solid var(--border-color);
       
-      &:hover {
-        border-color: var(--primary-color);
+      h4 {
+        margin: 0;
+        font-size: $font-size-base;
+        font-weight: $font-weight-medium;
+        color: var(--text-color);
       }
     }
-
+    
     &-icon {
       transition: transform $transition-normal;
       color: var(--light-text-color);
-
+      
       &.open {
         transform: rotate(180deg);
         color: var(--primary-color);
       }
     }
-
-    &-dropdown {
-      position: absolute;
-      top: 110%;
-      left: 0;
-      z-index: 1000;
-      width: 100%;
-      list-style: none;
-      border: 1px solid var(--border-color);
-      background-color: var(--card-background);
-      padding: 0;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-10px);
-      transition: all $transition-normal;
-      max-height: 200px;
-      overflow-y: auto;
-      border-radius: $border-radius-md;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
+    
+    &-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      
       &.open {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
-      }
-      
-      &::-webkit-scrollbar {
-        width: 8px;
-      }
-      
-      &::-webkit-scrollbar-track {
-        background: var(--light-background);
-        border-radius: 4px;
-      }
-      
-      &::-webkit-scrollbar-thumb {
-        background-color: var(--border-color);
-        border-radius: 4px;
+        max-height: 500px;
+        padding: $spacing-lg;
       }
     }
-
+    
+    &-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-sm;
+    }
+    
     &-option {
-      cursor: pointer;
-      padding: $spacing-md;
+      padding: $spacing-xs $spacing-sm;
+      border: 1px solid var(--border-color);
+      border-radius: $border-radius-sm;
       font-size: $font-size-sm;
-      transition: all 0.2s ease;
-      color: var(--text-color);
-
-      &:hover {
-        background-color: var(--light-background);
-        padding-left: $spacing-lg;
-      }
-
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
       &.active {
-        background-color: var(--light-background);
-        font-weight: $font-weight-medium;
+        background-color: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+      
+      &:hover:not(.active) {
+        border-color: var(--primary-color);
         color: var(--primary-color);
-        padding-left: $spacing-lg;
+      }
+    }
+    
+    &-color-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $spacing-sm;
+    }
+    
+    &-color {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &.active {
+        transform: scale(1.2);
+        box-shadow: 0 0 0 2px var(--primary-color);
+      }
+      
+      &:hover:not(.active) {
+        transform: scale(1.1);
+      }
+    }
+    
+    &-price {
+      margin-top: $spacing-md;
+      
+      &-range {
+        margin-bottom: $spacing-md;
+        
+        .rc-slider {
+          margin-top: $spacing-lg;
+        }
+      }
+      
+      &-inputs {
+        display: flex;
+        gap: $spacing-md;
+        margin-bottom: $spacing-md;
+        
+        input {
+          width: 100%;
+          padding: $spacing-xs $spacing-sm;
+          border: 1px solid var(--border-color);
+          border-radius: $border-radius-sm;
+          
+          &:focus {
+            outline: none;
+            border-color: var(--primary-color);
+          }
+        }
+      }
+    }
+    
+    &-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: $spacing-lg;
+      
+      button {
+        padding: $spacing-xs $spacing-md;
+        border-radius: $border-radius-sm;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      &-apply {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        
+        &:hover {
+          background-color: color-mix(in srgb, var(--primary-color), black 10%);
+        }
+      }
+      
+      &-reset {
+        background-color: transparent;
+        color: var(--light-text-color);
+        border: 1px solid var(--border-color);
+        
+        &:hover {
+          color: var(--text-color);
+          border-color: var(--text-color);
+        }
       }
     }
   }
   
+  &__active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-lg;
+    
+    &-tag {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      background-color: var(--light-background);
+      border-radius: 20px;
+      font-size: $font-size-sm;
+      
+      &-remove {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: var(--border-color);
+        color: var(--text-color);
+        font-size: 10px;
+        
+        &:hover {
+          background-color: var(--primary-color);
+          color: white;
+        }
+      }
+    }
+    
+    &-clear {
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      cursor: pointer;
+      font-size: $font-size-sm;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   &__price {
     &-slider {
       margin-bottom: $spacing-md;

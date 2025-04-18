@@ -16,9 +16,9 @@
     color: var(--text-color);
     font-family: "Jost", sans-serif;
     position: relative;
-
+    
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: -10px;
       left: 50%;
@@ -60,8 +60,22 @@
       right: 15px;
     }
   }
-
+  
   .react-multi-carousel-item {
     padding: 0 $spacing-md;
+  }
+  
+  &__carousel {
+    margin-bottom: $spacing-xl * 2;
+    position: relative;
+    
+    .card {
+      margin: 0 $spacing-sm;
+    }
+  }
+  
+  &__card-wrapper {
+    padding: $spacing-md;
+    height: 100%;
   }
 }
