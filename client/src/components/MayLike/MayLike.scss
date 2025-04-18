@@ -4,7 +4,6 @@
 .may-like {
   margin: $spacing-xl * 2 auto;
   width: 100%;
-  padding: 0 $spacing-xl * 2;
 
   &__title {
     margin-bottom: $spacing-lg;
@@ -63,19 +62,5 @@
   
   .react-multi-carousel-item {
     padding: 0 $spacing-md;
-  }
-  
-  &__carousel {
-    margin-bottom: $spacing-xl * 2;
-    position: relative;
-    
-    .card {
-      margin: 0 $spacing-sm;
-    }
-  }
-  
-  &__card-wrapper {
-    padding: $spacing-md;
-    height: 100%;
   }
 }

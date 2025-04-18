@@ -38,7 +38,6 @@ const additionalImages = [
   "https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest4.jpg",
 ]
 
-// Mock reviews
 const reviews = [
   {
     id: 1,

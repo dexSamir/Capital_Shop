@@ -12,16 +12,16 @@
   transition: transform $transition-normal, box-shadow $transition-normal;
   padding: $spacing-md;
   margin: $spacing-md;
-  
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    
+
     .card__tools {
       opacity: 1;
       transform: translateY(0);
     }
-    
+
     .card__image {
       transform: scale(1.05);
     }
@@ -56,12 +56,15 @@
     &:hover {
       background-color: var(--primary-color);
       color: white;
-      transform: translateY(-3px) scale(1.2);
-      font-size: 28px;
+      transform: translateY(-3px);
     }
-    
+
     &-icon--active {
       color: var(--primary-color);
+      transition: all $transition-normal;
+    }
+    &:hover &-icon--active {
+      color: white;
     }
   }
 
@@ -79,10 +82,10 @@
   &__image {
     height: 100%;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     transition: transform $transition-normal;
   }
-  
+
   &__discount-badge {
     position: absolute;
     top: 10px;
@@ -96,7 +99,7 @@
     z-index: 10;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     animation: pulse 2s infinite;
-    
+
     @keyframes pulse {
       0% {
         transform: scale(1);
@@ -115,7 +118,7 @@
     flex-direction: column;
     padding: $spacing-sm;
   }
-  
+
   &__category {
     font-size: $font-size-sm;
     color: var(--light-text-color);
@@ -177,23 +180,23 @@
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
   max-width: 300px;
-  
+
   &.show {
     transform: translateY(0);
     opacity: 1;
   }
-  
+
   &.notification-cart {
     border-left: 4px solid var(--success-color);
-    
+
     .notification-icon {
       color: var(--success-color);
     }
   }
-  
+
   &.notification-wishlist {
     border-left: 4px solid var(--primary-color);
-    
+
     .notification-icon {
       color: var(--primary-color);
     }
