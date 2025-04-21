@@ -6,6 +6,17 @@
     background-color: var(--dark-background);
     padding: 0 $spacing-lg;
     border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    }
     
     @include responsive(md) {
       padding: 0 $spacing-xl;
@@ -70,18 +81,20 @@
         height: 60px;
         width: 100%;
         border: 1px solid rgba(255, 255, 255, 0.2);
-        background-color: var(--input-background);
+        background-color: rgba(255, 255, 255, 0.05);
         padding: 15px 24px;
         font-size: $font-size-base;
-        color: var(--text-color);
+        color: white;
+        border-radius: 4px 0 0 4px;
         
         &:focus {
           outline: none;
+          border-color: var(--primary-color);
         }
       }
       
       &-button {
-        margin-left: 5px;
+        margin-left: 0;
         height: 60px;
         cursor: pointer;
         border: none;
@@ -91,9 +104,30 @@
         font-weight: $font-weight-medium;
         color: white;
         transition: background-color $transition-normal;
+        border-radius: 0 4px 4px 0;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.2);
+          transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+          z-index: -1;
+          transform: translateX(0);
+        }
+        
+        &:hover::before {
+          transform: translateX(100%);
+        }
         
         &:hover {
-            background-color: color-mix(in srgb, var(--primary-color), black 10%);
+          background-color: color-mix(in srgb, var(--primary-color), black 10%);
         }
       }
     }
@@ -103,12 +137,12 @@
       
       &-icon {
         margin-left: $spacing-xl;
-        font-size: $font-size-xl;
+        font-size: 24px;
         color: #677f8b;
-        transition: all $transition-normal;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         
         &:hover {
-          transform: rotateY(180deg);
+          transform: rotateY(180deg) scale(1.2);
           color: var(--primary-color);
         }
       }
@@ -136,6 +170,20 @@
       }
     }
     
+    &__logo {
+      margin-bottom: $spacing-lg;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+      }
+      
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+    
     &__category {
       max-width: 20rem;
       
@@ -145,6 +193,18 @@
         font-size: $font-size-lg;
         font-weight: $font-weight-normal;
         color: white;
+        position: relative;
+        padding-bottom: $spacing-sm;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 40px;
+          height: 2px;
+          background-color: var(--primary-color);
+        }
       }
     }
     
@@ -153,6 +213,11 @@
       
       &-item {
         margin-bottom: $spacing-sm;
+        transition: transform 0.3s ease;
+        
+        &:hover {
+          transform: translateX(5px);
+        }
       }
     }
     
@@ -162,11 +227,26 @@
       color: var(--footer-text);
       text-decoration: none;
       transition: all $transition-fast;
+      display: inline-block;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease;
+      }
       
       &:hover {
-        letter-spacing: 0.5px;
         color: var(--footer-link-hover);
-        text-decoration: underline;
+        
+        &::after {
+          width: 100%;
+        }
       }
     }
     
