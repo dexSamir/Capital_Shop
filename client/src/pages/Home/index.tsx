@@ -12,6 +12,7 @@ import { getAllproducts } from "../../middleware/products"
 import "./Home.scss"
 import FAQ from "../../components/FAQ"
 
+
 interface Product {
   id: number
   name: string
