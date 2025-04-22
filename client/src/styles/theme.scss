@@ -90,13 +90,13 @@ a {
     color: var(--text-color);
   }
 
-  a:not(.primary-link) {
-    color: var(--light-text-color);
+//   a:not(.primary-link) {
+//     color: var(--light-text-color);
 
-    &:hover {
-      color: var(--primary-color);
-    }
-  }
+//     &:hover {
+//       color: var(--primary-color);
+//     }
+//   }
 
   .primary-link {
     color: var(--primary-color);

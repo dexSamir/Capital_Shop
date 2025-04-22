@@ -29,7 +29,7 @@
   
   &__featured {
     padding: $spacing-xl * 2 0;
-    background-color: var(--light-background);
+    background-color: var(--background);
     
     &-title {
       text-align: center;
@@ -97,7 +97,7 @@
     &-button {
       display: inline-block;
       background-color: white;
-      color: var(--primary-color);
+      color: var(--button-primary-color);
       padding: $spacing-md $spacing-xl;
       border-radius: $border-radius-md;
       font-weight: $font-weight-bold;
@@ -105,7 +105,7 @@
       text-decoration: none;
       
       &:hover {
-        background-color: var(--secondary-color);
+        background-color: var(--dark-background);
         color: white;
         transform: translateY(-3px);
       }
