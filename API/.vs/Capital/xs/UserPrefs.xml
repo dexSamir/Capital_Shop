@@ -1,28 +1,12 @@
 ﻿<Properties StartupConfiguration="{B1C8B850-AB95-45D6-A571-AC50DA6D602E}|https">
-  <MonoDevelop.Ide.ItemProperties.Capital.Core FirstBuild="True" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.Capital.API FirstBuild="True" PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Capital.BL FirstBuild="True" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.Capital.DAL FirstBuild="True" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Capital.Core/Repositories/IGenericRepository.cs">
-    <Files>
-      <File FileName="Capital.Core/Entities/Product.cs" Line="25" Column="1" />
-      <File FileName="Capital.Core/Entities/Category.cs" Line="11" Column="61" />
-      <File FileName="Capital.Core/Repositories/IGenericRepository.cs" Line="7" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Capital" expanded="True">
-            <Node name="Capital.Core">
-              <Node name="Repositories" expanded="True">
-                <Node name="IGenericRepository.cs" selected="True" />
-              </Node>
+            <Node name="Capital.Core" expanded="True">
+              <Node name="Entities" expanded="True" />
+              <Node name="Repositories" expanded="True" />
             </Node>
             <Node name="Capital.DAL" expanded="True" />
           </Node>
@@ -30,4 +14,14 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Capital.DAL FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Capital.Core FirstBuild="True" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Capital.BL FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" FirstBuild="True" />
 </Properties>
