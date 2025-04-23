@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "Capital.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Capital.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Capital.Core.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Capital.Core/1.0.0": {
+      "type": "project",
+      "path": "../Capital.Core/Capital.Core.csproj",
+      "msbuildProject": "../Capital.Core/Capital.Core.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "Capital.Core >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/samirhebibov/.nuget/packages/": {}
@@ -32,7 +51,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/Capital.Core.csproj": {
+              "projectPath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/Capital.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

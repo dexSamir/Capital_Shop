@@ -1,11 +1,48 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "Capital.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Capital.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Capital.Core.dll": {}
+        }
+      },
+      "Capital.DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Capital.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Capital.DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Capital.DAL.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Capital.Core/1.0.0": {
+      "type": "project",
+      "path": "../Capital.Core/Capital.Core.csproj",
+      "msbuildProject": "../Capital.Core/Capital.Core.csproj"
+    },
+    "Capital.DAL/1.0.0": {
+      "type": "project",
+      "path": "../Capital.DAL/Capital.DAL.csproj",
+      "msbuildProject": "../Capital.DAL/Capital.DAL.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "Capital.DAL >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/samirhebibov/.nuget/packages/": {}
@@ -32,7 +69,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/Capital.DAL.csproj": {
+              "projectPath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/Capital.DAL.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

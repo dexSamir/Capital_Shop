@@ -88,6 +88,42 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "Capital.BL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Capital.DAL": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Capital.BL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Capital.BL.dll": {}
+        }
+      },
+      "Capital.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Capital.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Capital.Core.dll": {}
+        }
+      },
+      "Capital.DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Capital.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Capital.DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Capital.DAL.dll": {}
+        }
       }
     }
   },
@@ -420,10 +456,26 @@
         "swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "Capital.BL/1.0.0": {
+      "type": "project",
+      "path": "../Capital.BL/Capital.BL.csproj",
+      "msbuildProject": "../Capital.BL/Capital.BL.csproj"
+    },
+    "Capital.Core/1.0.0": {
+      "type": "project",
+      "path": "../Capital.Core/Capital.Core.csproj",
+      "msbuildProject": "../Capital.Core/Capital.Core.csproj"
+    },
+    "Capital.DAL/1.0.0": {
+      "type": "project",
+      "path": "../Capital.DAL/Capital.DAL.csproj",
+      "msbuildProject": "../Capital.DAL/Capital.DAL.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Capital.BL >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
@@ -452,7 +504,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/Capital.BL.csproj": {
+              "projectPath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/Capital.BL.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
