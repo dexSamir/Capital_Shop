@@ -9,6 +9,9 @@ public class ProductImage : BaseEntity
     public string? AltText { get; set; }
 
     public Guid ProductId { get; set; }
-	public Product Product { get; set; } = null!; 
+	public Product Product { get; set; } = null!;
+
+	public Guid? ReviewId { get; set; }
+	public Review? Review { get; set; }
 }
 

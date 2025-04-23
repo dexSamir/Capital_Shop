@@ -1,5 +1,4 @@
 ﻿using Capital.Core.Entities.Base;
-using Capital.Core.Entities.Relational;
 
 namespace Capital.Core.Entities;
 
@@ -21,6 +20,7 @@ public class Product : BaseEntity
 
 	public Guid SellerId { get; set; }
 	public Guid BrandId { get; set; }
+	public Brand? Brand { get; set; }
 
     public decimal Weight { get; set; }
     public decimal? Length { get; set; }
@@ -28,16 +28,22 @@ public class Product : BaseEntity
     public decimal? Height { get; set; }
 
     //Category
-    public IEnumerable<ProductCategory>? Categories { get; set; }
+	public Guid CategoryId { get; set; }
+	public Category Category { get; set; } = null!;
 
 	//OtherImages
 	public IEnumerable<ProductImage> Images { get; set; } = null!;
 
 	//Reviews
+	public IEnumerable<Review>? Reviews { get; set; }
 
+    //Rating
+    public IEnumerable<ProductRating>? Ratings { get; set; }
 
-	//Rating
+    //Attributes
+    public IEnumerable<ProductAttribute>? Attributes { get; set; }
 
-
+	//Specification
+	public IEnumerable<ProductSpecification>? Specifications { get; set; }
 }
 
