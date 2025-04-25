@@ -11,12 +11,16 @@
     <None Remove="Entities\Base\" />
     <None Remove="Repositories\" />
     <None Remove="Entities\Relational\" />
+    <None Remove="Helper\" />
+    <None Remove="Helper\Enums\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Entities\Base\" />
     <Folder Include="Repositories\" />
     <Folder Include="Entities\Relational\" />
+    <Folder Include="Helper\" />
+    <Folder Include="Helper\Enums\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.15" />
