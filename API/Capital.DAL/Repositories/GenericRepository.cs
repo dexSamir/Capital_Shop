@@ -16,70 +16,48 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
 		_context = context; 
 	}
 
-    public Task<IEnumerable<T>> GetAllAsync(bool asNoTrack = true, params string[] includes)
+    public async Task<IEnumerable<T>> GetAllAsync(bool asNoTrack = true, params string[] includes)
+        => await _includeAndTracking(Table, includes, asNoTrack).ToListAsync();
+
+    public async Task<IEnumerable<T>> GetAllAsync(params string[] includes)
+        => await GetAllAsync(true, includes);
+
+    public async Task<T?> GetByIdAsync(Guid id, bool asNoTrack = true, params string[] includes)
+        => await _includeAndTracking(Table, includes, asNoTrack).FirstOrDefaultAsync(x=> x.Id == id);
+
+    public async Task<T?> GetByIdAsync(Guid id, params string[] includes)
+        => await GetByIdAsync(id, true, includes);
+
+    public async Task<IEnumerable<T>> GetByIdAsync(Guid[] ids, bool asNoTrack = true, params string[] includes)
     {
-        throw new NotImplementedException();
+        var query = Table.Where(l => ids.Contains(l.Id));
+        query = _includeAndTracking(Table, includes, asNoTrack);
+        return await query.ToListAsync(); 
     }
 
-    public Task<IEnumerable<T>> GetAllAsync(params string[] includes)
-    {
-        Table
-    }
+    public async Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> expression, bool asNoTrack = true, params string[] includes)
+        => await _includeAndTracking(Table.Where(expression), includes, asNoTrack).ToListAsync();
 
-    public Task<T?> GetByIdAsync(int id, bool asNoTrack = true, params string[] includes)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> expression, params string[] includes)
+        => await GetWhereAsync(expression, true, includes);
 
-    public Task<T?> GetByIdAsync(int id, params string[] includes)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<T?> GetFirstAsync(Expression<Func<T, bool>> expression, bool asNoTrack = true, params string[] includes)
+        => await _includeAndTracking(Table.Where(expression), includes, asNoTrack).FirstOrDefaultAsync();
 
-    public Task<IEnumerable<T>> GetByIdAsync(int[] ids, bool asNoTrack = true, params string[] includes)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<T?> GetFirstAsync(Expression<Func<T, bool>> expression, params string[] includes)
+        => await GetFirstAsync(expression, true, includes);
 
-    public Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> expression, bool asNoTrack = true, params string[] includes)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<bool> IsExistAsync(Guid id)
+        => await Table.AnyAsync(x => x.Id == id);
 
-    public Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> expression, params string[] includes)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<bool> IsExistAsync(Expression<Func<T, bool>> expression)
+        => await Table.AnyAsync(expression);
 
-    public Task<T?> GetFirstAsync(Expression<Func<T, bool>> expression, bool asNoTrack = true, params string[] includes)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task AddAsync(T entity)
+        =>await Table.AddAsync(entity);
 
-    public Task<T?> GetFirstAsync(Expression<Func<T, bool>> expression, params string[] includes)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> IsExistAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> IsExistAsync(Expression<Func<T, bool>> expression)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task AddAsync(T entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task AddRangeAsync(IEnumerable<T> entities)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task AddRangeAsync(IEnumerable<T> entities)
+       =>  await Table.AddRangeAsync(entities);
 
     public Task HardDeleteAsync(int id)
     {

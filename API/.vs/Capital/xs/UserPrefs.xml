@@ -1,33 +1,31 @@
 ﻿<Properties StartupConfiguration="{B1C8B850-AB95-45D6-A571-AC50DA6D602E}|https">
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Capital.Core/Repositories/IGenericRepository.cs">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Capital.DAL FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" FirstBuild="True" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Capital.DAL/Repositories/GenericRepository.cs">
     <Files>
-      <File FileName="Capital.Core/Repositories/IGenericRepository.cs" Line="10" Column="1" />
+      <File FileName="Capital.DAL/Repositories/GenericRepository.cs" Line="77" Column="35" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Capital" expanded="True">
-            <Node name="Capital.Core">
-              <Node name="Repositories" expanded="True">
-                <Node name="IGenericRepository.cs" selected="True" />
-              </Node>
-            </Node>
             <Node name="Capital.DAL">
               <Node name="Context" expanded="True" />
+              <Node name="Repositories">
+                <Node name="GenericRepository.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.Capital.Core FirstBuild="True" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.Capital.DAL FirstBuild="True" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" FirstBuild="True" />
   <MonoDevelop.Ide.ItemProperties.Capital.BL FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Capital.Core FirstBuild="True" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

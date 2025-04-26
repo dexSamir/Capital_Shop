@@ -8,8 +8,8 @@ public interface IGenericRepository<T> where T : BaseEntity, new()
     Task<IEnumerable<T>> GetAllAsync(bool asNoTrack = true, params string[] includes);
     Task<IEnumerable<T>> GetAllAsync(params string[] includes);
 
-    Task<T?> GetByIdAsync(int id, bool asNoTrack = true, params string[] includes);
-    Task<T?> GetByIdAsync(int id, params string[] includes);
+    Task<T?> GetByIdAsync(Guid id, bool asNoTrack = true, params string[] includes);
+    Task<T?> GetByIdAsync(Guid id, params string[] includes);
     Task<IEnumerable<T>> GetByIdAsync(int[] ids, bool asNoTrack = true, params string[] includes);
 
     Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> expression, bool asNoTrack = true, params string[] includes);

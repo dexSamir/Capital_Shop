@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Capital.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7cbb378a93ae023ea24e9724c4aa8602e7de4fbb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+721e8237965cff3f36193c7fa825b0fc4e3521c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Capital.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Capital.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
