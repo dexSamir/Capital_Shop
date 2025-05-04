@@ -2,13 +2,13 @@
 using Capital.Core.Helper.Enums;
 
 namespace Capital.Core.Entities;
-public class Discount : BaseEntity
+public class Coupon : BaseEntity
 {
 	public string Title { get; set; } = null!;
 	public string? Description { get; set; }
 	public EDiscountType DiscountType { get; set; }
 	public DateTime EndTime { get; set; }
-	public string CouponCode { get; set; } =null!;
+	public string CouponCode { get; set; } = null!;
 	public int? UsageLimit { get; set; }
 	public int? UsageCount { get; set; }
 	public bool IsActive { get; set; }
@@ -16,6 +16,5 @@ public class Discount : BaseEntity
 	public int? MinimumOrderAmount { get; set; }
 
 	public IEnumerable<Product>? Products { get; set; }
-	public IEnumerable<Category>? Categories { get; set; }
 }
 

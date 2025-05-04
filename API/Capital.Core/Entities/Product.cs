@@ -19,8 +19,11 @@ public class Product : BaseEntity
 	public string CoverImage { get; set; } = null!;
 
 	public Guid SellerId { get; set; }
-	public Guid BrandId { get; set; }
+	public Guid? BrandId { get; set; }
 	public Brand? Brand { get; set; }
+
+	public Guid? CouponId { get; set; }
+	public Coupon? Coupon { get; set; }
 
     public decimal Weight { get; set; }
     public decimal? Length { get; set; }
@@ -45,5 +48,6 @@ public class Product : BaseEntity
 
 	//Specification
 	public IEnumerable<ProductSpecification>? Specifications { get; set; }
+
 }
 

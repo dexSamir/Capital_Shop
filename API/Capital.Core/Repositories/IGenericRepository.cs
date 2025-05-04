@@ -10,7 +10,7 @@ public interface IGenericRepository<T> where T : BaseEntity, new()
 
     Task<T?> GetByIdAsync(Guid id, bool asNoTrack = true, params string[] includes);
     Task<T?> GetByIdAsync(Guid id, params string[] includes);
-    Task<IEnumerable<T>> GetByIdAsync(int[] ids, bool asNoTrack = true, params string[] includes);
+    Task<IEnumerable<T>> GetByIdAsync(Guid[] ids, bool asNoTrack = true, params string[] includes);
 
     Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> expression, bool asNoTrack = true, params string[] includes);
     Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> expression, params string[] includes);
@@ -18,7 +18,7 @@ public interface IGenericRepository<T> where T : BaseEntity, new()
     Task<T?> GetFirstAsync(Expression<Func<T, bool>> expression, bool asNoTrack = true, params string[] includes);
     Task<T?> GetFirstAsync(Expression<Func<T, bool>> expression, params string[] includes);
 
-    Task<bool> IsExistAsync(int id);
+    Task<bool> IsExistAsync(Guid id);
     Task<bool> IsExistAsync(Expression<Func<T, bool>> expression);
 
     //Create
@@ -26,14 +26,14 @@ public interface IGenericRepository<T> where T : BaseEntity, new()
     Task AddRangeAsync(IEnumerable<T> entities);
 
     //Delete
-    Task HardDeleteAsync(int id);
-    Task SoftDeleteAsync(int id);
-    Task ReverseDeleteAsync(int id);
+    Task HardDeleteAsync(Guid id);
+    Task SoftDeleteAsync(Guid id);
+    Task ReverseDeleteAsync(Guid id);
 
     //Delete Range 
-    Task HardDeleteRangeAsync(int[] ids);
-    Task SoftDeleteRangeAsync(int[] ids);
-    Task ReverseDeleteRangeAsync(int[] ids);
+    Task HardDeleteRangeAsync(Guid[] ids);
+    Task SoftDeleteRangeAsync(Guid[] ids);
+    Task ReverseDeleteRangeAsync(Guid[] ids);
 
     //Delete 
     void HardDelete(T entity);
@@ -41,11 +41,11 @@ public interface IGenericRepository<T> where T : BaseEntity, new()
     void ReverseDelete(T entity);
 
     //Delete Range 
-    void HardDeleteRange(IEnumerable<T> entites);
-    void SoftDeleteRange(IEnumerable<T> entites);
-    void ReverseDeleteRange(IEnumerable<T> entites);
+    void HardDeleteRange(IEnumerable<T> entities);
+    void SoftDeleteRange(IEnumerable<T> entities);
+    void ReverseDeleteRange(IEnumerable<T> entities);
 
-    Task DeleteAndSaveAsync(int id);
+    Task DeleteAndSaveAsync(Guid id);
     Task<int> SaveAsync();
 }
 

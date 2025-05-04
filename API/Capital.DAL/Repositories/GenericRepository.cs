@@ -57,77 +57,90 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
         =>await Table.AddAsync(entity);
 
     public async Task AddRangeAsync(IEnumerable<T> entities)
-       =>  await Table.AddRangeAsync(entities);
+        => await Table.AddRangeAsync(entities);
 
-    public Task HardDeleteAsync(int id)
+    public async Task HardDeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var entity = await GetByIdAsync(id, false); 
+        Table.Remove(entity!);
     }
 
-    public Task SoftDeleteAsync(int id)
+    public async Task SoftDeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var entity = await GetByIdAsync(id, false);
+        entity!.isDeleted = true;
     }
 
-    public Task ReverseDeleteAsync(int id)
+    public async Task ReverseDeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var entity = await GetByIdAsync(id, false);
+        entity!.isDeleted = false;
     }
 
-    public Task HardDeleteRangeAsync(int[] ids)
+    public async Task HardDeleteRangeAsync(Guid[] ids)
     {
-        throw new NotImplementedException();
+        var entites = await Table.Where(x => ids.Contains(x.Id)).ToListAsync();
+        if (entites.Any()) Table.RemoveRange(entites);
     }
 
-    public Task SoftDeleteRangeAsync(int[] ids)
+    public async Task SoftDeleteRangeAsync(Guid[] ids)
     {
-        throw new NotImplementedException();
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        await Table.Where(x => ids.Contains(x.Id))
+                   .ExecuteUpdateAsync(s => s.SetProperty(x => x.isDeleted, true));
+        await transaction.CommitAsync();
     }
 
-    public Task ReverseDeleteRangeAsync(int[] ids)
+    public async Task ReverseDeleteRangeAsync(Guid[] ids)
     {
-        throw new NotImplementedException();
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        await Table.Where(x => ids.Contains(x.Id))
+                   .ExecuteUpdateAsync(s => s.SetProperty(x => x.isDeleted, false));
+        await transaction.CommitAsync();
     }
 
     public void HardDelete(T entity)
     {
-        throw new NotImplementedException();
+        Table.Remove(entity);
     }
 
     public void SoftDelete(T entity)
     {
-        throw new NotImplementedException();
+        entity.isDeleted = true;
     }
 
     public void ReverseDelete(T entity)
     {
-        throw new NotImplementedException();
+        entity.isDeleted = false;
     }
 
-    public void HardDeleteRange(IEnumerable<T> entites)
+    public void HardDeleteRange(IEnumerable<T> entities)
     {
-        throw new NotImplementedException();
+        Table.RemoveRange(entities);
     }
 
-    public void SoftDeleteRange(IEnumerable<T> entites)
+    public void SoftDeleteRange(IEnumerable<T> entities)
     {
-        throw new NotImplementedException();
+        var ids = entities.Select(e => e.Id).ToArray();
+        Table.Where(x => ids.Contains(x.Id))
+             .ExecuteUpdate(s => s.SetProperty(x => x.isDeleted, true));
     }
 
-    public void ReverseDeleteRange(IEnumerable<T> entites)
+    public void ReverseDeleteRange(IEnumerable<T> entities)
     {
-        throw new NotImplementedException();
+        var ids = entities.Select(e => e.Id).ToArray();
+        Table.Where(x => ids.Contains(x.Id))
+             .ExecuteUpdate(s => s.SetProperty(x => x.isDeleted, false));
     }
     
-    public Task DeleteAndSaveAsync(int id)
+    public async Task DeleteAndSaveAsync(Guid id)
     {
-        throw new NotImplementedException();
+        await Table.Where(x => x.Id == id).ExecuteDeleteAsync();
     }
 
-    public Task<int> SaveAsync()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<int> SaveAsync()
+        => await _context.SaveChangesAsync();
+
 
     IQueryable<T>  _includeAndTracking(IQueryable<T> query, string[] includes, bool asNoTrack)
     {
@@ -135,11 +148,11 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
         {
             query = _checkIncludes(query, includes);
             if (asNoTrack)
-                query.AsNoTrackingWithIdentityResolution();
+                query = query.AsNoTrackingWithIdentityResolution();
         }
         else
             if (asNoTrack)
-            query.AsNoTracking();
+            query = query.AsNoTracking();
 
         return query; 
     }

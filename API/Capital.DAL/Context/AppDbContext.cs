@@ -19,5 +19,11 @@ public class AppDbContext : IdentityDbContext<User>
 	public DbSet<Category> Categories { get; set; }
 	public DbSet<Discount> Discounts { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        base.OnModelCreating(builder);
+    }
+
 }
 

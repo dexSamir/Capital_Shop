@@ -1,4 +1,5 @@
 ﻿
+using Capital.DAL;
 using Capital.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,7 @@ public class Program
         builder.Services.AddDbContext<AppDbContext>(opt =>
             opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
+        builder.Services.AddRepositories();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
