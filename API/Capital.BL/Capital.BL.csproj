@@ -9,4 +9,21 @@
   <ItemGroup>
     <ProjectReference Include="..\Capital.DAL\Capital.DAL.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Services\" />
+    <None Remove="Services\Interfaces\" />
+    <None Remove="Services\Implements\" />
+    <None Remove="DTOs\" />
+    <None Remove="DTOs\CategoryDtos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Services\Implements\" />
+    <Folder Include="DTOs\" />
+    <Folder Include="DTOs\CategoryDtos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+  </ItemGroup>
 </Project>
