@@ -17,7 +17,7 @@ public class AppDbContext : IdentityDbContext<User>
 	public DbSet<ProductAttribute> Attributes { get; set; }
 	public DbSet<ProductSpecification> Specifications { get; set; }
 	public DbSet<Category> Categories { get; set; }
-	public DbSet<Discount> Discounts { get; set; }
+	public DbSet<Coupon> Coupons { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

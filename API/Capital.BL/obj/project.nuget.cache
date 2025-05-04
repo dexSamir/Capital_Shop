@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Bfrdj7TyYUQo/L5Fz+z6/9P4Tk2A5YkaGDlmxqa0oskjPTewQBEADmxvDLu479APbwl8k0yqYWqMyU1+V/dVCg==",
+  "dgSpecHash": "n96m5Mx90Q4=",
   "success": true,
   "projectFilePath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/Capital.BL.csproj",
   "expectedPackageFiles": [
@@ -23,7 +23,9 @@
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/npgsql/8.0.6/npgsql.8.0.6.nupkg.sha512",
-    "/Users/samirhebibov/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.11/npgsql.entityframeworkcore.postgresql.8.0.11.nupkg.sha512"
+    "/Users/samirhebibov/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.11/npgsql.entityframeworkcore.postgresql.8.0.11.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.netcore.app.ref/8.0.15/microsoft.netcore.app.ref.8.0.15.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.15/microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,0 +1,13 @@
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/bin/Debug/net8.0/Capital.Core.deps.json
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/bin/Debug/net8.0/Capital.Core.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/bin/Debug/net8.0/Capital.Core.pdb
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/Debug/net8.0/Capital.Core.csproj.AssemblyReference.cache
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/Debug/net8.0/Capital.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/Debug/net8.0/Capital.Core.AssemblyInfoInputs.cache
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/Debug/net8.0/Capital.Core.AssemblyInfo.cs
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/Debug/net8.0/Capital.Core.csproj.CoreCompileInputs.cache
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/Debug/net8.0/Capital.Core.sourcelink.json
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/Debug/net8.0/Capital.Core.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/Debug/net8.0/refint/Capital.Core.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/Debug/net8.0/Capital.Core.pdb
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/Debug/net8.0/ref/Capital.Core.dll
