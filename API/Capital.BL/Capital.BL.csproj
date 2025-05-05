@@ -15,6 +15,8 @@
     <None Remove="Services\Implements\" />
     <None Remove="DTOs\" />
     <None Remove="DTOs\CategoryDtos\" />
+    <None Remove="Utilities\" />
+    <None Remove="Utilities\Enums\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -22,6 +24,8 @@
     <Folder Include="Services\Implements\" />
     <Folder Include="DTOs\" />
     <Folder Include="DTOs\CategoryDtos\" />
+    <Folder Include="Utilities\" />
+    <Folder Include="Utilities\Enums\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />

@@ -1,20 +1,20 @@
 ﻿<Properties StartupConfiguration="{B1C8B850-AB95-45D6-A571-AC50DA6D602E}|https">
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Capital.DAL FirstBuild="True" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.Capital.API FirstBuild="True" PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.ItemProperties.Capital.Core FirstBuild="True" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Capital.DAL FirstBuild="True" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Capital.BL/DTOs/CategoryDtos/CategoryGetDto.cs">
+    <Files>
+      <File FileName="Capital.BL/Services/Interfaces/ICategoryService.cs" Line="6" Column="10" />
+      <File FileName="Capital.BL/DTOs/CategoryDtos/CategoryGetDto.cs" Line="4" Column="9" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Capital">
-            <Node name="Capital.Core">
-              <Node name="Repositories">
-                <Node name="IGenericRepository.cs" selected="True" />
+          <Node name="Capital" expanded="True">
+            <Node name="Capital.BL">
+              <Node name="DTOs" expanded="True">
+                <Node name="CategoryDtos" expanded="True">
+                  <Node name="CategoryGetDto.cs" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
@@ -23,5 +23,11 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Capital.BL FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" FirstBuild="True" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
