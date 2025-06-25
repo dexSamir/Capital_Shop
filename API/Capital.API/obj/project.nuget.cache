@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "fBrHW1mp+p5rTD02tLRImKf9jNCr3z8BsqGX8bFUeGdxOlFsyn/oyVvjjB6GCUSdXDHZT/jXVQQFBoN9bAQmTg==",
+  "dgSpecHash": "wGtN5QvZeTzZ8uR7R46IYsMNWFQyp9S7R+mQbb+ehR6o/jDf0l4K3hD1Ji6TTuYIMt3I7gxh3MdC/6he5cozew==",
   "success": true,
   "projectFilePath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/Capital.API.csproj",
   "expectedPackageFiles": [
+    "/Users/samirhebibov/.nuget/packages/automapper/14.0.0/automapper.14.0.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.cryptography.internal/8.0.15/microsoft.aspnetcore.cryptography.internal.8.0.15.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/8.0.15/microsoft.aspnetcore.cryptography.keyderivation.8.0.15.nupkg.sha512",
@@ -26,6 +27,7 @@
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.caching.abstractions/8.0.0/microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.caching.memory/8.0.1/microsoft.extensions.caching.memory.8.0.1.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.extensions.caching.stackexchangeredis/8.0.11/microsoft.extensions.caching.stackexchangeredis.8.0.11.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.configuration.abstractions/8.0.0/microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.1/microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
@@ -42,6 +44,8 @@
     "/Users/samirhebibov/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/npgsql/8.0.6/npgsql.8.0.6.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.11/npgsql.entityframeworkcore.postgresql.8.0.11.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/pipelines.sockets.unofficial/2.2.8/pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/stackexchange.redis/2.7.27/stackexchange.redis.2.7.27.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",

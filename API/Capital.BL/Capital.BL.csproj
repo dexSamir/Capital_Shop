@@ -17,6 +17,8 @@
     <None Remove="DTOs\CategoryDtos\" />
     <None Remove="Utilities\" />
     <None Remove="Utilities\Enums\" />
+    <None Remove="Extensions\" />
+    <None Remove="Profiles\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -26,8 +28,12 @@
     <Folder Include="DTOs\CategoryDtos\" />
     <Folder Include="Utilities\" />
     <Folder Include="Utilities\Enums\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Profiles\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.11" />
   </ItemGroup>
 </Project>
