@@ -1,4 +1,5 @@
-﻿using Capital.BL.DTOs.CategoryDtos;
+﻿using AutoMapper;
+using Capital.BL.DTOs.CategoryDtos;
 using Capital.BL.Services.Interfaces;
 using Capital.BL.Utilities.Enums;
 using Capital.Core.Repositories;
@@ -7,14 +8,16 @@ namespace Capital.BL.Services.Implements;
 public class CategoryService : ICategoryService
 {
     readonly ICategoryRepository _repo;
-    public CategoryService(ICategoryRepository repo)
+    readonly IMapper _mapper;
+    public CategoryService(ICategoryRepository repo, IMapper mapper)
     {
-        _repo = repo; 
+        _repo = repo;
+        _mapper = mapper; 
     }
 
-    public Task<CategoryGetDto> CreateAsync(CategoryCreateDto dto)
+    public async Task<CategoryGetDto> CreateAsync(CategoryCreateDto dto)
     {
-        throw new NotImplementedException();
+        
     }
 
     public Task<IEnumerable<CategoryGetDto>> CreateBulkAsync(IEnumerable<CategoryCreateDto> dtos)

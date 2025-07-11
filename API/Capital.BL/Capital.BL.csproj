@@ -19,6 +19,9 @@
     <None Remove="Utilities\Enums\" />
     <None Remove="Extensions\" />
     <None Remove="Profiles\" />
+    <None Remove="OtherServices\" />
+    <None Remove="OtherServices\Implements\" />
+    <None Remove="OtherServices\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -30,6 +33,9 @@
     <Folder Include="Utilities\Enums\" />
     <Folder Include="Extensions\" />
     <Folder Include="Profiles\" />
+    <Folder Include="OtherServices\" />
+    <Folder Include="OtherServices\Implements\" />
+    <Folder Include="OtherServices\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
