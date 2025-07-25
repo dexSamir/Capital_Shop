@@ -10,9 +10,9 @@
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/bin/Debug/net8.0/Capital.DAL.pdb
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/bin/Debug/net8.0/Capital.Core.dll
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/bin/Debug/net8.0/Capital.Core.pdb
-/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/obj/Debug/net8.0/Capital..8E073DB5.Up2Date
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/obj/Debug/net8.0/Capital.DAL.dll
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/obj/Debug/net8.0/refint/Capital.DAL.dll
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/obj/Debug/net8.0/Capital.DAL.pdb
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/obj/Debug/net8.0/Capital.DAL.genruntimeconfig.cache
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/obj/Debug/net8.0/ref/Capital.DAL.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/obj/Debug/net8.0/Capital.DAL.csproj.CopyComplete

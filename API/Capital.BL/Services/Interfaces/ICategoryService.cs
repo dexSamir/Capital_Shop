@@ -10,7 +10,7 @@ public interface ICategoryService
     Task<CategoryGetDto> CreateAsync(CategoryCreateDto dto);
     Task<IEnumerable<CategoryGetDto>> CreateBulkAsync(IEnumerable<CategoryCreateDto> dtos);
 
-    Task<CategoryGetDto> UpdateAsync(CategoryUpdateDto dto);
+    Task<CategoryGetDto> UpdateAsync(Guid id, CategoryUpdateDto dto);
     Task<bool> DeleteAsync(IEnumerable<Guid> ids, EDeleteType dType);
 }
 
