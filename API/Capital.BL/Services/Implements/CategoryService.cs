@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿using Capital.BL.Constants;
 using Capital.BL.DTOs.CategoryDtos;
 using Capital.BL.Exceptions.Common;
 using Capital.BL.ExternalServices.Interfaces;
@@ -8,8 +8,8 @@ using Capital.BL.Utilities.Enums;
 using Capital.BL.Utilities.Helpers;
 using Capital.Core.Entities;
 using Capital.Core.Repositories;
-
 namespace Capital.BL.Services.Implements;
+
 public class CategoryService : ICategoryService
 {
     readonly ICategoryRepository _repo;
@@ -26,7 +26,7 @@ public class CategoryService : ICategoryService
 
     public async Task<IEnumerable<CategoryGetDto>> GetAllAsync()
     {
-        var cacheKey = "all_categories";
+        var cacheKey = CacheKeys.AllCategories;
         var categories = await _cache.GetOrSetAsync(cacheKey, async () => await _repo.GetAllAsync(), TimeSpan.FromMinutes(2));
 
         var datas = _mapper.Map<IEnumerable<CategoryGetDto>>(categories);
@@ -35,8 +35,8 @@ public class CategoryService : ICategoryService
 
     public async Task<CategoryGetDto> GetByIdAsync(int id)
     {
-        var cacheKey = $"category_{id}";
-        var category = _cache.GetOrSetAsync(cacheKey, async () => await _repo.GetByIdAsync(id), TimeSpan.FromMinutes(2));
+        var cacheKey = CacheKeys.CategoryById(id);
+        var category = await _cache.GetOrSetAsync(cacheKey, async () => await _repo.GetByIdAsync(id), TimeSpan.FromMinutes(2));
 
         if (category == null)
             throw new NotFoundException<Category>();
@@ -57,27 +57,27 @@ public class CategoryService : ICategoryService
         await _repo.AddAsync(data);
         await _repo.SaveAsync();
 
-        await _cache.RemoveAsync($"all_categories");
+        await _cache.RemoveAsync(CacheKeys.AllCategories);
         var getDto = _mapper.Map<CategoryGetDto>(data); 
         return getDto;
     }
 
     public async Task<IEnumerable<CategoryGetDto>> CreateBulkAsync(IEnumerable<CategoryCreateDto> dtos)
     {
-        var datas = _mapper.Map<IEnumerable<Category>>(dtos);
-        foreach (var data in datas)
+        var dataList = _mapper.Map<IList<Category>>(dtos);
+        for (int i = 0; i < dataList.Count; i++)
         {
-            data.CreatedTime = DateTime.UtcNow;
+            dataList[i].CreatedTime = DateTime.UtcNow;
 
-            foreach (var dto in dtos)
-                if (dto.ImageUrl != null)
-                    data.ImageUrl = await _fileService.ProcessImageAsync(dto.ImageUrl, "actors", "image/", 15);
+            if (dtos.ElementAt(i).ImageUrl != null)
+                dataList[i].ImageUrl = await _fileService.ProcessImageAsync(dtos.ElementAt(i).ImageUrl, "actors", "image/", 15);
         }
 
-        await _repo.AddRangeAsync(datas);
-        await _cache.RemoveAsync("all_categories");
 
-        var getDtos = _mapper.Map<IEnumerable<CategoryGetDto>>(datas);
+        await _repo.AddRangeAsync(dataList);
+        await _cache.RemoveAsync(CacheKeys.AllCategories);
+
+        var getDtos = _mapper.Map<IEnumerable<CategoryGetDto>>(dataList);
         return getDtos; 
     }
 
@@ -132,7 +132,7 @@ public class CategoryService : ICategoryService
 
         if (success)
             foreach (var id in idArray)
-                await _cache.RemoveAsync($"category_{id}");
+                await _cache.RemoveAsync(CacheKeys.CategoryById(id));
 
         return success; 
     }

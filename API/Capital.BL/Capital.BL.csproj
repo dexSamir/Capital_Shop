@@ -24,6 +24,7 @@
     <None Remove="ExternalServices\" />
     <None Remove="Exceptions\Image\" />
     <None Remove="Utilities\Helpers\" />
+    <None Remove="Constants\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -40,6 +41,7 @@
     <Folder Include="ExternalServices\" />
     <Folder Include="Exceptions\Image\" />
     <Folder Include="Utilities\Helpers\" />
+    <Folder Include="Constants\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />

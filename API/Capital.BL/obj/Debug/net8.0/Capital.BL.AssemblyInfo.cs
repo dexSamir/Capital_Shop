@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Capital.BL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+958adec5cd02d5ef24534cd447f502ba7865f250")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5091d21d70b60445587901ac88b71ad7d6fd9f28")]
 [assembly: System.Reflection.AssemblyProductAttribute("Capital.BL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Capital.BL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
