@@ -5,7 +5,6 @@ using Capital.BL.ExternalServices.Interfaces;
 using Capital.BL.OtherServices.Interfaces;
 using Capital.BL.Services.Interfaces;
 using Capital.BL.Utilities.Enums;
-using Capital.BL.Utilities.Helpers;
 using Capital.Core.Entities;
 using Capital.Core.Repositories;
 namespace Capital.BL.Services.Implements;
@@ -96,14 +95,13 @@ public class CategoryService : ICategoryService
         return getDto; 
     }
 
-    public async Task<bool> DeleteAsync(string ids, EDeleteType dType)
+    public async Task<bool> DeleteAsync(int[] ids, EDeleteType dType)
     {
-        var idArray = FileHelper.ParseIds(ids);
-        if (idArray.Length == 0)
+        if (ids.Length == 0)
             throw new ArgumentException("Hec bir id daxil edilmeyib!");
 
         if(dType == EDeleteType.Hard)
-            foreach(var id in idArray)
+            foreach(var id in ids)
             {
                 var data = await _repo.GetByIdAsync(id, false);
                 if (data != null && !string.IsNullOrEmpty(data.ImageUrl))
@@ -113,25 +111,25 @@ public class CategoryService : ICategoryService
         switch (dType)
         {
             case EDeleteType.Soft:
-                await _repo.SoftDeleteRangeAsync(idArray);
+                await _repo.SoftDeleteRangeAsync(ids);
                 break;
 
             case EDeleteType.Reverse:
-                await _repo.ReverseDeleteRangeAsync(idArray);
+                await _repo.ReverseDeleteRangeAsync(ids);
                 break;
 
             case EDeleteType.Hard:
-                await _repo.HardDeleteRangeAsync(idArray);
+                await _repo.HardDeleteRangeAsync(ids);
                 break;
 
             default:
                 throw new UnsupportedDeleteTypeException(); 
         }
 
-        bool success = idArray.Length == await _repo.SaveAsync();
+        bool success = ids.Length == await _repo.SaveAsync();
 
         if (success)
-            foreach (var id in idArray)
+            foreach (var id in ids)
                 await _cache.RemoveAsync(CacheKeys.CategoryById(id));
 
         return success; 

@@ -45,21 +45,9 @@ public class CategoriesController : ControllerBase
         return Ok(await _service.UpdateAsync( id, dto));
     }
 
-    [HttpDelete("{deleteType}/{id}")]
-    public async Task<IActionResult> Delete(string deleteType, string ids)
+    [HttpDelete("{deleteType}")]
+    public async Task<IActionResult> Delete(EDeleteType deleteType,[FromQuery] int[] ids)
     {
-        if (!Enum.TryParse<EDeleteType>(deleteType, true, out var dType))
-            return BadRequest("Invalid delete type");
-
-        return Ok(await _service.DeleteAsync(ids, dType)); 
-    }
-
-    [HttpDelete("{deleteType}/range/{ids}")]
-    public async Task<IActionResult> DeleteRange(string deleteType, string ids)
-    {
-        if (!Enum.TryParse<EDeleteType>(deleteType, true, out var dType))
-            return BadRequest("Invalid delete type");
-
-        return Ok(await _service.DeleteAsync(ids, dType));
+        return Ok(await _service.DeleteAsync(ids, deleteType)); 
     }
 }

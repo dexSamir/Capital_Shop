@@ -1,4 +1,8 @@
-﻿using Capital.BL.Services.Implements;
+﻿using Capital.BL.ExternalServices.Implements;
+using Capital.BL.ExternalServices.Interfaces;
+using Capital.BL.OtherServices.Implements;
+using Capital.BL.OtherServices.Interfaces;
+using Capital.BL.Services.Implements;
 using Capital.BL.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +13,8 @@ public static class ServiceRegistration
     {
         services.AddScoped<ICategoryService, CategoryService>();
 
+        services.AddScoped<ICacheService, CacheService>();
+        services.AddScoped<IFileService, FileService>(); 
         return services;
     }
 

@@ -16,14 +16,17 @@ public class CacheService : ICacheService
     {
         var cachedData = await _cache.GetStringAsync(cacheKey);
 
-        if (!string.IsNullOrWhiteSpace(cacheKey))
+        if (!string.IsNullOrWhiteSpace(cachedData))
             return JsonSerializer.Deserialize<T>(cachedData);
 
         var data = await getData();
-        await _cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(data), new DistributedCacheEntryOptions
+        if (data != null)
         {
-            AbsoluteExpirationRelativeToNow = expiration
-        });
+            await _cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(data), new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = expiration
+            });
+        }
         return data; 
     }
 

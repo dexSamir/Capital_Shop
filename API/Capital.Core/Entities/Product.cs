@@ -13,7 +13,6 @@ public class Product : BaseEntity
 	public bool IsBestseller { get; set; }
     public bool IsNewArrival { get; set; }
 
-
     public string Title { get; set; } = null!;
 	public string Description { get; set; } = null!;
 	public string CoverImage { get; set; } = null!;
@@ -48,6 +47,5 @@ public class Product : BaseEntity
 
 	//Specification
 	public IEnumerable<ProductSpecification>? Specifications { get; set; }
-
 }
 

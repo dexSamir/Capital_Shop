@@ -23,6 +23,7 @@ public class Program
             opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
         builder.Services.AddRepositories();
+        builder.Services.AddServices(); 
         builder.Services.AddMapper();
         builder.Services.AddCache();
 

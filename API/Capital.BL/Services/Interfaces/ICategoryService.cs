@@ -11,6 +11,6 @@ public interface ICategoryService
     Task<IEnumerable<CategoryGetDto>> CreateBulkAsync(IEnumerable<CategoryCreateDto> dtos);
 
     Task<CategoryGetDto> UpdateAsync(int id, CategoryUpdateDto dto);
-    Task<bool> DeleteAsync(string ids, EDeleteType dType);
+    Task<bool> DeleteAsync(int[] ids, EDeleteType dType);
 }
 
