@@ -9,8 +9,6 @@ public class ProductAttributeConfiguration : IEntityTypeConfiguration<ProductAtt
     public void Configure(EntityTypeBuilder<ProductAttribute> builder)
     {
         builder.HasKey(pa => pa.Id);
-        builder.Property(pa => pa.Id)
-            .HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(pa => pa.CreatedTime)
             .HasColumnType("timestamp with time zone")

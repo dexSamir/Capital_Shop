@@ -10,9 +10,6 @@ public class BrandConfiguration : IEntityTypeConfiguration<Brand>
     {
         builder.HasKey(b => b.Id);
 
-        builder.Property(b => b.Id)
-            .HasDefaultValueSql("gen_random_uuid()");
-
         builder.Property(b => b.CreatedTime)
             .HasColumnType("timestamp with time zone")
             .IsRequired();

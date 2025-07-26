@@ -10,8 +10,6 @@ public class DiscountConfiguration : IEntityTypeConfiguration<Coupon>
     {
         builder.HasKey(d => d.Id);
 
-        builder.Property(d => d.Id)
-            .HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(d => d.CreatedTime)
             .HasColumnType("timestamp with time zone")

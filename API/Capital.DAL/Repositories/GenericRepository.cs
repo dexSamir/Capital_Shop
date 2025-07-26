@@ -22,13 +22,13 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
     public async Task<IEnumerable<T>> GetAllAsync(params string[] includes)
         => await GetAllAsync(true, includes);
 
-    public async Task<T?> GetByIdAsync(Guid id, bool asNoTrack = true, params string[] includes)
+    public async Task<T?> GetByIdAsync(int id, bool asNoTrack = true, params string[] includes)
         => await _includeAndTracking(Table, includes, asNoTrack).FirstOrDefaultAsync(x=> x.Id == id);
 
-    public async Task<T?> GetByIdAsync(Guid id, params string[] includes)
+    public async Task<T?> GetByIdAsync(int id, params string[] includes)
         => await GetByIdAsync(id, true, includes);
 
-    public async Task<IEnumerable<T>> GetByIdAsync(Guid[] ids, bool asNoTrack = true, params string[] includes)
+    public async Task<IEnumerable<T>> GetByIdAsync(int[] ids, bool asNoTrack = true, params string[] includes)
     {
         var query = Table.Where(l => ids.Contains(l.Id));
         query = _includeAndTracking(Table, includes, asNoTrack);
@@ -47,7 +47,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
     public async Task<T?> GetFirstAsync(Expression<Func<T, bool>> expression, params string[] includes)
         => await GetFirstAsync(expression, true, includes);
 
-    public async Task<bool> IsExistAsync(Guid id)
+    public async Task<bool> IsExistAsync(int id)
         => await Table.AnyAsync(x => x.Id == id);
 
     public async Task<bool> IsExistAsync(Expression<Func<T, bool>> expression)
@@ -59,31 +59,31 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
     public async Task AddRangeAsync(IEnumerable<T> entities)
         => await Table.AddRangeAsync(entities);
 
-    public async Task HardDeleteAsync(Guid id)
+    public async Task HardDeleteAsync(int id)
     {
         var entity = await GetByIdAsync(id, false); 
         Table.Remove(entity!);
     }
 
-    public async Task SoftDeleteAsync(Guid id)
+    public async Task SoftDeleteAsync(int id)
     {
         var entity = await GetByIdAsync(id, false);
         entity!.isDeleted = true;
     }
 
-    public async Task ReverseDeleteAsync(Guid id)
+    public async Task ReverseDeleteAsync(int id)
     {
         var entity = await GetByIdAsync(id, false);
         entity!.isDeleted = false;
     }
 
-    public async Task HardDeleteRangeAsync(Guid[] ids)
+    public async Task HardDeleteRangeAsync(int[] ids)
     {
         var entites = await Table.Where(x => ids.Contains(x.Id)).ToListAsync();
         if (entites.Any()) Table.RemoveRange(entites);
     }
 
-    public async Task SoftDeleteRangeAsync(Guid[] ids)
+    public async Task SoftDeleteRangeAsync(int[] ids)
     {
         using var transaction = await _context.Database.BeginTransactionAsync();
         await Table.Where(x => ids.Contains(x.Id))
@@ -91,7 +91,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
         await transaction.CommitAsync();
     }
 
-    public async Task ReverseDeleteRangeAsync(Guid[] ids)
+    public async Task ReverseDeleteRangeAsync(int[] ids)
     {
         using var transaction = await _context.Database.BeginTransactionAsync();
         await Table.Where(x => ids.Contains(x.Id))
@@ -133,7 +133,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
              .ExecuteUpdate(s => s.SetProperty(x => x.isDeleted, false));
     }
     
-    public async Task DeleteAndSaveAsync(Guid id)
+    public async Task DeleteAndSaveAsync(int id)
     {
         await Table.Where(x => x.Id == id).ExecuteDeleteAsync();
     }

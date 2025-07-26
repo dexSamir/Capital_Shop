@@ -123,3 +123,8 @@
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/AutoMapper.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/Microsoft.Extensions.ObjectPool.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/Pipelines.Sockets.Unofficial.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/StackExchange.Redis.dll

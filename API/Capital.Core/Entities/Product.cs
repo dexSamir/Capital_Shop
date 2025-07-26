@@ -19,10 +19,10 @@ public class Product : BaseEntity
 	public string CoverImage { get; set; } = null!;
 
 	public Guid SellerId { get; set; }
-	public Guid? BrandId { get; set; }
+	public int? BrandId { get; set; }
 	public Brand? Brand { get; set; }
 
-	public Guid? CouponId { get; set; }
+	public int? CouponId { get; set; }
 	public Coupon? Coupon { get; set; }
 
     public decimal Weight { get; set; }
@@ -31,7 +31,7 @@ public class Product : BaseEntity
     public decimal? Height { get; set; }
 
     //Category
-	public Guid CategoryId { get; set; }
+	public int CategoryId { get; set; }
 	public Category Category { get; set; } = null!;
 
 	//OtherImages

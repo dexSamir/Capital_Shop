@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Capital.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250504140258_Tables")]
-    partial class Tables
+    [Migration("20250726162514_UpdatedBaseEntity")]
+    partial class UpdatedBaseEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,10 +27,11 @@ namespace Capital.DAL.Migrations
 
             modelBuilder.Entity("Capital.Core.Entities.Brand", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
@@ -74,11 +75,11 @@ namespace Capital.DAL.Migrations
 
             modelBuilder.Entity("Capital.Core.Entities.Category", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
@@ -120,10 +121,11 @@ namespace Capital.DAL.Migrations
 
             modelBuilder.Entity("Capital.Core.Entities.Coupon", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CouponCode")
                         .IsRequired()
@@ -204,27 +206,29 @@ namespace Capital.DAL.Migrations
 
             modelBuilder.Entity("Capital.Core.Entities.Product", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AvgRating")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("BrandId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("BrandId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("CategoryId1")
-                        .HasColumnType("uuid");
+                    b.Property<int>("CategoryId1")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("CostPrice")
                         .HasColumnType("numeric");
 
-                    b.Property<Guid?>("CouponId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("CouponId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("CoverImage")
                         .IsRequired()
@@ -299,10 +303,11 @@ namespace Capital.DAL.Migrations
 
             modelBuilder.Entity("Capital.Core.Entities.ProductAttribute", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
@@ -312,8 +317,8 @@ namespace Capital.DAL.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("name");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid")
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
                         .HasColumnName("product_id");
 
                     b.Property<DateTime?>("UpdatedTime")
@@ -353,10 +358,11 @@ namespace Capital.DAL.Migrations
 
             modelBuilder.Entity("Capital.Core.Entities.ProductImage", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AltText")
                         .HasColumnType("varchar(150)");
@@ -373,11 +379,11 @@ namespace Capital.DAL.Migrations
                         .HasColumnType("boolean")
                         .HasDefaultValue(false);
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid?>("ReviewId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("ReviewId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
@@ -411,18 +417,17 @@ namespace Capital.DAL.Migrations
 
             modelBuilder.Entity("Capital.Core.Entities.ProductRating", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
-
-                    b.Property<Guid>("ProductId1")
-                        .HasColumnType("uuid");
 
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
@@ -438,17 +443,18 @@ namespace Capital.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId1");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("Capital.Core.Entities.ProductSpecification", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamptz");
@@ -457,8 +463,8 @@ namespace Capital.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamptz");
@@ -499,9 +505,11 @@ namespace Capital.DAL.Migrations
 
             modelBuilder.Entity("Capital.Core.Entities.Review", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comment")
                         .IsRequired()
@@ -513,14 +521,11 @@ namespace Capital.DAL.Migrations
                     b.Property<bool>("IsAproved")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("RatingId")
                         .HasColumnType("integer");
-
-                    b.Property<Guid?>("RatingId1")
-                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
@@ -535,7 +540,7 @@ namespace Capital.DAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("RatingId1");
+                    b.HasIndex("RatingId");
 
                     b.ToTable("Reviews");
                 });
@@ -813,7 +818,7 @@ namespace Capital.DAL.Migrations
                 {
                     b.HasOne("Capital.Core.Entities.Product", "Product")
                         .WithMany("Ratings")
-                        .HasForeignKey("ProductId1")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -841,7 +846,7 @@ namespace Capital.DAL.Migrations
 
                     b.HasOne("Capital.Core.Entities.ProductRating", "Rating")
                         .WithMany()
-                        .HasForeignKey("RatingId1");
+                        .HasForeignKey("RatingId");
 
                     b.Navigation("Product");
 

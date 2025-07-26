@@ -10,9 +10,6 @@ public class ProductImageConfiguration : IEntityTypeConfiguration<ProductImage>
     {
         builder.HasKey(pi => pi.Id);
 
-        builder.Property(pi => pi.Id)
-            .HasDefaultValueSql("gen_random_uuid()"); 
-
         builder.Property(pi => pi.ImageUrl)
             .HasColumnType("varchar(500)")
             .HasMaxLength(500)

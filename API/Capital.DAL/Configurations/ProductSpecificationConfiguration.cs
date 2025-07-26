@@ -10,10 +10,6 @@ public class ProductSpecificationConfiguration : IEntityTypeConfiguration<Produc
     {
         builder.HasKey(ps => ps.Id);
 
-        builder.Property(ps => ps.Id)
-            .HasDefaultValueSql("gen_random_uuid()")
-            .ValueGeneratedOnAdd();
-
         builder.Property(ps => ps.CreatedTime)
             .HasColumnType("timestamptz")
             .IsRequired();

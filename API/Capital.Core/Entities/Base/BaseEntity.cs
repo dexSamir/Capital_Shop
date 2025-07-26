@@ -2,7 +2,7 @@
 
 public abstract class BaseEntity
 {
-    public Guid Id{ get; set; }
+    public int Id { get; set; }
     public DateTime CreatedTime { get; set; }
     public DateTime? UpdatedTime { get; set; }
     public bool isDeleted { get; set; }

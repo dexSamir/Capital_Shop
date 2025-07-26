@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Capital.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class Tables : Migration
+    public partial class UpdatedBaseEntity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,7 +59,8 @@ namespace Capital.DAL.Migrations
                 name: "Brands",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "varchar(100)", nullable: false),
                     LogoUrl = table.Column<string>(type: "varchar(255)", nullable: true),
                     Website = table.Column<string>(type: "varchar(255)", nullable: true),
@@ -77,7 +78,8 @@ namespace Capital.DAL.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "varchar(100)", nullable: false),
                     ImageUrl = table.Column<string>(type: "varchar(255)", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -87,14 +89,15 @@ namespace Capital.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Coupons",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "varchar(100)", nullable: false),
                     Description = table.Column<string>(type: "text", maxLength: 1000, nullable: true),
                     DiscountType = table.Column<string>(type: "varchar(20)", nullable: false),
@@ -225,7 +228,8 @@ namespace Capital.DAL.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     SellPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     CostPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     DiscountedPrice = table.Column<decimal>(type: "numeric", nullable: false),
@@ -238,14 +242,14 @@ namespace Capital.DAL.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     CoverImage = table.Column<string>(type: "text", nullable: false),
                     SellerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BrandId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CouponId = table.Column<Guid>(type: "uuid", nullable: true),
+                    BrandId = table.Column<int>(type: "integer", nullable: true),
+                    CouponId = table.Column<int>(type: "integer", nullable: true),
                     Weight = table.Column<decimal>(type: "numeric", nullable: false),
                     Length = table.Column<decimal>(type: "numeric", nullable: true),
                     Width = table.Column<decimal>(type: "numeric", nullable: true),
                     Height = table.Column<decimal>(type: "numeric", nullable: true),
-                    CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CategoryId1 = table.Column<Guid>(type: "uuid", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false),
+                    CategoryId1 = table.Column<int>(type: "integer", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     isDeleted = table.Column<bool>(type: "boolean", nullable: false),
@@ -264,12 +268,12 @@ namespace Capital.DAL.Migrations
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "id");
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Products_Categories_CategoryId1",
                         column: x => x.CategoryId1,
                         principalTable: "Categories",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Coupons_CouponId",
@@ -283,10 +287,11 @@ namespace Capital.DAL.Migrations
                 name: "Attributes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "varchar(100)", nullable: false),
                     Value = table.Column<string>(type: "text", nullable: false),
-                    product_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     isDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
@@ -307,10 +312,10 @@ namespace Capital.DAL.Migrations
                 name: "Ratings",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Rating = table.Column<int>(type: "integer", nullable: false),
                     ProductId = table.Column<int>(type: "integer", nullable: false),
-                    ProductId1 = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     isDeleted = table.Column<bool>(type: "boolean", nullable: false),
@@ -320,8 +325,8 @@ namespace Capital.DAL.Migrations
                 {
                     table.PrimaryKey("PK_Ratings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ratings_Products_ProductId1",
-                        column: x => x.ProductId1,
+                        name: "FK_Ratings_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -331,10 +336,11 @@ namespace Capital.DAL.Migrations
                 name: "Specifications",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Key = table.Column<string>(type: "varchar(100)", nullable: false),
                     Value = table.Column<string>(type: "text", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamptz", nullable: false),
                     UpdatedTime = table.Column<DateTime>(type: "timestamptz", nullable: true),
                     isDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
@@ -355,12 +361,12 @@ namespace Capital.DAL.Migrations
                 name: "Reviews",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Comment = table.Column<string>(type: "text", nullable: false),
                     IsAproved = table.Column<bool>(type: "boolean", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
                     RatingId = table.Column<int>(type: "integer", nullable: true),
-                    RatingId1 = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     isDeleted = table.Column<bool>(type: "boolean", nullable: false),
@@ -376,8 +382,8 @@ namespace Capital.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reviews_Ratings_RatingId1",
-                        column: x => x.RatingId1,
+                        name: "FK_Reviews_Ratings_RatingId",
+                        column: x => x.RatingId,
                         principalTable: "Ratings",
                         principalColumn: "Id");
                 });
@@ -386,12 +392,13 @@ namespace Capital.DAL.Migrations
                 name: "Images",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ImageUrl = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true),
                     IsPrimary = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     AltText = table.Column<string>(type: "varchar(150)", nullable: true),
-                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ReviewId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    ReviewId = table.Column<int>(type: "integer", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     isDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
@@ -616,9 +623,9 @@ namespace Capital.DAL.Migrations
                 column: "CouponId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ratings_ProductId1",
+                name: "IX_Ratings_ProductId",
                 table: "Ratings",
-                column: "ProductId1");
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_ProductId",
@@ -626,9 +633,9 @@ namespace Capital.DAL.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_RatingId1",
+                name: "IX_Reviews_RatingId",
                 table: "Reviews",
-                column: "RatingId1");
+                column: "RatingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Specifications_CreatedTime",

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wGtN5QvZeTzZ8uR7R46IYsMNWFQyp9S7R+mQbb+ehR6o/jDf0l4K3hD1Ji6TTuYIMt3I7gxh3MdC/6he5cozew==",
+  "dgSpecHash": "HUbX3mVOkpo=",
   "success": true,
   "projectFilePath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/Capital.API.csproj",
   "expectedPackageFiles": [
@@ -64,7 +64,10 @@
     "/Users/samirhebibov/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/system.text.encoding.codepages/6.0.0/system.text.encoding.codepages.6.0.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
-    "/Users/samirhebibov/.nuget/packages/system.threading.channels/6.0.0/system.threading.channels.6.0.0.nupkg.sha512"
+    "/Users/samirhebibov/.nuget/packages/system.threading.channels/6.0.0/system.threading.channels.6.0.0.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.netcore.app.ref/8.0.15/microsoft.netcore.app.ref.8.0.15.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.15/microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.15/microsoft.netcore.app.host.osx-arm64.8.0.15.nupkg.sha512"
   ],
   "logs": []
 }

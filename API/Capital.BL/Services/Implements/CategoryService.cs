@@ -5,6 +5,7 @@ using Capital.BL.ExternalServices.Interfaces;
 using Capital.BL.OtherServices.Interfaces;
 using Capital.BL.Services.Interfaces;
 using Capital.BL.Utilities.Enums;
+using Capital.BL.Utilities.Helpers;
 using Capital.Core.Entities;
 using Capital.Core.Repositories;
 
@@ -32,7 +33,7 @@ public class CategoryService : ICategoryService
         return datas; 
     }
 
-    public async Task<CategoryGetDto> GetByIdAsync(Guid id)
+    public async Task<CategoryGetDto> GetByIdAsync(int id)
     {
         var cacheKey = $"category_{id}";
         var category = _cache.GetOrSetAsync(cacheKey, async () => await _repo.GetByIdAsync(id), TimeSpan.FromMinutes(2));
@@ -80,7 +81,7 @@ public class CategoryService : ICategoryService
         return getDtos; 
     }
 
-    public async Task<CategoryGetDto> UpdateAsync(Guid id, CategoryUpdateDto dto)
+    public async Task<CategoryGetDto> UpdateAsync(int id, CategoryUpdateDto dto)
     {
         var data = await _repo.GetByIdAsync(id, false) ?? throw new NotFoundException<Category>();
         var updatedDto = _mapper.Map(dto, data);
@@ -95,9 +96,45 @@ public class CategoryService : ICategoryService
         return getDto; 
     }
 
-    public Task<bool> DeleteAsync(IEnumerable<Guid> ids, EDeleteType dType)
+    public async Task<bool> DeleteAsync(string ids, EDeleteType dType)
     {
-        throw new ArgumentNullException(); 
+        var idArray = FileHelper.ParseIds(ids);
+        if (idArray.Length == 0)
+            throw new ArgumentException("Hec bir id daxil edilmeyib!");
+
+        if(dType == EDeleteType.Hard)
+            foreach(var id in idArray)
+            {
+                var data = await _repo.GetByIdAsync(id, false);
+                if (data != null && !string.IsNullOrEmpty(data.ImageUrl))
+                    await _fileService.DeleteImageIfNotDefault(data.ImageUrl, "categories");
+            }
+
+        switch (dType)
+        {
+            case EDeleteType.Soft:
+                await _repo.SoftDeleteRangeAsync(idArray);
+                break;
+
+            case EDeleteType.Reverse:
+                await _repo.ReverseDeleteRangeAsync(idArray);
+                break;
+
+            case EDeleteType.Hard:
+                await _repo.HardDeleteRangeAsync(idArray);
+                break;
+
+            default:
+                throw new UnsupportedDeleteTypeException(); 
+        }
+
+        bool success = idArray.Length == await _repo.SaveAsync();
+
+        if (success)
+            foreach (var id in idArray)
+                await _cache.RemoveAsync($"category_{id}");
+
+        return success; 
     }
 }
 

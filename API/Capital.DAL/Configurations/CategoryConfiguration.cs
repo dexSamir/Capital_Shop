@@ -10,9 +10,6 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         builder.HasKey(c => c.Id);
 
-        builder.Property(c => c.Id)
-            .HasColumnName("id")
-            .HasDefaultValueSql("gen_random_uuid()"); 
 
         builder.Property(c => c.Title)
             .HasColumnType("varchar(100)")

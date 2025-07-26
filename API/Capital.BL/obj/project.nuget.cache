@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "y6TW6yTgEzqPnF2rbHiS/xRpahLU8B0BO3Cjglv2p5Rry23QPt+DaAxQP4CL59103mftcAamCBRQoofDclxEZA==",
+  "dgSpecHash": "PAQpmSxqmuM=",
   "success": true,
   "projectFilePath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/Capital.BL.csproj",
   "expectedPackageFiles": [
@@ -36,7 +36,9 @@
     "/Users/samirhebibov/.nuget/packages/stackexchange.redis/2.7.27/stackexchange.redis.2.7.27.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/system.buffers/4.6.0/system.buffers.4.6.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/system.io.pipelines/5.0.1/system.io.pipelines.5.0.1.nupkg.sha512",
-    "/Users/samirhebibov/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512"
+    "/Users/samirhebibov/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.netcore.app.ref/8.0.15/microsoft.netcore.app.ref.8.0.15.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.15/microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512"
   ],
   "logs": []
 }

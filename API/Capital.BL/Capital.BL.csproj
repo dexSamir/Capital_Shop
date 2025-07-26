@@ -23,6 +23,7 @@
     <None Remove="Exceptions\Common\" />
     <None Remove="ExternalServices\" />
     <None Remove="Exceptions\Image\" />
+    <None Remove="Utilities\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -38,6 +39,7 @@
     <Folder Include="Exceptions\Common\" />
     <Folder Include="ExternalServices\" />
     <Folder Include="Exceptions\Image\" />
+    <Folder Include="Utilities\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
