@@ -13,8 +13,16 @@
       "PackagePath": "staticwebassets/imgs/actors/kadwg1t5.tez.jpeg"
     },
     {
+      "Id": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/actors/ntlspuvd.bij.jpeg",
+      "PackagePath": "staticwebassets/imgs/actors/ntlspuvd.bij.jpeg"
+    },
+    {
       "Id": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/actors/p244mxnq.wth.jpeg",
       "PackagePath": "staticwebassets/imgs/actors/p244mxnq.wth.jpeg"
+    },
+    {
+      "Id": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/quqctaqd.btk.jpeg",
+      "PackagePath": "staticwebassets/imgs/categories/quqctaqd.btk.jpeg"
     },
     {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.Capital.API.Microsoft.AspNetCore.StaticWebAssets.props",

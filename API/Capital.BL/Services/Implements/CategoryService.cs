@@ -83,16 +83,20 @@ public class CategoryService : ICategoryService
     public async Task<CategoryGetDto> UpdateAsync(int id, CategoryUpdateDto dto)
     {
         var data = await _repo.GetByIdAsync(id, false) ?? throw new NotFoundException<Category>();
-        var updatedDto = _mapper.Map(dto, data);
 
-        if(data.ImageUrl != null)
-            data.ImageUrl = await _fileService.ProcessImageAsync(dto.ImageUrl, "categories", "image/", 15, data.ImageUrl);
+        _mapper.Map(dto, data); // Yalnız Title gəlir bu mapper-dən
 
-        updatedDto.UpdatedTime = DateTime.UtcNow;
+        if (dto.ImageUrl != null)
+        {
+            data.ImageUrl = await _fileService.ProcessImageAsync(
+                dto.ImageUrl, "categories", "image/", 15, data.ImageUrl);
+        }
 
-        var getDto = _mapper.Map<CategoryGetDto>(data);
+        data.UpdatedTime = DateTime.UtcNow;
 
-        return getDto; 
+        await _repo.SaveAsync();
+
+        return _mapper.Map<CategoryGetDto>(data);
     }
 
     public async Task<bool> DeleteAsync(int[] ids, EDeleteType dType)
@@ -126,7 +130,7 @@ public class CategoryService : ICategoryService
                 throw new UnsupportedDeleteTypeException(); 
         }
 
-        bool success = ids.Length == await _repo.SaveAsync();
+        bool success = await _repo.SaveAsync() >= 0;
 
         if (success)
             foreach (var id in ids)

@@ -46,7 +46,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpDelete("{deleteType}")]
-    public async Task<IActionResult> Delete(EDeleteType deleteType,[FromQuery] int[] ids)
+    public async Task<IActionResult> Delete([FromQuery] int[] ids, EDeleteType deleteType)
     {
         return Ok(await _service.DeleteAsync(ids, deleteType)); 
     }

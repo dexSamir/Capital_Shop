@@ -1,35 +1,28 @@
 ﻿<Properties StartupConfiguration="{B1C8B850-AB95-45D6-A571-AC50DA6D602E}|https">
-  <MonoDevelop.Ide.ItemProperties.Capital.API FirstBuild="True" PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Capital" expanded="True">
+            <Node name="Capital.API" expanded="True">
+              <Node name="Controllers" expanded="True" />
+            </Node>
             <Node name="Capital.BL" expanded="True">
-              <Node name="Exceptions" expanded="True">
-                <Node name="Image" expanded="True" />
-              </Node>
-              <Node name="Extensions" expanded="True" />
-              <Node name="ExternalServices" expanded="True">
-                <Node name="Implements" expanded="True" />
-              </Node>
               <Node name="Services" expanded="True">
                 <Node name="Implements" expanded="True" />
                 <Node name="Interfaces" expanded="True" />
               </Node>
-            </Node>
-            <Node name="Capital.Core" expanded="True">
-              <Node name="Repositories" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

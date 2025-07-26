@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/u49RzfxnZFSJqcuZYClLIdGjaPDMhG2mB6NyVjg6Tk=",
+  "Hash": "/bImLV3S0f5J8pwmP53tBSNspi5hQIQy/om66MHn6eA=",
   "Source": "Capital.API",
   "BasePath": "_content/Capital.API",
   "Mode": "Default",
@@ -131,6 +131,25 @@
       "OriginalItemSpec": "wwwroot/imgs/actors/kadwg1t5.tez.jpeg"
     },
     {
+      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/actors/ntlspuvd.bij.jpeg",
+      "SourceId": "Capital.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "BasePath": "_content/Capital.API",
+      "RelativePath": "imgs/actors/ntlspuvd.bij.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/imgs/actors/ntlspuvd.bij.jpeg"
+    },
+    {
       "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/actors/p244mxnq.wth.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
@@ -148,6 +167,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/actors/p244mxnq.wth.jpeg"
+    },
+    {
+      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/quqctaqd.btk.jpeg",
+      "SourceId": "Capital.API",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "BasePath": "_content/Capital.API",
+      "RelativePath": "imgs/categories/quqctaqd.btk.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/imgs/categories/quqctaqd.btk.jpeg"
     }
   ]
 }

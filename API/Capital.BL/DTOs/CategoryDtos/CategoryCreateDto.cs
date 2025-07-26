@@ -3,7 +3,7 @@
 namespace Capital.BL.DTOs.CategoryDtos;
 public class CategoryCreateDto
 {
-	public string Title { get; set; }
-	public IFormFile ImageUrl { get; set; }
+	public string Title { get; set; } = null!; 
+	public IFormFile ImageUrl { get; set; } = null!;
 }
 
