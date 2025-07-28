@@ -7,5 +7,6 @@ public abstract class BaseEntity
     public DateTime? UpdatedTime { get; set; }
     public bool isDeleted { get; set; }
     public bool isUpdated { get; set; }
+
 }
 
