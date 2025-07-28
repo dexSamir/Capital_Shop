@@ -12,8 +12,6 @@ public class CategoryProfile : Profile
             .ForAllMembers(opt =>
         opt.Condition((src, dest, srcMember) => srcMember != null));
         CreateMap<Category, CategoryGetDto>();
-
-
     }
 }
 

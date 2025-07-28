@@ -1,12 +1,15 @@
 ﻿<Properties StartupConfiguration="{B1C8B850-AB95-45D6-A571-AC50DA6D602E}|https">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Capital.BL/ExternalServices/Implements/FileService.cs">
+    <Files>
+      <File FileName="Capital.API/Controllers/CategoriesController.cs" Line="49" Column="90" />
+      <File FileName="Capital.BL/DTOs/CategoryDtos/CategoryCreateDto.cs" Line="7" Column="19" />
+      <File FileName="Capital.BL/ExternalServices/Implements/FileService.cs" Line="24" Column="25" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
@@ -15,9 +18,11 @@
               <Node name="Controllers" expanded="True" />
             </Node>
             <Node name="Capital.BL" expanded="True">
-              <Node name="Services" expanded="True">
+              <Node name="DTOs" expanded="True">
+                <Node name="CategoryDtos" expanded="True" />
+              </Node>
+              <Node name="ExternalServices" expanded="True">
                 <Node name="Implements" expanded="True" />
-                <Node name="Interfaces" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -25,4 +30,6 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
 </Properties>
