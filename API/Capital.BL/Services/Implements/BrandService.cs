@@ -4,6 +4,7 @@ using Capital.BL.ExternalServices.Interfaces;
 using Capital.BL.OtherServices.Interfaces;
 using Capital.BL.Services.Interfaces;
 using Capital.BL.Utilities.Enums;
+using Capital.Core.Entities;
 using Capital.Core.Repositories;
 
 namespace Capital.BL.Services.Implements;
@@ -12,37 +13,60 @@ public class BrandService : IBrandService
 {
     readonly IBrandRepository _repo;
     readonly ICacheService _cache;
-    readonly IFileService _file;
+    readonly IFileService _fileService;
     readonly IMapper _mapper; 
-    public BrandService(IBrandRepository repo, ICacheService cache, IFileService file, IMapper mapper)
+    public BrandService(IBrandRepository repo, ICacheService cache, IFileService fileService, IMapper mapper)
     {
         _repo = repo;
         _cache = cache;
-        _file = file;
+        _fileService = fileService;
         _mapper = mapper; 
     }
 
     public async Task<IEnumerable<BrandGetDto>> GetAllAsync()
     {
-        string cacheKey = CacheKeys.AllBrands;
-        var brands = await _cache.GetOrSetAsync(cacheKey, async () => await _repo.GetAllAsync(), TimeSpan.FromMinutes(2));
+        var brands = await _cache.GetOrSetAsync(CacheKeys.AllBrands, async () => await _repo.GetAllAsync(), TimeSpan.FromMinutes(2));
 
         return _mapper.Map<IEnumerable<BrandGetDto>>(brands); 
     }
 
-    public Task<BrandGetDto> GetByIdAsync()
+    public async Task<BrandGetDto> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var brand = await _cache.GetOrSetAsync(CacheKeys.BrandById(id), async () => await _repo.GetByIdAsync(id, false), TimeSpan.FromMinutes(2));
+
+        return _mapper.Map<BrandGetDto>(brand); 
     }
 
-    public Task<BrandGetDto> CreateAsync(BrandCreateDto dto)
+    public async Task<BrandGetDto> CreateAsync(BrandCreateDto dto)
     {
-        throw new NotImplementedException();
+        var data = _mapper.Map<Brand>(dto);
+        data.CreatedTime = DateTime.UtcNow;
+
+        if (dto.LogoUrl != null)
+            data.LogoUrl = await _fileService.ProcessImageAsync(dto.LogoUrl, "brands", "image/", 15);
+
+        await _repo.AddAsync(data);
+        await _cache.RemoveAsync(CacheKeys.AllBrands);
+
+        return _mapper.Map<BrandGetDto>(data); 
     }
 
-    public Task<IEnumerable<BrandGetDto>> CreateBulkAysnc(IEnumerable<BrandCreateDto> dtos)
+    public async Task<IEnumerable<BrandGetDto>> CreateBulkAysnc(IEnumerable<BrandCreateDto> dtos)
     {
-        throw new NotImplementedException();
+        var datas = _mapper.Map<IList<Brand>>(dtos);
+
+        for(int i = 0; i < datas.Count; i++)
+        {
+            datas[i].CreatedTime = DateTime.UtcNow;
+
+            if (dtos.ElementAt(i).LogoUrl != null)
+                datas[i].LogoUrl = await _fileService.ProcessImageAsync(dtos.ElementAt(i).LogoUrl, "brands", "image/", 15);
+        }
+
+        await _repo.AddRangeAsync(datas);
+        await _cache.RemoveAsync(CacheKeys.AllBrands);
+
+        return _mapper.Map<IEnumerable<BrandGetDto>>(datas); 
     }
 
     public Task<bool> DeleteAsync(int[] ids, EDeleteType dType)

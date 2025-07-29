@@ -25,24 +25,19 @@ public class CategoryService : ICategoryService
 
     public async Task<IEnumerable<CategoryGetDto>> GetAllAsync()
     {
-        var cacheKey = CacheKeys.AllCategories;
-        var categories = await _cache.GetOrSetAsync(cacheKey, async () => await _repo.GetAllAsync(), TimeSpan.FromMinutes(2));
-
-        var datas = _mapper.Map<IEnumerable<CategoryGetDto>>(categories);
-        return datas; 
+        var categories = await _cache.GetOrSetAsync(CacheKeys.AllCategories, async () => await _repo.GetAllAsync(), TimeSpan.FromMinutes(2));
+        
+        return _mapper.Map<IEnumerable<CategoryGetDto>>(categories); 
     }
 
     public async Task<CategoryGetDto> GetByIdAsync(int id)
     {
-        var cacheKey = CacheKeys.CategoryById(id);
-        var category = await _cache.GetOrSetAsync(cacheKey, async () => await _repo.GetByIdAsync(id), TimeSpan.FromMinutes(2));
+        var category = await _cache.GetOrSetAsync(CacheKeys.CategoryById(id), async () => await _repo.GetByIdAsync(id), TimeSpan.FromMinutes(2));
 
         if (category == null)
             throw new NotFoundException<Category>();
 
-        var data = _mapper.Map<CategoryGetDto>(category);
-
-        return data; 
+        return _mapper.Map<CategoryGetDto>(category); 
     }
 
     public async Task<CategoryGetDto> CreateAsync(CategoryCreateDto dto)
@@ -51,14 +46,13 @@ public class CategoryService : ICategoryService
         data.CreatedTime = DateTime.UtcNow;
 
         if(dto.ImageUrl != null)
-            data.ImageUrl = await _fileService.ProcessImageAsync(dto.ImageUrl, "actors", "image/", 15);
+            data.ImageUrl = await _fileService.ProcessImageAsync(dto.ImageUrl, "categories", "image/", 15);
 
         await _repo.AddAsync(data);
         await _repo.SaveAsync();
 
         await _cache.RemoveAsync(CacheKeys.AllCategories);
-        var getDto = _mapper.Map<CategoryGetDto>(data); 
-        return getDto;
+        return _mapper.Map<CategoryGetDto>(data); ;
     }
 
     public async Task<IEnumerable<CategoryGetDto>> CreateBulkAsync(IEnumerable<CategoryCreateDto> dtos)
@@ -69,15 +63,14 @@ public class CategoryService : ICategoryService
             dataList[i].CreatedTime = DateTime.UtcNow;
 
             if (dtos.ElementAt(i).ImageUrl != null)
-                dataList[i].ImageUrl = await _fileService.ProcessImageAsync(dtos.ElementAt(i).ImageUrl, "actors", "image/", 15);
+                dataList[i].ImageUrl = await _fileService.ProcessImageAsync(dtos.ElementAt(i).ImageUrl, "categories", "image/", 15);
         }
 
 
         await _repo.AddRangeAsync(dataList);
         await _cache.RemoveAsync(CacheKeys.AllCategories);
 
-        var getDtos = _mapper.Map<IEnumerable<CategoryGetDto>>(dataList);
-        return getDtos; 
+        return _mapper.Map<IEnumerable<CategoryGetDto>>(dataList); 
     }
 
     public async Task<CategoryGetDto> UpdateAsync(int id, CategoryUpdateDto dto)

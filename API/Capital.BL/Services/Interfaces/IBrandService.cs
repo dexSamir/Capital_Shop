@@ -6,7 +6,7 @@ namespace Capital.BL.Services.Interfaces;
 public interface IBrandService
 {
     Task<IEnumerable<BrandGetDto>> GetAllAsync();
-    Task<BrandGetDto> GetByIdAsync();
+    Task<BrandGetDto> GetByIdAsync(int id);
 
     Task<BrandGetDto> CreateAsync(BrandCreateDto dto);
     Task<IEnumerable<BrandGetDto>> CreateBulkAysnc(IEnumerable<BrandCreateDto> dtos);
