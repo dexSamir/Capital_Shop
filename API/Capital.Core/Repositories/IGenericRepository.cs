@@ -23,6 +23,7 @@ public interface IGenericRepository<T> where T : BaseEntity, new()
 
     //Create
     Task AddAsync(T entity);
+    void UpdateAsync(T entity);
     Task AddRangeAsync(IEnumerable<T> entities);
 
     //Delete

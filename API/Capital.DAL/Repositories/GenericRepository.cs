@@ -59,6 +59,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
     public async Task AddRangeAsync(IEnumerable<T> entities)
         => await Table.AddRangeAsync(entities);
 
+    public void UpdateAsync(T entity)
+       => Table.Update(entity);
+
     public async Task HardDeleteAsync(int id)
     {
         var entity = await GetByIdAsync(id, false); 

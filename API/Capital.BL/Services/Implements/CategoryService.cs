@@ -87,7 +87,9 @@ public class CategoryService : ICategoryService
 
         data.UpdatedTime = DateTime.UtcNow;
 
+        _repo.UpdateAsync(data);
         await _repo.SaveAsync();
+        await _cache.RemoveAsync(CacheKeys.CategoryById(id)); 
 
         return _mapper.Map<CategoryGetDto>(data);
     }
@@ -100,8 +102,8 @@ public class CategoryService : ICategoryService
         if(dType == EDeleteType.Hard)
             foreach(var id in ids)
             {
-                var data = await _repo.GetByIdAsync(id, false);
-                if (data != null && !string.IsNullOrEmpty(data.ImageUrl))
+                var data = await _repo.GetByIdAsync(id, false) ?? throw new NotFoundException<Category>();
+                if (!string.IsNullOrEmpty(data.ImageUrl))
                     await _fileService.DeleteImageIfNotDefault(data.ImageUrl, "categories");
             }
 

@@ -1,5 +1,6 @@
 ﻿using Capital.BL.Constants;
 using Capital.BL.DTOs.BrandDtos;
+using Capital.BL.Exceptions.Common;
 using Capital.BL.ExternalServices.Interfaces;
 using Capital.BL.OtherServices.Interfaces;
 using Capital.BL.Services.Interfaces;
@@ -51,7 +52,7 @@ public class BrandService : IBrandService
         return _mapper.Map<BrandGetDto>(data); 
     }
 
-    public async Task<IEnumerable<BrandGetDto>> CreateBulkAysnc(IEnumerable<BrandCreateDto> dtos)
+    public async Task<IEnumerable<BrandGetDto>> CreateBulkAsync(IEnumerable<BrandCreateDto> dtos)
     {
         var datas = _mapper.Map<IList<Brand>>(dtos);
 
@@ -66,17 +67,65 @@ public class BrandService : IBrandService
         await _repo.AddRangeAsync(datas);
         await _cache.RemoveAsync(CacheKeys.AllBrands);
 
-        return _mapper.Map<IEnumerable<BrandGetDto>>(datas); 
+        return _mapper.Map<IEnumerable<BrandGetDto>>(datas);
     }
 
-    public Task<bool> DeleteAsync(int[] ids, EDeleteType dType)
+    public async Task<BrandGetDto> UpdateAsync(int id, BrandUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var data =await _repo.GetByIdAsync(id, false) ?? throw new NotFoundException<Brand>();
+        _mapper.Map(dto, data);
+
+        if(dto.LogoUrl != null)
+            data.LogoUrl = await _fileService.ProcessImageAsync(dto.LogoUrl, "brands", "image/", 15, data.LogoUrl);
+
+        data.UpdatedTime = DateTime.UtcNow;
+
+        await _cache.RemoveAsync(CacheKeys.BrandById(id));
+        _repo.UpdateAsync(data);
+        await _repo.SaveAsync();
+
+        return _mapper.Map<BrandGetDto>(data); 
     }
 
-    public Task<BrandGetDto> UpdateAsync(int id, BrandUpdateDto dto)
+    public async Task<bool> DeleteAsync(int[] ids, EDeleteType dType)
     {
-        throw new NotImplementedException();
+        if (ids.Length == 0)
+            throw new ArgumentException("Hec bir id daxil edilmeyib!");
+
+        if(dType == EDeleteType.Hard)
+            foreach (var id in ids)
+            {
+                var data = await _repo.GetByIdAsync(id, false) ?? throw new NotFoundException<Brand>();
+                if(!string.IsNullOrEmpty(data.LogoUrl))
+                    await _fileService.DeleteImageIfNotDefault(data.LogoUrl, "brands");
+            }
+
+        switch (dType)
+        {
+            case EDeleteType.Soft:
+                await _repo.SoftDeleteRangeAsync(ids);
+                break;
+
+            case EDeleteType.Reverse:
+                await _repo.ReverseDeleteRangeAsync(ids);
+                break;
+
+            case EDeleteType.Hard:
+                await _repo.HardDeleteRangeAsync(ids);
+                break;
+
+            default:
+                throw new UnsupportedDeleteTypeException();
+        }
+
+        bool success = await _repo.SaveAsync() >= 0;
+
+        if (success)
+            foreach (var id in ids)
+                await _cache.RemoveAsync(CacheKeys.BrandById(id));
+
+        return success;
     }
+
 }
 

@@ -9,7 +9,7 @@ public interface IBrandService
     Task<BrandGetDto> GetByIdAsync(int id);
 
     Task<BrandGetDto> CreateAsync(BrandCreateDto dto);
-    Task<IEnumerable<BrandGetDto>> CreateBulkAysnc(IEnumerable<BrandCreateDto> dtos);
+    Task<IEnumerable<BrandGetDto>> CreateBulkAsync(IEnumerable<BrandCreateDto> dtos);
 
     Task<BrandGetDto> UpdateAsync(int id, BrandUpdateDto dto);
     Task<bool> DeleteAsync(int[] ids, EDeleteType dType); 
