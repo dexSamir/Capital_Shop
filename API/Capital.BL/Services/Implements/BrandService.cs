@@ -33,6 +33,9 @@ public class BrandService : IBrandService
 
     public async Task<BrandGetDto> GetByIdAsync(int id)
     {
+        if (!await _repo.IsExistAsync(id))
+            throw new NotFoundException<Brand>();
+
         var brand = await _cache.GetOrSetAsync(CacheKeys.BrandById(id), async () => await _repo.GetByIdAsync(id, false), TimeSpan.FromMinutes(2));
 
         return _mapper.Map<BrandGetDto>(brand); 
@@ -47,6 +50,7 @@ public class BrandService : IBrandService
             data.LogoUrl = await _fileService.ProcessImageAsync(dto.LogoUrl, "brands", "image/", 15);
 
         await _repo.AddAsync(data);
+        await _repo.SaveAsync();
         await _cache.RemoveAsync(CacheKeys.AllBrands);
 
         return _mapper.Map<BrandGetDto>(data); 
@@ -79,6 +83,7 @@ public class BrandService : IBrandService
             data.LogoUrl = await _fileService.ProcessImageAsync(dto.LogoUrl, "brands", "image/", 15, data.LogoUrl);
 
         data.UpdatedTime = DateTime.UtcNow;
+        data.isUpdated = true; 
 
         await _cache.RemoveAsync(CacheKeys.BrandById(id));
         _repo.UpdateAsync(data);

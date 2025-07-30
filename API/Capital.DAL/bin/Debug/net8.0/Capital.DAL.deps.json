@@ -607,10 +607,7 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.15"
         },
         "runtime": {
-          "Capital.Core.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "Capital.Core.dll": {}
         }
       }
     }

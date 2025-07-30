@@ -32,10 +32,10 @@ public class CategoryService : ICategoryService
 
     public async Task<CategoryGetDto> GetByIdAsync(int id)
     {
-        var category = await _cache.GetOrSetAsync(CacheKeys.CategoryById(id), async () => await _repo.GetByIdAsync(id), TimeSpan.FromMinutes(2));
+        if (!await _repo.IsExistAsync(id))
+            throw new NotFoundException<Brand>();
 
-        if (category == null)
-            throw new NotFoundException<Category>();
+        var category = await _cache.GetOrSetAsync(CacheKeys.CategoryById(id), async () => await _repo.GetByIdAsync(id), TimeSpan.FromMinutes(2));
 
         return _mapper.Map<CategoryGetDto>(category); 
     }

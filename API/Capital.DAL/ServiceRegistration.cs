@@ -9,6 +9,7 @@ public static class ServiceRegistration
 	{
 		services.AddScoped<ICategoryRepository, CategoryRepository>();
 		services.AddScoped<IBrandRepository, BrandRepository>();
+		services.AddScoped<IProductRepository, ProductRepository>(); 
 
 		return services; 
 	}
