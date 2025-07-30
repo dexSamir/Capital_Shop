@@ -1,5 +1,4 @@
 ﻿using Capital.Core.Entities.Base;
-
 namespace Capital.Core.Entities;
 
 public class Product : BaseEntity
@@ -18,6 +17,7 @@ public class Product : BaseEntity
 	public string CoverImage { get; set; } = null!;
 
 	public Guid SellerId { get; set; }
+
 	public int? BrandId { get; set; }
 	public Brand? Brand { get; set; }
 

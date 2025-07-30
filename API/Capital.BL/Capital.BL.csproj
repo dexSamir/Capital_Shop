@@ -26,6 +26,7 @@
     <None Remove="Utilities\Helpers\" />
     <None Remove="Constants\" />
     <None Remove="DTOs\BrandDtos\" />
+    <None Remove="DTOs\ProductDtos\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -44,6 +45,7 @@
     <Folder Include="Utilities\Helpers\" />
     <Folder Include="Constants\" />
     <Folder Include="DTOs\BrandDtos\" />
+    <Folder Include="DTOs\ProductDtos\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
