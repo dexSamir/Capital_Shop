@@ -6,8 +6,8 @@ public class Product : BaseEntity
 	public decimal SellPrice { get; set; }
 	public decimal CostPrice { get; set; }
 	public decimal DiscountedPrice { get; set; }
-	public int AvgRating {get; set;}
-	public int Quantity {get; set;}
+	public int AvgRating { get; set; }
+	public int Quantity { get; set; }
 	public string SKU { get; set; } = null!;
 	public bool IsBestseller { get; set; }
     public bool IsNewArrival { get; set; }
