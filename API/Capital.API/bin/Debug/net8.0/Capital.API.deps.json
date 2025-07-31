@@ -1841,14 +1841,7 @@
           }
         }
       },
-      "System.Formats.Asn1/8.0.1": {
-        "runtime": {
-          "lib/net8.0/System.Formats.Asn1.dll": {
-            "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.724.31311"
-          }
-        }
-      },
+      "System.Formats.Asn1/8.0.1": {},
       "System.IO.Pipelines/8.0.0": {},
       "System.Reflection.Metadata/7.0.0": {
         "dependencies": {
@@ -1936,7 +1929,10 @@
           "Microsoft.Extensions.Caching.StackExchangeRedis": "8.0.11"
         },
         "runtime": {
-          "Capital.BL.dll": {}
+          "Capital.BL.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Capital.Core/1.0.0": {
@@ -1944,7 +1940,10 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.15"
         },
         "runtime": {
-          "Capital.Core.dll": {}
+          "Capital.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Capital.DAL/1.0.0": {
@@ -1953,7 +1952,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.11"
         },
         "runtime": {
-          "Capital.DAL.dll": {}
+          "Capital.DAL.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

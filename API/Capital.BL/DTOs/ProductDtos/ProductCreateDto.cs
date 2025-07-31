@@ -12,6 +12,7 @@ public class ProductCreateDto
     public string Title { get; set; }
     public string Description { get; set; }
     public IFormFile CoverImage { get; set; }
+    public IFormFile SeconImage { get; set; }
 
     public int BrandId { get; set; }
     public int CaategoryId { get; set; }

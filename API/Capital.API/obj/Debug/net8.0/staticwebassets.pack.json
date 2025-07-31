@@ -21,10 +21,6 @@
       "PackagePath": "staticwebassets/imgs/brands/unbvycy5.kve.jpeg"
     },
     {
-      "Id": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/vysyx51q.nlz.jpeg",
-      "PackagePath": "staticwebassets/imgs/brands/vysyx51q.nlz.jpeg"
-    },
-    {
       "Id": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg",
       "PackagePath": "staticwebassets/imgs/brands/z3rnzdnw.fqg.jpeg"
     },
@@ -43,6 +39,10 @@
     {
       "Id": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/wmofs1tv.pjc.jpeg",
       "PackagePath": "staticwebassets/imgs/categories/wmofs1tv.pjc.jpeg"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.Capital.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
     {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.Capital.API.Microsoft.AspNetCore.StaticWebAssets.props",

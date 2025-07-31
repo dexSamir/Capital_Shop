@@ -5,7 +5,7 @@ public class Product : BaseEntity
 {
 	public decimal SellPrice { get; set; }
 	public decimal CostPrice { get; set; }
-	public decimal DiscountedPrice { get; set; }
+	public int Discount { get; set; }
 	public int AvgRating { get; set; }
 	public int Quantity { get; set; }
 	public string SKU { get; set; } = null!;
@@ -15,6 +15,7 @@ public class Product : BaseEntity
     public string Title { get; set; } = null!;
 	public string Description { get; set; } = null!;
 	public string CoverImage { get; set; } = null!;
+	public string? SecondImage { get; set; }
 
 	public Guid SellerId { get; set; }
 

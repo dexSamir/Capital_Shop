@@ -1,29 +1,31 @@
 ﻿<Properties StartupConfiguration="{B1C8B850-AB95-45D6-A571-AC50DA6D602E}|https">
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Capital.Core/Entities/ProductAttribute.cs">
-    <Files>
-      <File FileName="Capital.Core/Entities/ProductAttribute.cs" Line="13" Column="1" />
-      <File FileName="Capital.Core/Entities/Product.cs" Line="37" Column="30" />
-      <File FileName="Capital.Core/Entities/ProductImage.cs" Line="15" Column="37" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Capital">
-            <Node name="Capital.Core" expanded="True">
-              <Node name="Entities" expanded="True">
-                <Node name="ProductAttribute.cs" selected="True" />
+          <Node name="Capital" expanded="True">
+            <Node name="Capital.BL" expanded="True">
+              <Node name="DTOs" expanded="True">
+                <Node name="ProductDtos" expanded="True" />
               </Node>
+              <Node name="Services" expanded="True">
+                <Node name="Implements" expanded="True" />
+                <Node name="Interfaces" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="Capital.Core" expanded="True">
+              <Node name="Entities" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
