@@ -14,6 +14,6 @@ public interface IProductService
     Task<ProductGetDto> UpdateAsync(int id, ProductUpdateDto dto);
     Task<bool> DeleteAsync(int[] ids, EDeleteType dType);
 
-    Task<IEnumerable<ProductGetDto>> SortedAndFilteredProductsAsync(ProductFilterDto dto);
+    //Task<IEnumerable<ProductGetDto>> SortedAndFilteredProductsAsync(ProductFilterDto dto);
 }   
 
