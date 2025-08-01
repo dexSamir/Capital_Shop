@@ -5,7 +5,7 @@ namespace Capital.BL.Services.Interfaces;
 
 public interface IProductService
 {
-    Task<IEnumerable<ProductGetDto>> GetAllAsync();
+    Task<IEnumerable<ProductGetDto>> GetAllAsync(ProductFilterDto dto);
     Task<ProductDetailDto> GetByIdAsync(int id);
 
     Task<ProductGetDto> CreateAsync(ProductCreateDto dto);

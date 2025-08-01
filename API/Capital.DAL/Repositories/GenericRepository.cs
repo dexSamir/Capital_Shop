@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Drawing;
+using System.Linq.Expressions;
 using Capital.Core.Entities.Base;
 using Capital.Core.Repositories;
 using Capital.DAL.Context;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Capital.DAL.Repositories; 
 
-public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, new() 
+public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, new()
 {
 	readonly AppDbContext _context;
 	protected DbSet<T> Table => _context.Set<T>();
@@ -52,6 +53,24 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
 
     public async Task<bool> IsExistAsync(Expression<Func<T, bool>> expression)
         => await Table.AnyAsync(expression);
+
+    //Pagination
+    public async Task<IEnumerable<T>> GetPagedAsync(Expression<Func<T, bool>> expression, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, int page = 1, int pageSize = 30, bool asNoTrack = true, params string[] includes)
+    {
+        IQueryable<T> query = Table;
+
+        if (expression != null)
+            query = query.Where(expression);
+
+        query = _includeAndTracking(query, includes, asNoTrack);
+
+        if (orderBy != null)
+            query = orderBy(query); 
+
+        var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+        return items; 
+    }
 
     public async Task AddAsync(T entity)
         =>await Table.AddAsync(entity);
@@ -166,5 +185,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
             query = query.Include(include);
         return query; 
     }
+
 }
 
