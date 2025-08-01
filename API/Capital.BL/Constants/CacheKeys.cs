@@ -2,12 +2,25 @@
 
 public static class CacheKeys
 {
-    //Categories; 
-    public const string AllCategories = "all_categories";
-    public static string CategoryById(int id) => $"category_{id}";
+    public static class Category
+    {
+        private const string Prefix = "category_";
+        public const string All = $"{Prefix}all";
+        public static string ById(int id) => $"{Prefix}{id}";
+    }
 
-    //Brands
-    public const string AllBrands = "all_brands";
-    public static string BrandById(int id) => $"brand_{id}"; 
+    public static class Brand
+    {
+        private const string Prefix = "brand_";
+        public const string All = $"{Prefix}all";
+        public static string ById(int id) => $"{Prefix}{id}";
+    }
+
+    public static class Product
+    {
+        private const string Prefix = "product_";
+        public const string All = $"{Prefix}all";
+        public static string ById(int id) => $"{Prefix}{id}";
+    }
 }
 

@@ -6,7 +6,7 @@ namespace Capital.BL.Services.Interfaces;
 public interface IProductService
 {
     Task<IEnumerable<ProductGetDto>> GetAllAsync();
-    Task<ProductGetDto> GetByIdAsync(int id);
+    Task<ProductDetailDto> GetByIdAsync(int id);
 
     Task<ProductGetDto> CreateAsync(ProductCreateDto dto);
     Task<IEnumerable<ProductGetDto>> CreateBulkAsync(IEnumerable<ProductCreateDto> dtos);
@@ -14,6 +14,6 @@ public interface IProductService
     Task<ProductGetDto> UpdateAsync(int id, ProductUpdateDto dto);
     Task<bool> DeleteAsync(int[] ids, EDeleteType dType);
 
-    Task<IEnumerable<ProductGetDto>> SortedAndFilteredProductsAsync();
+    Task<IEnumerable<ProductGetDto>> SortedAndFilteredProductsAsync(ProductFilterDto dto);
 }   
 

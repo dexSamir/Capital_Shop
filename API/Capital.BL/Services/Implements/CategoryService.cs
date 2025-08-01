@@ -25,7 +25,7 @@ public class CategoryService : ICategoryService
 
     public async Task<IEnumerable<CategoryGetDto>> GetAllAsync()
     {
-        var categories = await _cache.GetOrSetAsync(CacheKeys.AllCategories, async () => await _repo.GetAllAsync(), TimeSpan.FromMinutes(2));
+        var categories = await _cache.GetOrSetAsync(CacheKeys.Category.All, async () => await _repo.GetAllAsync(), TimeSpan.FromMinutes(2));
         
         return _mapper.Map<IEnumerable<CategoryGetDto>>(categories); 
     }
@@ -35,7 +35,7 @@ public class CategoryService : ICategoryService
         if (!await _repo.IsExistAsync(id))
             throw new NotFoundException<Brand>();
 
-        var category = await _cache.GetOrSetAsync(CacheKeys.CategoryById(id), async () => await _repo.GetByIdAsync(id), TimeSpan.FromMinutes(2));
+        var category = await _cache.GetOrSetAsync(CacheKeys.Category.ById(id), async () => await _repo.GetByIdAsync(id), TimeSpan.FromMinutes(2));
 
         return _mapper.Map<CategoryGetDto>(category); 
     }
@@ -51,7 +51,7 @@ public class CategoryService : ICategoryService
         await _repo.AddAsync(data);
         await _repo.SaveAsync();
 
-        await _cache.RemoveAsync(CacheKeys.AllCategories);
+        await _cache.RemoveAsync(CacheKeys.Category.All);
         return _mapper.Map<CategoryGetDto>(data); ;
     }
 
@@ -68,7 +68,7 @@ public class CategoryService : ICategoryService
 
 
         await _repo.AddRangeAsync(dataList);
-        await _cache.RemoveAsync(CacheKeys.AllCategories);
+        await _cache.RemoveAsync(CacheKeys.Category.All);
 
         return _mapper.Map<IEnumerable<CategoryGetDto>>(dataList); 
     }
@@ -89,7 +89,7 @@ public class CategoryService : ICategoryService
 
         _repo.UpdateAsync(data);
         await _repo.SaveAsync();
-        await _cache.RemoveAsync(CacheKeys.CategoryById(id)); 
+        await _cache.RemoveAsync(CacheKeys.Category.ById(id)); 
 
         return _mapper.Map<CategoryGetDto>(data);
     }
@@ -129,7 +129,7 @@ public class CategoryService : ICategoryService
 
         if (success)
             foreach (var id in ids)
-                await _cache.RemoveAsync(CacheKeys.CategoryById(id));
+                await _cache.RemoveAsync(CacheKeys.Category.ById(id));
 
         return success; 
     }

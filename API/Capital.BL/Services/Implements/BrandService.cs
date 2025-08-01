@@ -26,7 +26,7 @@ public class BrandService : IBrandService
 
     public async Task<IEnumerable<BrandGetDto>> GetAllAsync()
     {
-        var brands = await _cache.GetOrSetAsync(CacheKeys.AllBrands, async () => await _repo.GetAllAsync(), TimeSpan.FromMinutes(2));
+        var brands = await _cache.GetOrSetAsync(CacheKeys.Brand.All, async () => await _repo.GetAllAsync(), TimeSpan.FromMinutes(2));
 
         return _mapper.Map<IEnumerable<BrandGetDto>>(brands); 
     }
@@ -36,7 +36,7 @@ public class BrandService : IBrandService
         if (!await _repo.IsExistAsync(id))
             throw new NotFoundException<Brand>();
 
-        var brand = await _cache.GetOrSetAsync(CacheKeys.BrandById(id), async () => await _repo.GetByIdAsync(id, false), TimeSpan.FromMinutes(2));
+        var brand = await _cache.GetOrSetAsync(CacheKeys.Brand.ById(id), async () => await _repo.GetByIdAsync(id, false), TimeSpan.FromMinutes(2));
 
         return _mapper.Map<BrandGetDto>(brand); 
     }
@@ -51,7 +51,7 @@ public class BrandService : IBrandService
 
         await _repo.AddAsync(data);
         await _repo.SaveAsync();
-        await _cache.RemoveAsync(CacheKeys.AllBrands);
+        await _cache.RemoveAsync(CacheKeys.Brand.All);
 
         return _mapper.Map<BrandGetDto>(data); 
     }
@@ -69,7 +69,7 @@ public class BrandService : IBrandService
         }
 
         await _repo.AddRangeAsync(datas);
-        await _cache.RemoveAsync(CacheKeys.AllBrands);
+        await _cache.RemoveAsync(CacheKeys.Brand.All);
 
         return _mapper.Map<IEnumerable<BrandGetDto>>(datas);
     }
@@ -85,7 +85,7 @@ public class BrandService : IBrandService
         data.UpdatedTime = DateTime.UtcNow;
         data.isUpdated = true; 
 
-        await _cache.RemoveAsync(CacheKeys.BrandById(id));
+        await _cache.RemoveAsync(CacheKeys.Brand.ById(id));
         _repo.UpdateAsync(data);
         await _repo.SaveAsync();
 
@@ -127,7 +127,7 @@ public class BrandService : IBrandService
 
         if (success)
             foreach (var id in ids)
-                await _cache.RemoveAsync(CacheKeys.BrandById(id));
+                await _cache.RemoveAsync(CacheKeys.Brand.ById(id));
 
         return success;
     }
