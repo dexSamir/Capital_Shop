@@ -21,6 +21,7 @@ public static class CacheKeys
         private const string Prefix = "product_";
         public const string All = $"{Prefix}all";
         public static string ById(int id) => $"{Prefix}{id}";
+        public static string ImagesById(int id) => $"{Prefix}images_{id}"; 
     }
 }
 

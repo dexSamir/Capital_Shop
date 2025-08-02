@@ -7,6 +7,8 @@ using Capital.BL.Utilities.Enums;
 using Capital.Core.Entities;
 using Capital.Core.Repositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.VisualBasic.FileIO;
+using StackExchange.Redis;
 
 namespace Capital.BL.Services.Implements;
 
@@ -64,8 +66,8 @@ public class ProductService : IProductService
         var data = _mapper.Map<Product>(dto);
         data.CreatedTime = DateTime.UtcNow;
 
-        data.CoverImage = await setImage( dto.CoverImage, "products", "image/", 15);
-        data.SecondImage = await setImage( dto.SecondImage, "products", "image/", 15);
+        data.CoverImage = await _fileService.ProcessImageAsync( dto.CoverImage, "products", "image/", 15);
+        data.SecondImage = await _fileService.ProcessImageAsync( dto.SecondImage, "products", "image/", 15);
 
         await _repo.AddAsync(data);
         await _repo.SaveAsync();
@@ -81,8 +83,8 @@ public class ProductService : IProductService
         {
             data[i].CreatedTime = DateTime.UtcNow;
 
-            data[i].CoverImage = await setImage(dtos.ElementAt(i).CoverImage, "products", "image/", 15);
-            data[i].SecondImage =await setImage( dtos.ElementAt(i).SecondImage, "products", "image/", 15);
+            data[i].CoverImage = await _fileService.ProcessImageAsync(dtos.ElementAt(i).CoverImage, "products", "image/", 15);
+            data[i].SecondImage = await _fileService.ProcessImageAsync(dtos.ElementAt(i).SecondImage, "products", "image/", 15);
         }
 
         await _repo.AddRangeAsync(data);
@@ -97,8 +99,8 @@ public class ProductService : IProductService
         _mapper.Map(dto, existing);
         existing.UpdatedTime = DateTime.UtcNow;
 
-        existing.CoverImage = await setImage(dto.CoverImage, "products", "image/", 15, existing.CoverImage);
-        existing.SecondImage = await setImage(dto.SecondImage, "products", "image/", 15, existing.CoverImage);
+        existing.CoverImage = await _fileService.ProcessImageAsync(dto.CoverImage, "products", "image/", 15, existing.CoverImage);
+        existing.SecondImage = await _fileService.ProcessImageAsync(dto.SecondImage, "products", "image/", 15, existing.CoverImage);
 
         _repo.UpdateAsync(existing);
         await _repo.SaveAsync();
@@ -143,13 +145,6 @@ public class ProductService : IProductService
         bool success = await _repo.SaveAsync() >= 0;
 
         return success;
-    }
-
-    private async Task<string> setImage(IFormFile file, string folder, string fileType, int size, string? existingImage = null)
-    {
-        if (file != null)
-            return await _fileService.ProcessImageAsync(file, folder, fileType, size, existingImage);
-        return existingImage;
     }
 
 }

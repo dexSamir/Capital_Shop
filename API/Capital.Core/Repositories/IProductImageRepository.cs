@@ -3,6 +3,6 @@ namespace Capital.Core.Repositories;
 
 public interface IProductImageRepository : IGenericRepository<ProductImage>
 {
-
+    
 }
 

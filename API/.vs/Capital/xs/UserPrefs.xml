@@ -1,30 +1,23 @@
 ﻿<Properties StartupConfiguration="{B1C8B850-AB95-45D6-A571-AC50DA6D602E}|https">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Capital" expanded="True">
             <Node name="Capital.BL" expanded="True">
-              <Node name="DTOs" expanded="True">
-                <Node name="CategoryDtos" expanded="True" />
-              </Node>
-              <Node name="Validatiors" expanded="True">
-                <Node name="CategoryValidators" expanded="True" />
-              </Node>
+              <Node name="Services" expanded="True" />
             </Node>
-            <Node name="Capital.DAL" expanded="True">
-              <Node name="Configurations" expanded="True" />
-            </Node>
+            <Node name="Capital.Core" expanded="True" />
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
