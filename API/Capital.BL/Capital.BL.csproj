@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <UserSecretsId>d212d9cd-e028-430a-b8c2-0613111710b5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +28,8 @@
     <None Remove="Constants\" />
     <None Remove="DTOs\BrandDtos\" />
     <None Remove="DTOs\ProductDtos\" />
+    <None Remove="Validatiors\" />
+    <None Remove="Validatiors\CategoryValidators\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -46,10 +49,16 @@
     <Folder Include="Constants\" />
     <Folder Include="DTOs\BrandDtos\" />
     <Folder Include="DTOs\ProductDtos\" />
+    <Folder Include="Validatiors\" />
+    <Folder Include="Validatiors\CategoryValidators\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
   </ItemGroup>
 </Project>
