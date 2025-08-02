@@ -261,5 +261,10 @@
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Drawing.Common.dll
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Security.Cryptography.ProtectedData.dll
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Windows.Extensions.dll
-/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/System.Formats.Asn1.dll
-/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/Capital.API.csproj.CopyComplete
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/Capital.API.staticwebassets.endpoints.json
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/FluentValidation.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/staticwebassets.build.endpoints.json
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/staticwebassets/msbuild.Capital.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/Capital..54552699.Up2Date
