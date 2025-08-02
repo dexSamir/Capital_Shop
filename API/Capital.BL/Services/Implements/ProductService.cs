@@ -92,19 +92,18 @@ public class ProductService : IProductService
 
     public async Task<ProductGetDto> UpdateAsync(int id, ProductUpdateDto dto)
     {
-        if (!await _repo.IsExistAsync(id))
-            throw new NotFoundException<Product>();
+        var existing = await _repo.GetByIdAsync(id) ?? throw new NotFoundException<Product>();
 
-        var data = _mapper.Map<Product>(dto);
-        data.UpdatedTime = DateTime.UtcNow;
+        _mapper.Map(dto, existing);
+        existing.UpdatedTime = DateTime.UtcNow;
 
-        data.CoverImage = await setImage(dto.CoverImage, "products", "image/", 15, data.CoverImage);
-        data.SecondImage = await setImage(dto.SecondImage, "products", "image/", 15, data.CoverImage);
+        existing.CoverImage = await setImage(dto.CoverImage, "products", "image/", 15, existing.CoverImage);
+        existing.SecondImage = await setImage(dto.SecondImage, "products", "image/", 15, existing.CoverImage);
 
-        _repo.UpdateAsync(data);
+        _repo.UpdateAsync(existing);
         await _repo.SaveAsync();
 
-        return _mapper.Map<ProductGetDto>(data);
+        return _mapper.Map<ProductGetDto>(existing);
     }
 
     public async Task<bool> DeleteAsync(int[] ids, EDeleteType dType)

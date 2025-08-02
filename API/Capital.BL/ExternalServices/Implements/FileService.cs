@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Capital.BL.Exceptions.Image;
+﻿using Capital.BL.Exceptions.Image;
 using Capital.BL.Extensions;
 using Capital.BL.ExternalServices.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -28,7 +27,7 @@ public class FileService : IFileService
             throw new UnsupportedFileTypeException($"File must be of type {fileType}!");
 
         if (!file.IsValidSize(maxSize))
-            throw new ValidationException($"File size must be less than {maxSize}MB!");
+            throw new UnsupportedFileSizeException($"File size must be less than {maxSize}MB!");
 
         if(!string.IsNullOrEmpty(existingFilePath))
             FileExtension.DeleteFile(Path.Combine("wwwroot", directory, existingFilePath));
