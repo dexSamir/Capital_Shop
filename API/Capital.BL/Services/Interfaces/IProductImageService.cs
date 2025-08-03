@@ -13,6 +13,5 @@ public interface IProductImageService
     Task UpdateAltTextAsync(int imageId, string altText);
 
     Task DeleteImagesAsync(int[] imageId, EDeleteType dType);
-    Task DeleteAllByProductIdAsync(int productId, EDeleteType dType);
 }
 

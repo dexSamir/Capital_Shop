@@ -41,10 +41,6 @@
       "PackagePath": "staticwebassets/imgs/categories/wmofs1tv.pjc.jpeg"
     },
     {
-      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.Capital.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
-      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
-    },
-    {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.Capital.API.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

@@ -31,14 +31,7 @@ public class ProductImageService : IProductImageService
         if (!await _productRepo.IsExistAsync(productId))
             throw new NotFoundException<Product>();
 
-        var primaryDto = dtos.FirstOrDefault(x => x.IsPrimary);
-        var secondaryDto = dtos.FirstOrDefault(x => x.IsSecondary);
-
-        foreach (var dto in dtos)
-        {
-            dto.IsPrimary = dto == primaryDto;
-            dto.IsSecondary = dto == secondaryDto;
-        }
+        MarkPrimaryAndSecondary(dtos);
 
         List<ProductImage> images = new(); 
 
@@ -55,39 +48,110 @@ public class ProductImageService : IProductImageService
         await _cache.RemoveAsync(CacheKeys.Product.ImagesById(productId)); 
     }
 
-    public Task DeleteAllByProductIdAsync(int productId, EDeleteType dType)
+    public async Task<ProductImageGetDto?> GetByIdAsync(int imageId)
     {
-        throw new NotImplementedException();
+        var image = await _repo.GetByIdAsync(imageId) ?? throw new NotFoundException<ProductImage>();
+        return _mapper.Map<ProductImageGetDto>(image); 
     }
 
-    public Task DeleteImagesAsync(int[] imageId, EDeleteType dType)
+    public async Task<IEnumerable<ProductImageGetDto>> GetImagesByProductIdAsync(int productId)
     {
-        throw new NotImplementedException();
+        return await _cache.GetOrSetAsync(CacheKeys.Product.ImagesById(productId), async () =>
+        {
+            var images = await _repo.GetWhereAsync(x => x.ProductId == productId);
+            return _mapper.Map<IEnumerable<ProductImageGetDto>>(images); 
+        }, TimeSpan.FromMinutes(2));
     }
 
-    public Task<ProductImageGetDto?> GetByIdAsync(int imageId)
+    public async Task<bool> SetPrimaryImageAsync(int productId, int imageId)
     {
-        throw new NotImplementedException();
+        var product = await _productRepo.GetByIdAsync(productId, "Images")
+                  ?? throw new NotFoundException<Product>();
+
+        var image = product.Images.FirstOrDefault(x => x.Id == imageId)
+                    ?? throw new NotFoundException<ProductImage>();
+
+        foreach (var img in product.Images)
+            img.IsPrimary = false;
+
+        image.IsPrimary = true;
+
+        await _productRepo.SaveAsync();
+
+        await _cache.RemoveAsync(CacheKeys.Product.ImagesById(productId));
+        return true;
     }
 
-    public Task<IEnumerable<ProductImageGetDto>> GetImagesByProductIdAsync(int productId)
+    public async Task<bool> SetSecondaryImageAsync(int productId, int imageId)
     {
-        throw new NotImplementedException();
+        var product = await _productRepo.GetByIdAsync(productId, "Images")
+                  ?? throw new NotFoundException<Product>();
+
+        var image = product.Images.FirstOrDefault(x => x.Id == imageId)
+                    ?? throw new NotFoundException<ProductImage>();
+
+        foreach (var img in product.Images)
+            img.IsSecondary = false;
+
+        image.IsSecondary = true;
+
+        await _productRepo.SaveAsync();
+
+        await _cache.RemoveAsync(CacheKeys.Product.ImagesById(productId));
+        return true;
     }
 
-    public Task<bool> SetPrimaryImageAsync(int productId, int imageId)
+    public async Task UpdateAltTextAsync(int imageId, string altText)
     {
-        throw new NotImplementedException();
+        var image = await _repo.GetByIdAsync(imageId)
+                  ?? throw new NotFoundException<ProductImage>();
+        image.AltText = altText;
+        await _productRepo.SaveAsync();
+
+        await _cache.RemoveAsync(CacheKeys.Product.ImagesById(image.ProductId));
     }
 
-    public Task<bool> SetSecondaryImageAsync(int productId, int imageId)
+    public async Task DeleteImagesAsync(int[] imageId, EDeleteType dType)
     {
-        throw new NotImplementedException();
-    }
+        if (dType == EDeleteType.Hard)
+            foreach (var id in imageId)
+            {
+                var data = await _repo.GetByIdAsync(id, false) ?? throw new NotFoundException<Product>();
 
-    public Task UpdateAltTextAsync(int imageId, string altText)
+                if (!string.IsNullOrEmpty(data.ImageUrl))
+                    await _fileService.DeleteImageIfNotDefault(data.ImageUrl, "ProductImages");
+            }
+
+        switch (dType)
+        {
+            case EDeleteType.Soft:
+                await _repo.SoftDeleteRangeAsync(imageId);
+                break;
+
+            case EDeleteType.Reverse:
+                await _repo.ReverseDeleteRangeAsync(imageId);
+                break;
+
+            case EDeleteType.Hard:
+                await _repo.HardDeleteRangeAsync(imageId);
+                break;
+
+            default:
+                throw new UnsupportedDeleteTypeException();
+        }
+    }
+    
+
+    // private methodlar
+    private void MarkPrimaryAndSecondary(IList<ProductImageCreateDto> dtos)
     {
-        throw new NotImplementedException();
+        var primary = dtos.FirstOrDefault(x => x.IsPrimary);
+        var secondary = dtos.FirstOrDefault(x => x.IsSecondary);
+        foreach (var dto in dtos)
+        {
+            dto.IsPrimary = dto == primary;
+            dto.IsSecondary = dto == secondary;
+        }
     }
 }
 
