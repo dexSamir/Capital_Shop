@@ -1,4 +1,5 @@
-﻿using Capital.BL.Constants;
+﻿using System.ComponentModel.DataAnnotations;
+using Capital.BL.Constants;
 using Capital.BL.DTOs.ProductImageDto;
 using Capital.BL.Exceptions.Common;
 using Capital.BL.ExternalServices.Interfaces;
@@ -63,50 +64,21 @@ public class ProductImageService : IProductImageService
         }, TimeSpan.FromMinutes(2));
     }
 
+
     public async Task<bool> SetPrimaryImageAsync(int productId, int imageId)
-    {
-        var product = await _productRepo.GetByIdAsync(productId, "Images")
-                  ?? throw new NotFoundException<Product>();
-
-        var image = product.Images.FirstOrDefault(x => x.Id == imageId)
-                    ?? throw new NotFoundException<ProductImage>();
-
-        foreach (var img in product.Images)
-            img.IsPrimary = false;
-
-        image.IsPrimary = true;
-
-        await _productRepo.SaveAsync();
-
-        await _cache.RemoveAsync(CacheKeys.Product.ImagesById(productId));
-        return true;
-    }
+       => await SetImageAsync(productId, imageId, true);
 
     public async Task<bool> SetSecondaryImageAsync(int productId, int imageId)
-    {
-        var product = await _productRepo.GetByIdAsync(productId, "Images")
-                  ?? throw new NotFoundException<Product>();
-
-        var image = product.Images.FirstOrDefault(x => x.Id == imageId)
-                    ?? throw new NotFoundException<ProductImage>();
-
-        foreach (var img in product.Images)
-            img.IsSecondary = false;
-
-        image.IsSecondary = true;
-
-        await _productRepo.SaveAsync();
-
-        await _cache.RemoveAsync(CacheKeys.Product.ImagesById(productId));
-        return true;
-    }
+       => await SetImageAsync(productId, imageId, false); 
 
     public async Task UpdateAltTextAsync(int imageId, string altText)
     {
         var image = await _repo.GetByIdAsync(imageId)
                   ?? throw new NotFoundException<ProductImage>();
+
         image.AltText = altText;
-        await _productRepo.SaveAsync();
+        await _repo.SaveAsync();
+        image.UpdatedTime = DateTime.UtcNow;
 
         await _cache.RemoveAsync(CacheKeys.Product.ImagesById(image.ProductId));
     }
@@ -139,12 +111,20 @@ public class ProductImageService : IProductImageService
             default:
                 throw new UnsupportedDeleteTypeException();
         }
+        
+        await _repo.SaveAsync();
     }
     
 
     // private methodlar
     private void MarkPrimaryAndSecondary(IList<ProductImageCreateDto> dtos)
     {
+        if (dtos.Count(x => x.IsPrimary) > 1 || dtos.Count(x => x.IsSecondary) > 1)
+            throw new ValidationException("Only one image can be primary.");
+
+        if (dtos.Any(x => x.IsPrimary && x.IsSecondary))
+            throw new ValidationException("An image cannot be both primary and secondary.");
+
         var primary = dtos.FirstOrDefault(x => x.IsPrimary);
         var secondary = dtos.FirstOrDefault(x => x.IsSecondary);
         foreach (var dto in dtos)
@@ -152,6 +132,34 @@ public class ProductImageService : IProductImageService
             dto.IsPrimary = dto == primary;
             dto.IsSecondary = dto == secondary;
         }
+    }
+
+    private async Task<bool> SetImageAsync(int productId, int imageId, bool isPrimary)
+    {
+        var product = await _productRepo.GetByIdAsync(productId, "Images")
+                  ?? throw new NotFoundException<Product>();
+
+        var image = product.Images.FirstOrDefault(x => x.Id == imageId)
+                    ?? throw new NotFoundException<ProductImage>();
+
+        foreach (var img in product.Images)
+        {
+            if (isPrimary)
+                img.IsPrimary = false;
+            else
+                img.IsSecondary = false;
+        }
+
+        if (isPrimary)
+            image.IsPrimary = true;
+        else
+            image.IsSecondary = true;
+
+        await _productRepo.SaveAsync();
+        image.UpdatedTime = DateTime.UtcNow;
+
+        await _cache.RemoveAsync(CacheKeys.Product.ImagesById(productId));
+        return true;
     }
 }
 

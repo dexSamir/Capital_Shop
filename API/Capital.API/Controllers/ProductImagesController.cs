@@ -15,13 +15,13 @@ public class ProductImagesController : ControllerBase
         _service = service;
     }
 
-    [HttpGet]
+    [HttpGet("{productId}")]
     public async Task<IActionResult> GetImagesByProductId(int productId)
     {
         return Ok(await _service.GetImagesByProductIdAsync(productId));
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{imageId}")]
     public async Task<IActionResult> GetById(int imageId)
     {
         return Ok(await _service.GetByIdAsync(imageId));
@@ -34,19 +34,19 @@ public class ProductImagesController : ControllerBase
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPatch("set-primary")]
     public async Task<IActionResult> SetPrimaryImage(int productId, int imageId)
     {
         return Ok(await _service.SetPrimaryImageAsync(productId, imageId));
     }
 
-    [HttpPost]
+    [HttpPatch("set-secondary")]
     public async Task<IActionResult> SetSecondaryImage(int productId, int imageId)
     {
         return Ok(await _service.SetSecondaryImageAsync(productId, imageId));
     }
 
-    [HttpPatch("{id}")]
+    [HttpPatch("{imageId}/alt-text")]
     public async Task<IActionResult> UpdateAltText(int imageId, string altText)
     {
         await _service.UpdateAltTextAsync(imageId, altText); 
@@ -54,7 +54,7 @@ public class ProductImagesController : ControllerBase
     }
 
     [HttpDelete("{deleteType}")]
-    public async Task<IActionResult> Delete([FromQuery] int[] ids, EDeleteType deleteType)
+    public async Task<IActionResult> Delete([FromQuery] int[] ids, [FromQuery] EDeleteType deleteType)
     {
         await _service.DeleteImagesAsync(ids, deleteType);
         return Ok();
