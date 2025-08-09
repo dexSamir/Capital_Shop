@@ -17,7 +17,7 @@ public class ProductImageService : IProductImageService
     readonly IProductRepository _productRepo;
     readonly IMapper _mapper;
     readonly IFileService _fileService;
-    readonly ICacheService _cache; 
+    readonly ICacheService _cache;
 	public ProductImageService(IProductImageRepository repo, IMapper mapper, IFileService fileService, ICacheService cache, IProductRepository productRepo)
 	{
         _cache = cache;
@@ -73,8 +73,7 @@ public class ProductImageService : IProductImageService
 
     public async Task UpdateAltTextAsync(int imageId, string altText)
     {
-        var image = await _repo.GetByIdAsync(imageId)
-                  ?? throw new NotFoundException<ProductImage>();
+        var image = await _repo.GetByIdAsync(imageId) ?? throw new NotFoundException<ProductImage>();
 
         image.AltText = altText;
         await _repo.SaveAsync();
@@ -88,7 +87,7 @@ public class ProductImageService : IProductImageService
         if (dType == EDeleteType.Hard)
             foreach (var id in imageId)
             {
-                var data = await _repo.GetByIdAsync(id, false) ?? throw new NotFoundException<Product>();
+                var data = await _repo.GetByIdAsync(id, false) ?? throw new NotFoundException<ProductImage>();
 
                 if (!string.IsNullOrEmpty(data.ImageUrl))
                     await _fileService.DeleteImageIfNotDefault(data.ImageUrl, "ProductImages");
@@ -125,7 +124,7 @@ public class ProductImageService : IProductImageService
         if (dtos.Any(x => x.IsPrimary && x.IsSecondary))
             throw new ValidationException("An image cannot be both primary and secondary.");
 
-        var primary = dtos.FirstOrDefault(x => x.IsPrimary);
+        var primary = dtos.FirstOrDefault(x => x.IsPrimary); 
         var secondary = dtos.FirstOrDefault(x => x.IsSecondary);
         foreach (var dto in dtos)
         {

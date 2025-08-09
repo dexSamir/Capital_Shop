@@ -1,4 +1,3 @@
-using Capital.BL.DTOs.ProductDtos;
 using Capital.BL.DTOs.ProductImageDto;
 using Capital.BL.Services.Interfaces;
 using Capital.BL.Utilities.Enums;

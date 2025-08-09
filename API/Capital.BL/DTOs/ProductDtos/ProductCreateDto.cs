@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
+using Microsoft.AspNetCore.Http;
 
 namespace Capital.BL.DTOs.ProductDtos;
 public class ProductCreateDto
@@ -11,8 +12,9 @@ public class ProductCreateDto
 
     public string Title { get; set; }
     public string Description { get; set; }
-    public IFormFile CoverImage { get; set; }
-    public IFormFile SecondImage { get; set; }
+
+    public IFormFile? CoverImage { get; set; }
+    public IFormFile? SecondImage { get; set; }
 
     public int BrandId { get; set; }
     public int CaategoryId { get; set; }

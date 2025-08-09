@@ -1,26 +1,20 @@
 ﻿using System.Linq.Expressions;
 using Capital.BL.DTOs.ProductDtos;
 using Capital.BL.Exceptions.Common;
-using Capital.BL.ExternalServices.Interfaces;
 using Capital.BL.Services.Interfaces;
 using Capital.BL.Utilities.Enums;
 using Capital.Core.Entities;
 using Capital.Core.Repositories;
-using Microsoft.AspNetCore.Http;
-using Microsoft.VisualBasic.FileIO;
-using StackExchange.Redis;
 
 namespace Capital.BL.Services.Implements;
 
 public class ProductService : IProductService
 {
     readonly IProductRepository _repo;
-    readonly IFileService _fileService;
     readonly IMapper _mapper;
-    public ProductService(IProductRepository repo, IFileService fileService, IMapper mapper)
+    public ProductService(IProductRepository repo, IMapper mapper)
     {
         _mapper = mapper;
-        _fileService = fileService; 
         _repo = repo; 
     }
 
@@ -66,9 +60,6 @@ public class ProductService : IProductService
         var data = _mapper.Map<Product>(dto);
         data.CreatedTime = DateTime.UtcNow;
 
-        data.CoverImage = await _fileService.ProcessImageAsync( dto.CoverImage, "products", "image/", 15);
-        data.SecondImage = await _fileService.ProcessImageAsync( dto.SecondImage, "products", "image/", 15);
-
         await _repo.AddAsync(data);
         await _repo.SaveAsync();
         return _mapper.Map<ProductGetDto>(data); 
@@ -80,12 +71,7 @@ public class ProductService : IProductService
         var data = _mapper.Map<IList<Product>>(dtoList);
 
         for (int i = 0; i < data.Count; i++)
-        {
             data[i].CreatedTime = DateTime.UtcNow;
-
-            data[i].CoverImage = await _fileService.ProcessImageAsync(dtos.ElementAt(i).CoverImage, "products", "image/", 15);
-            data[i].SecondImage = await _fileService.ProcessImageAsync(dtos.ElementAt(i).SecondImage, "products", "image/", 15);
-        }
 
         await _repo.AddRangeAsync(data);
         await _repo.SaveAsync();
@@ -99,9 +85,6 @@ public class ProductService : IProductService
         _mapper.Map(dto, existing);
         existing.UpdatedTime = DateTime.UtcNow;
 
-        existing.CoverImage = await _fileService.ProcessImageAsync(dto.CoverImage, "products", "image/", 15, existing.CoverImage);
-        existing.SecondImage = await _fileService.ProcessImageAsync(dto.SecondImage, "products", "image/", 15, existing.CoverImage);
-
         _repo.UpdateAsync(existing);
         await _repo.SaveAsync();
 
@@ -112,17 +95,6 @@ public class ProductService : IProductService
     {
         if (ids.Length == 0)
             throw new ArgumentException("Hec bir id daxil edilmeyib!");
-
-        if (dType == EDeleteType.Hard)
-            foreach (var id in ids)
-            {
-                var data = await _repo.GetByIdAsync(id, false) ?? throw new NotFoundException<Product>();
-
-                if (!string.IsNullOrEmpty(data.CoverImage))
-                    await _fileService.DeleteImageIfNotDefault(data.CoverImage, "products");
-                if (!string.IsNullOrEmpty(data.SecondImage))
-                    await _fileService.DeleteImageIfNotDefault(data.SecondImage, "products");
-            }
 
         switch (dType)
         {
