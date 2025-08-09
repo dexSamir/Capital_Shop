@@ -1,21 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-
+﻿using System.Net;
 namespace Capital.BL.Exceptions.Image; 
 
-public class UnsupportedFileSizeException : Exception, IBaseException
+public class UnsupportedFileSizeException : BaseException
 {
-    public int StatusCode => StatusCodes.Status404NotFound;
-
-    public string ErrorMessage { get; }
-
-	public UnsupportedFileSizeException(int mb)
-	{
-        ErrorMessage = $"File size must be less than {mb}MB!";
-    }
-
-    public UnsupportedFileSizeException(string msg) : base(msg)
+    public UnsupportedFileSizeException(string message, string? errorCode = null)
+            : base(message, HttpStatusCode.NotFound, errorCode)
     {
-        ErrorMessage = msg;
     }
 
 }

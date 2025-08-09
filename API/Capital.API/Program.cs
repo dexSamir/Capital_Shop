@@ -1,4 +1,5 @@
 ﻿
+using Capital.API.Middlevares;
 using Capital.BL;
 using Capital.DAL;
 using Capital.DAL.Context;
@@ -37,7 +38,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-
+        app.UseMiddleware<ExceptionMiddleware>();
         app.UseAuthorization();
 
 

@@ -111,7 +111,7 @@ public class ProductService : IProductService
                 break;
 
             default:
-                throw new UnsupportedDeleteTypeException();
+                throw new UnsupportedDeleteTypeException($"Delete type '{dType}' is not supported.");
         }
 
         bool success = await _repo.SaveAsync() >= 0;

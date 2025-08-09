@@ -1,21 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Net;
 
 namespace Capital.BL.Exceptions.Image; 
 
-public class UnsupportedFileTypeException : Exception, IBaseException
+public class UnsupportedFileTypeException : BaseException
 {
-    public int StatusCode => StatusCodes.Status404NotFound;
-
-    public string ErrorMessage { get; }
-
-    public UnsupportedFileTypeException()
+    public UnsupportedFileTypeException(string message, string? errorCode = null)
+            : base(message, HttpStatusCode.NotFound, errorCode)
     {
-        ErrorMessage = "File type must be an image!";
-    }
-
-    public UnsupportedFileTypeException(string msg) : base(msg)
-    {
-        ErrorMessage = msg; 
     }
 }
 

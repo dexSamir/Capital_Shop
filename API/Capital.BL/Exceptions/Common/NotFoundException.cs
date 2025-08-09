@@ -1,26 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Net;
 namespace Capital.BL.Exceptions.Common;
 
-public class NotFoundException : Exception, IBaseException
+public class NotFoundException : BaseException
 {
-    public int StatusCode => StatusCodes.Status404NotFound; 
-
-    public string ErrorMessage { get; }
-
-    public NotFoundException()
+    public NotFoundException(string message, string? errorCode = null, int code = 0)
+        : base(message, HttpStatusCode.NotFound, errorCode, code)
     {
-        ErrorMessage = "Not Found!"; 
-    }
-
-    public NotFoundException(string msg) : base(msg)
-    {
-        ErrorMessage = msg; 
     }
 }
 
 public class NotFoundException<T> : NotFoundException
 {
-    public NotFoundException() : base(typeof(T).Name + "is not fount!")
-    { }
+    public NotFoundException(string? errorCode = null, int code = 0)
+        : base($"{typeof(T).Name} not found", errorCode, code)
+    {
+    }
 }
 

@@ -22,9 +22,11 @@
 
   <ItemGroup>
     <None Remove="Controllers\" />
+    <None Remove="Middlevares\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Middlevares\" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Properties\launchSettings.json">

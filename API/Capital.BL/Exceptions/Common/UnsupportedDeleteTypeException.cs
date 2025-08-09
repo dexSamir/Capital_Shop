@@ -1,24 +1,13 @@
 ﻿
-using Microsoft.AspNetCore.Http;
+using System.Net;
 
 namespace Capital.BL.Exceptions.Common;
-public class UnsupportedDeleteTypeException : Exception, IBaseException
+public class UnsupportedDeleteTypeException : BaseException 
 {
-    public int StatusCode => StatusCodes.Status400BadRequest; 
-
-    public string ErrorMessage { get; }
-
-
-    public UnsupportedDeleteTypeException()
+    public UnsupportedDeleteTypeException(string message, string? errorCode = null, int code = 0)
+        : base(message, HttpStatusCode.NotFound, errorCode, code)
     {
-        ErrorMessage = "Unsupported Delete Type!"; 
     }
-
-    public UnsupportedDeleteTypeException(string msg) : base(msg)
-    {
-        ErrorMessage = msg; 
-    }
-
 }
 
 

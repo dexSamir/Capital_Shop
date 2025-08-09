@@ -108,14 +108,14 @@ public class ProductImageService : IProductImageService
                 break;
 
             default:
-                throw new UnsupportedDeleteTypeException();
+                throw new UnsupportedDeleteTypeException($"Delete type '{dType}' is not supported.");
         }
         
         await _repo.SaveAsync();
     }
     
 
-    // private methodlar
+    // private methodlars
     private void MarkPrimaryAndSecondary(IList<ProductImageCreateDto> dtos)
     {
         if (dtos.Count(x => x.IsPrimary) > 1 || dtos.Count(x => x.IsSecondary) > 1)
