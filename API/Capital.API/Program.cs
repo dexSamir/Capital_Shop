@@ -1,4 +1,5 @@
 ﻿
+using Capital.API.Extensions;
 using Capital.API.Middlevares;
 using Capital.BL;
 using Capital.DAL;
@@ -22,6 +23,8 @@ public class Program
 
         builder.Services.AddDbContext<AppDbContext>(opt =>
             opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
+
+        builder.Services.ConfigureCustomApiBehavior();
 
         builder.Services.AddRepositories();
         builder.Services.AddServices(); 
