@@ -32,6 +32,8 @@
     <None Remove="Validatiors\CategoryValidators\" />
     <None Remove="Validatiors\BrandValidators\" />
     <None Remove="DTOs\ProductImageDto\" />
+    <None Remove="DTOs\AttributeDtos\" />
+    <None Remove="DTOs\AttributeDtos\ProductAttributeValueDtos\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -55,6 +57,8 @@
     <Folder Include="Validatiors\CategoryValidators\" />
     <Folder Include="Validatiors\BrandValidators\" />
     <Folder Include="DTOs\ProductImageDto\" />
+    <Folder Include="DTOs\AttributeDtos\" />
+    <Folder Include="DTOs\AttributeDtos\ProductAttributeValueDtos\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />

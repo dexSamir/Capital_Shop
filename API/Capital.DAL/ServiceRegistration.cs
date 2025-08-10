@@ -11,6 +11,7 @@ public static class ServiceRegistration
 		services.AddScoped<IBrandRepository, BrandRepository>();
 		services.AddScoped<IProductRepository, ProductRepository>();
 		services.AddScoped<IProductImageRepository, ProductImageRepository>();
+		services.AddScoped<IAttributeRepository, AttributeRepository>();
 
 		return services; 
 	}
