@@ -1,8 +1,9 @@
-﻿namespace Capital.Core.Entities.Relational;
+﻿using Capital.Core.Entities.Base;
 
-public class ProductAttributeValue 
+namespace Capital.Core.Entities.Relational;
+
+public class ProductAttributeValue : BaseEntity
 {
-	public int Id { get; set; }
 	public int ProductId { get; set; }
 	public Product Product { get; set; }
 

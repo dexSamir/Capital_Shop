@@ -2,7 +2,8 @@
 using Capital.BL.DTOs.AttributeDtos.ProductAttributeValueDtos;
 using Capital.BL.Exceptions.Common;
 using Capital.BL.Services.Interfaces;
-using Capital.BL.Utilities.Enums;
+using Capital.Core.Entities;
+using Capital.Core.Entities.Relational;
 using Capital.Core.Repositories;
 using Attribute = Capital.Core.Entities.Attribute;
 
@@ -12,8 +13,12 @@ public class AttributeService : IAttributeService
 {
     readonly IAttributeRepository _repo;
     readonly IMapper _mapper;
-    public AttributeService(IAttributeRepository repo, IMapper mapper)
+    readonly IAttributeValueRepository _valueRepo;
+    readonly IProductAttributeValueRepository _prodValueRepo; 
+    public AttributeService(IAttributeRepository repo, IMapper mapper, IAttributeValueRepository valueRepo, IProductAttributeValueRepository prodValueRepo)
     {
+        _prodValueRepo = prodValueRepo; 
+        _valueRepo = valueRepo; 
         _mapper = mapper; 
         _repo = repo; 
     }
@@ -43,7 +48,7 @@ public class AttributeService : IAttributeService
         return _mapper.Map<AttributeGetDto>(data); 
     }
 
-    public async Task<AttributeGetDto> UpdateAttributeDto(AttributeUpdateDto dto, int attributeId)
+    public async Task<AttributeGetDto> UpdateAttributeAsync(AttributeUpdateDto dto, int attributeId)
     {
         var data = await _repo.GetByIdAsync(attributeId, false, "AttributeValue") ?? throw new NotFoundException<Attribute>();
         _mapper.Map(dto, data);
@@ -54,7 +59,7 @@ public class AttributeService : IAttributeService
         return _mapper.Map<AttributeGetDto>(data); 
     }
 
-    public async Task<bool> DeleteAttributeAsync(int id, EDeleteType dtype = EDeleteType.Hard)
+    public async Task<bool> DeleteAttributeAsync(int id)
     {
        if (!await _repo.IsExistAsync(id))
             throw new NotFoundException<Attribute>();
@@ -65,56 +70,121 @@ public class AttributeService : IAttributeService
     }
 
     // Attribute Value 
-    public Task<IEnumerable<AttributeValueGetDto>> GetValuesByAttributeIdAsync(int attributeId)
+    public async Task<IEnumerable<AttributeValueGetDto>> GetValuesByAttributeIdAsync(int attributeId)
     {
-        throw new NotImplementedException();
+        var data = await _valueRepo.GetWhereAsync(x => x.AttributeId == attributeId);
+        return _mapper.Map<IEnumerable<AttributeValueGetDto>>(data); 
     }
 
-    public Task<AttributeValueGetDto> GetAttributeValueByIdAsync(int id)
+    public async Task<AttributeValueGetDto> GetAttributeValueByIdAsync(int id)
     {
-        throw new NotImplementedException();
-    }
-   
-    public Task<AttributeValueGetDto> CreateAttributeValueAsync(AttributeValueCreateDto dto)
-    {
-        throw new NotImplementedException();
+        var data = await _valueRepo.GetByIdAsync(id, "Attribute") ?? throw new NotFoundException<AttributeValue>();
+        return _mapper.Map<AttributeValueGetDto>(data); 
     }
 
-    public Task<bool> DeleteAttributeValueAsync(int id)
+    public async Task<AttributeValueGetDto> CreateAttributeValueAsync(AttributeValueCreateDto dto)
     {
-        throw new NotImplementedException();
+        var data = _mapper.Map<AttributeValue>(dto);
+        data.CreatedTime = DateTime.UtcNow;
+        await _valueRepo.AddAsync(data);
+        await _valueRepo.SaveAsync();
+
+        return _mapper.Map<AttributeValueGetDto>(data); 
     }
 
-    public Task<AttributeValueGetDto> UpdateAttributeValueAsync(int id, AttributeValueUpdateDto dto)
+    public async Task<bool> DeleteAttributeValueAsync(int id)
     {
-        throw new NotImplementedException();
+        if (!await _repo.IsExistAsync(id))
+            throw new NotFoundException<Attribute>();
+
+        await _repo.HardDeleteAsync(id);
+        bool success = await _repo.SaveAsync() > 0 ? true : false;
+        return success;
+    }
+
+    public async Task<AttributeValueGetDto> UpdateAttributeValueAsync(int id, AttributeValueUpdateDto dto)
+    {
+        var data = await _valueRepo.GetByIdAsync(id, false, "Attribute") ?? throw new NotFoundException<AttributeValue>();
+        _mapper.Map(dto, data);
+        data.UpdatedTime = DateTime.UtcNow;
+
+        _valueRepo.UpdateAsync(data);
+        await _repo.SaveAsync();
+        return _mapper.Map<AttributeValueGetDto>(data);
     }
 
 
     //Product Attribute Value 
-    public Task<IEnumerable<ProductAttributeValueGetDto>> GetProductAttributesAsync(int productId)
+    public async Task<IEnumerable<ProductAttributeValueGetDto>> GetProductAttributesAsync(int productId)
     {
-        throw new NotImplementedException();
+        var data = await _prodValueRepo.GetWhereAsync(x => x.ProductId == productId);
+        return _mapper.Map<IEnumerable<ProductAttributeValueGetDto>>(data); 
     }
 
-    public Task RemoveAllAttributesFromProductAsync(int productId)
+    public async Task RemoveAllAttributesFromProductAsync(int productId)
     {
-        throw new NotImplementedException();
+        var items = await _prodValueRepo.GetWhereAsync(x => x.ProductId == productId, false);
+        if (!items.Any())
+            return;
+
+        _prodValueRepo.HardDeleteRange(items);
+        await _prodValueRepo.SaveAsync();
     }
 
-    public Task RemoveAttributeValueFromProductAsync(int productId, int attributeValueId)
+    public async Task RemoveAttributeValueFromProductAsync(int productId, int attributeValueId)
     {
-        throw new NotImplementedException();
+        var entity = await _prodValueRepo.GetFirstAsync(x => x.ProductId == productId && x.AttributeValueId == attributeValueId, false);
+        if (entity is null)
+            throw new NotFoundException<ProductAttributeValue>();
+
+        _prodValueRepo.HardDelete(entity);
+        await _prodValueRepo.SaveAsync();
     }
 
-    public Task AssignAttributeValueToProductAsync(AssignAttributeValueToProductDto dto)
+    public async Task AssignAttributeValueToProductAsync(AssignAttributeValueToProductDto dto)
     {
-        throw new NotImplementedException();
+        bool exists = await _prodValueRepo.IsExistAsync(x =>
+            x.ProductId == dto.ProductId &&
+            x.AttributeValueId == dto.AttributeValueId);
+
+        if (exists)
+            throw new AlreadyExistsException<ProductAttributeValue>();
+
+        var pav = new ProductAttributeValue
+        {
+            ProductId = dto.ProductId,
+            AttributeValueId = dto.AttributeValueId
+        };
+
+        await _prodValueRepo.AddAsync(pav);
+        await _prodValueRepo.SaveAsync();
     }
 
-    public Task AssignMultipleAttributeValuesToProductAsync(AssignMultipleAttributeValuesDto dto)
+    public async Task AssignMultipleAttributeValuesToProductAsync(AssignMultipleAttributeValuesDto dto)
     {
-        throw new NotImplementedException();
+        var newList = new List<ProductAttributeValue>();
+
+        foreach (var valueId in dto.AttributeValueIds.Distinct())
+        {
+            bool exists = await _prodValueRepo.IsExistAsync(x =>
+                x.ProductId == dto.ProductId &&
+                x.AttributeValueId == valueId);
+
+            if (!exists)
+            {
+                newList.Add(new ProductAttributeValue
+                {
+                    ProductId = dto.ProductId,
+                    AttributeValueId = valueId
+                });
+            }
+        }
+
+        if (newList.Any())
+        {
+            await _prodValueRepo.AddRangeAsync(newList);
+            await _prodValueRepo.SaveAsync();
+        }
     }
 
 }

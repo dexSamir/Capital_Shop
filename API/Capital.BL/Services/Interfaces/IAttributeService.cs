@@ -1,6 +1,5 @@
 ﻿using Capital.BL.DTOs.AttributeDtos;
 using Capital.BL.DTOs.AttributeDtos.ProductAttributeValueDtos;
-using Capital.BL.Utilities.Enums;
 
 namespace Capital.BL.Services.Interfaces;
 
@@ -10,8 +9,8 @@ public interface IAttributeService
 	Task<AttributeGetDto> CreateAttributeAsync(AttributeCreateDto dto);
 	Task<AttributeGetDto> GetAttributeByIdAsync(int attributeId);
 	Task<IEnumerable<AttributeGetDto>> GetAllAttributesAsync();
-	Task<AttributeGetDto> UpdateAttributeDto(AttributeUpdateDto dto, int attributeId);
-	Task<bool> DeleteAttributeAsync(int id, EDeleteType dtype = EDeleteType.Hard);
+	Task<AttributeGetDto> UpdateAttributeAsync(AttributeUpdateDto dto, int attributeId);
+	Task<bool> DeleteAttributeAsync(int id);
 
     // Attributes Values
     Task<AttributeValueGetDto> CreateAttributeValueAsync(AttributeValueCreateDto dto);

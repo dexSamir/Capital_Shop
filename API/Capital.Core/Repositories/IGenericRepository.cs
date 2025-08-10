@@ -21,7 +21,7 @@ public interface IGenericRepository<T> where T : BaseEntity, new()
     Task<bool> IsExistAsync(Expression<Func<T, bool>> expression);
 
     //Pagination
-    Task<IEnumerable<T>> GetPagedAsync(Expression<Func<T, bool>> expression, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy , int page = 1, int pageSize = 30, bool asNoTrack = true, params string[] includes); 
+    Task<IEnumerable<T>> GetPagedAsync(Expression<Func<T, bool>> expression, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, int page = 1, int pageSize = 30, bool asNoTrack = true, params string[] includes);
 
     //Create
     Task AddAsync(T entity);
