@@ -15,4 +15,4 @@
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/obj/Debug/net8.0/refint/Capital.BL.dll
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/obj/Debug/net8.0/Capital.BL.pdb
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/obj/Debug/net8.0/ref/Capital.BL.dll
-/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/obj/Debug/net8.0/Capital.BL.csproj.CopyComplete
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/obj/Debug/net8.0/Capital.BL.csproj.Up2Date

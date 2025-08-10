@@ -22,6 +22,69 @@ namespace Capital.DAL.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Capital.Core.Entities.Attribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isUpdated")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Attributes");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.AttributeValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttributeId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isUpdated")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeId");
+
+                    b.ToTable("AttributeValues");
+                });
+
             modelBuilder.Entity("Capital.Core.Entities.Brand", b =>
                 {
                     b.Property<int>("Id")
@@ -301,61 +364,6 @@ namespace Capital.DAL.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Capital.Core.Entities.ProductAttribute", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("name");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer")
-                        .HasColumnName("product_id");
-
-                    b.Property<DateTime?>("UpdatedTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.Property<bool>("isUpdated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("Value");
-
-                    b.HasIndex("isDeleted");
-
-                    b.HasIndex("isUpdated");
-
-                    b.HasIndex("ProductId", "Name")
-                        .IsUnique();
-
-                    b.ToTable("Attributes");
-                });
-
             modelBuilder.Entity("Capital.Core.Entities.ProductImage", b =>
                 {
                     b.Property<int>("Id")
@@ -504,6 +512,29 @@ namespace Capital.DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("Specifications");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.Relational.ProductAttributeValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttributeValueId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeValueId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductAttributeValues");
                 });
 
             modelBuilder.Entity("Capital.Core.Entities.Review", b =>
@@ -757,6 +788,17 @@ namespace Capital.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Capital.Core.Entities.AttributeValue", b =>
+                {
+                    b.HasOne("Capital.Core.Entities.Attribute", "Attribute")
+                        .WithMany("Values")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attribute");
+                });
+
             modelBuilder.Entity("Capital.Core.Entities.Product", b =>
                 {
                     b.HasOne("Capital.Core.Entities.Brand", "Brand")
@@ -786,17 +828,6 @@ namespace Capital.DAL.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Coupon");
-                });
-
-            modelBuilder.Entity("Capital.Core.Entities.ProductAttribute", b =>
-                {
-                    b.HasOne("Capital.Core.Entities.Product", "Product")
-                        .WithMany("Attributes")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Capital.Core.Entities.ProductImage", b =>
@@ -835,6 +866,25 @@ namespace Capital.DAL.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.Relational.ProductAttributeValue", b =>
+                {
+                    b.HasOne("Capital.Core.Entities.AttributeValue", "AttributeValue")
+                        .WithMany()
+                        .HasForeignKey("AttributeValueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Capital.Core.Entities.Product", "Product")
+                        .WithMany("ProductAttributeValuesß")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AttributeValue");
 
                     b.Navigation("Product");
                 });
@@ -907,6 +957,11 @@ namespace Capital.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Capital.Core.Entities.Attribute", b =>
+                {
+                    b.Navigation("Values");
+                });
+
             modelBuilder.Entity("Capital.Core.Entities.Brand", b =>
                 {
                     b.Navigation("Products");
@@ -924,9 +979,9 @@ namespace Capital.DAL.Migrations
 
             modelBuilder.Entity("Capital.Core.Entities.Product", b =>
                 {
-                    b.Navigation("Attributes");
-
                     b.Navigation("Images");
+
+                    b.Navigation("ProductAttributeValuesß");
 
                     b.Navigation("Ratings");
 

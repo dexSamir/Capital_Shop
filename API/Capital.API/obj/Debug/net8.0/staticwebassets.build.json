@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SeivO0A5N1ZO50LxWbnK/mEblUot7XlZ0+yR/QuzRAw=",
+  "Hash": "ZkskYKTIqROBGwtfPyqGCvSHuAWOt9yPpUVAytJQd8s=",
   "Source": "Capital.API",
   "BasePath": "_content/Capital.API",
   "Mode": "Default",
@@ -31,6 +31,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ProjectBundle",
+      "Fingerprint": "25o87uqmvr",
+      "Integrity": "Nuu0BHvGBlwN6c5FSVjV9yxX0YPfwg3ufdOucRJCOz0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.components.quickgrid/8.0.11/staticwebassets/Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css"
@@ -50,6 +52,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "eu7w3d5g1a",
+      "Integrity": "tnamWuQ2F5I2J8hbtBt4/9i8Mb2y2o+9Tepj5tUrSdU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.components.quickgrid/8.0.11/staticwebassets/QuickGrid.razor.js"
@@ -60,7 +64,7 @@
       "SourceType": "Computed",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "Capital.API.styles.css",
+      "RelativePath": "Capital.API#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
       "AssetMode": "CurrentProject",
       "AssetRole": "Primary",
@@ -69,6 +73,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "ScopedCss",
       "AssetTraitValue": "ApplicationBundle",
+      "Fingerprint": "qi6jcudgdy",
+      "Integrity": "wjvNY7lSgAwWpLNuAeXXConx0FH4ntCLUPgfFfK1R2I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css"
@@ -79,15 +85,17 @@
       "SourceType": "Discovered",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "imgs/brands/2uvn3fmc.o3j.jpeg",
+      "RelativePath": "imgs/brands/2uvn3fmc.o3j#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "bjmlgx9kqr",
+      "Integrity": "Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/brands/2uvn3fmc.o3j.jpeg"
@@ -98,15 +106,17 @@
       "SourceType": "Discovered",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "imgs/brands/5oiyl4gl.ofo.jpeg",
+      "RelativePath": "imgs/brands/5oiyl4gl.ofo#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "nnymju7ojq",
+      "Integrity": "8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/brands/5oiyl4gl.ofo.jpeg"
@@ -117,15 +127,17 @@
       "SourceType": "Discovered",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "imgs/brands/q1ivw1tt.a1x.jpeg",
+      "RelativePath": "imgs/brands/q1ivw1tt.a1x#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "nnymju7ojq",
+      "Integrity": "8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/brands/q1ivw1tt.a1x.jpeg"
@@ -136,15 +148,17 @@
       "SourceType": "Discovered",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "imgs/brands/qhcv3bxt.opr.jpeg",
+      "RelativePath": "imgs/brands/qhcv3bxt.opr#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "bjmlgx9kqr",
+      "Integrity": "Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/brands/qhcv3bxt.opr.jpeg"
@@ -155,15 +169,17 @@
       "SourceType": "Discovered",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "imgs/brands/unbvycy5.kve.jpeg",
+      "RelativePath": "imgs/brands/unbvycy5.kve#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "nnymju7ojq",
+      "Integrity": "8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/brands/unbvycy5.kve.jpeg"
@@ -174,15 +190,17 @@
       "SourceType": "Discovered",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "imgs/brands/z3rnzdnw.fqg.jpeg",
+      "RelativePath": "imgs/brands/z3rnzdnw.fqg#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "nnymju7ojq",
+      "Integrity": "8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg"
@@ -193,15 +211,17 @@
       "SourceType": "Discovered",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "imgs/categories/hz0mfo5m.mzm.jpeg",
+      "RelativePath": "imgs/categories/hz0mfo5m.mzm#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "nnymju7ojq",
+      "Integrity": "8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/categories/hz0mfo5m.mzm.jpeg"
@@ -212,15 +232,17 @@
       "SourceType": "Discovered",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "imgs/categories/oeuiqxip.a1t.jpeg",
+      "RelativePath": "imgs/categories/oeuiqxip.a1t#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "nnymju7ojq",
+      "Integrity": "8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/categories/oeuiqxip.a1t.jpeg"
@@ -231,15 +253,17 @@
       "SourceType": "Discovered",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "imgs/categories/quqctaqd.btk.jpeg",
+      "RelativePath": "imgs/categories/quqctaqd.btk#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "bjmlgx9kqr",
+      "Integrity": "Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/categories/quqctaqd.btk.jpeg"
@@ -250,18 +274,1006 @@
       "SourceType": "Discovered",
       "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
-      "RelativePath": "imgs/categories/wmofs1tv.pjc.jpeg",
+      "RelativePath": "imgs/categories/wmofs1tv.pjc#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "nnymju7ojq",
+      "Integrity": "8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/imgs/categories/wmofs1tv.pjc.jpeg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "_content/Microsoft.AspNetCore.Components.QuickGrid/Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
+      "AssetFile": "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.components.quickgrid/8.0.11/staticwebassets/Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8251"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Nuu0BHvGBlwN6c5FSVjV9yxX0YPfwg3ufdOucRJCOz0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Oct 2024 23:57:16 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Nuu0BHvGBlwN6c5FSVjV9yxX0YPfwg3ufdOucRJCOz0="
+        }
+      ]
+    },
+    {
+      "Route": "_content/Microsoft.AspNetCore.Components.QuickGrid/QuickGrid.razor.js",
+      "AssetFile": "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.components.quickgrid/8.0.11/staticwebassets/QuickGrid.razor.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2563"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"tnamWuQ2F5I2J8hbtBt4/9i8Mb2y2o+9Tepj5tUrSdU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 21 Oct 2024 23:38:08 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-tnamWuQ2F5I2J8hbtBt4/9i8Mb2y2o+9Tepj5tUrSdU="
+        }
+      ]
+    },
+    {
+      "Route": "Capital.API.qi6jcudgdy.styles.css",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "120"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wjvNY7lSgAwWpLNuAeXXConx0FH4ntCLUPgfFfK1R2I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 26 Jul 2025 16:54:02 GMT"
+        },
+        {
+          "Name": "Link",
+          "Value": "<_content/Microsoft.AspNetCore.Components.QuickGrid/Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css>; rel=\"preload\"; as=\"style\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qi6jcudgdy"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wjvNY7lSgAwWpLNuAeXXConx0FH4ntCLUPgfFfK1R2I="
+        },
+        {
+          "Name": "label",
+          "Value": "Capital.API.styles.css"
+        }
+      ]
+    },
+    {
+      "Route": "Capital.API.styles.css",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "120"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wjvNY7lSgAwWpLNuAeXXConx0FH4ntCLUPgfFfK1R2I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 26 Jul 2025 16:54:02 GMT"
+        },
+        {
+          "Name": "Link",
+          "Value": "<_content/Microsoft.AspNetCore.Components.QuickGrid/Microsoft.AspNetCore.Components.QuickGrid.bundle.scp.css>; rel=\"preload\"; as=\"style\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wjvNY7lSgAwWpLNuAeXXConx0FH4ntCLUPgfFfK1R2I="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/2uvn3fmc.o3j.bjmlgx9kqr.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/2uvn3fmc.o3j.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "41159"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:34:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bjmlgx9kqr"
+        },
+        {
+          "Name": "label",
+          "Value": "imgs/brands/2uvn3fmc.o3j.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/2uvn3fmc.o3j.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/2uvn3fmc.o3j.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "41159"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:34:44 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/5oiyl4gl.ofo.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/5oiyl4gl.ofo.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/5oiyl4gl.ofo.nnymju7ojq.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/5oiyl4gl.ofo.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nnymju7ojq"
+        },
+        {
+          "Name": "label",
+          "Value": "imgs/brands/5oiyl4gl.ofo.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/q1ivw1tt.a1x.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/q1ivw1tt.a1x.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:27:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/q1ivw1tt.a1x.nnymju7ojq.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/q1ivw1tt.a1x.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:27:27 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nnymju7ojq"
+        },
+        {
+          "Name": "label",
+          "Value": "imgs/brands/q1ivw1tt.a1x.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/qhcv3bxt.opr.bjmlgx9kqr.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/qhcv3bxt.opr.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "41159"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:34:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bjmlgx9kqr"
+        },
+        {
+          "Name": "label",
+          "Value": "imgs/brands/qhcv3bxt.opr.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/qhcv3bxt.opr.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/qhcv3bxt.opr.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "41159"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:34:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/unbvycy5.kve.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/unbvycy5.kve.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/unbvycy5.kve.nnymju7ojq.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/unbvycy5.kve.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nnymju7ojq"
+        },
+        {
+          "Name": "label",
+          "Value": "imgs/brands/unbvycy5.kve.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/z3rnzdnw.fqg.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/brands/z3rnzdnw.fqg.nnymju7ojq.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nnymju7ojq"
+        },
+        {
+          "Name": "label",
+          "Value": "imgs/brands/z3rnzdnw.fqg.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/categories/hz0mfo5m.mzm.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/hz0mfo5m.mzm.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/categories/hz0mfo5m.mzm.nnymju7ojq.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/hz0mfo5m.mzm.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nnymju7ojq"
+        },
+        {
+          "Name": "label",
+          "Value": "imgs/categories/hz0mfo5m.mzm.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/categories/oeuiqxip.a1t.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/oeuiqxip.a1t.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/categories/oeuiqxip.a1t.nnymju7ojq.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/oeuiqxip.a1t.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nnymju7ojq"
+        },
+        {
+          "Name": "label",
+          "Value": "imgs/categories/oeuiqxip.a1t.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/categories/quqctaqd.btk.bjmlgx9kqr.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/quqctaqd.btk.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "41159"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 26 Jul 2025 22:19:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bjmlgx9kqr"
+        },
+        {
+          "Name": "label",
+          "Value": "imgs/categories/quqctaqd.btk.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/categories/quqctaqd.btk.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/quqctaqd.btk.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "41159"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 26 Jul 2025 22:19:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Vykjl680gCs3ZzYD13/y1PbDWbiPcyVfQ2VZxV1FE08="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/categories/wmofs1tv.pjc.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/wmofs1tv.pjc.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
+    },
+    {
+      "Route": "imgs/categories/wmofs1tv.pjc.nnymju7ojq.jpeg",
+      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/wmofs1tv.pjc.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6418"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 30 Jul 2025 07:29:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "nnymju7ojq"
+        },
+        {
+          "Name": "label",
+          "Value": "imgs/categories/wmofs1tv.pjc.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8/MwjKOAKyw5cDwd/7zisqZv2p+Prem5BCnpzHhKYck="
+        }
+      ]
     }
   ]
 }

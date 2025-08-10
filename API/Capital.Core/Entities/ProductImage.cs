@@ -15,4 +15,3 @@ public class ProductImage : BaseEntity
 	public int? ReviewId { get; set; }
 	public Review? Review { get; set; }
 }
-
