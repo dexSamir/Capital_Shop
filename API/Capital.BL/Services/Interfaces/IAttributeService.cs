@@ -27,6 +27,5 @@ public interface IAttributeService
 
     Task AssignMultipleAttributeValuesToProductAsync(AssignMultipleAttributeValuesDto dto);
     Task RemoveAllAttributesFromProductAsync(int productId);
-    Task<IEnumerable<AttributeGetDto>> SearchAttributesAsync(string keyword);
 }
 
