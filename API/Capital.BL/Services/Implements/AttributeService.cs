@@ -45,7 +45,7 @@ public class AttributeService : IAttributeService
 
     public async Task<AttributeGetDto> UpdateAttributeDto(AttributeUpdateDto dto, int attributeId)
     {
-        var data = await _repo.GetByIdAsync(attributeId, "AttributeValue") ?? throw new NotFoundException<Attribute>();
+        var data = await _repo.GetByIdAsync(attributeId, false, "AttributeValue") ?? throw new NotFoundException<Attribute>();
         _mapper.Map(dto, data);
         data.UpdatedTime = DateTime.UtcNow;
 
@@ -54,51 +54,45 @@ public class AttributeService : IAttributeService
         return _mapper.Map<AttributeGetDto>(data); 
     }
 
-    public Task<bool> DeleteAttributeAsync(int id, EDeleteType dtype = EDeleteType.Hard)
+    public async Task<bool> DeleteAttributeAsync(int id, EDeleteType dtype = EDeleteType.Hard)
+    {
+       if (!await _repo.IsExistAsync(id))
+            throw new NotFoundException<Attribute>();
+
+        await _repo.HardDeleteAsync(id);
+        bool success = await _repo.SaveAsync() > 0 ? true : false;
+        return success; 
+    }
+
+    // Attribute Value 
+    public Task<IEnumerable<AttributeValueGetDto>> GetValuesByAttributeIdAsync(int attributeId)
     {
         throw new NotImplementedException();
     }
 
-
-
-
-    public Task AssignAttributeValueToProductAsync(AssignAttributeValueToProductDto dto)
+    public Task<AttributeValueGetDto> GetAttributeValueByIdAsync(int id)
     {
         throw new NotImplementedException();
     }
-
-    public Task AssignMultipleAttributeValuesToProductAsync(AssignMultipleAttributeValuesDto dto)
-    {
-        throw new NotImplementedException();
-    }
-
    
-
     public Task<AttributeValueGetDto> CreateAttributeValueAsync(AttributeValueCreateDto dto)
     {
         throw new NotImplementedException();
     }
-
 
     public Task<bool> DeleteAttributeValueAsync(int id)
     {
         throw new NotImplementedException();
     }
 
-
-    
-
-    public Task<AttributeValueGetDto> GetAttributeValueByIdAsync(int id)
+    public Task<AttributeValueGetDto> UpdateAttributeValueAsync(int id, AttributeValueUpdateDto dto)
     {
         throw new NotImplementedException();
     }
 
+
+    //Product Attribute Value 
     public Task<IEnumerable<ProductAttributeValueGetDto>> GetProductAttributesAsync(int productId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<AttributeValueGetDto>> GetValuesByAttributeIdAsync(int attributeId)
     {
         throw new NotImplementedException();
     }
@@ -113,12 +107,15 @@ public class AttributeService : IAttributeService
         throw new NotImplementedException();
     }
 
-
-   
-
-    public Task<AttributeValueGetDto> UpdateAttributeValueAsync(int id, AttributeValueUpdateDto dto)
+    public Task AssignAttributeValueToProductAsync(AssignAttributeValueToProductDto dto)
     {
         throw new NotImplementedException();
     }
+
+    public Task AssignMultipleAttributeValuesToProductAsync(AssignMultipleAttributeValuesDto dto)
+    {
+        throw new NotImplementedException();
+    }
+
 }
 
