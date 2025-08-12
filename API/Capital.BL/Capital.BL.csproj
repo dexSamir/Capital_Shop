@@ -37,6 +37,7 @@
     <None Remove="DTOs\ProductSpecificationDtos\" />
     <None Remove="DTOs\Options\" />
     <None Remove="Exceptions\Auth\" />
+    <None Remove="DTOs\AuthDtos\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -65,6 +66,7 @@
     <Folder Include="DTOs\ProductSpecificationDtos\" />
     <Folder Include="DTOs\Options\" />
     <Folder Include="Exceptions\Auth\" />
+    <Folder Include="DTOs\AuthDtos\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />

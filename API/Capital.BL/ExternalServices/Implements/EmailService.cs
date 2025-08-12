@@ -139,6 +139,39 @@ public class EmailService : IEmailService
         return true;
     }
 
+    public async Task SendPasswordResetCodeAsync(string email, string code)
+    {
+        var subject = "Your Password Reset Code";
+        var body = $@"
+        <p>We received a request to reset your password.</p>
+        <p>Your password reset code is: <b>{code}</b></p>
+        <p>This code will expire in 10 minutes.</p>";
+
+        await SendEmailAsync(email, subject, body);
+    }
+
+    private async Task SendEmailAsync(string to, string subject, string htmlBody)
+    {
+        using var smtp = new SmtpClient
+        {
+            Host = _smtp.Host,
+            Port = _smtp.Port,
+            EnableSsl = true,
+            Credentials = new NetworkCredential(_smtp.Sender, _smtp.Password)
+        };
+
+        var msg = new MailMessage
+        {
+            From = new MailAddress(_smtp.Sender, "Samir Habibov"),
+            Subject = subject,
+            Body = htmlBody,
+            IsBodyHtml = true
+        };
+
+        msg.To.Add(to);
+        await smtp.SendMailAsync(msg);
+    }
+
     private string GenerateVerificationCode()
     {
         byte[] bytes = new byte[4];

@@ -16,6 +16,11 @@ public static class ServiceRegistration
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IProductImageService, ProductImageService>();
         services.AddScoped<IAttributeService, AttributeService>();
+        services.AddScoped<IAuthService, AuthService>();
+
+        services.AddScoped<ICurrentUser, CurrentUser>();
+        services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();
+        services.AddScoped<IEmailService, EmailService>();
 
         services.AddScoped<ICacheService, CacheService>();
         services.AddScoped<IFileService, FileService>(); 

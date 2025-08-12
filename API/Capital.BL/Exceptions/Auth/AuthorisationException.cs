@@ -6,7 +6,7 @@ namespace Capital.BL.Exceptions.Auth;
 public class AuthorisationException : BaseException
 {
     public AuthorisationException(string message, string? errorCode = null, int code = 0)
-        : base(message, HttpStatusCode.NotFound, errorCode, code)
+        : base(message, HttpStatusCode.Unauthorized, errorCode, code)
     {
     }
 }

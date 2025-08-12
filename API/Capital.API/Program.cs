@@ -2,8 +2,10 @@
 using Capital.API.Extensions;
 using Capital.API.Middlevares;
 using Capital.BL;
+using Capital.Core.Entities;
 using Capital.DAL;
 using Capital.DAL.Context;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Capital.API;
@@ -25,6 +27,10 @@ public class Program
             opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
         builder.Services.ConfigureCustomApiBehavior();
+
+        builder.Services.AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
 
         builder.Services.AddRepositories();
         builder.Services.AddServices(); 
