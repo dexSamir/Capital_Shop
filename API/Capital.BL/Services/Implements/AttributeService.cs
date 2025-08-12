@@ -73,12 +73,15 @@ public class AttributeService : IAttributeService
     public async Task<IEnumerable<AttributeValueGetDto>> GetValuesByAttributeIdAsync(int attributeId)
     {
         var data = await _valueRepo.GetWhereAsync(x => x.AttributeId == attributeId);
+        if (data is null)
+            throw new NotFoundException<Attribute>();
+
         return _mapper.Map<IEnumerable<AttributeValueGetDto>>(data); 
     }
 
     public async Task<AttributeValueGetDto> GetAttributeValueByIdAsync(int id)
     {
-        var data = await _valueRepo.GetByIdAsync(id, "Attribute") ?? throw new NotFoundException<AttributeValue>();
+        var data = await _valueRepo.GetByIdAsync(id, "Attribute") ?? throw new NotFoundException<AttributeValue>("Attribute value is not found!");
         return _mapper.Map<AttributeValueGetDto>(data); 
     }
 

@@ -16,7 +16,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllAsync([FromForm] ProductFilterDto dto)
+    public async Task<IActionResult> GetAllAsync([FromQuery] ProductFilterDto dto)
     {
         return Ok(await _service.GetAllAsync(dto));
     }

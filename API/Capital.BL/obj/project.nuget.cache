@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "atgdJztB5FE=",
+  "dgSpecHash": "SGritJL2FPUH0W7uq5czW1GUnwSZbDlV0kY51yb1u4beWMqJwvn05e/+G60JsHusn2NfKpBoWDO97iD8irP1yQ==",
   "success": true,
   "projectFilePath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/Capital.BL.csproj",
   "expectedPackageFiles": [
@@ -39,16 +39,19 @@
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.objectpool/8.0.11/microsoft.extensions.objectpool.8.0.11.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.identitymodel.abstractions/8.11.0/microsoft.identitymodel.abstractions.8.11.0.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.11.0/microsoft.identitymodel.jsonwebtokens.8.11.0.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.identitymodel.logging/8.11.0/microsoft.identitymodel.logging.8.11.0.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.identitymodel.tokens/8.11.0/microsoft.identitymodel.tokens.8.11.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.net.http.headers/2.3.0/microsoft.net.http.headers.2.3.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/npgsql/8.0.6/npgsql.8.0.6.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.11/npgsql.entityframeworkcore.postgresql.8.0.11.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/pipelines.sockets.unofficial/2.2.8/pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/stackexchange.redis/2.7.27/stackexchange.redis.2.7.27.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/system.buffers/4.6.0/system.buffers.4.6.0.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/system.identitymodel.tokens.jwt/8.11.0/system.identitymodel.tokens.jwt.8.11.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/system.io.pipelines/5.0.1/system.io.pipelines.5.0.1.nupkg.sha512",
-    "/Users/samirhebibov/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512",
-    "/Users/samirhebibov/.nuget/packages/microsoft.netcore.app.ref/8.0.15/microsoft.netcore.app.ref.8.0.15.nupkg.sha512",
-    "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.15/microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512"
+    "/Users/samirhebibov/.nuget/packages/system.text.encodings.web/8.0.0/system.text.encodings.web.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }
