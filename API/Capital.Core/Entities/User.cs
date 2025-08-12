@@ -8,5 +8,6 @@ public class User : IdentityUser
 	public string? Surname { get; set; }
 	public bool Gender { get; set; }
 	public int Age { get; set; }
+	public bool IsVerified { get; set; }
 }
 

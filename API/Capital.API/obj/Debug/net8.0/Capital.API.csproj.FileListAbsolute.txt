@@ -266,3 +266,8 @@
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/System.Formats.Asn1.dll
 /Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/Capital.API.csproj.CopyComplete
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
