@@ -155,9 +155,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
              .ExecuteUpdate(s => s.SetProperty(x => x.isDeleted, false));
     }
 
-    public async Task DeleteAndSaveAsync(int id)
+    public async Task<int> DeleteAndSaveAsync(int id)
     {
-        await Table.Where(x => x.Id == id).ExecuteDeleteAsync();
+        return await Table.Where(x => x.Id == id).ExecuteDeleteAsync();
     }
 
     public async Task<int> SaveAsync()

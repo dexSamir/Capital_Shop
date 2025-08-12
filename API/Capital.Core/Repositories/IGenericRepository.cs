@@ -48,7 +48,7 @@ public interface IGenericRepository<T> where T : BaseEntity, new()
     void SoftDeleteRange(IEnumerable<T> entities);
     void ReverseDeleteRange(IEnumerable<T> entities);
 
-    Task DeleteAndSaveAsync(int id);
+    Task<int> DeleteAndSaveAsync(int id);
     Task<int> SaveAsync();
 }
 

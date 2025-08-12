@@ -1,34 +1,27 @@
 ﻿<Properties StartupConfiguration="{B1C8B850-AB95-45D6-A571-AC50DA6D602E}|https">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Capital.BL/Services/Implements/AttributeService.cs">
-    <Files>
-      <File FileName="Capital.BL/Services/Implements/AttributeService.cs" Line="21" Column="18" />
-      <File FileName="Capital.Core/Entities/Attribute.cs" Line="8" Column="61" />
-      <File FileName="Capital.BL/Services/Implements/CategoryService.cs" Line="89" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Capital">
-            <Node name="Capital.BL">
-              <Node name="Services">
-                <Node name="Implements">
-                  <Node name="AttributeService.cs" selected="True" />
-                </Node>
-              </Node>
+          <Node name="Capital" expanded="True">
+            <Node name="Capital.API" expanded="True">
+              <Node name="Controllers" expanded="True" />
             </Node>
-            <Node name="Capital.Core" expanded="True">
-              <Node name="Entities" expanded="True" />
+            <Node name="Capital.BL" expanded="True">
+              <Node name="Services" expanded="True">
+                <Node name="Interfaces" expanded="True" />
+              </Node>
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>
