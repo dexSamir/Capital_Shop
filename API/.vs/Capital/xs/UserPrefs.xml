@@ -1,18 +1,40 @@
 ﻿<Properties StartupConfiguration="{B1C8B850-AB95-45D6-A571-AC50DA6D602E}|https">
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/Controllers/AuthsController.cs" relfile="Capital.API/Controllers/AuthsController.cs" line="21" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Capital.BL/ExternalServices/Implements/EmailService.cs">
+    <Files>
+      <File FileName="Capital.BL/Services/Implements/AuthService.cs" Line="115" Column="1" />
+      <File FileName="Capital.BL/Services/Interfaces/IAuthService.cs" Line="11" Column="43" />
+      <File FileName="Capital.BL/ExternalServices/Implements/EmailService.cs" Line="49" Column="51" />
+      <File FileName="Capital.BL/ExternalServices/Interfaces/IEmailService.cs" Line="5" Column="48" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Capital" expanded="True" />
+          <Node name="Capital" expanded="True">
+            <Node name="Capital.BL">
+              <Node name="DTOs" expanded="True">
+                <Node name="AuthDtos" expanded="True" />
+              </Node>
+              <Node name="ExternalServices">
+                <Node name="Implements" expanded="True">
+                  <Node name="EmailService.cs" selected="True" />
+                </Node>
+              </Node>
+              <Node name="Services" expanded="True">
+                <Node name="Interfaces" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.Capital.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

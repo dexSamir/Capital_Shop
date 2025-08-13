@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using Capital.BL.DTOs.AuthDtos;
 using Capital.BL.Exceptions.Common;
 using Capital.BL.ExternalServices.Interfaces;
 using Capital.BL.Services.Interfaces;
@@ -11,10 +12,12 @@ namespace Capital.BL.Services.Implements;
 
 public class AuthService : IAuthService
 {
-    private readonly UserManager<User> _userManager;
-    private readonly IDistributedCache _cache;
-    private readonly IEmailService _emailService;
-    private readonly ILogger<AuthService> _logger;
+    readonly UserManager<User> _userManager;
+    readonly SignInManager<User> _signInManager; 
+    readonly IDistributedCache _cache;
+    readonly IEmailService _emailService;
+    readonly ILogger<AuthService> _logger;
+    readonly IJwtTokenHandler _tokenHandler;
 
     private const string ResetCodePrefix = "reset_code_";
     private const int CodeExpiryMinutes = 10;
@@ -22,8 +25,12 @@ public class AuthService : IAuthService
     public AuthService(UserManager<User> userManager,
                        IDistributedCache cache,
                        IEmailService emailService,
-                       ILogger<AuthService> logger)
+                       ILogger<AuthService> logger,
+                       SignInManager<User> signInManager,
+                       IJwtTokenHandler tokenHandler)
     {
+        _tokenHandler = tokenHandler; 
+        _signInManager = signInManager; 
         _userManager = userManager;
         _cache = cache;
         _emailService = emailService;
@@ -39,7 +46,7 @@ public class AuthService : IAuthService
             return;
         }
 
-        var code = Generate6DigitCode();
+        var code = _emailService.GenerateVerificationCode();
         await _cache.SetStringAsync(
             ResetCodePrefix + email.ToLower(),
             code,
@@ -80,13 +87,41 @@ public class AuthService : IAuthService
         await _cache.RemoveAsync(ResetCodePrefix + email.ToLower());
     }
 
-    private string Generate6DigitCode()
+
+    public async Task<string> LoginAsync(LoginDto dto)
     {
-        byte[] bytes = new byte[4];
-        RandomNumberGenerator.Fill(bytes);
-        int value = BitConverter.ToInt32(bytes, 0);
-        value = Math.Abs(value % 900000) + 100000;
-        return value.ToString();
+        var user = await _userManager.FindByEmailAsync(dto.EmailOrUserName) ??
+            await _userManager.FindByNameAsync(dto.EmailOrUserName);
+
+        if (user is null)
+            throw new NotFoundException<User>();
+
+        var result = await _signInManager.PasswordSignInAsync(user, dto.Password, dto.RememberMe, true);
+
+        if (!result.Succeeded)
+            throw new NotFoundException<User>();
+
+        return _tokenHandler.CreateToken(user, 24);
+    }
+
+    public Task RegisterAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+
+    public async Task<bool> VerifyAccountAsync(string email, string token)
+        => await _emailService.ConfirmEmailAsync(email, token);
+
+    public async Task<string> SendVerificationEmailAsync(string email, string token)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        if (user == null)
+            throw new NotFoundException<User>();
+
+        await _emailService.SendVerificationEmailAsync(email, token);
+
+        return "Verification email sent.";
     }
 }
 

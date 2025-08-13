@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "H5qsPfFd7WA=",
+  "dgSpecHash": "ztCBUgzLKpN9OPFRGDFVI7B2hH+Z0UmCkIFJxNbLtsL0ArmeI10y3PwuEu39CvuYXs5t/imVWVCK0ZDKroS2IA==",
   "success": true,
   "projectFilePath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/Capital.API.csproj",
   "expectedPackageFiles": [
@@ -180,10 +180,7 @@
     "/Users/samirhebibov/.nuget/packages/system.text.json/7.0.3/system.text.json.7.0.3.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/system.threading.channels/7.0.0/system.threading.channels.7.0.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/system.threading.tasks.dataflow/7.0.0/system.threading.tasks.dataflow.7.0.0.nupkg.sha512",
-    "/Users/samirhebibov/.nuget/packages/system.windows.extensions/7.0.0/system.windows.extensions.7.0.0.nupkg.sha512",
-    "/Users/samirhebibov/.nuget/packages/microsoft.netcore.app.ref/8.0.15/microsoft.netcore.app.ref.8.0.15.nupkg.sha512",
-    "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.15/microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512",
-    "/Users/samirhebibov/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.15/microsoft.netcore.app.host.osx-arm64.8.0.15.nupkg.sha512"
+    "/Users/samirhebibov/.nuget/packages/system.windows.extensions/7.0.0/system.windows.extensions.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
