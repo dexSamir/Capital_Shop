@@ -172,7 +172,7 @@ public class EmailService : IEmailService
         await smtp.SendMailAsync(msg);
     }
 
-    private string GenerateVerificationCode()
+    public string GenerateVerificationCode()
     {
         byte[] bytes = new byte[4];
         RandomNumberGenerator.Fill(bytes);
