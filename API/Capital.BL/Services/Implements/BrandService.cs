@@ -2,7 +2,6 @@
 using Capital.BL.DTOs.BrandDtos;
 using Capital.BL.Exceptions.Common;
 using Capital.BL.ExternalServices.Interfaces;
-using Capital.BL.OtherServices.Interfaces;
 using Capital.BL.Services.Interfaces;
 using Capital.BL.Utilities.Enums;
 using Capital.Core.Entities;
@@ -46,7 +45,7 @@ public class BrandService : IBrandService
         var data = _mapper.Map<Brand>(dto);
         data.CreatedTime = DateTime.UtcNow;
 
-        if (dto.LogoUrl != null)
+        if (dto?.LogoUrl != null)
             data.LogoUrl = await _fileService.ProcessImageAsync(dto.LogoUrl, "brands", "image/", 15);
 
         await _repo.AddAsync(data);

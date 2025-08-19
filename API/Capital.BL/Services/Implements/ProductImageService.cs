@@ -3,7 +3,6 @@ using Capital.BL.Constants;
 using Capital.BL.DTOs.ProductImageDto;
 using Capital.BL.Exceptions.Common;
 using Capital.BL.ExternalServices.Interfaces;
-using Capital.BL.OtherServices.Interfaces;
 using Capital.BL.Services.Interfaces;
 using Capital.BL.Utilities.Enums;
 using Capital.Core.Entities;

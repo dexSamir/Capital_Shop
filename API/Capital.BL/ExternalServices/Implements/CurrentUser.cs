@@ -8,15 +8,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace Capital.BL.ExternalServices.Implements;
 
-public class CurrentUser : ICurrentUser
+public class CurrentUser(IHttpContextAccessor _http) : ICurrentUser
 {
-
-    readonly IHttpContextAccessor _http;
-    public CurrentUser(IHttpContextAccessor http)
-	{
-		_http = http;
-    }
-
     ClaimsPrincipal? User => _http.HttpContext?.User;
     bool IsAuthenticated => User.Identity?.IsAuthenticated ?? false;
 

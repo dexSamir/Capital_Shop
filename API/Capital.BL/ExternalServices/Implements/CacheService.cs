@@ -1,20 +1,14 @@
 ﻿using System.Text.Json;
-using Capital.BL.OtherServices.Interfaces;
+using Capital.BL.ExternalServices.Interfaces;
 using Microsoft.Extensions.Caching.Distributed;
-namespace Capital.BL.OtherServices.Implements;
 
-public class CacheService : ICacheService
+namespace Capital.BL.ExternalServices.Implements;
+
+public class CacheService(IDistributedCache cache) : ICacheService
 {
-	readonly IDistributedCache _cache; 
-
-	public CacheService(IDistributedCache cache)
-	{
-		_cache = cache; 
-	}
-
     public async Task<T> GetOrSetAsync<T>(string cacheKey, Func<Task<T>> getData, TimeSpan expiration)
     {
-        var cachedData = await _cache.GetStringAsync(cacheKey);
+        var cachedData = await cache.GetStringAsync(cacheKey);
 
         if (!string.IsNullOrWhiteSpace(cachedData))
             return JsonSerializer.Deserialize<T>(cachedData);
@@ -22,7 +16,7 @@ public class CacheService : ICacheService
         var data = await getData();
         if (data != null)
         {
-            await _cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(data), new DistributedCacheEntryOptions
+            await cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(data), new DistributedCacheEntryOptions
             {
                 AbsoluteExpirationRelativeToNow = expiration
             });
@@ -32,7 +26,7 @@ public class CacheService : ICacheService
 
     public async Task RemoveAsync(string cacheKey)
     {
-        await _cache.RemoveAsync(cacheKey); 
+        await cache.RemoveAsync(cacheKey); 
     }
 }
 
