@@ -5,7 +5,8 @@ WORKDIR /app
 # Project fayllarını kopyala
 COPY ./Capital.API/*.csproj ./Capital.API/
 COPY ./Capital.DAL/*.csproj ./Capital.DAL/
-COPY ./Capital.Domain/*.csproj ./Capital.Domain/
+COPY ./Capital.BL/*.csproj ./Capital.BL/
+COPY ./Capital.Core/*.csproj ./Capital.Core/
 
 # NuGet paketlərini restore et
 RUN dotnet restore ./Capital.API/Capital.API.csproj
