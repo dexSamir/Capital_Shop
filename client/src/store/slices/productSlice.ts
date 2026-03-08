@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit"
-import axios from "axios"
-import { base_url } from "../../data/Data"
+import { apiClient } from "../../api/client"
 
 export interface Product {
   id: number
@@ -51,8 +50,37 @@ const initialState: ProductsState = {
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${base_url}products`)
-    return response.data
+    const response = await apiClient.get(
+      "/Products/GetAllAsync",
+    )
+    const data = response.data as Array<{
+      id: number
+      title: string
+      coverImage: string
+      sellPrice: number
+      discount: number
+      categoryId: number
+    }>
+
+    const mapped: Product[] = data.map((p) => {
+      const price = Number(p.sellPrice)
+      const discount = p.discount || 0
+      const withoutDiscount =
+        discount > 0 && discount < 100
+          ? Number((price / (1 - discount / 100)).toFixed(2))
+          : price
+
+      return {
+        id: p.id,
+        name: p.title,
+        price,
+        withoutDiscount,
+        img: p.coverImage,
+        category: `Category ${p.categoryId}`,
+      }
+    })
+
+    return mapped
   } catch (error) {
     return rejectWithValue("Failed to fetch products")
   }
@@ -62,8 +90,33 @@ export const fetchProductById = createAsyncThunk(
   "products/fetchProductById",
   async (id: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${base_url}products/${id}`)
-      return response.data
+      const response = await apiClient.get(`/Products/GetById/${id}`)
+      const p = response.data as {
+        id: number
+        title: string
+        coverImage: string
+        sellPrice: number
+        discount: number
+        categoryId: number
+      }
+
+      const price = Number(p.sellPrice)
+      const discount = p.discount || 0
+      const withoutDiscount =
+        discount > 0 && discount < 100
+          ? Number((price / (1 - discount / 100)).toFixed(2))
+          : price
+
+      const mapped: Product = {
+        id: p.id,
+        name: p.title,
+        price,
+        withoutDiscount,
+        img: p.coverImage,
+        category: `Category ${p.categoryId}`,
+      }
+
+      return mapped
     } catch (error) {
       return rejectWithValue("Failed to fetch product")
     }
@@ -72,7 +125,9 @@ export const fetchProductById = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk("products/deleteProduct", async (id: number, { rejectWithValue }) => {
   try {
-    await axios.delete(`${base_url}products/${id}`)
+    await apiClient.delete(`/Products/Delete/Hard`, {
+      params: { ids: id },
+    })
     return id
   } catch (error) {
     return rejectWithValue("Failed to delete product")

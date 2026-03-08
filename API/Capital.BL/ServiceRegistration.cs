@@ -1,4 +1,4 @@
-﻿using Capital.BL.ExternalServices.Implements;
+using Capital.BL.ExternalServices.Implements;
 using Capital.BL.ExternalServices.Interfaces;
 using Capital.BL.Services.Implements;
 using Capital.BL.Services.Interfaces;
@@ -15,6 +15,8 @@ public static class ServiceRegistration
         services.AddScoped<IProductImageService, ProductImageService>();
         services.AddScoped<IAttributeService, AttributeService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<ICartService, CartService>();
 
         services.AddScoped<ICurrentUser, CurrentUser>();
         services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();

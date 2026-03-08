@@ -4,14 +4,16 @@ import { useState } from "react"
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { Link, useNavigate } from "react-router-dom"
-import { base_url } from "../../data/Data"
-import axios from "axios"
+import { apiClient } from "../../api/client"
+import { useAppDispatch } from "../../store/hooks"
+import { loginSuccess, loginStart, loginFailure } from "../../store/slices/authSlice"
 import Swal from "sweetalert2"
 import "./Register.scss"
 
 function Register() {
   const [submitCount, setSubmitCount] = useState(0)
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const handleSubmitCount = () => {
     setSubmitCount((prevCount) => prevCount + 1)
@@ -44,24 +46,53 @@ function Register() {
     },
     validationSchema,
     onSubmit: async (values) => {
+      dispatch(loginStart())
       try {
-        const response = await axios.post(`${base_url}users/`, {
-          fullname: values.fullname,
+        const response = await apiClient.post("/Auth/register", {
+          fullName: values.fullname,
           email: values.email,
           password: values.password,
-          isAdmin: false,
         })
-        console.log(response.data)
+
+        const data = response.data as {
+          token: string
+          id: string
+          fullName: string
+          email: string
+          isAdmin: boolean
+        }
+
+        dispatch(
+          loginSuccess({
+            token: data.token,
+            user: {
+              id: data.id,
+              fullName: data.fullName,
+              email: data.email,
+              isAdmin: data.isAdmin,
+            },
+          }),
+        )
+
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Account has been saved",
+          title: "Account created successfully",
           showConfirmButton: false,
           timer: 1000,
         })
-        navigate("/login")
-      } catch (error) {
-        console.error(error)
+        navigate("/")
+      } catch (error: any) {
+        const message =
+          error?.response?.data?.message ??
+          error?.response?.data ??
+          "Registration failed"
+        dispatch(loginFailure(message))
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: message,
+        })
       }
     },
   })

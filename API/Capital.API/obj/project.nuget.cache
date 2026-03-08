@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "H5qsPfFd7WA=",
+  "dgSpecHash": "3S4MvQcBmNQ=",
   "success": true,
-  "projectFilePath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/Capital.API.csproj",
+  "projectFilePath": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/Capital.API.csproj",
   "expectedPackageFiles": [
     "/Users/samirhebibov/.nuget/packages/automapper/14.0.0/automapper.14.0.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/fluentvalidation/12.0.0/fluentvalidation.12.0.0.nupkg.sha512",
@@ -58,6 +58,7 @@
     "/Users/samirhebibov/.nuget/packages/humanizer.core.zh-cn/2.14.1/humanizer.core.zh-cn.2.14.1.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/humanizer.core.zh-hans/2.14.1/humanizer.core.zh-hans.2.14.1.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/humanizer.core.zh-hant/2.14.1/humanizer.core.zh-hant.2.14.1.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.24/microsoft.aspnetcore.authentication.jwtbearer.8.0.24.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.authorization/8.0.11/microsoft.aspnetcore.authorization.8.0.11.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.components/8.0.11/microsoft.aspnetcore.components.8.0.11.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.components.analyzers/8.0.11/microsoft.aspnetcore.components.analyzers.8.0.11.nupkg.sha512",
@@ -121,6 +122,8 @@
     "/Users/samirhebibov/.nuget/packages/microsoft.identitymodel.abstractions/8.11.0/microsoft.identitymodel.abstractions.8.11.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.identitymodel.jsonwebtokens/8.11.0/microsoft.identitymodel.jsonwebtokens.8.11.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.identitymodel.logging/8.11.0/microsoft.identitymodel.logging.8.11.0.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.identitymodel.protocols/7.1.2/microsoft.identitymodel.protocols.7.1.2.nupkg.sha512",
+    "/Users/samirhebibov/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/7.1.2/microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.identitymodel.tokens/8.11.0/microsoft.identitymodel.tokens.8.11.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.jsinterop/8.0.11/microsoft.jsinterop.8.0.11.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/microsoft.net.http.headers/2.3.0/microsoft.net.http.headers.2.3.0.nupkg.sha512",

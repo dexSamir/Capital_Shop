@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZkskYKTIqROBGwtfPyqGCvSHuAWOt9yPpUVAytJQd8s=",
+  "Hash": "SdX46m2j3ZEC3MHT6Aq/38nsCt6HnHILcc5JFQ+xIG0=",
   "Source": "Capital.API",
   "BasePath": "_content/Capital.API",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "Capital.API/wwwroot",
       "Source": "Capital.API",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "Pattern": "**"
     }
@@ -59,10 +59,10 @@
       "OriginalItemSpec": "/Users/samirhebibov/.nuget/packages/microsoft.aspnetcore.components.quickgrid/8.0.11/staticwebassets/QuickGrid.razor.js"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css",
       "SourceId": "Capital.API",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "Capital.API#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
@@ -77,13 +77,13 @@
       "Integrity": "wjvNY7lSgAwWpLNuAeXXConx0FH4ntCLUPgfFfK1R2I=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css"
+      "OriginalItemSpec": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/2uvn3fmc.o3j.jpeg",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/2uvn3fmc.o3j.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "imgs/brands/2uvn3fmc.o3j#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -101,10 +101,10 @@
       "OriginalItemSpec": "wwwroot/imgs/brands/2uvn3fmc.o3j.jpeg"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/5oiyl4gl.ofo.jpeg",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/5oiyl4gl.ofo.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "imgs/brands/5oiyl4gl.ofo#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -122,10 +122,10 @@
       "OriginalItemSpec": "wwwroot/imgs/brands/5oiyl4gl.ofo.jpeg"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/q1ivw1tt.a1x.jpeg",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/q1ivw1tt.a1x.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "imgs/brands/q1ivw1tt.a1x#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -143,10 +143,10 @@
       "OriginalItemSpec": "wwwroot/imgs/brands/q1ivw1tt.a1x.jpeg"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/qhcv3bxt.opr.jpeg",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/qhcv3bxt.opr.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "imgs/brands/qhcv3bxt.opr#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -164,10 +164,10 @@
       "OriginalItemSpec": "wwwroot/imgs/brands/qhcv3bxt.opr.jpeg"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/unbvycy5.kve.jpeg",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/unbvycy5.kve.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "imgs/brands/unbvycy5.kve#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -185,10 +185,10 @@
       "OriginalItemSpec": "wwwroot/imgs/brands/unbvycy5.kve.jpeg"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "imgs/brands/z3rnzdnw.fqg#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -206,10 +206,10 @@
       "OriginalItemSpec": "wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/hz0mfo5m.mzm.jpeg",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/hz0mfo5m.mzm.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "imgs/categories/hz0mfo5m.mzm#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -227,10 +227,10 @@
       "OriginalItemSpec": "wwwroot/imgs/categories/hz0mfo5m.mzm.jpeg"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/oeuiqxip.a1t.jpeg",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/oeuiqxip.a1t.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "imgs/categories/oeuiqxip.a1t#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -248,10 +248,10 @@
       "OriginalItemSpec": "wwwroot/imgs/categories/oeuiqxip.a1t.jpeg"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/quqctaqd.btk.jpeg",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/quqctaqd.btk.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "imgs/categories/quqctaqd.btk#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -269,10 +269,10 @@
       "OriginalItemSpec": "wwwroot/imgs/categories/quqctaqd.btk.jpeg"
     },
     {
-      "Identity": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/wmofs1tv.pjc.jpeg",
+      "Identity": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/wmofs1tv.pjc.jpeg",
       "SourceId": "Capital.API",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/",
+      "ContentRoot": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/",
       "BasePath": "_content/Capital.API",
       "RelativePath": "imgs/categories/wmofs1tv.pjc#[.{fingerprint}]?.jpeg",
       "AssetKind": "All",
@@ -367,7 +367,7 @@
     },
     {
       "Route": "Capital.API.qi6jcudgdy.styles.css",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -416,7 +416,7 @@
     },
     {
       "Route": "Capital.API.styles.css",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/obj/Debug/net8.0/scopedcss/bundle/Capital.API.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -457,7 +457,7 @@
     },
     {
       "Route": "imgs/brands/2uvn3fmc.o3j.bjmlgx9kqr.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/2uvn3fmc.o3j.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/2uvn3fmc.o3j.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -502,7 +502,7 @@
     },
     {
       "Route": "imgs/brands/2uvn3fmc.o3j.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/2uvn3fmc.o3j.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/2uvn3fmc.o3j.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -539,7 +539,7 @@
     },
     {
       "Route": "imgs/brands/5oiyl4gl.ofo.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/5oiyl4gl.ofo.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/5oiyl4gl.ofo.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -576,7 +576,7 @@
     },
     {
       "Route": "imgs/brands/5oiyl4gl.ofo.nnymju7ojq.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/5oiyl4gl.ofo.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/5oiyl4gl.ofo.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -621,7 +621,7 @@
     },
     {
       "Route": "imgs/brands/q1ivw1tt.a1x.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/q1ivw1tt.a1x.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/q1ivw1tt.a1x.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -658,7 +658,7 @@
     },
     {
       "Route": "imgs/brands/q1ivw1tt.a1x.nnymju7ojq.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/q1ivw1tt.a1x.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/q1ivw1tt.a1x.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -703,7 +703,7 @@
     },
     {
       "Route": "imgs/brands/qhcv3bxt.opr.bjmlgx9kqr.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/qhcv3bxt.opr.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/qhcv3bxt.opr.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -748,7 +748,7 @@
     },
     {
       "Route": "imgs/brands/qhcv3bxt.opr.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/qhcv3bxt.opr.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/qhcv3bxt.opr.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -785,7 +785,7 @@
     },
     {
       "Route": "imgs/brands/unbvycy5.kve.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/unbvycy5.kve.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/unbvycy5.kve.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -822,7 +822,7 @@
     },
     {
       "Route": "imgs/brands/unbvycy5.kve.nnymju7ojq.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/unbvycy5.kve.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/unbvycy5.kve.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -867,7 +867,7 @@
     },
     {
       "Route": "imgs/brands/z3rnzdnw.fqg.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -904,7 +904,7 @@
     },
     {
       "Route": "imgs/brands/z3rnzdnw.fqg.nnymju7ojq.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/brands/z3rnzdnw.fqg.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -949,7 +949,7 @@
     },
     {
       "Route": "imgs/categories/hz0mfo5m.mzm.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/hz0mfo5m.mzm.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/hz0mfo5m.mzm.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -986,7 +986,7 @@
     },
     {
       "Route": "imgs/categories/hz0mfo5m.mzm.nnymju7ojq.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/hz0mfo5m.mzm.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/hz0mfo5m.mzm.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1031,7 +1031,7 @@
     },
     {
       "Route": "imgs/categories/oeuiqxip.a1t.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/oeuiqxip.a1t.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/oeuiqxip.a1t.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1068,7 +1068,7 @@
     },
     {
       "Route": "imgs/categories/oeuiqxip.a1t.nnymju7ojq.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/oeuiqxip.a1t.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/oeuiqxip.a1t.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1113,7 +1113,7 @@
     },
     {
       "Route": "imgs/categories/quqctaqd.btk.bjmlgx9kqr.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/quqctaqd.btk.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/quqctaqd.btk.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1158,7 +1158,7 @@
     },
     {
       "Route": "imgs/categories/quqctaqd.btk.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/quqctaqd.btk.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/quqctaqd.btk.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1195,7 +1195,7 @@
     },
     {
       "Route": "imgs/categories/wmofs1tv.pjc.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/wmofs1tv.pjc.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/wmofs1tv.pjc.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1232,7 +1232,7 @@
     },
     {
       "Route": "imgs/categories/wmofs1tv.pjc.nnymju7ojq.jpeg",
-      "AssetFile": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/wmofs1tv.pjc.jpeg",
+      "AssetFile": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.API/wwwroot/imgs/categories/wmofs1tv.pjc.jpeg",
       "Selectors": [],
       "ResponseHeaders": [
         {

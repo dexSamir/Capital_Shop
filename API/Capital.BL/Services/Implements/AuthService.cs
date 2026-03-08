@@ -1,4 +1,3 @@
-﻿using System.Security.Cryptography;
 using Capital.BL.DTOs.AuthDtos;
 using Capital.BL.Exceptions.Common;
 using Capital.BL.ExternalServices.Interfaces;
@@ -88,7 +87,7 @@ public class AuthService : IAuthService
     }
 
 
-    public async Task<string> LoginAsync(LoginDto dto)
+    public async Task<AuthResponseDto> LoginAsync(LoginDto dto)
     {
         var user = await _userManager.FindByEmailAsync(dto.EmailOrUserName) ??
             await _userManager.FindByNameAsync(dto.EmailOrUserName);
@@ -101,12 +100,56 @@ public class AuthService : IAuthService
         if (!result.Succeeded)
             throw new NotFoundException<User>();
 
-        return _tokenHandler.CreateToken(user, 24);
+        var token = _tokenHandler.CreateToken(user, 24);
+        var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
+        return new AuthResponseDto
+        {
+            Token = token,
+            Id = user.Id,
+            FullName = $"{user.Name} {user.Surname}".Trim(),
+            Email = user.Email!,
+            IsAdmin = isAdmin
+        };
     }
 
-    public Task RegisterAsync()
+    public async Task<AuthResponseDto> RegisterAsync(RegisterDto dto)
     {
-        throw new NotImplementedException();
+        var existingUser = await _userManager.FindByEmailAsync(dto.Email);
+        if (existingUser is not null)
+        {
+            throw new BadRequestException("A user with this email already exists.");
+        }
+
+        var user = new User
+        {
+            UserName = dto.Email,
+            Email = dto.Email,
+            Name = dto.FullName,
+            Surname = null,
+            Gender = false,
+            Age = 0,
+            IsVerified = false
+        };
+
+        var result = await _userManager.CreateAsync(user, dto.Password);
+        if (!result.Succeeded)
+        {
+            var error = result.Errors.FirstOrDefault()?.Description ?? "Registration failed.";
+            throw new BadRequestException(error);
+        }
+
+        var token = _tokenHandler.CreateToken(user, 24);
+        var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
+        return new AuthResponseDto
+        {
+            Token = token,
+            Id = user.Id,
+            FullName = user.Name,
+            Email = user.Email!,
+            IsAdmin = isAdmin
+        };
     }
 
 

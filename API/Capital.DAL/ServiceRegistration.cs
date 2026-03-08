@@ -1,4 +1,4 @@
-﻿using Capital.Core.Repositories;
+using Capital.Core.Repositories;
 using Capital.DAL.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,8 +15,11 @@ public static class ServiceRegistration
 		services.AddScoped<IAttributeValueRepository, AttributeValueRepository>(); 
 		services.AddScoped<IProductAttributeValueRepository, ProductAttributeValueRepository>();
 		services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+        services.AddScoped<ICartRepository, CartRepository>();
+        services.AddScoped<ICartItemRepository, CartItemRepository>();
 
 		return services; 
 	}
 }
-

@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { clearCart } from "../../store/slices/cartSlice";
+import { apiClient } from "../../api/client";
 import Swal from "sweetalert2";
 import "./Checkout.scss";
 
@@ -31,6 +32,7 @@ interface PaymentInfo {
 function Checkout() {
   const [activeStep, setActiveStep] = useState(1);
   const { items, totalAmount } = useAppSelector((state) => state.cart);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -88,17 +90,51 @@ function Checkout() {
       cvv: "",
     },
     validationSchema: paymentValidationSchema,
-    onSubmit: () => {
-      // Process payment and complete order
-      Swal.fire({
-        title: "Order Placed!",
-        text: "Your order has been successfully placed.",
-        icon: "success",
-        confirmButtonText: "Continue Shopping",
-      }).then(() => {
-        dispatch(clearCart());
-        navigate("/");
-      });
+    onSubmit: async () => {
+      if (!isAuthenticated) {
+        Swal.fire({
+          icon: "info",
+          title: "Login required",
+          text: "Please login to place your order.",
+        }).then(() => {
+          navigate("/login");
+        });
+        return;
+      }
+
+      try {
+        await apiClient.post("/Orders", {
+          firstName: shippingFormik.values.firstName,
+          lastName: shippingFormik.values.lastName,
+          email: shippingFormik.values.email,
+          phone: shippingFormik.values.phone,
+          address: shippingFormik.values.address,
+          city: shippingFormik.values.city,
+          state: shippingFormik.values.state,
+          zipCode: shippingFormik.values.zipCode,
+          country: shippingFormik.values.country,
+          items: items.map((i) => ({
+            productId: i.id,
+            quantity: i.count,
+          })),
+        });
+
+        Swal.fire({
+          title: "Order Placed!",
+          text: "Your order has been successfully placed.",
+          icon: "success",
+          confirmButtonText: "Continue Shopping",
+        }).then(() => {
+          dispatch(clearCart());
+          navigate("/");
+        });
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Order failed",
+          text: "We couldn't place your order. Please try again.",
+        });
+      }
     },
   });
 

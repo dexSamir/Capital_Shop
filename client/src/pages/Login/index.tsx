@@ -4,20 +4,11 @@ import { useState, useEffect } from "react"
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
-import { base_url } from "../../data/Data"
+import { apiClient } from "../../api/client"
 import Swal from "sweetalert2"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { loginStart, loginSuccess, loginFailure } from "../../store/slices/authSlice"
 import "./Login.scss"
-
-interface User {
-  id: number
-  email: string
-  password: string
-  fullname: string
-  isAdmin: boolean
-}
 
 function Login() {
   const dispatch = useAppDispatch()
@@ -55,31 +46,48 @@ function Login() {
     onSubmit: async (values) => {
       dispatch(loginStart())
       try {
-        const response = await axios.get(`${base_url}users`)
-        const users = response.data
-        const user = users.find((user: User) => user.email === values.email && user.password === values.password)
+        const response = await apiClient.post("/Auth/login", {
+          emailOrUserName: values.email,
+          password: values.password,
+          rememberMe: true,
+        })
 
-        if (user) {
-          dispatch(loginSuccess(user))
-          if (user.isAdmin) {
-            navigate("/admin/dashboard")
-          } else {
-            navigate("/")
-          }
-        } else {
-          dispatch(loginFailure("Invalid email or password"))
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Invalid Email address or password",
-          })
+        const data = response.data as {
+          token: string
+          id: string
+          fullName: string
+          email: string
+          isAdmin: boolean
         }
-      } catch (error) {
-        dispatch(loginFailure("Login failed"))
+
+        dispatch(
+          loginSuccess({
+            token: data.token,
+            user: {
+              id: data.id,
+              fullName: data.fullName,
+              email: data.email,
+              isAdmin: data.isAdmin,
+            },
+          }),
+        )
+
+        if (data.isAdmin) {
+          navigate("/admin/dashboard")
+        } else {
+          navigate("/")
+        }
+      } catch (error: any) {
+        const message =
+          error?.response?.status === 404 || error?.response?.status === 400
+            ? "Invalid email or password"
+            : "Login failed"
+
+        dispatch(loginFailure(message))
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Something went wrong. Please try again.",
+          text: message,
         })
       }
     },

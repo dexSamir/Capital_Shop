@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import {
   FaChartBar,
   FaUsers,
@@ -11,12 +11,39 @@ import {
   FaCalendarAlt,
   FaDownload,
   FaEllipsisV,
-} from "react-icons/fa"
-import AdminSearchbar from "../../components/AdminSearchbar"
-import AdminTable from "../../components/AdminTable"
-import { useAppDispatch, useAppSelector } from "../../store/hooks"
-import { fetchProducts, deleteProduct, setFilter } from "../../store/slices/productSlice"
-import "./AdminDashboard.scss"
+} from "react-icons/fa";
+import AdminSearchbar from "../../components/AdminSearchbar";
+import AdminTable from "../../components/AdminTable";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  fetchProducts,
+  deleteProduct,
+  setFilter,
+  type Product,
+} from "../../store/slices/productSlice";
+import {
+  fetchCategories,
+  type CategoryDto,
+  createCategory,
+  deleteCategory,
+} from "../../api/categories";
+import {
+  createProduct,
+  updateProduct,
+  type AdminProductPayload,
+} from "../../api/products";
+import {
+  type AdminOrder,
+  fetchAllOrders,
+  updateOrderStatus,
+} from "../../api/orders";
+import {
+  fetchBrands,
+  createBrand,
+  deleteBrand,
+  type BrandDto,
+} from "../../api/brands";
+import "./AdminDashboard.scss";
 
 const monthlyRevenue = [
   { month: "Jan", revenue: 12500 },
@@ -31,22 +58,52 @@ const monthlyRevenue = [
   { month: "Oct", revenue: 34200 },
   { month: "Nov", revenue: 38700 },
   { month: "Dec", revenue: 42500 },
-]
+];
 
 const categoryData = [
   { name: "Clothing", value: 45 },
   { name: "Accessories", value: 25 },
   { name: "Footwear", value: 20 },
   { name: "Electronics", value: 10 },
-]
+];
 
 const recentOrders = [
-  { id: "#ORD-001", customer: "John Doe", date: "2023-11-15", status: "Delivered", total: "$125.99" },
-  { id: "#ORD-002", customer: "Jane Smith", date: "2023-11-14", status: "Processing", total: "$89.50" },
-  { id: "#ORD-003", customer: "Robert Johnson", date: "2023-11-14", status: "Shipped", total: "$210.75" },
-  { id: "#ORD-004", customer: "Emily Davis", date: "2023-11-13", status: "Delivered", total: "$45.25" },
-  { id: "#ORD-005", customer: "Michael Brown", date: "2023-11-12", status: "Cancelled", total: "$178.30" },
-]
+  {
+    id: "#ORD-001",
+    customer: "John Doe",
+    date: "2023-11-15",
+    status: "Delivered",
+    total: "$125.99",
+  },
+  {
+    id: "#ORD-002",
+    customer: "Jane Smith",
+    date: "2023-11-14",
+    status: "Processing",
+    total: "$89.50",
+  },
+  {
+    id: "#ORD-003",
+    customer: "Robert Johnson",
+    date: "2023-11-14",
+    status: "Shipped",
+    total: "$210.75",
+  },
+  {
+    id: "#ORD-004",
+    customer: "Emily Davis",
+    date: "2023-11-13",
+    status: "Delivered",
+    total: "$45.25",
+  },
+  {
+    id: "#ORD-005",
+    customer: "Michael Brown",
+    date: "2023-11-12",
+    status: "Cancelled",
+    total: "$178.30",
+  },
+];
 
 const topProducts = [
   { name: "Premium T-Shirt", sales: 245, revenue: "$12,250" },
@@ -54,65 +111,242 @@ const topProducts = [
   { name: "Leather Jacket", sales: 156, revenue: "$23,400" },
   { name: "Running Shoes", sales: 134, revenue: "$8,710" },
   { name: "Smartwatch", sales: 98, revenue: "$19,600" },
-]
+];
 
 function Dashboard() {
-  const dispatch = useAppDispatch()
-  const { items, filteredItems, loading, error } = useAppSelector((state) => state.products)
-  const [search, setSearch] = useState("")
-  const [activeTab, setActiveTab] = useState("dashboard")
-  const [dateRange, setDateRange] = useState("This Month")
+  const dispatch = useAppDispatch();
+  const { items, filteredItems, loading, error } = useAppSelector(
+    (state) => state.products,
+  );
+  const [search, setSearch] = useState("");
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const [dateRange, setDateRange] = useState("This Month");
+  const [categories, setCategories] = useState<CategoryDto[]>([]);
+  const [brands, setBrands] = useState<BrandDto[]>([]);
+  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [savingProduct, setSavingProduct] = useState(false);
+  const [orders, setOrders] = useState<AdminOrder[]>([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
+  const [ordersError, setOrdersError] = useState<string | null>(null);
+  const [orderStatusFilter, setOrderStatusFilter] = useState<string>("All");
+  const [newCategoryTitle, setNewCategoryTitle] = useState("");
+  const [newCategoryImage, setNewCategoryImage] = useState<File | null>(null);
+  const [savingCategory, setSavingCategory] = useState(false);
+  const [categoryError, setCategoryError] = useState<string | null>(null);
+  const [newBrandTitle, setNewBrandTitle] = useState("");
+  const [newBrandWebsite, setNewBrandWebsite] = useState("");
+  const [newBrandLogo, setNewBrandLogo] = useState<File | null>(null);
+  const [savingBrand, setSavingBrand] = useState(false);
+  const [brandError, setBrandError] = useState<string | null>(null);
 
   useEffect(() => {
-    dispatch(fetchProducts())
-  }, [dispatch])
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (activeTab === "orders") {
+      const loadOrders = async () => {
+        try {
+          setOrdersLoading(true);
+          setOrdersError(null);
+          const data = await fetchAllOrders();
+          setOrders(data);
+        } catch {
+          setOrdersError("Failed to load orders");
+        } finally {
+          setOrdersLoading(false);
+        }
+      };
+      void loadOrders();
+    }
+  }, [activeTab]);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const data = await fetchCategories();
+        setCategories(data);
+      } catch {
+        setCategories([]);
+      }
+    };
+    const loadBrands = async () => {
+      try {
+        const data = await fetchBrands();
+        setBrands(data);
+      } catch {
+        setBrands([]);
+      }
+    };
+    void loadCategories();
+    void loadBrands();
+  }, []);
 
   const handleSearch = (search: string) => {
-    setSearch(search)
-    dispatch(setFilter({ key: "search", value: search }))
-  }
+    setSearch(search);
+    dispatch(setFilter({ key: "search", value: search }));
+  };
 
   const handleSortByDiscount = (order: string) => {
     if (order === "MintoMax") {
-      dispatch(setFilter({ key: "sortBy", value: "discount" }))
-      dispatch(setFilter({ key: "sortOrder", value: "asc" }))
+      dispatch(setFilter({ key: "sortBy", value: "discount" }));
+      dispatch(setFilter({ key: "sortOrder", value: "asc" }));
     } else if (order === "MaxtoMin") {
-      dispatch(setFilter({ key: "sortBy", value: "discount" }))
-      dispatch(setFilter({ key: "sortOrder", value: "desc" }))
+      dispatch(setFilter({ key: "sortBy", value: "discount" }));
+      dispatch(setFilter({ key: "sortOrder", value: "desc" }));
     }
-  }
+  };
 
   const handleSortByName = (order: string) => {
     if (order === "AtoZ") {
-      dispatch(setFilter({ key: "sortBy", value: "name" }))
-      dispatch(setFilter({ key: "sortOrder", value: "asc" }))
+      dispatch(setFilter({ key: "sortBy", value: "name" }));
+      dispatch(setFilter({ key: "sortOrder", value: "asc" }));
     } else if (order === "ZtoA") {
-      dispatch(setFilter({ key: "sortBy", value: "name" }))
-      dispatch(setFilter({ key: "sortOrder", value: "desc" }))
+      dispatch(setFilter({ key: "sortBy", value: "name" }));
+      dispatch(setFilter({ key: "sortOrder", value: "desc" }));
     }
-  }
+  };
 
   const handleSortByPrice = (order: string) => {
     if (order === "MintoMax") {
-      dispatch(setFilter({ key: "sortBy", value: "price" }))
-      dispatch(setFilter({ key: "sortOrder", value: "asc" }))
+      dispatch(setFilter({ key: "sortBy", value: "price" }));
+      dispatch(setFilter({ key: "sortOrder", value: "asc" }));
     } else if (order === "MaxtoMin") {
-      dispatch(setFilter({ key: "sortBy", value: "price" }))
-      dispatch(setFilter({ key: "sortOrder", value: "desc" }))
+      dispatch(setFilter({ key: "sortBy", value: "price" }));
+      dispatch(setFilter({ key: "sortOrder", value: "desc" }));
     }
-  }
+  };
 
   const handleDelete = (id: number) => {
-    dispatch(deleteProduct(id))
-  }
+    dispatch(deleteProduct(id));
+  };
 
-  const totalRevenue = monthlyRevenue.reduce((sum, item) => sum + item.revenue, 0)
-  const totalOrders = 1254
-  const totalCustomers = 856
-  const totalProducts = items.length
+  const handleAddNewProduct = () => {
+    setEditingProduct(null);
+    setIsProductModalOpen(true);
+  };
+
+  const handleChangeOrderStatus = async (id: number, status: string) => {
+    try {
+      await updateOrderStatus(id, status);
+      setOrders((prev) =>
+        prev.map((o) => (o.id === id ? { ...o, status } : o)),
+      );
+    } catch {
+      // keep simple: ignore error in UI, could add toast later
+    }
+  };
+
+  const handleEditProduct = (product: Product) => {
+    setEditingProduct(product);
+    setIsProductModalOpen(true);
+  };
+
+  const handleCreateCategory = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newCategoryTitle || !newCategoryImage) {
+      setCategoryError("Title and image are required");
+      return;
+    }
+    setSavingCategory(true);
+    setCategoryError(null);
+    try {
+      await createCategory(newCategoryTitle, newCategoryImage);
+      const data = await fetchCategories();
+      setCategories(data);
+      setNewCategoryTitle("");
+      setNewCategoryImage(null);
+    } catch {
+      setCategoryError("Failed to create category");
+    } finally {
+      setSavingCategory(false);
+    }
+  };
+
+  const handleDeleteCategory = async (id: number) => {
+    try {
+      await deleteCategory(id);
+      setCategories((prev) => prev.filter((c) => c.id !== id));
+    } catch {
+      // ignore for now
+    }
+  };
+
+  const handleCreateBrand = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newBrandTitle || !newBrandLogo) {
+      setBrandError("Title and logo are required");
+      return;
+    }
+    setSavingBrand(true);
+    setBrandError(null);
+    try {
+      await createBrand(newBrandTitle, newBrandWebsite, newBrandLogo);
+      const data = await fetchBrands();
+      setBrands(data);
+      setNewBrandTitle("");
+      setNewBrandWebsite("");
+      setNewBrandLogo(null);
+    } catch {
+      setBrandError("Failed to create brand");
+    } finally {
+      setSavingBrand(false);
+    }
+  };
+
+  const handleDeleteBrand = async (id: number) => {
+    try {
+      await deleteBrand(id);
+      setBrands((prev) => prev.filter((b) => b.id !== id));
+    } catch {
+      // ignore for now
+    }
+  };
+
+  const handleSaveProduct = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    const payload: AdminProductPayload = {
+      title: String(formData.get("title") || ""),
+      description: String(formData.get("description") || ""),
+      sellPrice: Number(formData.get("sellPrice") || 0),
+      costPrice: Number(formData.get("costPrice") || 0),
+      discount: Number(formData.get("discount") || 0),
+      quantity: Number(formData.get("quantity") || 0),
+      sku: String(formData.get("sku") || ""),
+      brandId: Number(formData.get("brandId") || 1),
+      categoryId: Number(formData.get("categoryId") || 1),
+      coverImage: (formData.get("coverImage") as File) || null,
+      secondImage: (formData.get("secondImage") as File) || null,
+    };
+
+    setSavingProduct(true);
+    try {
+      if (editingProduct) {
+        await updateProduct(editingProduct.id, payload);
+      } else {
+        await createProduct(payload);
+      }
+      setIsProductModalOpen(false);
+      setEditingProduct(null);
+      dispatch(fetchProducts());
+    } finally {
+      setSavingProduct(false);
+    }
+  };
+
+  const totalRevenue = monthlyRevenue.reduce(
+    (sum, item) => sum + item.revenue,
+    0,
+  );
+  const totalOrders = 1254;
+  const totalCustomers = 856;
+  const totalProducts = items.length;
 
   const renderRevenueChart = () => {
-    const maxRevenue = Math.max(...monthlyRevenue.map((item) => item.revenue))
+    const maxRevenue = Math.max(...monthlyRevenue.map((item) => item.revenue));
 
     return (
       <div className="admin-dashboard__chart">
@@ -144,12 +378,12 @@ function Dashboard() {
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const renderCategoryChart = () => {
-    const total = categoryData.reduce((sum, item) => sum + item.value, 0)
-    let cumulativePercentage = 0
+    const total = categoryData.reduce((sum, item) => sum + item.value, 0);
+    let cumulativePercentage = 0;
 
     return (
       <div className="admin-dashboard__chart">
@@ -163,9 +397,9 @@ function Dashboard() {
           <div className="admin-dashboard__pie-chart-container">
             <div className="admin-dashboard__pie-chart">
               {categoryData.map((item, index) => {
-                const percentage = (item.value / total) * 100
-                const previousPercentage = cumulativePercentage
-                cumulativePercentage += percentage
+                const percentage = (item.value / total) * 100;
+                const previousPercentage = cumulativePercentage;
+                cumulativePercentage += percentage;
 
                 return (
                   <div
@@ -176,7 +410,7 @@ function Dashboard() {
                       clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos((previousPercentage / 100) * 2 * Math.PI)}% ${50 - 50 * Math.sin((previousPercentage / 100) * 2 * Math.PI)}%, ${50 + 50 * Math.cos((cumulativePercentage / 100) * 2 * Math.PI)}% ${50 - 50 * Math.sin((cumulativePercentage / 100) * 2 * Math.PI)}%)`,
                     }}
                   ></div>
-                )
+                );
               })}
             </div>
             <div className="admin-dashboard__pie-legend">
@@ -186,16 +420,20 @@ function Dashboard() {
                     className="admin-dashboard__legend-color"
                     style={{ backgroundColor: `hsl(${index * 60}, 70%, 50%)` }}
                   ></div>
-                  <div className="admin-dashboard__legend-label">{item.name}</div>
-                  <div className="admin-dashboard__legend-value">{item.value}%</div>
+                  <div className="admin-dashboard__legend-label">
+                    {item.name}
+                  </div>
+                  <div className="admin-dashboard__legend-value">
+                    {item.value}%
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="admin-dashboard">
@@ -270,7 +508,9 @@ function Dashboard() {
                 </div>
                 <div className="admin-dashboard__summary-content">
                   <h3>Total Revenue</h3>
-                  <div className="admin-dashboard__summary-value">${totalRevenue.toLocaleString()}</div>
+                  <div className="admin-dashboard__summary-value">
+                    ${totalRevenue.toLocaleString()}
+                  </div>
                   <div className="admin-dashboard__summary-change admin-dashboard__summary-change--up">
                     +12.5% from last month
                   </div>
@@ -283,7 +523,9 @@ function Dashboard() {
                 </div>
                 <div className="admin-dashboard__summary-content">
                   <h3>Total Orders</h3>
-                  <div className="admin-dashboard__summary-value">{totalOrders.toLocaleString()}</div>
+                  <div className="admin-dashboard__summary-value">
+                    {totalOrders.toLocaleString()}
+                  </div>
                   <div className="admin-dashboard__summary-change admin-dashboard__summary-change--up">
                     +8.2% from last month
                   </div>
@@ -296,7 +538,9 @@ function Dashboard() {
                 </div>
                 <div className="admin-dashboard__summary-content">
                   <h3>Total Customers</h3>
-                  <div className="admin-dashboard__summary-value">{totalCustomers.toLocaleString()}</div>
+                  <div className="admin-dashboard__summary-value">
+                    {totalCustomers.toLocaleString()}
+                  </div>
                   <div className="admin-dashboard__summary-change admin-dashboard__summary-change--up">
                     +5.7% from last month
                   </div>
@@ -309,7 +553,9 @@ function Dashboard() {
                 </div>
                 <div className="admin-dashboard__summary-content">
                   <h3>Total Products</h3>
-                  <div className="admin-dashboard__summary-value">{totalProducts.toLocaleString()}</div>
+                  <div className="admin-dashboard__summary-value">
+                    {totalProducts.toLocaleString()}
+                  </div>
                   <div className="admin-dashboard__summary-change admin-dashboard__summary-change--down">
                     -2.3% from last month
                   </div>
@@ -326,7 +572,9 @@ function Dashboard() {
               <div className="admin-dashboard__table-container">
                 <div className="admin-dashboard__table-header">
                   <h3>Recent Orders</h3>
-                  <button className="admin-dashboard__view-all">View All</button>
+                  <button className="admin-dashboard__view-all">
+                    View All
+                  </button>
                 </div>
                 <table className="admin-dashboard__table">
                   <thead>
@@ -361,7 +609,9 @@ function Dashboard() {
               <div className="admin-dashboard__table-container">
                 <div className="admin-dashboard__table-header">
                   <h3>Top Selling Products</h3>
-                  <button className="admin-dashboard__view-all">View All</button>
+                  <button className="admin-dashboard__view-all">
+                    View All
+                  </button>
                 </div>
                 <table className="admin-dashboard__table">
                   <thead>
@@ -390,7 +640,12 @@ function Dashboard() {
           <>
             <div className="admin-dashboard__header">
               <h1>Products Management</h1>
-              <button className="admin-dashboard__add-button">+ Add New Product</button>
+              <button
+                className="admin-dashboard__add-button"
+                onClick={handleAddNewProduct}
+              >
+                + Add New Product
+              </button>
             </div>
 
             <AdminSearchbar
@@ -409,15 +664,251 @@ function Dashboard() {
             ) : error ? (
               <div className="admin-dashboard__error">Error: {error}</div>
             ) : (
-              <AdminTable onDelete={handleDelete} datas={filteredItems} />
+              <AdminTable
+                onDelete={handleDelete}
+                onEdit={handleEditProduct}
+                datas={filteredItems}
+              />
+            )}
+
+            {isProductModalOpen && (
+              <div className="admin-dashboard__modal-backdrop">
+                <div className="admin-dashboard__modal">
+                  <h2>{editingProduct ? "Edit Product" : "Add New Product"}</h2>
+                  <form
+                    className="admin-dashboard__form"
+                    onSubmit={handleSaveProduct}
+                  >
+                    <div className="admin-dashboard__form-row">
+                      <div className="admin-dashboard__form-group">
+                        <label htmlFor="title">Title</label>
+                        <input
+                          id="title"
+                          name="title"
+                          defaultValue={editingProduct?.name ?? ""}
+                          required
+                        />
+                      </div>
+                      <div className="admin-dashboard__form-group">
+                        <label htmlFor="sku">SKU</label>
+                        <input id="sku" name="sku" defaultValue="" required />
+                      </div>
+                    </div>
+
+                    <div className="admin-dashboard__form-row">
+                      <div className="admin-dashboard__form-group">
+                        <label htmlFor="sellPrice">Price</label>
+                        <input
+                          type="number"
+                          step="0.01"
+                          id="sellPrice"
+                          name="sellPrice"
+                          defaultValue={editingProduct?.price ?? 0}
+                          required
+                        />
+                      </div>
+                      <div className="admin-dashboard__form-group">
+                        <label htmlFor="costPrice">Cost Price</label>
+                        <input
+                          type="number"
+                          step="0.01"
+                          id="costPrice"
+                          name="costPrice"
+                          defaultValue={editingProduct?.price ?? 0}
+                          required
+                        />
+                      </div>
+                      <div className="admin-dashboard__form-group">
+                        <label htmlFor="discount">Discount (%)</label>
+                        <input
+                          type="number"
+                          id="discount"
+                          name="discount"
+                          defaultValue={0}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="admin-dashboard__form-row">
+                      <div className="admin-dashboard__form-group">
+                        <label htmlFor="quantity">Quantity</label>
+                        <input
+                          type="number"
+                          id="quantity"
+                          name="quantity"
+                          defaultValue={1}
+                          required
+                        />
+                      </div>
+                      <div className="admin-dashboard__form-group">
+                        <label htmlFor="categoryId">Category</label>
+                        <select
+                          id="categoryId"
+                          name="categoryId"
+                          defaultValue=""
+                        >
+                          <option value="">Select category</option>
+                          {categories.map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.title}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="admin-dashboard__form-group">
+                        <label htmlFor="brandId">Brand</label>
+                        <input
+                          type="number"
+                          id="brandId"
+                          name="brandId"
+                          defaultValue={1}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="admin-dashboard__form-group">
+                      <label htmlFor="description">Description</label>
+                      <textarea
+                        id="description"
+                        name="description"
+                        rows={3}
+                        defaultValue=""
+                      />
+                    </div>
+
+                    <div className="admin-dashboard__form-row">
+                      <div className="admin-dashboard__form-group">
+                        <label htmlFor="coverImage">Cover Image</label>
+                        <input
+                          id="coverImage"
+                          name="coverImage"
+                          type="file"
+                          accept="image/*"
+                        />
+                      </div>
+                      <div className="admin-dashboard__form-group">
+                        <label htmlFor="secondImage">Second Image</label>
+                        <input
+                          id="secondImage"
+                          name="secondImage"
+                          type="file"
+                          accept="image/*"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="admin-dashboard__form-actions">
+                      <button
+                        type="button"
+                        className="admin-dashboard__button admin-dashboard__button--secondary"
+                        onClick={() => {
+                          setIsProductModalOpen(false);
+                          setEditingProduct(null);
+                        }}
+                        disabled={savingProduct}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="admin-dashboard__button admin-dashboard__button--primary"
+                        disabled={savingProduct}
+                      >
+                        {savingProduct ? "Saving..." : "Save"}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             )}
           </>
         )}
 
         {activeTab === "orders" && (
-          <div className="admin-dashboard__placeholder">
-            <h2>Orders Management</h2>
-            <p>This section is under development.</p>
+          <div className="admin-dashboard__orders">
+            <div className="admin-dashboard__header">
+              <h1>Orders Management</h1>
+              <select
+                className="admin-dashboard__date-select"
+                value={orderStatusFilter}
+                onChange={(e) => setOrderStatusFilter(e.target.value)}
+              >
+                <option value="All">All statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Processing">Processing</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+
+            {ordersLoading && (
+              <div className="admin-dashboard__loading">
+                <div className="admin-dashboard__loading-spinner"></div>
+                <p>Loading orders...</p>
+              </div>
+            )}
+
+            {ordersError && (
+              <div className="admin-dashboard__error">{ordersError}</div>
+            )}
+
+            {!ordersLoading && !ordersError && (
+              <div className="admin-dashboard__table-container">
+                <table className="admin-dashboard__table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Total</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders
+                      .filter((o) =>
+                        orderStatusFilter === "All"
+                          ? true
+                          : o.status === orderStatusFilter,
+                      )
+                      .map((order) => (
+                        <tr key={order.id}>
+                          <td>#{order.id}</td>
+                          <td>
+                            {new Date(order.orderDate).toLocaleDateString()}
+                          </td>
+                          <td>
+                            <span
+                              className={`admin-dashboard__status admin-dashboard__status--${order.status.toLowerCase()}`}
+                            >
+                              {order.status}
+                            </span>
+                          </td>
+                          <td>${order.totalAmount.toFixed(2)}</td>
+                          <td>
+                            <select
+                              value={order.status}
+                              onChange={(e) =>
+                                handleChangeOrderStatus(
+                                  order.id,
+                                  e.target.value,
+                                )
+                              }
+                            >
+                              <option value="Pending">Pending</option>
+                              <option value="Processing">Processing</option>
+                              <option value="Shipped">Shipped</option>
+                              <option value="Delivered">Delivered</option>
+                              <option value="Cancelled">Cancelled</option>
+                            </select>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
 
@@ -436,7 +927,7 @@ function Dashboard() {
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

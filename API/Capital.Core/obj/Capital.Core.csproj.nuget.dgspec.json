@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/Capital.Core.csproj": {}
+    "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.Core/Capital.Core.csproj": {}
   },
   "projects": {
-    "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/Capital.Core.csproj": {
+    "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.Core/Capital.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/Capital.Core.csproj",
+        "projectUniqueName": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.Core/Capital.Core.csproj",
         "projectName": "Capital.Core",
-        "projectPath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/Capital.Core.csproj",
+        "projectPath": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.Core/Capital.Core.csproj",
         "packagesPath": "/Users/samirhebibov/.nuget/packages/",
-        "outputPath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.Core/obj/",
+        "outputPath": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/samirhebibov/.nuget/NuGet/NuGet.Config"

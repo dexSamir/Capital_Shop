@@ -1,4 +1,6 @@
-﻿namespace Capital.BL.ExternalServices.Interfaces;
+using System.Collections.Generic;
+
+namespace Capital.BL.ExternalServices.Interfaces;
 
 public interface ICurrentUser
 {
@@ -6,5 +8,7 @@ public interface ICurrentUser
     string GetUserName();
     string GetEmail();
     string GetFullname();
+    IEnumerable<string> GetRoles();
+    bool IsInRole(string role);
 }
 

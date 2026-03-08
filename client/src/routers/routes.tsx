@@ -11,9 +11,11 @@ import Forbidden from "../pages/Forbidden"
 import Products from "../pages/Products"
 import Register from "../pages/Register"
 import Wishlist from "../pages/Wishlist"
+import Orders from "../pages/Orders"
 import UserLayout from "../layout/UserLayout/"
 import AdminLayout from "../layout/AdminLayout"
 import Reviews from "../pages/Reviews"
+import ProtectedRoute from "../components/ProtectedRoute"
 
 export const routes = [
   {
@@ -49,6 +51,10 @@ export const routes = [
         element: <Checkout />,
       },
       {
+        path: "/orders",
+        element: <Orders />,
+      },
+      {
         path: "/reviews/:id",
         element: <Reviews />,
       },
@@ -56,7 +62,11 @@ export const routes = [
   },
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element: (
+      <ProtectedRoute requireAdmin>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "dashboard",

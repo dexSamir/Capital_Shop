@@ -1,6 +1,7 @@
 using Capital.BL.DTOs.ProductDtos;
 using Capital.BL.Services.Interfaces;
 using Capital.BL.Utilities.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Capital.API.Controllers;
@@ -28,24 +29,28 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create([FromForm] ProductCreateDto dto)
     {
         return Ok(await _service.CreateAsync(dto)); 
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateRange(IEnumerable<ProductCreateDto> dtos)
     {
         return Ok(await _service.CreateBulkAsync(dtos));
     }
 
     [HttpPatch("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(int id, ProductUpdateDto dto)
     {
         return Ok(await _service.UpdateAsync(id, dto));
     }
 
     [HttpDelete("{deleteType}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete([FromQuery] int[] ids, EDeleteType deleteType)
     {
         return Ok(await _service.DeleteAsync(ids, deleteType));

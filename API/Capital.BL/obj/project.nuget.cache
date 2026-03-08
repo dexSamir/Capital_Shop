@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "llY9SvfgUe4=",
+  "dgSpecHash": "5vbRxIVZhTs=",
   "success": true,
-  "projectFilePath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/Capital.BL.csproj",
+  "projectFilePath": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.BL/Capital.BL.csproj",
   "expectedPackageFiles": [
     "/Users/samirhebibov/.nuget/packages/automapper/14.0.0/automapper.14.0.0.nupkg.sha512",
     "/Users/samirhebibov/.nuget/packages/fluentvalidation/12.0.0/fluentvalidation.12.0.0.nupkg.sha512",

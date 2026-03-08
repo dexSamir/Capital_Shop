@@ -1962,11 +1962,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/Capital.BL.csproj",
+      "projectUniqueName": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.BL/Capital.BL.csproj",
       "projectName": "Capital.BL",
-      "projectPath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/Capital.BL.csproj",
+      "projectPath": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.BL/Capital.BL.csproj",
       "packagesPath": "/Users/samirhebibov/.nuget/packages/",
-      "outputPath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.BL/obj/",
+      "outputPath": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.BL/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/samirhebibov/.nuget/NuGet/NuGet.Config"
@@ -1982,8 +1982,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/Capital.DAL.csproj": {
-              "projectPath": "/Users/samirhebibov/Desktop/Capital_Shop/API/Capital.DAL/Capital.DAL.csproj"
+            "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.DAL/Capital.DAL.csproj": {
+              "projectPath": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.DAL/Capital.DAL.csproj"
             }
           }
         }

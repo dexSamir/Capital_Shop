@@ -17,9 +17,10 @@ interface Product {
 interface AdminTableProps {
   datas: Product[]
   onDelete: (id: number) => void
+  onEdit: (product: Product) => void
 }
 
-function AdminTable({ datas, onDelete }: AdminTableProps) {
+function AdminTable({ datas, onDelete, onEdit }: AdminTableProps) {
   const navigate = useNavigate()
 
   return (
@@ -58,7 +59,10 @@ function AdminTable({ datas, onDelete }: AdminTableProps) {
                 <td>${product.withoutDiscount}</td>
                 <td>-{(((product.withoutDiscount - product.price) / product.withoutDiscount) * 100).toFixed(0)}%</td>
                 <td>
-                  <FaRegEdit className="admin-table__edit-icon" />
+                  <FaRegEdit
+                    className="admin-table__edit-icon"
+                    onClick={() => onEdit(product)}
+                  />
                 </td>
                 <td>
                   <MdDelete className="admin-table__delete-icon" onClick={() => onDelete(product.id)} />
