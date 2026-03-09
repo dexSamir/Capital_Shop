@@ -16,7 +16,7 @@ namespace Capital.API;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -80,6 +80,8 @@ public class Program
         builder.Services.AddServices(); 
         builder.Services.AddMapper();
         builder.Services.AddCache();
+        
+       
 
         var app = builder.Build();
 
@@ -98,6 +100,13 @@ public class Program
 
 
         app.MapControllers();
+        using (var scope = app.Services.CreateScope())
+        {
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            await AdminSeeder.SeedAsync(userManager, roleManager);
+        }
+
 
         app.Run();
     }
