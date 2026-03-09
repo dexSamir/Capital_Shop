@@ -1,16 +1,17 @@
-"use client"
-
-import { Link } from "react-router-dom"
+import "./Logout.scss";
+import { Link } from "react-router-dom";
 
 function Logout() {
-
-
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="min-w-[700px] bg-white p-[55px_60px_50px_50px] shadow-[0px_10px_30px_0px_rgba(13,12,13,0.2)]">
         <div className="text-center">
-          <h1 className="mb-4 text-[30px] font-semibold text-[#140c40]">Logout</h1>
-          <p className="mb-[15px] text-base font-normal leading-relaxed text-[#301a22]">You are already logged in.</p>
+          <h1 className="mb-4 text-[30px] font-semibold text-[#140c40]">
+            Logout
+          </h1>
+          <p className="mb-[15px] text-base font-normal leading-relaxed text-[#301a22]">
+            You are already logged in.
+          </p>
         </div>
         <div className="flex items-center justify-center">
           <Link
@@ -37,7 +38,7 @@ function Logout() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Logout
+export default Logout;
