@@ -1,5 +1,6 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
+@use "../../styles/theme.scss" as *;
 
 .logout {
   display: flex;
@@ -52,7 +53,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 50px;
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     padding: $spacing-md $spacing-lg;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
@@ -73,7 +74,7 @@
     }
 
     &:hover {
-      color: $primary-color;
+      color: var(--primary-color);
 
       &::before {
         left: 0;
