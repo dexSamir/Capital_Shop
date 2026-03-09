@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Capital.BL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0f33ccbe7e38ad330e50eb05fba7461cad6bcd8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a287e80c152b98ee20bdc98be500c936e3786c04")]
 [assembly: System.Reflection.AssemblyProductAttribute("Capital.BL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Capital.BL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
