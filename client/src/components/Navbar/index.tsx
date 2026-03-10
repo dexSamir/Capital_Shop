@@ -37,7 +37,7 @@ function Navbar() {
           </Link>
         </div>
         <div className="navbar__order">
-          <Link className="navbar__link">Track Your Order</Link>
+          <Link className="navbar__link" to="/orders">Track Your Order</Link>
         </div>
         <div className="navbar__social">
           <FaFacebook className="navbar__social-icon" />

@@ -25,7 +25,7 @@ export const createProduct = async (payload: AdminProductPayload) => {
   formData.append("Title", payload.title);
   formData.append("Description", payload.description);
   formData.append("BrandId", String(payload.brandId));
-  formData.append("CaategoryId", String(payload.categoryId));
+  formData.append("CategoryId", String(payload.categoryId));
   formData.append("Weight", "0");
 
   if (payload.coverImage) {
@@ -55,7 +55,7 @@ export const updateProduct = async (
   formData.append("Title", payload.title);
   formData.append("Description", payload.description);
   formData.append("BrandId", String(payload.brandId));
-  formData.append("CaategoryId", String(payload.categoryId));
+  formData.append("CategoryId", String(payload.categoryId));
   formData.append("Weight", "0");
 
   if (payload.coverImage) {
