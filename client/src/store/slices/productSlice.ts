@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit"
 import { apiClient } from "../../api/client"
+import { getCategories } from "../../middleware/products"
 
 export interface Product {
   id: number
@@ -22,6 +23,8 @@ interface ProductsState {
     category: string
     size: string
     color: string
+    brand: string
+    rating: string
     search: string
     sortBy: string
     sortOrder: string
@@ -40,6 +43,8 @@ const initialState: ProductsState = {
     category: "All",
     size: "All",
     color: "All",
+    brand: "All",
+    rating: "All",
     search: "",
     sortBy: "",
     sortOrder: "",
@@ -50,9 +55,10 @@ const initialState: ProductsState = {
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_, { rejectWithValue }) => {
   try {
-    const response = await apiClient.get(
-      "/Products/GetAllAsync",
-    )
+    const [response, categories] = await Promise.all([
+      apiClient.get("/Products/GetAllAsync"),
+      getCategories(),
+    ])
     const data = response.data as Array<{
       id: number
       title: string
@@ -61,6 +67,8 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_
       discount: number
       categoryId: number
     }>
+
+    const categoryMap = new Map(categories.map((c) => [c.id, c.name]))
 
     const mapped: Product[] = data.map((p) => {
       const price = Number(p.sellPrice)
@@ -76,7 +84,7 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_
         price,
         withoutDiscount,
         img: p.coverImage,
-        category: `Category ${p.categoryId}`,
+        category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
       }
     })
 
@@ -107,13 +115,16 @@ export const fetchProductById = createAsyncThunk(
           ? Number((price / (1 - discount / 100)).toFixed(2))
           : price
 
+      const categories = await getCategories()
+      const categoryMap = new Map(categories.map((c) => [c.id, c.name]))
+
       const mapped: Product = {
         id: p.id,
         name: p.title,
         price,
         withoutDiscount,
         img: p.coverImage,
-        category: `Category ${p.categoryId}`,
+        category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
       }
 
       return mapped
@@ -181,6 +192,8 @@ const productSlice = createSlice({
         category: "All",
         size: "All",
         color: "All",
+        brand: "All",
+        rating: "All",
         search: "",
         sortBy: "",
         sortOrder: "",
