@@ -160,14 +160,13 @@ const productSlice = createSlice({
         const categoryMatch = state.filters.category === "All" || product.category === state.filters.category
         const sizeMatch = state.filters.size === "All" || product.size === state.filters.size
         const colorMatch = state.filters.color === "All" || product.color === state.filters.color
-        const brandMatch = state.filters.brand === "All" || product.category === state.filters.brand
         const searchMatch =
           !state.filters.search || product.name.toLowerCase().includes(state.filters.search.toLowerCase())
         const priceMatch =
           product.price >= Number.parseFloat(state.filters.priceMin) &&
           product.price <= Number.parseFloat(state.filters.priceMax)
 
-        return categoryMatch && sizeMatch && colorMatch && brandMatch && searchMatch && priceMatch
+        return categoryMatch && sizeMatch && colorMatch && searchMatch && priceMatch
       })
 
       if (state.filters.sortBy && state.filters.sortOrder) {

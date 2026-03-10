@@ -1,9 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
-import {
-  addOrUpdateCartItem,
-  removeCartItem,
-  clearServerCart,
-} from "../../api/cart";
+import { addOrUpdateCartItem } from "../../api/cart";
 
 export interface CartItem {
   id: number;
@@ -48,8 +44,6 @@ const calculateTotals = (items: CartItem[]) => {
   );
 };
 
-const isAuthenticated = () => !!localStorage.getItem("auth_token");
-
 // Sync local cart to server when user logs in
 export const syncCartToServer = createAsyncThunk(
   "cart/syncToServer",
@@ -57,7 +51,6 @@ export const syncCartToServer = createAsyncThunk(
     const state = getState() as { cart: CartState };
     const localItems = state.cart.items;
 
-    // Push each local item to the server cart
     for (const item of localItems) {
       try {
         await addOrUpdateCartItem(item.id, item.count);
@@ -67,30 +60,6 @@ export const syncCartToServer = createAsyncThunk(
     }
 
     return localItems;
-  }
-);
-
-// Add item to server cart (fire-and-forget for authenticated users)
-export const addToCartServer = createAsyncThunk(
-  "cart/addToServer",
-  async ({ productId, quantity }: { productId: number; quantity: number }) => {
-    await addOrUpdateCartItem(productId, quantity);
-  }
-);
-
-// Remove item from server cart
-export const removeFromCartServer = createAsyncThunk(
-  "cart/removeFromServer",
-  async (productId: number) => {
-    await removeCartItem(productId);
-  }
-);
-
-// Clear server cart
-export const clearServerCartThunk = createAsyncThunk(
-  "cart/clearServer",
-  async () => {
-    await clearServerCart();
   }
 );
 
@@ -125,14 +94,6 @@ const cartSlice = createSlice({
       state.totalCount = totalCount;
 
       saveCartToStorage(state.items);
-
-      // Sync to server if authenticated
-      if (isAuthenticated()) {
-        const item = state.items.find((i) => i.id === newItem.id);
-        if (item) {
-          addOrUpdateCartItem(item.id, item.count).catch(() => {});
-        }
-      }
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
@@ -142,11 +103,6 @@ const cartSlice = createSlice({
       state.totalCount = totalCount;
 
       saveCartToStorage(state.items);
-
-      // Sync to server if authenticated
-      if (isAuthenticated()) {
-        removeCartItem(action.payload).catch(() => {});
-      }
     },
     updateCartItemQuantity: (
       state,
@@ -164,22 +120,12 @@ const cartSlice = createSlice({
       state.totalCount = totalCount;
 
       saveCartToStorage(state.items);
-
-      // Sync to server if authenticated
-      if (isAuthenticated()) {
-        addOrUpdateCartItem(id, quantity).catch(() => {});
-      }
     },
     clearCart: (state) => {
       state.items = [];
       state.totalAmount = 0;
       state.totalCount = 0;
       localStorage.removeItem("basket");
-
-      // Clear server cart if authenticated
-      if (isAuthenticated()) {
-        clearServerCart().catch(() => {});
-      }
     },
   },
 });
