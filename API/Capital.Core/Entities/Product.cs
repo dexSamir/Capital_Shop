@@ -1,4 +1,4 @@
-﻿using Capital.Core.Entities.Base;
+using Capital.Core.Entities.Base;
 using Capital.Core.Entities.Relational;
 
 namespace Capital.Core.Entities;
@@ -46,7 +46,7 @@ public class Product : BaseEntity
     public IEnumerable<ProductRating>? Ratings { get; set; }
 
     //Attributes
-    public IEnumerable<ProductAttributeValue>? ProductAttributeValuesß { get; set; }
+    public IEnumerable<ProductAttributeValue>? ProductAttributeValues { get; set; }
 
 	//Specification
 	public IEnumerable<ProductSpecification>? Specifications { get; set; }

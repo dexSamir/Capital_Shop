@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import {
   FaChartBar,
-  FaUsers,
   FaShoppingCart,
   FaMoneyBillWave,
   FaBoxOpen,
@@ -11,7 +10,12 @@ import {
   FaCalendarAlt,
   FaDownload,
   FaEllipsisV,
+  FaTags,
+  FaIndustry,
+  FaTrash,
+  FaPlus,
 } from "react-icons/fa";
+import Swal from "sweetalert2";
 import AdminSearchbar from "../../components/AdminSearchbar";
 import AdminTable from "../../components/AdminTable";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -65,52 +69,6 @@ const categoryData = [
   { name: "Accessories", value: 25 },
   { name: "Footwear", value: 20 },
   { name: "Electronics", value: 10 },
-];
-
-const recentOrders = [
-  {
-    id: "#ORD-001",
-    customer: "John Doe",
-    date: "2023-11-15",
-    status: "Delivered",
-    total: "$125.99",
-  },
-  {
-    id: "#ORD-002",
-    customer: "Jane Smith",
-    date: "2023-11-14",
-    status: "Processing",
-    total: "$89.50",
-  },
-  {
-    id: "#ORD-003",
-    customer: "Robert Johnson",
-    date: "2023-11-14",
-    status: "Shipped",
-    total: "$210.75",
-  },
-  {
-    id: "#ORD-004",
-    customer: "Emily Davis",
-    date: "2023-11-13",
-    status: "Delivered",
-    total: "$45.25",
-  },
-  {
-    id: "#ORD-005",
-    customer: "Michael Brown",
-    date: "2023-11-12",
-    status: "Cancelled",
-    total: "$178.30",
-  },
-];
-
-const topProducts = [
-  { name: "Premium T-Shirt", sales: 245, revenue: "$12,250" },
-  { name: "Designer Jeans", sales: 187, revenue: "$9,350" },
-  { name: "Leather Jacket", sales: 156, revenue: "$23,400" },
-  { name: "Running Shoes", sales: 134, revenue: "$8,710" },
-  { name: "Smartwatch", sales: 98, revenue: "$19,600" },
 ];
 
 function Dashboard() {
@@ -218,8 +176,30 @@ function Dashboard() {
     }
   };
 
-  const handleDelete = (id: number) => {
-    dispatch(deleteProduct(id));
+  const handleDelete = async (id: number) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "This product will be permanently deleted!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e74c3c",
+      cancelButtonColor: "#95a5a6",
+      confirmButtonText: "Yes, delete it!",
+      background: "#1a1a2e",
+      color: "#fff",
+    });
+    if (result.isConfirmed) {
+      dispatch(deleteProduct(id));
+      Swal.fire({
+        title: "Deleted!",
+        text: "Product has been deleted.",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+        background: "#1a1a2e",
+        color: "#fff",
+      });
+    }
   };
 
   const handleAddNewProduct = () => {
@@ -233,8 +213,24 @@ function Dashboard() {
       setOrders((prev) =>
         prev.map((o) => (o.id === id ? { ...o, status } : o)),
       );
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Order status updated",
+        showConfirmButton: false,
+        timer: 1500,
+        background: "#1a1a2e",
+        color: "#fff",
+      });
     } catch {
-      // keep simple: ignore error in UI, could add toast later
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to update order status",
+        background: "#1a1a2e",
+        color: "#fff",
+      });
     }
   };
 
@@ -257,6 +253,16 @@ function Dashboard() {
       setCategories(data);
       setNewCategoryTitle("");
       setNewCategoryImage(null);
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Category created!",
+        showConfirmButton: false,
+        timer: 1500,
+        background: "#1a1a2e",
+        color: "#fff",
+      });
     } catch {
       setCategoryError("Failed to create category");
     } finally {
@@ -265,11 +271,30 @@ function Dashboard() {
   };
 
   const handleDeleteCategory = async (id: number) => {
-    try {
-      await deleteCategory(id);
-      setCategories((prev) => prev.filter((c) => c.id !== id));
-    } catch {
-      // ignore for now
+    const result = await Swal.fire({
+      title: "Delete Category?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e74c3c",
+      cancelButtonColor: "#95a5a6",
+      confirmButtonText: "Delete",
+      background: "#1a1a2e",
+      color: "#fff",
+    });
+    if (result.isConfirmed) {
+      try {
+        await deleteCategory(id);
+        setCategories((prev) => prev.filter((c) => c.id !== id));
+      } catch {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to delete category",
+          background: "#1a1a2e",
+          color: "#fff",
+        });
+      }
     }
   };
 
@@ -288,6 +313,16 @@ function Dashboard() {
       setNewBrandTitle("");
       setNewBrandWebsite("");
       setNewBrandLogo(null);
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Brand created!",
+        showConfirmButton: false,
+        timer: 1500,
+        background: "#1a1a2e",
+        color: "#fff",
+      });
     } catch {
       setBrandError("Failed to create brand");
     } finally {
@@ -296,11 +331,30 @@ function Dashboard() {
   };
 
   const handleDeleteBrand = async (id: number) => {
-    try {
-      await deleteBrand(id);
-      setBrands((prev) => prev.filter((b) => b.id !== id));
-    } catch {
-      // ignore for now
+    const result = await Swal.fire({
+      title: "Delete Brand?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#e74c3c",
+      cancelButtonColor: "#95a5a6",
+      confirmButtonText: "Delete",
+      background: "#1a1a2e",
+      color: "#fff",
+    });
+    if (result.isConfirmed) {
+      try {
+        await deleteBrand(id);
+        setBrands((prev) => prev.filter((b) => b.id !== id));
+      } catch {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to delete brand",
+          background: "#1a1a2e",
+          color: "#fff",
+        });
+      }
     }
   };
 
@@ -332,6 +386,24 @@ function Dashboard() {
       setIsProductModalOpen(false);
       setEditingProduct(null);
       dispatch(fetchProducts());
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: editingProduct ? "Product updated!" : "Product created!",
+        showConfirmButton: false,
+        timer: 1500,
+        background: "#1a1a2e",
+        color: "#fff",
+      });
+    } catch {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to save product",
+        background: "#1a1a2e",
+        color: "#fff",
+      });
     } finally {
       setSavingProduct(false);
     }
@@ -341,8 +413,7 @@ function Dashboard() {
     (sum, item) => sum + item.revenue,
     0,
   );
-  const totalOrders = 1254;
-  const totalCustomers = 856;
+  const totalOrders = orders.length || 0;
   const totalProducts = items.length;
 
   const renderRevenueChart = () => {
@@ -383,7 +454,7 @@ function Dashboard() {
 
   const renderCategoryChart = () => {
     const total = categoryData.reduce((sum, item) => sum + item.value, 0);
-    let cumulativePercentage = 0;
+    const colors = ["#6c5ce7", "#00cec9", "#fdcb6e", "#e17055"];
 
     return (
       <div className="admin-dashboard__chart">
@@ -394,22 +465,24 @@ function Dashboard() {
           </button>
         </div>
         <div className="admin-dashboard__chart-content">
-          <div className="admin-dashboard__pie-chart-container">
-            <div className="admin-dashboard__pie-chart">
+          <div className="admin-dashboard__donut-container">
+            <div className="admin-dashboard__donut-chart">
               {categoryData.map((item, index) => {
                 const percentage = (item.value / total) * 100;
-                const previousPercentage = cumulativePercentage;
-                cumulativePercentage += percentage;
-
                 return (
                   <div
                     key={index}
-                    className="admin-dashboard__pie-segment"
-                    style={{
-                      backgroundColor: `hsl(${index * 60}, 70%, 50%)`,
-                      clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos((previousPercentage / 100) * 2 * Math.PI)}% ${50 - 50 * Math.sin((previousPercentage / 100) * 2 * Math.PI)}%, ${50 + 50 * Math.cos((cumulativePercentage / 100) * 2 * Math.PI)}% ${50 - 50 * Math.sin((cumulativePercentage / 100) * 2 * Math.PI)}%)`,
-                    }}
-                  ></div>
+                    className="admin-dashboard__donut-item"
+                    title={`${item.name}: ${percentage.toFixed(0)}%`}
+                  >
+                    <div
+                      className="admin-dashboard__donut-bar"
+                      style={{
+                        width: `${percentage}%`,
+                        backgroundColor: colors[index],
+                      }}
+                    ></div>
+                  </div>
                 );
               })}
             </div>
@@ -418,7 +491,7 @@ function Dashboard() {
                 <div key={index} className="admin-dashboard__legend-item">
                   <div
                     className="admin-dashboard__legend-color"
-                    style={{ backgroundColor: `hsl(${index * 60}, 70%, 50%)` }}
+                    style={{ backgroundColor: colors[index] }}
                   ></div>
                   <div className="admin-dashboard__legend-label">
                     {item.name}
@@ -439,7 +512,10 @@ function Dashboard() {
     <div className="admin-dashboard">
       <div className="admin-dashboard__sidebar">
         <div className="admin-dashboard__sidebar-header">
-          <h2>Admin Panel</h2>
+          <div className="admin-dashboard__logo">
+            <span className="admin-dashboard__logo-icon">⚡</span>
+            <h2>Capital Shop</h2>
+          </div>
         </div>
         <nav className="admin-dashboard__nav">
           <button
@@ -457,18 +533,25 @@ function Dashboard() {
             <span>Products</span>
           </button>
           <button
+            className={`admin-dashboard__nav-item ${activeTab === "categories" ? "active" : ""}`}
+            onClick={() => setActiveTab("categories")}
+          >
+            <FaTags className="admin-dashboard__nav-icon" />
+            <span>Categories</span>
+          </button>
+          <button
+            className={`admin-dashboard__nav-item ${activeTab === "brands" ? "active" : ""}`}
+            onClick={() => setActiveTab("brands")}
+          >
+            <FaIndustry className="admin-dashboard__nav-icon" />
+            <span>Brands</span>
+          </button>
+          <button
             className={`admin-dashboard__nav-item ${activeTab === "orders" ? "active" : ""}`}
             onClick={() => setActiveTab("orders")}
           >
             <FaShoppingCart className="admin-dashboard__nav-icon" />
             <span>Orders</span>
-          </button>
-          <button
-            className={`admin-dashboard__nav-item ${activeTab === "customers" ? "active" : ""}`}
-            onClick={() => setActiveTab("customers")}
-          >
-            <FaUsers className="admin-dashboard__nav-icon" />
-            <span>Customers</span>
           </button>
           <button
             className={`admin-dashboard__nav-item ${activeTab === "analytics" ? "active" : ""}`}
@@ -533,16 +616,16 @@ function Dashboard() {
               </div>
 
               <div className="admin-dashboard__summary-card">
-                <div className="admin-dashboard__summary-icon admin-dashboard__summary-icon--customers">
-                  <FaUsers />
+                <div className="admin-dashboard__summary-icon admin-dashboard__summary-icon--categories">
+                  <FaTags />
                 </div>
                 <div className="admin-dashboard__summary-content">
-                  <h3>Total Customers</h3>
+                  <h3>Categories</h3>
                   <div className="admin-dashboard__summary-value">
-                    {totalCustomers.toLocaleString()}
+                    {categories.length}
                   </div>
-                  <div className="admin-dashboard__summary-change admin-dashboard__summary-change--up">
-                    +5.7% from last month
+                  <div className="admin-dashboard__summary-change">
+                    Active categories
                   </div>
                 </div>
               </div>
@@ -556,8 +639,8 @@ function Dashboard() {
                   <div className="admin-dashboard__summary-value">
                     {totalProducts.toLocaleString()}
                   </div>
-                  <div className="admin-dashboard__summary-change admin-dashboard__summary-change--down">
-                    -2.3% from last month
+                  <div className="admin-dashboard__summary-change">
+                    {brands.length} brands
                   </div>
                 </div>
               </div>
@@ -566,72 +649,6 @@ function Dashboard() {
             <div className="admin-dashboard__charts">
               {renderRevenueChart()}
               {renderCategoryChart()}
-            </div>
-
-            <div className="admin-dashboard__tables">
-              <div className="admin-dashboard__table-container">
-                <div className="admin-dashboard__table-header">
-                  <h3>Recent Orders</h3>
-                  <button className="admin-dashboard__view-all">
-                    View All
-                  </button>
-                </div>
-                <table className="admin-dashboard__table">
-                  <thead>
-                    <tr>
-                      <th>Order ID</th>
-                      <th>Customer</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {recentOrders.map((order, index) => (
-                      <tr key={index}>
-                        <td>{order.id}</td>
-                        <td>{order.customer}</td>
-                        <td>{order.date}</td>
-                        <td>
-                          <span
-                            className={`admin-dashboard__status admin-dashboard__status--${order.status.toLowerCase()}`}
-                          >
-                            {order.status}
-                          </span>
-                        </td>
-                        <td>{order.total}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="admin-dashboard__table-container">
-                <div className="admin-dashboard__table-header">
-                  <h3>Top Selling Products</h3>
-                  <button className="admin-dashboard__view-all">
-                    View All
-                  </button>
-                </div>
-                <table className="admin-dashboard__table">
-                  <thead>
-                    <tr>
-                      <th>Product</th>
-                      <th>Sales</th>
-                      <th>Revenue</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {topProducts.map((product, index) => (
-                      <tr key={index}>
-                        <td>{product.name}</td>
-                        <td>{product.sales}</td>
-                        <td>{product.revenue}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
             </div>
           </>
         )}
@@ -644,7 +661,7 @@ function Dashboard() {
                 className="admin-dashboard__add-button"
                 onClick={handleAddNewProduct}
               >
-                + Add New Product
+                <FaPlus /> Add New Product
               </button>
             </div>
 
@@ -757,12 +774,18 @@ function Dashboard() {
                       </div>
                       <div className="admin-dashboard__form-group">
                         <label htmlFor="brandId">Brand</label>
-                        <input
-                          type="number"
+                        <select
                           id="brandId"
                           name="brandId"
-                          defaultValue={1}
-                        />
+                          defaultValue=""
+                        >
+                          <option value="">Select brand</option>
+                          {brands.map((b) => (
+                            <option key={b.id} value={b.id}>
+                              {b.title}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     </div>
 
@@ -822,6 +845,224 @@ function Dashboard() {
               </div>
             )}
           </>
+        )}
+
+        {/* ─── Categories Management ─────────────────────── */}
+        {activeTab === "categories" && (
+          <div className="admin-dashboard__section">
+            <div className="admin-dashboard__header">
+              <h1>Categories Management</h1>
+            </div>
+
+            <div className="admin-dashboard__crud-layout">
+              <div className="admin-dashboard__crud-form-card">
+                <h3>Add New Category</h3>
+                <form onSubmit={handleCreateCategory}>
+                  <div className="admin-dashboard__form-group">
+                    <label>Title</label>
+                    <input
+                      type="text"
+                      value={newCategoryTitle}
+                      onChange={(e) => setNewCategoryTitle(e.target.value)}
+                      placeholder="Category name"
+                      required
+                    />
+                  </div>
+                  <div className="admin-dashboard__form-group">
+                    <label>Image</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        setNewCategoryImage(e.target.files?.[0] || null)
+                      }
+                    />
+                  </div>
+                  {categoryError && (
+                    <div className="admin-dashboard__form-error">
+                      {categoryError}
+                    </div>
+                  )}
+                  <button
+                    type="submit"
+                    className="admin-dashboard__button admin-dashboard__button--primary"
+                    disabled={savingCategory}
+                  >
+                    {savingCategory ? "Creating..." : "Create Category"}
+                  </button>
+                </form>
+              </div>
+
+              <div className="admin-dashboard__crud-list">
+                <div className="admin-dashboard__table-container">
+                  <table className="admin-dashboard__table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {categories.length === 0 ? (
+                        <tr>
+                          <td colSpan={4} className="admin-dashboard__empty-cell">
+                            No categories found
+                          </td>
+                        </tr>
+                      ) : (
+                        categories.map((cat) => (
+                          <tr key={cat.id}>
+                            <td>#{cat.id}</td>
+                            <td>
+                              {cat.imageUrl && (
+                                <img
+                                  src={cat.imageUrl}
+                                  alt={cat.title}
+                                  className="admin-dashboard__table-img"
+                                />
+                              )}
+                            </td>
+                            <td>{cat.title}</td>
+                            <td>
+                              <button
+                                className="admin-dashboard__action-btn admin-dashboard__action-btn--delete"
+                                onClick={() => handleDeleteCategory(cat.id)}
+                              >
+                                <FaTrash />
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ─── Brands Management ──────────────────────────── */}
+        {activeTab === "brands" && (
+          <div className="admin-dashboard__section">
+            <div className="admin-dashboard__header">
+              <h1>Brands Management</h1>
+            </div>
+
+            <div className="admin-dashboard__crud-layout">
+              <div className="admin-dashboard__crud-form-card">
+                <h3>Add New Brand</h3>
+                <form onSubmit={handleCreateBrand}>
+                  <div className="admin-dashboard__form-group">
+                    <label>Title</label>
+                    <input
+                      type="text"
+                      value={newBrandTitle}
+                      onChange={(e) => setNewBrandTitle(e.target.value)}
+                      placeholder="Brand name"
+                      required
+                    />
+                  </div>
+                  <div className="admin-dashboard__form-group">
+                    <label>Website</label>
+                    <input
+                      type="url"
+                      value={newBrandWebsite}
+                      onChange={(e) => setNewBrandWebsite(e.target.value)}
+                      placeholder="https://example.com"
+                    />
+                  </div>
+                  <div className="admin-dashboard__form-group">
+                    <label>Logo</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        setNewBrandLogo(e.target.files?.[0] || null)
+                      }
+                    />
+                  </div>
+                  {brandError && (
+                    <div className="admin-dashboard__form-error">
+                      {brandError}
+                    </div>
+                  )}
+                  <button
+                    type="submit"
+                    className="admin-dashboard__button admin-dashboard__button--primary"
+                    disabled={savingBrand}
+                  >
+                    {savingBrand ? "Creating..." : "Create Brand"}
+                  </button>
+                </form>
+              </div>
+
+              <div className="admin-dashboard__crud-list">
+                <div className="admin-dashboard__table-container">
+                  <table className="admin-dashboard__table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Logo</th>
+                        <th>Title</th>
+                        <th>Website</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {brands.length === 0 ? (
+                        <tr>
+                          <td colSpan={5} className="admin-dashboard__empty-cell">
+                            No brands found
+                          </td>
+                        </tr>
+                      ) : (
+                        brands.map((brand) => (
+                          <tr key={brand.id}>
+                            <td>#{brand.id}</td>
+                            <td>
+                              {brand.logoUrl && (
+                                <img
+                                  src={brand.logoUrl}
+                                  alt={brand.title}
+                                  className="admin-dashboard__table-img"
+                                />
+                              )}
+                            </td>
+                            <td>{brand.title}</td>
+                            <td>
+                              {brand.website ? (
+                                <a
+                                  href={brand.website}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="admin-dashboard__link"
+                                >
+                                  {brand.website}
+                                </a>
+                              ) : (
+                                "—"
+                              )}
+                            </td>
+                            <td>
+                              <button
+                                className="admin-dashboard__action-btn admin-dashboard__action-btn--delete"
+                                onClick={() => handleDeleteBrand(brand.id)}
+                              >
+                                <FaTrash />
+                              </button>
+                            </td>
+                          </tr>
+                        ))
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
 
         {activeTab === "orders" && (
@@ -889,6 +1130,7 @@ function Dashboard() {
                           <td>
                             <select
                               value={order.status}
+                              className="admin-dashboard__status-select"
                               onChange={(e) =>
                                 handleChangeOrderStatus(
                                   order.id,
@@ -912,17 +1154,15 @@ function Dashboard() {
           </div>
         )}
 
-        {activeTab === "customers" && (
-          <div className="admin-dashboard__placeholder">
-            <h2>Customers Management</h2>
-            <p>This section is under development.</p>
-          </div>
-        )}
-
         {activeTab === "analytics" && (
-          <div className="admin-dashboard__placeholder">
-            <h2>Analytics Dashboard</h2>
-            <p>This section is under development.</p>
+          <div className="admin-dashboard__section">
+            <div className="admin-dashboard__header">
+              <h1>Analytics Dashboard</h1>
+            </div>
+            <div className="admin-dashboard__charts">
+              {renderRevenueChart()}
+              {renderCategoryChart()}
+            </div>
           </div>
         )}
       </div>

@@ -34,6 +34,25 @@ export const createBrand = async (
   return response.data;
 };
 
+export const updateBrand = async (
+  id: number,
+  title: string,
+  website: string,
+  logo?: File,
+) => {
+  const formData = new FormData();
+  formData.append("Title", title);
+  formData.append("Website", website);
+  if (logo) {
+    formData.append("LogoUrl", logo);
+  }
+
+  const response = await apiClient.patch(`/Brands/Update/${id}`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
 export const deleteBrand = async (id: number) => {
   await apiClient.delete("/Brands/Delete/Hard", {
     params: { ids: id },

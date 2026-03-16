@@ -27,8 +27,22 @@ export const createCategory = async (title: string, image: File) => {
   return response.data;
 };
 
+export const updateCategory = async (id: number, title: string, image?: File) => {
+  const formData = new FormData();
+  formData.append("Title", title);
+  if (image) {
+    formData.append("ImageUrl", image);
+  }
+
+  const response = await apiClient.patch(`/Categories/Update/${id}`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
 export const deleteCategory = async (id: number) => {
   await apiClient.delete("/Categories/Delete/Hard", {
     params: { ids: id },
   });
 };
+

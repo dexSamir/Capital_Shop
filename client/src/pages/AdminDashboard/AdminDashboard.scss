@@ -258,6 +258,10 @@
     &--products {
       background: linear-gradient(135deg, #ff9800, #e65100);
     }
+
+    &--categories {
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    }
   }
 
   &__summary-content {
@@ -639,7 +643,10 @@
     text-align: center;
     padding: $spacing-xl * 2;
     font-size: $font-size-lg;
-    color: var(--primary-color);
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.08);
+    border-radius: $border-radius-md;
+    border: 1px solid rgba(231, 76, 60, 0.2);
   }
 
   &__placeholder {
@@ -659,6 +666,341 @@
       color: var(--light-text-color);
     }
   }
+
+  // ─── Logo ────────────────────────────────────────
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    &-icon {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: var(--text-color);
+      margin: 0;
+      white-space: nowrap;
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      @include responsive(md) {
+        display: none;
+      }
+    }
+  }
+
+  // ─── Section wrapper ────────────────────────────
+  &__section {
+    animation: fadeIn 0.3s ease;
+  }
+
+  // ─── CRUD Layout (Categories / Brands) ──────────
+  &__crud-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: $spacing-xl;
+    align-items: flex-start;
+
+    @include responsive(md) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__crud-form-card {
+    background-color: var(--card-background);
+    border-radius: $border-radius-md;
+    padding: $spacing-lg;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: $spacing-xl;
+
+    h3 {
+      margin: 0 0 $spacing-lg 0;
+      font-size: $font-size-lg;
+      color: var(--text-color);
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  &__crud-list {
+    min-width: 0;
+  }
+
+  // ─── Action Buttons ─────────────────────────────
+  &__action-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+
+    &--edit {
+      background: rgba(52, 152, 219, 0.1);
+      color: #3498db;
+
+      &:hover {
+        background: #3498db;
+        color: white;
+        transform: scale(1.1);
+      }
+    }
+
+    &--delete {
+      background: rgba(231, 76, 60, 0.1);
+      color: #e74c3c;
+
+      &:hover {
+        background: #e74c3c;
+        color: white;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  // ─── Table Image ────────────────────────────────
+  &__table-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+  }
+
+  // ─── Empty cell ─────────────────────────────────
+  &__empty-cell {
+    text-align: center !important;
+    color: var(--light-text-color) !important;
+    padding: $spacing-xl !important;
+    font-style: italic;
+  }
+
+  // ─── Link ───────────────────────────────────────
+  &__link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: $font-size-sm;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // ─── Form Error ─────────────────────────────────
+  &__form-error {
+    color: #e74c3c;
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-md;
+    padding: $spacing-sm;
+    background: rgba(231, 76, 60, 0.08);
+    border-radius: $border-radius-sm;
+    border-left: 3px solid #e74c3c;
+  }
+
+  // ─── Status Select ──────────────────────────────
+  &__status-select {
+    padding: 4px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--card-background);
+    color: var(--text-color);
+    font-size: $font-size-sm;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.15);
+    }
+  }
+
+  // ─── Donut Chart (simpler bar-style) ────────────
+  &__donut-container {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    height: 100%;
+    justify-content: center;
+  }
+
+  &__donut-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__donut-item {
+    width: 100%;
+    height: 28px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover .admin-dashboard__donut-bar {
+      filter: brightness(1.15);
+    }
+  }
+
+  &__donut-bar {
+    height: 100%;
+    border-radius: 6px;
+    transition: all 0.5s ease;
+  }
+
+  // ─── Pending status ─────────────────────────────
+  &__status--pending {
+    background-color: rgba(255, 193, 7, 0.12);
+    color: #f39c12;
+  }
+
+  // ─── Modal ──────────────────────────────────────
+  &__modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: fadeIn 0.2s ease;
+  }
+
+  &__modal {
+    background: var(--card-background);
+    border-radius: 16px;
+    padding: $spacing-xl;
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.3s ease;
+
+    h2 {
+      margin: 0 0 $spacing-lg 0;
+      font-size: $font-size-xl;
+      color: var(--text-color);
+    }
+  }
+
+  // ─── Form Styles ────────────────────────────────
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: $spacing-md;
+  }
+
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: $spacing-sm;
+
+    label {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+      color: var(--light-text-color);
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--card-background);
+      color: var(--text-color);
+      font-size: $font-size-base;
+      transition: all 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+      }
+    }
+
+    input[type="file"] {
+      padding: 8px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+  }
+
+  &__form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-md;
+    margin-top: $spacing-md;
+    padding-top: $spacing-md;
+    border-top: 1px solid var(--border-color);
+  }
+
+  // ─── Buttons ────────────────────────────────────
+  &__button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &--primary {
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+      color: white;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+
+    &--secondary {
+      background: var(--light-background);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+
+      &:hover:not(:disabled) {
+        background: var(--border-color);
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 [data-theme="dark"] {
@@ -669,7 +1011,8 @@
     
     &__summary-card,
     &__chart,
-    &__table-container {
+    &__table-container,
+    &__crud-form-card {
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       
       &:hover {
@@ -677,8 +1020,17 @@
       }
     }
     
-    &__pie-chart {
-      background-color: #333;
+    &__donut-item {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    &__action-btn {
+      &--edit {
+        background: rgba(52, 152, 219, 0.15);
+      }
+      &--delete {
+        background: rgba(231, 76, 60, 0.15);
+      }
     }
   }
 }

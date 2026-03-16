@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Text.Json;
 using Capital.BL.Exceptions;
 
@@ -25,6 +25,11 @@ public class ExceptionMiddleware
         {
             _logger.LogWarning(ex, "Business exception was catched!");
             await HandleExceptionAsync(context, ex.StatusCode, ex.Message, ex.ErrorCode , ex.Code);
+        }
+        catch (ArgumentException ex)
+        {
+            _logger.LogWarning(ex, "Argument exception");
+            await HandleExceptionAsync(context, HttpStatusCode.BadRequest, ex.Message);
         }
         catch (Exception ex)
         {

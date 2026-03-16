@@ -22,6 +22,8 @@ interface ProductsState {
     category: string
     size: string
     color: string
+    brand: string
+    rating: string
     search: string
     sortBy: string
     sortOrder: string
@@ -40,6 +42,8 @@ const initialState: ProductsState = {
     category: "All",
     size: "All",
     color: "All",
+    brand: "All",
+    rating: "All",
     search: "",
     sortBy: "",
     sortOrder: "",
@@ -181,6 +185,8 @@ const productSlice = createSlice({
         category: "All",
         size: "All",
         color: "All",
+        brand: "All",
+        rating: "All",
         search: "",
         sortBy: "",
         sortOrder: "",
