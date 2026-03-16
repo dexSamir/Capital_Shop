@@ -1,4 +1,5 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
+import { addOrUpdateCartItem } from "../../api/cart";
 
 export interface CartItem {
   id: number;
@@ -28,6 +29,10 @@ const loadCartFromStorage = (): CartItem[] => {
   }
 };
 
+const saveCartToStorage = (items: CartItem[]) => {
+  localStorage.setItem("basket", JSON.stringify(items));
+};
+
 const calculateTotals = (items: CartItem[]) => {
   return items.reduce(
     (acc, item) => {
@@ -38,6 +43,25 @@ const calculateTotals = (items: CartItem[]) => {
     { totalAmount: 0, totalCount: 0 }
   );
 };
+
+// Sync local cart to server when user logs in
+export const syncCartToServer = createAsyncThunk(
+  "cart/syncToServer",
+  async (_, { getState }) => {
+    const state = getState() as { cart: CartState };
+    const localItems = state.cart.items;
+
+    for (const item of localItems) {
+      try {
+        await addOrUpdateCartItem(item.id, item.count);
+      } catch {
+        // ignore individual item sync failures
+      }
+    }
+
+    return localItems;
+  }
+);
 
 const initialCartItems = loadCartFromStorage();
 const { totalAmount, totalCount } = calculateTotals(initialCartItems);
@@ -69,7 +93,7 @@ const cartSlice = createSlice({
       state.totalAmount = totalAmount;
       state.totalCount = totalCount;
 
-      localStorage.setItem("basket", JSON.stringify(state.items));
+      saveCartToStorage(state.items);
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
@@ -78,7 +102,7 @@ const cartSlice = createSlice({
       state.totalAmount = totalAmount;
       state.totalCount = totalCount;
 
-      localStorage.setItem("basket", JSON.stringify(state.items));
+      saveCartToStorage(state.items);
     },
     updateCartItemQuantity: (
       state,
@@ -95,7 +119,7 @@ const cartSlice = createSlice({
       state.totalAmount = totalAmount;
       state.totalCount = totalCount;
 
-      localStorage.setItem("basket", JSON.stringify(state.items));
+      saveCartToStorage(state.items);
     },
     clearCart: (state) => {
       state.items = [];

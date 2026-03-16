@@ -82,7 +82,30 @@ export const updateProduct = async (
   id: number,
   payload: AdminProductPayload,
 ) => {
+<<<<<<< HEAD
   const formData = buildProductFormData(payload);
+=======
+  const formData = new FormData();
+
+  formData.append("SellPrice", String(payload.sellPrice));
+  formData.append("CostPrice", String(payload.costPrice));
+  formData.append("Discount", String(payload.discount));
+  formData.append("Quantity", String(payload.quantity));
+  formData.append("SKU", payload.sku);
+  formData.append("Title", payload.title);
+  formData.append("Description", payload.description);
+  formData.append("BrandId", String(payload.brandId));
+  formData.append("CategoryId", String(payload.categoryId));
+  formData.append("Weight", "0");
+
+  if (payload.coverImage) {
+    formData.append("CoverImage", payload.coverImage);
+  }
+  if (payload.secondImage) {
+    formData.append("SecondImage", payload.secondImage);
+  }
+
+>>>>>>> 0ed783f38e342c9e547fd9b8e8bde0b14500914b
   const response = await apiClient.patch(`/Products/Update/${id}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });

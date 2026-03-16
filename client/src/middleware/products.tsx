@@ -1,15 +1,57 @@
 import { apiClient } from "../api/client"
 
+interface CategoryDto {
+  id: number
+  name: string
+}
+
+interface BrandDto {
+  id: number
+  name: string
+}
+
+let categoriesCache: CategoryDto[] | null = null
+let brandsCache: BrandDto[] | null = null
+
+export async function getCategories(): Promise<CategoryDto[]> {
+  if (categoriesCache) return categoriesCache
+  try {
+    const response = await apiClient.get<CategoryDto[]>("/Categories/GetAll")
+    categoriesCache = response.data
+    return categoriesCache
+  } catch {
+    return []
+  }
+}
+
+export async function getBrands(): Promise<BrandDto[]> {
+  if (brandsCache) return brandsCache
+  try {
+    const response = await apiClient.get<BrandDto[]>("/Brands/GetAll")
+    brandsCache = response.data
+    return brandsCache
+  } catch {
+    return []
+  }
+}
+
 export async function getAllproducts() {
-  const response = await apiClient.get("/Products/GetAllAsync")
-  const data = response.data as Array<{
+  const [productsResponse, categories] = await Promise.all([
+    apiClient.get("/Products/GetAllAsync"),
+    getCategories(),
+  ])
+
+  const data = productsResponse.data as Array<{
     id: number
     title: string
     coverImage: string
     sellPrice: number
     discount: number
     categoryId: number
+    brandId?: number
   }>
+
+  const categoryMap = new Map(categories.map((c) => [c.id, c.name]))
 
   return data.map((p) => {
     const price = Number(p.sellPrice)
@@ -25,7 +67,7 @@ export async function getAllproducts() {
       price,
       withoutDiscount,
       img: p.coverImage,
-      category: `Category ${p.categoryId}`,
+      category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
     }
   })
 }

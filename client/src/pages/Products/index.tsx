@@ -8,11 +8,11 @@ import Card from "../../components/Card"
 import { FaChevronDown, FaChevronUp, FaFilter, FaTimes, FaCheck } from "react-icons/fa"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { fetchProducts, setFilter } from "../../store/slices/productSlice"
+import { getCategories, getBrands } from "../../middleware/products"
 import "./Products.scss"
 
-const categories = ["All", "men's clothing", "women's clothing", "baby's clothing", "accessory"]
-const sizes = ["All", "small", "medium", "large", "x-large", "xx-large"]
-const colors = [
+const defaultSizes = ["All", "small", "medium", "large", "x-large", "xx-large"]
+const defaultColors = [
   "All",
   "multi-colored",
   "black",
@@ -27,20 +27,6 @@ const colors = [
   "purple",
   "orange",
 ]
-const brands = [
-  "All",
-  "Nike",
-  "Adidas",
-  "Puma",
-  "Reebok",
-  "Under Armour",
-  "New Balance",
-  "Converse",
-  "Vans",
-  "Gucci",
-  "Zara",
-  "H&M",
-]
 const ratings = ["All", "4 & above", "3 & above", "2 & above", "1 & above"]
 
 function Products() {
@@ -51,6 +37,10 @@ function Products() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [showFilters, setShowFilters] = useState(true)
   const [expandedFilters, setExpandedFilters] = useState<string[]>(["category"])
+  const [categories, setCategories] = useState<string[]>(["All"])
+  const [brands, setBrands] = useState<string[]>(["All"])
+  const sizes = defaultSizes
+  const colors = defaultColors
 
   const toggleFilter = (filterName: string) => {
     setExpandedFilters((prev) =>
@@ -94,6 +84,13 @@ function Products() {
 
   useEffect(() => {
     dispatch(fetchProducts())
+
+    getCategories().then((cats) => {
+      setCategories(["All", ...cats.map((c) => c.name)])
+    })
+    getBrands().then((b) => {
+      setBrands(["All", ...b.map((br) => br.name)])
+    })
   }, [dispatch])
 
   useEffect(() => {

@@ -72,7 +72,7 @@ function Basket() {
                 {items.map((product) => (
                   <tr key={product.id} className="basket__item">
                     <td className="basket__item-image">
-                      <Link onClick={() => navigate(`/detail/${product.id}`)}>
+                      <Link to={`/detail/${product.id}`}>
                         <img
                           src={product.img || "/placeholder.svg"}
                           alt={product.name}

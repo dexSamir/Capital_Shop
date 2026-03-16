@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -119,16 +119,9 @@ function Checkout() {
           })),
         });
 
-        Swal.fire({
-          title: "Order Placed!",
-          text: "Your order has been successfully placed.",
-          icon: "success",
-          confirmButtonText: "Continue Shopping",
-        }).then(() => {
-          dispatch(clearCart());
-          navigate("/");
-        });
-      } catch (error) {
+        setActiveStep(3);
+        dispatch(clearCart());
+      } catch {
         Swal.fire({
           icon: "error",
           title: "Order failed",
@@ -137,6 +130,37 @@ function Checkout() {
       }
     },
   });
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      Swal.fire({
+        icon: "info",
+        title: "Login required",
+        text: "Please login to proceed with checkout.",
+      }).then(() => {
+        navigate("/login");
+      });
+    }
+  }, [isAuthenticated, navigate]);
+
+  if (activeStep === 3) {
+    return (
+      <div className="checkout">
+        <div className="checkout__header">
+          <h1 className="checkout__title">Order Confirmed</h1>
+        </div>
+        <div className="checkout__confirmation">
+          <div className="checkout__confirmation-icon">&#10003;</div>
+          <h2>Thank you for your order!</h2>
+          <p>Your order has been placed successfully. You will receive a confirmation email shortly.</p>
+          <div className="checkout__confirmation-actions">
+            <Link to="/orders" className="checkout__next-button">View My Orders</Link>
+            <Link to="/products" className="checkout__back-button">Continue Shopping</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (
@@ -456,7 +480,26 @@ function Checkout() {
               </form>
             )}
 
-            {activeStep === 2 && (
+            {activeStep === 2 && !isAuthenticated && (
+              <div className="checkout__form">
+                <h2 className="checkout__form-title">Login Required</h2>
+                <p>You need to be logged in to complete your purchase.</p>
+                <div className="checkout__form-actions">
+                  <button
+                    type="button"
+                    className="checkout__back-button"
+                    onClick={() => setActiveStep(1)}
+                  >
+                    Back
+                  </button>
+                  <Link to="/login" className="checkout__next-button">
+                    Login
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {activeStep === 2 && isAuthenticated && (
               <form
                 onSubmit={paymentFormik.handleSubmit}
                 className="checkout__form"
@@ -578,6 +621,7 @@ function Checkout() {
             )}
           </div>
 
+          {activeStep !== 3 && (
           <div className="checkout__summary">
             <h2 className="checkout__summary-title">Order Summary</h2>
 
@@ -617,6 +661,7 @@ function Checkout() {
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
     </div>
