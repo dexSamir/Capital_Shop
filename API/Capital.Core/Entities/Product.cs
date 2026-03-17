@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Capital.Core.Entities.Base;
 using Capital.Core.Entities.Relational;
 
@@ -34,6 +35,7 @@ public class Product : BaseEntity
 
     //Category
 	public int CategoryId { get; set; }
+	[ForeignKey("CategoryId")]
 	public Category Category { get; set; } = null!;
 
 	//OtherImages

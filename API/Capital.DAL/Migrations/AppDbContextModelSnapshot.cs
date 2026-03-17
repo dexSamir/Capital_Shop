@@ -469,7 +469,9 @@ namespace Capital.DAL.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AvgRating")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
 
                     b.Property<int?>("BrandId")
                         .HasColumnType("integer");
@@ -477,18 +479,21 @@ namespace Capital.DAL.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CategoryId1")
+                    b.Property<int>("CategoryId2")
                         .HasColumnType("integer");
 
                     b.Property<decimal>("CostPrice")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("CouponId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("CouponId1")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CoverImage")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
@@ -501,7 +506,7 @@ namespace Capital.DAL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<decimal?>("Height")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<bool>("IsBestseller")
                         .HasColumnType("boolean");
@@ -510,42 +515,46 @@ namespace Capital.DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<decimal?>("Length")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
                     b.Property<string>("SKU")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("SecondImage")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<decimal>("SellPrice")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("SellerId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(200)");
 
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("Weight")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal?>("Width")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<bool>("isDeleted")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<bool>("isUpdated")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -553,9 +562,20 @@ namespace Capital.DAL.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CategoryId1");
-
                     b.HasIndex("CouponId");
+
+                    b.HasIndex("CouponId1");
+
+                    b.HasIndex("CreatedTime");
+
+                    b.HasIndex("IsBestseller");
+
+                    b.HasIndex("IsNewArrival");
+
+                    b.HasIndex("SKU")
+                        .IsUnique();
+
+                    b.HasIndex("isDeleted");
 
                     b.ToTable("Products");
                 });
@@ -1077,22 +1097,20 @@ namespace Capital.DAL.Migrations
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Capital.Core.Entities.Category", null)
+                    b.HasOne("Capital.Core.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Capital.Core.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId1")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Capital.Core.Entities.Coupon", "Coupon")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CouponId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Capital.Core.Entities.Coupon", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CouponId1");
 
                     b.Navigation("Brand");
 

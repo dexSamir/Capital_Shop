@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Capital.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250802163823_UpdatedProductImage")]
-    partial class UpdatedProductImage
+    [Migration("20260317074755_updateProductsTable")]
+    partial class updateProductsTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,69 @@ namespace Capital.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Capital.Core.Entities.Attribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isUpdated")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Attributes");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.AttributeValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttributeId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isUpdated")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeId");
+
+                    b.ToTable("AttributeValues");
+                });
 
             modelBuilder.Entity("Capital.Core.Entities.Brand", b =>
                 {
@@ -71,6 +134,81 @@ namespace Capital.DAL.Migrations
                     b.HasIndex("isUpdated");
 
                     b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isUpdated")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isUpdated")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("Capital.Core.Entities.Category", b =>
@@ -204,6 +342,127 @@ namespace Capital.DAL.Migrations
                     b.ToTable("Coupons");
                 });
 
+            modelBuilder.Entity("Capital.Core.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isUpdated")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isUpdated")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItems");
+                });
+
             modelBuilder.Entity("Capital.Core.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -213,7 +472,9 @@ namespace Capital.DAL.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AvgRating")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
 
                     b.Property<int?>("BrandId")
                         .HasColumnType("integer");
@@ -221,18 +482,21 @@ namespace Capital.DAL.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CategoryId1")
+                    b.Property<int>("CategoryId2")
                         .HasColumnType("integer");
 
                     b.Property<decimal>("CostPrice")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("CouponId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("CouponId1")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CoverImage")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
@@ -245,7 +509,7 @@ namespace Capital.DAL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<decimal?>("Height")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<bool>("IsBestseller")
                         .HasColumnType("boolean");
@@ -254,42 +518,46 @@ namespace Capital.DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<decimal?>("Length")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
                     b.Property<string>("SKU")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("SecondImage")
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<decimal>("SellPrice")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("SellerId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(200)");
 
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("Weight")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal?>("Width")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<bool>("isDeleted")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.Property<bool>("isUpdated")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
 
                     b.HasKey("Id");
 
@@ -297,66 +565,22 @@ namespace Capital.DAL.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CategoryId1");
-
                     b.HasIndex("CouponId");
 
-                    b.ToTable("Products");
-                });
+                    b.HasIndex("CouponId1");
 
-            modelBuilder.Entity("Capital.Core.Entities.ProductAttribute", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.HasIndex("CreatedTime");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.HasIndex("IsBestseller");
 
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.HasIndex("IsNewArrival");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("name");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer")
-                        .HasColumnName("product_id");
-
-                    b.Property<DateTime?>("UpdatedTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("isDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.Property<bool>("isUpdated")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("Value");
+                    b.HasIndex("SKU")
+                        .IsUnique();
 
                     b.HasIndex("isDeleted");
 
-                    b.HasIndex("isUpdated");
-
-                    b.HasIndex("ProductId", "Name")
-                        .IsUnique();
-
-                    b.ToTable("Attributes");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Capital.Core.Entities.ProductImage", b =>
@@ -509,6 +733,41 @@ namespace Capital.DAL.Migrations
                     b.ToTable("Specifications");
                 });
 
+            modelBuilder.Entity("Capital.Core.Entities.Relational.ProductAttributeValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttributeValueId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("isUpdated")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeValueId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductAttributeValues");
+                });
+
             modelBuilder.Entity("Capital.Core.Entities.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -574,6 +833,9 @@ namespace Capital.DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<bool>("Gender")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsVerified")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("LockoutEnabled")
@@ -760,6 +1022,77 @@ namespace Capital.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Capital.Core.Entities.AttributeValue", b =>
+                {
+                    b.HasOne("Capital.Core.Entities.Attribute", "Attribute")
+                        .WithMany("Values")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attribute");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.Cart", b =>
+                {
+                    b.HasOne("Capital.Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.CartItem", b =>
+                {
+                    b.HasOne("Capital.Core.Entities.Cart", "Cart")
+                        .WithMany("Items")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Capital.Core.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.Order", b =>
+                {
+                    b.HasOne("Capital.Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.OrderItem", b =>
+                {
+                    b.HasOne("Capital.Core.Entities.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Capital.Core.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Capital.Core.Entities.Product", b =>
                 {
                     b.HasOne("Capital.Core.Entities.Brand", "Brand")
@@ -767,39 +1100,26 @@ namespace Capital.DAL.Migrations
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Capital.Core.Entities.Category", null)
+                    b.HasOne("Capital.Core.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Capital.Core.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId1")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Capital.Core.Entities.Coupon", "Coupon")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CouponId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Capital.Core.Entities.Coupon", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CouponId1");
 
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
 
                     b.Navigation("Coupon");
-                });
-
-            modelBuilder.Entity("Capital.Core.Entities.ProductAttribute", b =>
-                {
-                    b.HasOne("Capital.Core.Entities.Product", "Product")
-                        .WithMany("Attributes")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Capital.Core.Entities.ProductImage", b =>
@@ -838,6 +1158,25 @@ namespace Capital.DAL.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.Relational.ProductAttributeValue", b =>
+                {
+                    b.HasOne("Capital.Core.Entities.AttributeValue", "AttributeValue")
+                        .WithMany()
+                        .HasForeignKey("AttributeValueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Capital.Core.Entities.Product", "Product")
+                        .WithMany("ProductAttributeValues")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AttributeValue");
 
                     b.Navigation("Product");
                 });
@@ -910,9 +1249,19 @@ namespace Capital.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Capital.Core.Entities.Attribute", b =>
+                {
+                    b.Navigation("Values");
+                });
+
             modelBuilder.Entity("Capital.Core.Entities.Brand", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Capital.Core.Entities.Cart", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Capital.Core.Entities.Category", b =>
@@ -925,11 +1274,16 @@ namespace Capital.DAL.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Capital.Core.Entities.Order", b =>
+                {
+                    b.Navigation("Items");
+                });
+
             modelBuilder.Entity("Capital.Core.Entities.Product", b =>
                 {
-                    b.Navigation("Attributes");
-
                     b.Navigation("Images");
+
+                    b.Navigation("ProductAttributeValues");
 
                     b.Navigation("Ratings");
 

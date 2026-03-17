@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Capital.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdatedBaseEntity : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,6 +35,7 @@ namespace Capital.DAL.Migrations
                     Surname = table.Column<string>(type: "text", nullable: true),
                     Gender = table.Column<bool>(type: "boolean", nullable: false),
                     Age = table.Column<int>(type: "integer", nullable: false),
+                    IsVerified = table.Column<bool>(type: "boolean", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -53,6 +54,23 @@ namespace Capital.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attributes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    isDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    isUpdated = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attributes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -225,6 +243,88 @@ namespace Capital.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    isDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    isUpdated = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false),
+                    TotalAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    City = table.Column<string>(type: "text", nullable: false),
+                    State = table.Column<string>(type: "text", nullable: false),
+                    ZipCode = table.Column<string>(type: "text", nullable: false),
+                    Country = table.Column<string>(type: "text", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    isDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    isUpdated = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AttributeValues",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Value = table.Column<string>(type: "text", nullable: false),
+                    AttributeId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    isDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    isUpdated = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttributeValues", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AttributeValues_Attributes_AttributeId",
+                        column: x => x.AttributeId,
+                        principalTable: "Attributes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -232,7 +332,7 @@ namespace Capital.DAL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     SellPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     CostPrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    DiscountedPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    Discount = table.Column<int>(type: "integer", nullable: false),
                     AvgRating = table.Column<int>(type: "integer", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     SKU = table.Column<string>(type: "text", nullable: false),
@@ -241,6 +341,7 @@ namespace Capital.DAL.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     CoverImage = table.Column<string>(type: "text", nullable: false),
+                    SecondImage = table.Column<string>(type: "text", nullable: true),
                     SellerId = table.Column<Guid>(type: "uuid", nullable: false),
                     BrandId = table.Column<int>(type: "integer", nullable: true),
                     CouponId = table.Column<int>(type: "integer", nullable: true),
@@ -250,6 +351,7 @@ namespace Capital.DAL.Migrations
                     Height = table.Column<decimal>(type: "numeric", nullable: true),
                     CategoryId = table.Column<int>(type: "integer", nullable: false),
                     CategoryId1 = table.Column<int>(type: "integer", nullable: false),
+                    CategoryId2 = table.Column<int>(type: "integer", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     isDeleted = table.Column<bool>(type: "boolean", nullable: false),
@@ -284,25 +386,96 @@ namespace Capital.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Attributes",
+                name: "CartItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Value = table.Column<string>(type: "text", nullable: false),
-                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    CartId = table.Column<int>(type: "integer", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    isDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    isUpdated = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false)
+                    isDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    isUpdated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Attributes", x => x.Id);
+                    table.PrimaryKey("PK_CartItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Attributes_Products_product_id",
-                        column: x => x.product_id,
+                        name: "FK_CartItems_Carts_CartId",
+                        column: x => x.CartId,
+                        principalTable: "Carts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OrderId = table.Column<int>(type: "integer", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    isDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    isUpdated = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductAttributeValues",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    AttributeValueId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    isDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    isUpdated = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductAttributeValues", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductAttributeValues_AttributeValues_AttributeValueId",
+                        column: x => x.AttributeValueId,
+                        principalTable: "AttributeValues",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductAttributeValues_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -396,6 +569,7 @@ namespace Capital.DAL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ImageUrl = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: true),
                     IsPrimary = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    IsSecondary = table.Column<bool>(type: "boolean", nullable: false),
                     AltText = table.Column<string>(type: "varchar(150)", nullable: true),
                     ProductId = table.Column<int>(type: "integer", nullable: false),
                     ReviewId = table.Column<int>(type: "integer", nullable: true),
@@ -459,35 +633,9 @@ namespace Capital.DAL.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attributes_Value",
-                table: "Attributes",
-                column: "Value");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attributes_isDeleted",
-                table: "Attributes",
-                column: "isDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attributes_isUpdated",
-                table: "Attributes",
-                column: "isUpdated");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attributes_name",
-                table: "Attributes",
-                column: "name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attributes_product_id",
-                table: "Attributes",
-                column: "product_id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Attributes_product_id_name",
-                table: "Attributes",
-                columns: new[] { "product_id", "name" },
-                unique: true);
+                name: "IX_AttributeValues_AttributeId",
+                table: "AttributeValues",
+                column: "AttributeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Brands_CreatedTime",
@@ -509,6 +657,21 @@ namespace Capital.DAL.Migrations
                 name: "IX_Brands_isUpdated",
                 table: "Brands",
                 column: "isUpdated");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartItems_CartId",
+                table: "CartItems",
+                column: "CartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartItems_ProductId",
+                table: "CartItems",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserId",
+                table: "Carts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_CreatedTime",
@@ -603,6 +766,31 @@ namespace Capital.DAL.Migrations
                 column: "isUpdated");
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_OrderId",
+                table: "OrderItems",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_ProductId",
+                table: "OrderItems",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductAttributeValues_AttributeValueId",
+                table: "ProductAttributeValues",
+                column: "AttributeValueId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductAttributeValues_ProductId",
+                table: "ProductAttributeValues",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_BrandId",
                 table: "Products",
                 column: "BrandId");
@@ -693,10 +881,16 @@ namespace Capital.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Attributes");
+                name: "CartItems");
 
             migrationBuilder.DropTable(
                 name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "OrderItems");
+
+            migrationBuilder.DropTable(
+                name: "ProductAttributeValues");
 
             migrationBuilder.DropTable(
                 name: "Specifications");
@@ -705,13 +899,25 @@ namespace Capital.DAL.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "Reviews");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "AttributeValues");
+
+            migrationBuilder.DropTable(
                 name: "Ratings");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Attributes");
 
             migrationBuilder.DropTable(
                 name: "Products");

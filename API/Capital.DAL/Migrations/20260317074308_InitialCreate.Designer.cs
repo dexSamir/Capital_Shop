@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Capital.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260309135414_AddIsVerifiedToUser")]
-    partial class AddIsVerifiedToUser
+    [Migration("20260317074308_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -481,6 +481,9 @@ namespace Capital.DAL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("CategoryId1")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CategoryId2")
                         .HasColumnType("integer");
 
                     b.Property<decimal>("CostPrice")
@@ -1153,7 +1156,7 @@ namespace Capital.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("Capital.Core.Entities.Product", "Product")
-                        .WithMany("ProductAttributeValuesß")
+                        .WithMany("ProductAttributeValues")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1265,7 +1268,7 @@ namespace Capital.DAL.Migrations
                 {
                     b.Navigation("Images");
 
-                    b.Navigation("ProductAttributeValuesß");
+                    b.Navigation("ProductAttributeValues");
 
                     b.Navigation("Ratings");
 
