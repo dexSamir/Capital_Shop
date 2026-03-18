@@ -17,6 +17,7 @@ public static class ServiceRegistration
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<ICartService, CartService>();
+        services.AddScoped<IUserService, UserService>();
 
         services.AddScoped<ICurrentUser, CurrentUser>();
         services.AddScoped<IJwtTokenHandler, JwtTokenHandler>();

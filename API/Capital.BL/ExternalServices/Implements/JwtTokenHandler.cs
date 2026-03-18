@@ -1,4 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Capital.BL.Constants;
@@ -18,7 +18,7 @@ public class JwtTokenHandler : IJwtTokenHandler
         _opt = opt.Value; 
 	}
 
-    public string CreateToken(User user, int hours)
+    public string CreateToken(User user, int hours, IList<string> roles)
     {
         List<Claim> claims = [
                     new Claim(ClaimType.Username, user.UserName),
@@ -26,6 +26,8 @@ public class JwtTokenHandler : IJwtTokenHandler
                     new Claim(ClaimType.Id, user.Id),
                     new Claim(ClaimType.Fullname, user.Name + " " + user.Surname)
             ];
+
+        roles.ToList().ForEach(r => claims.Add(new Claim(ClaimTypes.Role, r)));
 
         SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_opt.SecretKey));
 

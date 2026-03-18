@@ -100,8 +100,9 @@ public class AuthService : IAuthService
         if (!result.Succeeded)
             throw new NotFoundException<User>();
 
-        var token = _tokenHandler.CreateToken(user, 24);
-        var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+        var roles = await _userManager.GetRolesAsync(user);
+        var token = _tokenHandler.CreateToken(user, 24, roles);
+        var isAdmin = roles.Contains("Admin");
 
         return new AuthResponseDto
         {
@@ -139,8 +140,9 @@ public class AuthService : IAuthService
             throw new BadRequestException(error);
         }
 
-        var token = _tokenHandler.CreateToken(user, 24);
-        var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+        var roles = await _userManager.GetRolesAsync(user);
+        var token = _tokenHandler.CreateToken(user, 24, roles);
+        var isAdmin = roles.Contains("Admin");
 
         return new AuthResponseDto
         {
