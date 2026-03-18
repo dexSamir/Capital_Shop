@@ -30,7 +30,7 @@ public class CategoriesController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create(CategoryCreateDto dto)
+    public async Task<IActionResult> Create([FromForm] CategoryCreateDto dto)
     {
         return Ok(await _service.CreateAsync(dto)); 
     }
@@ -44,7 +44,7 @@ public class CategoriesController : ControllerBase
 
     [HttpPatch("{id}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Update(int id, CategoryUpdateDto dto)
+    public async Task<IActionResult> Update(int id, [FromForm] CategoryUpdateDto dto)
     {
         return Ok(await _service.UpdateAsync( id, dto));
     }

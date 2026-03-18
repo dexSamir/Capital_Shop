@@ -1,4 +1,4 @@
-﻿namespace Capital.BL.DTOs.ProductDtos;
+namespace Capital.BL.DTOs.ProductDtos;
 public class ProductGetDto
 {
 	public int Id { get; set; }
@@ -9,6 +9,7 @@ public class ProductGetDto
 
 	public string Title { get; set; }
 	public int CategoryId { get; set; }
+	public int? BrandId { get; set; }
 
 	//reviews
 

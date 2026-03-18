@@ -1,4 +1,4 @@
-﻿using Capital.BL.Utilities.Enums;
+using Capital.BL.Utilities.Enums;
 
 namespace Capital.BL.DTOs.ProductDtos;
 
@@ -11,8 +11,8 @@ public class ProductFilterDto
 	public decimal? MinPrice { get; set; }
 	public decimal? MaxPrice { get; set; }
 
-	public int Page { get; set; }
-	public int PageSize { get; set; }
+	public int Page { get; set; } = 1;
+	public int PageSize { get; set; } = 100;
 
 	public ESortDirection SortDirection { get; set; } = ESortDirection.ASC;
 

@@ -1,4 +1,4 @@
-﻿using Capital.Core.Entities.Base;
+using Capital.Core.Entities.Base;
 
 namespace Capital.Core.Entities;
 
@@ -15,7 +15,7 @@ public class Review : BaseEntity
     public int? RatingId { get; set; }
     public ProductRating? Rating { get; set; }
 
-    //Customer
-
+    public string UserId { get; set; } = null!;
+    public User User { get; set; } = null!;
 }
 

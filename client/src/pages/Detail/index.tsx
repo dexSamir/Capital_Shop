@@ -29,6 +29,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { fetchProductById, clearSelectedProduct, fetchProducts } from "../../store/slices/productSlice"
 import { addToCart } from "../../store/slices/cartSlice"
 import { toggleWishlistItem } from "../../store/slices/wishlistSlice"
+import { fetchProductReviews, createReview, type ReviewDto } from "../../api/reviews"
 import "./Detail.scss"
 
 const additionalImages = [
@@ -38,86 +39,7 @@ const additionalImages = [
   "https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest4.jpg",
 ]
 
-const reviews = [
-  {
-    id: 1,
-    name: "John Doe",
-    rating: 5,
-    date: "2023-05-15",
-    comment:
-      "Great product! The quality is excellent and it fits perfectly. I would definitely recommend it to anyone looking for a stylish and comfortable piece.",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    verified: true,
-    images: [
-      "https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest1.jpg",
-      "https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest2.jpg",
-    ],
-    likes: 12,
-    dislikes: 2,
-    size: "M",
-    color: "Black",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    rating: 4,
-    date: "2023-04-22",
-    comment:
-      "I really like this product. The material is good quality and the design is beautiful. The only reason I'm giving 4 stars instead of 5 is because the color is slightly different from what I expected.",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    verified: true,
-    images: [],
-    likes: 8,
-    dislikes: 1,
-    size: "S",
-    color: "White",
-  },
-  {
-    id: 3,
-    name: "Michael Brown",
-    rating: 5,
-    date: "2023-03-10",
-    comment:
-      "Absolutely love it! Fast shipping and the product exceeded my expectations. Will definitely buy from this store again.",
-    avatar: "https://randomuser.me/api/portraits/men/22.jpg",
-    verified: false,
-    images: ["https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest3.jpg"],
-    likes: 15,
-    dislikes: 0,
-    size: "L",
-    color: "Blue",
-  },
-  {
-    id: 4,
-    name: "Emily Johnson",
-    rating: 3,
-    date: "2023-02-18",
-    comment:
-      "The product is okay, but I expected better quality for the price. The stitching is a bit loose in some areas, and it doesn't feel as durable as I hoped. The design is nice though.",
-    avatar: "https://randomuser.me/api/portraits/women/28.jpg",
-    verified: true,
-    images: [],
-    likes: 5,
-    dislikes: 3,
-    size: "XL",
-    color: "Red",
-  },
-  {
-    id: 5,
-    name: "David Wilson",
-    rating: 5,
-    date: "2023-01-05",
-    comment:
-      "Perfect fit and excellent quality! I've been using this product for a month now and it still looks brand new. The material is breathable and comfortable for all-day wear.",
-    avatar: "https://randomuser.me/api/portraits/men/52.jpg",
-    verified: true,
-    images: ["https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest4.jpg"],
-    likes: 20,
-    dislikes: 1,
-    size: "M",
-    color: "Black",
-  },
-]
+
 
 const productSpecifications = {
   material: "95% Cotton, 5% Elastane",
@@ -196,7 +118,24 @@ function Detail() {
   const zoomLensRef = useRef<HTMLDivElement>(null)
 
   const [selectedRating, setSelectedRating] = useState(0)
+  const [reviewComment, setReviewComment] = useState("")
   const [uploadedImages, setUploadedImages] = useState<string[]>([])
+  const [reviewsRaw, setReviewsRaw] = useState<ReviewDto[]>([])
+
+  const reviews = reviewsRaw.map((r) => ({
+    id: r.id,
+    name: r.userName,
+    rating: r.rating || 0,
+    date: new Date(r.createdTime).toLocaleDateString(),
+    comment: r.comment,
+    avatar: "https://randomuser.me/api/portraits/lego/1.jpg",
+    verified: true,
+    images: [] as string[],
+    likes: 0,
+    dislikes: 0,
+    size: "M",
+    color: "Black",
+  }))
 
   const [reviewFilters, setReviewFilters] = useState({
     rating: "all",
@@ -209,6 +148,7 @@ function Detail() {
   useEffect(() => {
     if (id) {
       dispatch(fetchProductById(id))
+      fetchProductReviews(Number(id)).then(setReviewsRaw).catch(console.error);
     }
 
     if (items.length === 0) {
@@ -502,6 +442,23 @@ function Detail() {
 
     return filtered
   }
+
+  const handleReviewSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (selectedRating === 0 || !reviewComment.trim()) {
+      alert("Please provide a rating and a comment.");
+      return;
+    }
+    try {
+      const newReview = await createReview(Number(id), reviewComment, selectedRating);
+      setReviewsRaw([...reviewsRaw, newReview]);
+      setReviewComment("");
+      setSelectedRating(0);
+      alert("Review submitted successfully!");
+    } catch (err) {
+      alert("Failed to submit review. Make sure you are logged in.");
+    }
+  };
 
   if (loading) {
     return (
@@ -1169,7 +1126,7 @@ function Detail() {
 
                 <div className="detail__review-form">
                   <h4>Write a Review</h4>
-                  <form>
+                  <form onSubmit={handleReviewSubmit}>
                     <div className="detail__form-group">
                       <label>Your Rating</label>
                       <div className="detail__rating-select">
@@ -1184,7 +1141,12 @@ function Detail() {
                     </div>
                     <div className="detail__form-group">
                       <label>Your Review</label>
-                      <textarea placeholder="Write your review here..." rows={5}></textarea>
+                      <textarea 
+                        placeholder="Write your review here..." 
+                        rows={5}
+                        value={reviewComment}
+                        onChange={(e) => setReviewComment(e.target.value)}
+                      ></textarea>
                     </div>
                     <div className="detail__form-row">
                       <div className="detail__form-group">

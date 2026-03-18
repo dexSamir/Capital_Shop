@@ -509,5 +509,64 @@ public static class DbInitializer
             await context.Products.AddRangeAsync(products);
             await context.SaveChangesAsync();
         }
+
+        // ─── Reviews & Ratings ────────────────────────────────────
+        if (!await context.Reviews.AnyAsync())
+        {
+            var users = await context.Users.Take(3).ToListAsync();
+            
+            // If we don't have enough users (not created by AdminSeeder or registration)
+            if (users.Count == 0)
+            {
+                var mockUser = new User
+                {
+                    UserName = "testuser",
+                    Email = "testuser@gmail.com",
+                    Name = "Test",
+                    Surname = "User",
+                    EmailConfirmed = true,
+                    NormalizedEmail = "TESTUSER@GMAIL.COM",
+                    NormalizedUserName = "TESTUSER",
+                    Id = Guid.NewGuid().ToString()
+                };
+                await context.Users.AddAsync(mockUser);
+                await context.SaveChangesAsync();
+                users.Add(mockUser);
+            }
+
+            var products = await context.Products.Take(10).ToListAsync();
+            var random = new Random();
+
+            foreach (var product in products)
+            {
+                var reviewCount = random.Next(1, 4); 
+                for (int i = 0; i < reviewCount; i++)
+                {
+                    var user = users[random.Next(users.Count)];
+                    var ratingValue = random.Next(3, 6);
+
+                    var rating = new ProductRating
+                    {
+                        ProductId = product.Id,
+                        Rating = ratingValue,
+                        UserId = user.Id,
+                        CreatedTime = DateTime.UtcNow
+                    };
+
+                    var review = new Review
+                    {
+                        ProductId = product.Id,
+                        Comment = ratingValue == 5 ? "Amazing product, highly recommend!" : "Good product overall.",
+                        IsAproved = true,
+                        Rating = rating,
+                        UserId = user.Id,
+                        CreatedTime = DateTime.UtcNow
+                    };
+
+                    await context.Reviews.AddAsync(review);
+                }
+            }
+            await context.SaveChangesAsync();
+        }
     }
 }

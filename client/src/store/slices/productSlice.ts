@@ -1,37 +1,41 @@
-import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit"
-import { apiClient } from "../../api/client"
-import { getCategories, getBrands } from "../../middleware/products"
+import {
+  createSlice,
+  createAsyncThunk,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
+import { apiClient } from "../../api/client";
+import { getCategories, getBrands } from "../../middleware/products";
 
 export interface Product {
-  id: number
-  name: string
-  price: number
-  withoutDiscount: number
-  img: string
-  category: string
-  size?: string
-  color?: string
-  brand?: string
+  id: number;
+  name: string;
+  price: number;
+  withoutDiscount: number;
+  img: string;
+  category: string;
+  size?: string;
+  color?: string;
+  brand?: string;
 }
 
 interface ProductsState {
-  items: Product[]
-  filteredItems: Product[]
-  selectedProduct: Product | null
-  loading: boolean
-  error: string | null
+  items: Product[];
+  filteredItems: Product[];
+  selectedProduct: Product | null;
+  loading: boolean;
+  error: string | null;
   filters: {
-    category: string
-    size: string
-    color: string
-    brand: string
-    rating: string
-    search: string
-    sortBy: string
-    sortOrder: string
-    priceMin: string
-    priceMax: string
-  }
+    category: string;
+    size: string;
+    color: string;
+    brand: string;
+    rating: string;
+    search: string;
+    sortBy: string;
+    sortOrder: string;
+    priceMin: string;
+    priceMax: string;
+  };
 }
 
 const initialState: ProductsState = {
@@ -52,79 +56,85 @@ const initialState: ProductsState = {
     priceMin: "0",
     priceMax: "1000",
   },
-}
+};
 
-export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_, { rejectWithValue }) => {
-  try {
-    const [response, categories, brands] = await Promise.all([
-      apiClient.get("/Products/GetAllAsync"),
-      getCategories(),
-      getBrands(),
-    ])
-    const data = response.data as Array<{
-      id: number
-      title: string
-      coverImage: string
-      sellPrice: number
-      discount: number
-      categoryId: number
-      brandId?: number
-    }>
+export const fetchProducts = createAsyncThunk(
+  "products/fetchProducts",
+  async (_, { rejectWithValue }) => {
+    try {
+      const [response, categories, brands] = await Promise.all([
+        apiClient.get("/Products/GetAll"),
+        getCategories(),
+        getBrands(),
+      ]);
+      const data = response.data as Array<{
+        id: number;
+        title: string;
+        coverImage: string;
+        sellPrice: number;
+        discount: number;
+        categoryId: number;
+        brandId?: number;
+      }>;
 
-    const categoryMap = new Map(categories.map((c) => [c.id, c.name]))
-    const brandMap = new Map(brands.map((b) => [b.id, b.name]))
+      const categoryMap = new Map(categories.map((c) => [c.id, c.name]));
+      const brandMap = new Map(brands.map((b) => [b.id, b.name]));
 
-    const mapped: Product[] = data.map((p) => {
-      const price = Number(p.sellPrice)
-      const discount = p.discount || 0
-      const withoutDiscount =
-        discount > 0 && discount < 100
-          ? Number((price / (1 - discount / 100)).toFixed(2))
-          : price
+      const mapped: Product[] = data.map((p) => {
+        const price = Number(p.sellPrice);
+        const discount = p.discount || 0;
+        const withoutDiscount =
+          discount > 0 && discount < 100
+            ? Number((price / (1 - discount / 100)).toFixed(2))
+            : price;
 
-      return {
-        id: p.id,
-        name: p.title,
-        price,
-        withoutDiscount,
-        img: p.coverImage,
-        category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
-        brand: p.brandId != null ? brandMap.get(p.brandId) || "Unknown" : undefined,
-      }
-    })
+        return {
+          id: p.id,
+          name: p.title,
+          price,
+          withoutDiscount,
+          img: p.coverImage,
+          category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
+          brand:
+            p.brandId != null
+              ? brandMap.get(p.brandId) || "Unknown"
+              : undefined,
+        };
+      });
 
-    return mapped
-  } catch (error) {
-    return rejectWithValue("Failed to fetch products")
-  }
-})
+      return mapped;
+    } catch (error) {
+      return rejectWithValue("Failed to fetch products");
+    }
+  },
+);
 
 export const fetchProductById = createAsyncThunk(
   "products/fetchProductById",
   async (id: string, { rejectWithValue }) => {
     try {
-      const response = await apiClient.get(`/Products/GetById/${id}`)
+      const response = await apiClient.get(`/Products/GetById/${id}`);
       const p = response.data as {
-        id: number
-        title: string
-        coverImage: string
-        sellPrice: number
-        discount: number
-        categoryId: number
-        brandId?: number
-      }
+        id: number;
+        title: string;
+        coverImage: string;
+        sellPrice: number;
+        discount: number;
+        categoryId: number;
+        brandId?: number;
+      };
 
-      const price = Number(p.sellPrice)
-      const discount = p.discount || 0
+      const price = Number(p.sellPrice);
+      const discount = p.discount || 0;
       const withoutDiscount =
         discount > 0 && discount < 100
           ? Number((price / (1 - discount / 100)).toFixed(2))
-          : price
+          : price;
 
-      const categories = await getCategories()
-      const brands = await getBrands()
-      const categoryMap = new Map(categories.map((c) => [c.id, c.name]))
-      const brandMap = new Map(brands.map((b) => [b.id, b.name]))
+      const categories = await getCategories();
+      const brands = await getBrands();
+      const categoryMap = new Map(categories.map((c) => [c.id, c.name]));
+      const brandMap = new Map(brands.map((b) => [b.id, b.name]));
 
       const mapped: Product = {
         id: p.id,
@@ -133,68 +143,98 @@ export const fetchProductById = createAsyncThunk(
         withoutDiscount,
         img: p.coverImage,
         category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
-        brand: p.brandId != null ? brandMap.get(p.brandId) || "Unknown" : undefined,
-      }
+        brand:
+          p.brandId != null ? brandMap.get(p.brandId) || "Unknown" : undefined,
+      };
 
-      return mapped
+      return mapped;
     } catch (error) {
-      return rejectWithValue("Failed to fetch product")
+      return rejectWithValue("Failed to fetch product");
     }
   },
-)
+);
 
-export const deleteProduct = createAsyncThunk("products/deleteProduct", async (id: number, { rejectWithValue }) => {
-  try {
-    await apiClient.delete(`/Products/Delete/Hard`, {
-      params: { ids: id },
-    })
-    return id
-  } catch (error) {
-    return rejectWithValue("Failed to delete product")
-  }
-})
+export const deleteProduct = createAsyncThunk(
+  "products/deleteProduct",
+  async (id: number, { rejectWithValue }) => {
+    try {
+      await apiClient.delete(`/Products/Delete/Hard`, {
+        params: { ids: id },
+      });
+      return id;
+    } catch (error) {
+      return rejectWithValue("Failed to delete product");
+    }
+  },
+);
 
 const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    setFilter: (state, action: PayloadAction<{ key: string; value: string }>) => {
-      const { key, value } = action.payload
+    setFilter: (
+      state,
+      action: PayloadAction<{ key: string; value: string }>,
+    ) => {
+      const { key, value } = action.payload;
       state.filters = {
         ...state.filters,
         [key]: value,
-      }
+      };
 
       state.filteredItems = state.items.filter((product) => {
-        const categoryMatch = state.filters.category === "All" || product.category === state.filters.category
-        const sizeMatch = state.filters.size === "All" || product.size === state.filters.size
-        const colorMatch = state.filters.color === "All" || product.color === state.filters.color
-        const brandMatch = state.filters.brand === "All" || (product.brand && product.brand === state.filters.brand)
+        const categoryMatch =
+          state.filters.category === "All" ||
+          product.category === state.filters.category;
+        const sizeMatch =
+          state.filters.size === "All" || product.size === state.filters.size;
+        const colorMatch =
+          state.filters.color === "All" ||
+          product.color === state.filters.color;
+        const brandMatch =
+          state.filters.brand === "All" ||
+          (product.brand && product.brand === state.filters.brand);
         const searchMatch =
-          !state.filters.search || product.name.toLowerCase().includes(state.filters.search.toLowerCase())
+          !state.filters.search ||
+          product.name
+            .toLowerCase()
+            .includes(state.filters.search.toLowerCase());
         const priceMatch =
           product.price >= Number.parseFloat(state.filters.priceMin) &&
-          product.price <= Number.parseFloat(state.filters.priceMax)
+          product.price <= Number.parseFloat(state.filters.priceMax);
 
-        return categoryMatch && sizeMatch && colorMatch && brandMatch && searchMatch && priceMatch
-      })
+        return (
+          categoryMatch &&
+          sizeMatch &&
+          colorMatch &&
+          brandMatch &&
+          searchMatch &&
+          priceMatch
+        );
+      });
 
       if (state.filters.sortBy && state.filters.sortOrder) {
         state.filteredItems.sort((a, b) => {
-          const sortBy = state.filters.sortBy as keyof Product
-          const sortOrder = state.filters.sortOrder
+          const sortBy = state.filters.sortBy as keyof Product;
+          const sortOrder = state.filters.sortOrder;
 
           if (sortBy === "name") {
-            return sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+            return sortOrder === "asc"
+              ? a.name.localeCompare(b.name)
+              : b.name.localeCompare(a.name);
           } else if (sortBy === "price") {
-            return sortOrder === "asc" ? a.price - b.price : b.price - a.price
+            return sortOrder === "asc" ? a.price - b.price : b.price - a.price;
           } else if (sortBy === "withoutDiscount") {
-            const discountA = ((a.withoutDiscount - a.price) / a.withoutDiscount) * 100
-            const discountB = ((b.withoutDiscount - b.price) / b.withoutDiscount) * 100
-            return sortOrder === "asc" ? discountA - discountB : discountB - discountA
+            const discountA =
+              ((a.withoutDiscount - a.price) / a.withoutDiscount) * 100;
+            const discountB =
+              ((b.withoutDiscount - b.price) / b.withoutDiscount) * 100;
+            return sortOrder === "asc"
+              ? discountA - discountB
+              : discountB - discountA;
           }
-          return 0
-        })
+          return 0;
+        });
       }
     },
     resetFilters: (state) => {
@@ -209,46 +249,49 @@ const productSlice = createSlice({
         sortOrder: "",
         priceMin: "0",
         priceMax: "1000",
-      }
-      state.filteredItems = state.items
+      };
+      state.filteredItems = state.items;
     },
     clearSelectedProduct: (state) => {
-      state.selectedProduct = null
+      state.selectedProduct = null;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.loading = true
-        state.error = null
+        state.loading = true;
+        state.error = null;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.loading = false
-        state.items = action.payload
-        state.filteredItems = action.payload
+        state.loading = false;
+        state.items = action.payload;
+        state.filteredItems = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.payload as string
+        state.loading = false;
+        state.error = action.payload as string;
       })
       .addCase(fetchProductById.pending, (state) => {
-        state.loading = true
-        state.error = null
+        state.loading = true;
+        state.error = null;
       })
       .addCase(fetchProductById.fulfilled, (state, action) => {
-        state.loading = false
-        state.selectedProduct = action.payload
+        state.loading = false;
+        state.selectedProduct = action.payload;
       })
       .addCase(fetchProductById.rejected, (state, action) => {
-        state.loading = false
-        state.error = action.payload as string
+        state.loading = false;
+        state.error = action.payload as string;
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
-        state.items = state.items.filter((item) => item.id !== action.payload)
-        state.filteredItems = state.filteredItems.filter((item) => item.id !== action.payload)
-      })
+        state.items = state.items.filter((item) => item.id !== action.payload);
+        state.filteredItems = state.filteredItems.filter(
+          (item) => item.id !== action.payload,
+        );
+      });
   },
-})
+});
 
-export const { setFilter, resetFilters, clearSelectedProduct } = productSlice.actions
-export default productSlice.reducer
+export const { setFilter, resetFilters, clearSelectedProduct } =
+  productSlice.actions;
+export default productSlice.reducer;

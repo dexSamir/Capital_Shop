@@ -10,7 +10,6 @@ import { getAllproducts } from "../../middleware/products"
 import "./Home.scss"
 import FAQ from "../../components/FAQ"
 
-
 interface Product {
   id: number
   name: string
@@ -30,8 +29,12 @@ function Home() {
     getAllproducts()
       .then((res) => {
         setProducts(res)
+        // Ensure we handle duplicate randoms safely, or just pick first 4
         const shuffled = [...res].sort(() => 0.5 - Math.random())
         setFeaturedProducts(shuffled.slice(0, 4))
+      })
+      .catch((err) => {
+        console.error("Failed to load products for homepage", err)
       })
       .finally(() => {
         setLoading(false)
@@ -39,7 +42,7 @@ function Home() {
   }, [])
 
   return (
-    <div className="home">
+    <div className="home fade-in">
       <Slider />
 
       <section className="home__featured">
@@ -48,9 +51,9 @@ function Home() {
           {loading ? (
             <div className="home__loading">
               <div className="home__loading-spinner"></div>
-              <p>Loading featured products...</p>
+              <p>Curating exceptional products...</p>
             </div>
-          ) : (
+          ) : featuredProducts.length > 0 ? (
             <div className="home__featured-grid">
               {featuredProducts.map((product) => (
                 <Card
@@ -60,9 +63,13 @@ function Home() {
                   img={product.img}
                   price={product.price}
                   withoutDiscount={product.withoutDiscount}
-                  product={product}
+                  product={product as any}
                 />
               ))}
+            </div>
+          ) : (
+            <div className="home__loading">
+              <p>No featured products available at the moment.</p>
             </div>
           )}
         </div>
@@ -71,10 +78,13 @@ function Home() {
       <div className="home__banner">
         <div className="container">
           <div className="home__banner-content">
-            <h2 className="home__banner-title">Special Summer Sale</h2>
-            <p className="home__banner-text">Get up to 50% off on our summer collection. Limited time offer!</p>
+            <h2 className="home__banner-title">Elevate Your Style</h2>
+            <p className="home__banner-text">
+              Discover our exclusive new summer collection.
+              Experience unparalleled quality and breathtaking modern design. Available for a limited time only!
+            </p>
             <Link to="/products" className="home__banner-button">
-              Shop Now
+              Explore Collection
             </Link>
           </div>
         </div>

@@ -30,7 +30,7 @@ public class BrandsController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create(BrandCreateDto dto)
+    public async Task<IActionResult> Create([FromForm] BrandCreateDto dto)
     {
         return Ok(await _service.CreateAsync(dto));
     }
@@ -44,7 +44,7 @@ public class BrandsController : ControllerBase
 
     [HttpPatch("{id}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Update(int id, BrandUpdateDto dto)
+    public async Task<IActionResult> Update(int id, [FromForm] BrandUpdateDto dto)
     {
         return Ok(await _service.UpdateAsync(id, dto));
     }

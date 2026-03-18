@@ -8,6 +8,7 @@ import { apiClient } from "../../api/client"
 import Swal from "sweetalert2"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { loginStart, loginSuccess, loginFailure } from "../../store/slices/authSlice"
+import { syncCartToServer } from "../../store/slices/cartSlice"
 import "./Login.scss"
 
 function Login() {
@@ -71,6 +72,9 @@ function Login() {
             },
           }),
         )
+        
+        // Sync cart after successful login
+        dispatch(syncCartToServer())
 
         if (data.isAdmin) {
           navigate("/admin/dashboard")

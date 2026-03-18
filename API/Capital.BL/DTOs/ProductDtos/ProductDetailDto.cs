@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 
 namespace Capital.BL.DTOs.ProductDtos;
 
@@ -11,10 +11,10 @@ public class ProductDetailDto
     public string? SKU { get; set; }
 
     public int CategoryId { get; set; }
-	public int BrandId { get; set; }
+	public int? BrandId { get; set; }
 
-    public IFormFile CoverImage { get; set; }
-	public IFormFile SecondImage { get; set; }
+    public string CoverImage { get; set; }
+	public string? SecondImage { get; set; }
 
 	public decimal SellPrice { get; set; }
 	public decimal CostPrice { get; set; }
