@@ -3,42 +3,21 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import Card from "../../components/Card"
-import { FaChevronDown, FaChevronUp, FaFilter, FaTimes, FaCheck } from "react-icons/fa"
+import { FaChevronDown, FaChevronUp, FaFilter, FaTimes } from "react-icons/fa"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { fetchProducts, setFilter } from "../../store/slices/productSlice"
 import { getCategories, getBrands } from "../../middleware/products"
 import "./Products.scss"
 
-const defaultSizes = ["All", "small", "medium", "large", "x-large", "xx-large"]
-const defaultColors = [
-  "All",
-  "multi-colored",
-  "black",
-  "white",
-  "red",
-  "blue",
-  "green",
-  "yellow",
-  "brown",
-  "gray",
-  "pink",
-  "purple",
-  "orange",
-]
-const ratings = ["All", "4 & above", "3 & above", "2 & above", "1 & above"]
-
 function Products() {
   const dispatch = useAppDispatch()
   const { items, filteredItems, loading, filters } = useAppSelector((state) => state.products)
-  const [openFilter, setOpenFilter] = useState("")
   const [priceRange, setPriceRange] = useState({ min: 0, max: 200 })
   const [searchParams, setSearchParams] = useSearchParams()
   const [showFilters, setShowFilters] = useState(true)
   const [expandedFilters, setExpandedFilters] = useState<string[]>(["category"])
   const [categories, setCategories] = useState<string[]>(["All"])
   const [brands, setBrands] = useState<string[]>(["All"])
-  const sizes = defaultSizes
-  const colors = defaultColors
 
   const toggleFilter = (filterName: string) => {
     setExpandedFilters((prev) =>
@@ -57,20 +36,8 @@ function Products() {
       active.push({ key: "category", value: filters.category })
     }
 
-    if (filters.size !== "All") {
-      active.push({ key: "size", value: filters.size })
-    }
-
-    if (filters.color !== "All") {
-      active.push({ key: "color", value: filters.color })
-    }
-
     if (filters.brand !== "All") {
       active.push({ key: "brand", value: filters.brand })
-    }
-
-    if (filters.rating !== "All") {
-      active.push({ key: "rating", value: filters.rating })
     }
 
     if (filters.priceMin !== "0" || filters.priceMax !== "1000") {
@@ -98,13 +65,8 @@ function Products() {
     }
   }, [searchParams, dispatch])
 
-  const toggleFilterDropdown = (filterType: string) => {
-    setOpenFilter((prev) => (prev === filterType ? "" : filterType))
-  }
-
   const handleFilterChange = (value: string, filterType: string) => {
     dispatch(setFilter({ key: filterType, value }))
-    setOpenFilter("")
   }
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>, type: "min" | "max") => {
@@ -122,10 +84,7 @@ function Products() {
 
   const resetFilters = () => {
     dispatch(setFilter({ key: "category", value: "All" }))
-    dispatch(setFilter({ key: "size", value: "All" }))
-    dispatch(setFilter({ key: "color", value: "All" }))
     dispatch(setFilter({ key: "brand", value: "All" }))
-    dispatch(setFilter({ key: "rating", value: "All" }))
     dispatch(setFilter({ key: "priceMin", value: "0" }))
     dispatch(setFilter({ key: "priceMax", value: "1000" }))
     dispatch(setFilter({ key: "search", value: "" }))
@@ -207,83 +166,6 @@ function Products() {
                       {category}
                     </div>
                   ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="products__filter">
-              <div className="products__filter-header" onClick={() => toggleFilter("size")}>
-                <h4>Size</h4>
-                <span className={`products__filter-icon ${isFilterExpanded("size") ? "open" : ""}`}>
-                  {isFilterExpanded("size") ? <FaChevronUp /> : <FaChevronDown />}
-                </span>
-              </div>
-              <div className={`products__filter-content ${isFilterExpanded("size") ? "open" : ""}`}>
-                <div className="products__filter-options">
-                  {sizes.map((size, index) => (
-                    <div
-                      key={index}
-                      className={`products__filter-option ${filters.size === size ? "active" : ""}`}
-                      onClick={() => handleFilterChange(size, "size")}
-                    >
-                      {size}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="products__filter">
-              <div className="products__filter-header" onClick={() => toggleFilter("color")}>
-                <h4>Color</h4>
-                <span className={`products__filter-icon ${isFilterExpanded("color") ? "open" : ""}`}>
-                  {isFilterExpanded("color") ? <FaChevronUp /> : <FaChevronDown />}
-                </span>
-              </div>
-              <div className={`products__filter-content ${isFilterExpanded("color") ? "open" : ""}`}>
-                <div className="products__filter-color-options">
-                  {colors.map((color, index) => {
-                    const colorCode =
-                      color.toLowerCase() === "black"
-                        ? "#000"
-                        : color.toLowerCase() === "white"
-                          ? "#fff"
-                          : color.toLowerCase() === "red"
-                            ? "#ff4040"
-                            : color.toLowerCase() === "blue"
-                              ? "#4040ff"
-                              : color.toLowerCase() === "green"
-                                ? "#40ff40"
-                                : color.toLowerCase() === "yellow"
-                                  ? "#ffff40"
-                                  : color.toLowerCase() === "brown"
-                                    ? "#8B4513"
-                                    : color.toLowerCase() === "gray"
-                                      ? "#808080"
-                                      : color.toLowerCase() === "pink"
-                                        ? "#FFC0CB"
-                                        : color.toLowerCase() === "purple"
-                                          ? "#800080"
-                                          : color.toLowerCase() === "orange"
-                                            ? "#FFA500"
-                                            : color.toLowerCase() === "multi-colored"
-                                              ? "linear-gradient(45deg, red, blue, green, yellow)"
-                                              : "#000"
-
-                    return (
-                      <div
-                        key={index}
-                        className={`products__filter-color ${filters.color === color ? "active" : ""}`}
-                        style={{ background: colorCode }}
-                        onClick={() => handleFilterChange(color, "color")}
-                        title={color}
-                      >
-                        {filters.color === color && (
-                          <FaCheck color={color.toLowerCase() === "white" ? "#000" : "#fff"} />
-                        )}
-                      </div>
-                    )
-                  })}
                 </div>
               </div>
             </div>
@@ -372,28 +254,6 @@ function Products() {
                       Reset
                     </button>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="products__filter">
-              <div className="products__filter-header" onClick={() => toggleFilter("rating")}>
-                <h4>Rating</h4>
-                <span className={`products__filter-icon ${isFilterExpanded("rating") ? "open" : ""}`}>
-                  {isFilterExpanded("rating") ? <FaChevronUp /> : <FaChevronDown />}
-                </span>
-              </div>
-              <div className={`products__filter-content ${isFilterExpanded("rating") ? "open" : ""}`}>
-                <div className="products__filter-options">
-                  {ratings.map((rating, index) => (
-                    <div
-                      key={index}
-                      className={`products__filter-option ${filters.rating === rating ? "active" : ""}`}
-                      onClick={() => handleFilterChange(rating, "rating")}
-                    >
-                      {rating}
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 
 namespace Capital.BL.DTOs.ProductDtos;
 public class ProductUpdateDto
@@ -13,6 +13,7 @@ public class ProductUpdateDto
     public string? Description { get; set; }
     public IFormFile? CoverImage { get; set; }
     public IFormFile? SecondImage { get; set; }
+    public string? VideoUrl { get; set; }
 
     public int? BrandId { get; set; }
     public int? CaategoryId { get; set; }

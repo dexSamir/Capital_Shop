@@ -1,4 +1,4 @@
-import { apiClient } from "../api/client";
+import { apiClient, getImageUrl } from "../api/client";
 
 interface CategoryDto {
   id: number;
@@ -66,7 +66,7 @@ export async function getAllproducts() {
       name: p.title,
       price,
       withoutDiscount,
-      img: p.coverImage,
+      img: getImageUrl(p.coverImage),
       category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
     };
   });

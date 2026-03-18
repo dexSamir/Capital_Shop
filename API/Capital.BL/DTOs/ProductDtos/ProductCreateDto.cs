@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.AspNetCore.Http;
 
 namespace Capital.BL.DTOs.ProductDtos;
@@ -15,6 +15,7 @@ public class ProductCreateDto
 
     public IFormFile? CoverImage { get; set; }
     public IFormFile? SecondImage { get; set; }
+    public string? VideoUrl { get; set; }
 
     public int BrandId { get; set; }
     public int CaategoryId { get; set; }

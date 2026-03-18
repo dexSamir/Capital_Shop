@@ -15,6 +15,7 @@ public class ProductDetailDto
 
     public string CoverImage { get; set; }
 	public string? SecondImage { get; set; }
+	public string? VideoUrl { get; set; }
 
 	public decimal SellPrice { get; set; }
 	public decimal CostPrice { get; set; }
@@ -29,6 +30,7 @@ public class ProductDetailDto
     //reviews
 
     //images
+	public IEnumerable<string>? Images { get; set; }
 
     // specifications
 

@@ -6,6 +6,8 @@ public class Review : BaseEntity
 {
 	public string Comment { get; set; } = null!;
 	public bool IsAproved { get; set; }
+	public int Likes { get; set; }
+	public int Dislikes { get; set; }
 
 	public IEnumerable<ProductImage>? Images { get; set; }
 

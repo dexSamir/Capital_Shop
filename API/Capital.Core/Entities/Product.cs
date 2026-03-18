@@ -19,6 +19,7 @@ public class Product : BaseEntity
 	public string Description { get; set; } = null!;
 	public string CoverImage { get; set; } = null!;
 	public string? SecondImage { get; set; }
+	public string? VideoUrl { get; set; }
 
 	public Guid SellerId { get; set; }
 

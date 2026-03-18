@@ -2,20 +2,42 @@
 @use "../../styles/mixins" as *;
 
 .admin-dashboard {
+  --admin-bg: #f8f9fc;
+  --admin-card-bg: rgba(255, 255, 255, 0.7);
+  --admin-border: rgba(0, 0, 0, 0.05);
+  --admin-text: #1e293b;
+  --admin-text-muted: #64748b;
+  --admin-primary: #4338ca;
+  --admin-primary-light: rgba(67, 56, 202, 0.1);
+  --admin-glass-blur: blur(16px);
+
+  // Alias standard vars to admin vars
+  --card-background: var(--admin-card-bg);
+  --border-color: var(--admin-border);
+  --text-color: var(--admin-text);
+  --light-text-color: var(--admin-text-muted);
+  --primary-color: var(--admin-primary);
+  --light-background: var(--admin-bg);
+
   width: 100%;
   display: flex;
   min-height: calc(100vh - 60px);
+  background-color: var(--admin-bg);
+  color: var(--admin-text);
+  font-family: 'Inter', system-ui, sans-serif;
 
   &__sidebar {
-    width: 250px;
-    background-color: var(--card-background);
-    border-right: 1px solid var(--border-color);
+    width: 260px;
+    background: var(--admin-card-bg);
+    backdrop-filter: var(--admin-glass-blur);
+    -webkit-backdrop-filter: var(--admin-glass-blur);
+    border-right: 1px solid var(--admin-border);
     padding: $spacing-md;
     position: fixed;
     height: calc(100vh - 60px);
     z-index: 10;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     @include responsive(md) {
       width: 70px;
@@ -113,8 +135,8 @@
   &__main {
     flex: 1;
     padding: $spacing-xl;
-    margin-left: 250px;
-    background-color: var(--light-background);
+    margin-left: 260px;
+    background-color: transparent;
     min-height: calc(100vh - 60px);
 
     @include responsive(md) {
@@ -218,17 +240,20 @@
   }
 
   &__summary-card {
-    background-color: var(--card-background);
-    border-radius: $border-radius-md;
+    background: var(--admin-card-bg);
+    backdrop-filter: var(--admin-glass-blur);
+    -webkit-backdrop-filter: var(--admin-glass-blur);
+    border: 1px solid var(--admin-border);
+    border-radius: $border-radius-lg;
     padding: $spacing-lg;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
     display: flex;
     align-items: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
     }
   }
 
@@ -318,14 +343,17 @@
   }
 
   &__chart {
-    background-color: var(--card-background);
-    border-radius: $border-radius-md;
+    background: var(--admin-card-bg);
+    backdrop-filter: var(--admin-glass-blur);
+    -webkit-backdrop-filter: var(--admin-glass-blur);
+    border: 1px solid var(--admin-border);
+    border-radius: $border-radius-lg;
     padding: $spacing-lg;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
     }
   }
 
@@ -520,14 +548,17 @@
   }
 
   &__table-container {
-    background-color: var(--card-background);
-    border-radius: $border-radius-md;
+    background: var(--admin-card-bg);
+    backdrop-filter: var(--admin-glass-blur);
+    -webkit-backdrop-filter: var(--admin-glass-blur);
+    border: 1px solid var(--admin-border);
+    border-radius: $border-radius-lg;
     padding: $spacing-lg;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
     }
   }
 
@@ -712,10 +743,13 @@
   }
 
   &__crud-form-card {
-    background-color: var(--card-background);
-    border-radius: $border-radius-md;
+    background: var(--admin-card-bg);
+    backdrop-filter: var(--admin-glass-blur);
+    -webkit-backdrop-filter: var(--admin-glass-blur);
+    border: 1px solid var(--admin-border);
+    border-radius: $border-radius-lg;
     padding: $spacing-lg;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
     position: sticky;
     top: $spacing-xl;
 
@@ -1005,18 +1039,34 @@
 
 [data-theme="dark"] {
   .admin-dashboard {
+    --admin-bg: #0f172a;
+    --admin-card-bg: rgba(30, 41, 59, 0.7);
+    --admin-border: rgba(255, 255, 255, 0.05);
+    --admin-text: #e2e8f0;
+    --admin-text-muted: #94a3b8;
+    --admin-primary: #818cf8;
+    --admin-primary-light: rgba(129, 140, 248, 0.15);
+
+    // Alias standard vars to admin vars for dark mode
+    --card-background: var(--admin-card-bg);
+    --border-color: var(--admin-border);
+    --text-color: var(--admin-text);
+    --light-text-color: var(--admin-text-muted);
+    --primary-color: var(--admin-primary);
+    --light-background: var(--admin-bg);
+
     &__sidebar {
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
     }
     
     &__summary-card,
     &__chart,
     &__table-container,
     &__crud-form-card {
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
       
       &:hover {
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
       }
     }
     

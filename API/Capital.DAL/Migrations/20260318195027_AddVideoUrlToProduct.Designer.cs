@@ -3,6 +3,7 @@ using System;
 using Capital.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Capital.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260318195027_AddVideoUrlToProduct")]
+    partial class AddVideoUrlToProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -789,14 +792,8 @@ namespace Capital.DAL.Migrations
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Dislikes")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("IsAproved")
                         .HasColumnType("boolean");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("integer");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");

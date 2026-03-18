@@ -29,7 +29,8 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { fetchProductById, clearSelectedProduct, fetchProducts } from "../../store/slices/productSlice"
 import { addToCart } from "../../store/slices/cartSlice"
 import { toggleWishlistItem } from "../../store/slices/wishlistSlice"
-import { fetchProductReviews, createReview, type ReviewDto } from "../../api/reviews"
+import { fetchProductReviews, createReview, likeReview, dislikeReview, type ReviewDto } from "../../api/reviews"
+import { getImageUrl } from "../../api/client"
 import "./Detail.scss"
 
 const additionalImages = [
@@ -130,9 +131,9 @@ function Detail() {
     comment: r.comment,
     avatar: "https://randomuser.me/api/portraits/lego/1.jpg",
     verified: true,
-    images: [] as string[],
-    likes: 0,
-    dislikes: 0,
+    images: r.images ? r.images.map(img => getImageUrl(img)) : [],
+    likes: r.likes || 0,
+    dislikes: r.dislikes || 0,
     size: "M",
     color: "Black",
   }))
@@ -187,6 +188,8 @@ function Detail() {
 
     const cx = zoomResult.offsetWidth / lens.offsetWidth
     const cy = zoomResult.offsetHeight / lens.offsetHeight
+    
+    zoomResult.style.backgroundSize = `${mainImage.width * cx}px ${mainImage.height * cy}px`
 
     const getCursorPos = (e: MouseEvent) => {
       const rect = mainImage.getBoundingClientRect()
@@ -450,13 +453,35 @@ function Detail() {
       return;
     }
     try {
-      const newReview = await createReview(Number(id), reviewComment, selectedRating);
+      const fileInput = document.getElementById('review-photos') as HTMLInputElement;
+      const selectedFiles = fileInput?.files ? Array.from(fileInput.files) : [];
+      const newReview = await createReview(Number(id), reviewComment, selectedRating, selectedFiles);
       setReviewsRaw([...reviewsRaw, newReview]);
       setReviewComment("");
       setSelectedRating(0);
+      setUploadedImages([]);
+      if (fileInput) fileInput.value = '';
       alert("Review submitted successfully!");
     } catch (err) {
       alert("Failed to submit review. Make sure you are logged in.");
+    }
+  };
+
+  const handleLikeReview = async (reviewId: number) => {
+    try {
+      await likeReview(reviewId);
+      setReviewsRaw(prev => prev.map(r => r.id === reviewId ? { ...r, likes: (r.likes || 0) + 1 } : r));
+    } catch (err) {
+      alert("Failed to like the review. Make sure you are logged in.");
+    }
+  };
+
+  const handleDislikeReview = async (reviewId: number) => {
+    try {
+      await dislikeReview(reviewId);
+      setReviewsRaw(prev => prev.map(r => r.id === reviewId ? { ...r, dislikes: (r.dislikes || 0) + 1 } : r));
+    } catch (err) {
+      alert("Failed to dislike the review. Make sure you are logged in.");
     }
   };
 
@@ -526,10 +551,12 @@ function Detail() {
             <div className="detail__main-image" ref={zoomContainerRef}>
               <img src={mainImage || selectedProduct.img} alt={selectedProduct.name} />
               <div className="detail__zoom-result" ref={zoomResultRef}></div>
-              <button className="detail__video-button" onClick={toggleVideoModal}>
-                <FaPlay />
-                <span>Watch Video</span>
-              </button>
+              {selectedProduct.videoUrl && (
+                <button className="detail__video-button" onClick={toggleVideoModal}>
+                  <FaPlay />
+                  <span>Watch Video</span>
+                </button>
+              )}
             </div>
             <div className="detail__thumbnails">
               <div
@@ -538,15 +565,25 @@ function Detail() {
               >
                 <img src={selectedProduct.img || "/placeholder.svg"} alt={selectedProduct.name} />
               </div>
-              {additionalImages.map((img, index) => (
-                <div
-                  key={index}
-                  className={`detail__thumbnail ${mainImage === img ? "active" : ""}`}
-                  onClick={() => handleImageClick(img)}
-                >
-                  <img src={img || "/placeholder.svg"} alt={`${selectedProduct.name} view ${index + 1}`} />
-                </div>
-              ))}
+              {selectedProduct.images && selectedProduct.images.length > 0 
+                ? selectedProduct.images.map((img, index) => (
+                    <div
+                      key={index}
+                      className={`detail__thumbnail ${mainImage === img ? "active" : ""}`}
+                      onClick={() => handleImageClick(img)}
+                    >
+                      <img src={img || "/placeholder.svg"} alt={`${selectedProduct.name} view ${index + 1}`} />
+                    </div>
+                  ))
+                : additionalImages.map((img, index) => (
+                    <div
+                      key={index}
+                      className={`detail__thumbnail ${mainImage === img ? "active" : ""}`}
+                      onClick={() => handleImageClick(img)}
+                    >
+                      <img src={img || "/placeholder.svg"} alt={`${selectedProduct.name} view ${index + 1}`} />
+                    </div>
+                  ))}
             </div>
           </div>
 
@@ -1087,10 +1124,10 @@ function Detail() {
                             )}
 
                             <div className="detail__review-actions">
-                              <button className="detail__review-helpful">
+                              <button className="detail__review-helpful" onClick={() => handleLikeReview(review.id)}>
                                 <FaThumbsUp /> Helpful ({review.likes})
                               </button>
-                              <button className="detail__review-not-helpful">
+                              <button className="detail__review-not-helpful" onClick={() => handleDislikeReview(review.id)}>
                                 <FaThumbsDown /> Not Helpful ({review.dislikes})
                               </button>
                               <button className="detail__review-report">

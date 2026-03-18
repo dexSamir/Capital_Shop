@@ -3,7 +3,7 @@ import {
   createAsyncThunk,
   type PayloadAction,
 } from "@reduxjs/toolkit";
-import { apiClient } from "../../api/client";
+import { apiClient, getImageUrl } from "../../api/client";
 import { getCategories, getBrands } from "../../middleware/products";
 
 export interface Product {
@@ -16,6 +16,8 @@ export interface Product {
   size?: string;
   color?: string;
   brand?: string;
+  images?: string[];
+  videoUrl?: string;
 }
 
 interface ProductsState {
@@ -26,10 +28,7 @@ interface ProductsState {
   error: string | null;
   filters: {
     category: string;
-    size: string;
-    color: string;
     brand: string;
-    rating: string;
     search: string;
     sortBy: string;
     sortOrder: string;
@@ -46,10 +45,7 @@ const initialState: ProductsState = {
   error: null,
   filters: {
     category: "All",
-    size: "All",
-    color: "All",
     brand: "All",
-    rating: "All",
     search: "",
     sortBy: "",
     sortOrder: "",
@@ -93,7 +89,7 @@ export const fetchProducts = createAsyncThunk(
           name: p.title,
           price,
           withoutDiscount,
-          img: p.coverImage,
+          img: getImageUrl(p.coverImage),
           category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
           brand:
             p.brandId != null
@@ -122,6 +118,8 @@ export const fetchProductById = createAsyncThunk(
         discount: number;
         categoryId: number;
         brandId?: number;
+        images?: string[];
+        videoUrl?: string;
       };
 
       const price = Number(p.sellPrice);
@@ -141,10 +139,12 @@ export const fetchProductById = createAsyncThunk(
         name: p.title,
         price,
         withoutDiscount,
-        img: p.coverImage,
+        img: getImageUrl(p.coverImage),
         category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
         brand:
           p.brandId != null ? brandMap.get(p.brandId) || "Unknown" : undefined,
+        images: p.images ? p.images.map(img => getImageUrl(img)) : [],
+        videoUrl: p.videoUrl,
       };
 
       return mapped;
@@ -186,11 +186,6 @@ const productSlice = createSlice({
         const categoryMatch =
           state.filters.category === "All" ||
           product.category === state.filters.category;
-        const sizeMatch =
-          state.filters.size === "All" || product.size === state.filters.size;
-        const colorMatch =
-          state.filters.color === "All" ||
-          product.color === state.filters.color;
         const brandMatch =
           state.filters.brand === "All" ||
           (product.brand && product.brand === state.filters.brand);
@@ -205,8 +200,6 @@ const productSlice = createSlice({
 
         return (
           categoryMatch &&
-          sizeMatch &&
-          colorMatch &&
           brandMatch &&
           searchMatch &&
           priceMatch
@@ -240,10 +233,7 @@ const productSlice = createSlice({
     resetFilters: (state) => {
       state.filters = {
         category: "All",
-        size: "All",
-        color: "All",
         brand: "All",
-        rating: "All",
         search: "",
         sortBy: "",
         sortOrder: "",

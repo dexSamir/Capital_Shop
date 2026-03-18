@@ -26,12 +26,26 @@ public class ReviewsController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<IActionResult> Create(ReviewCreateDto dto)
+    public async Task<IActionResult> Create([FromForm] ReviewCreateDto dto)
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (string.IsNullOrEmpty(userId)) return Unauthorized();
 
         var review = await _reviewService.CreateAsync(dto, userId);
         return Ok(review);
+    }
+
+    [HttpPut("{id}/like")]
+    public async Task<IActionResult> Like(int id)
+    {
+        await _reviewService.LikeAsync(id);
+        return Ok();
+    }
+
+    [HttpPut("{id}/dislike")]
+    public async Task<IActionResult> Dislike(int id)
+    {
+        await _reviewService.DislikeAsync(id);
+        return Ok();
     }
 }

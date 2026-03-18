@@ -4,6 +4,8 @@ public class ProductGetDto
 	public int Id { get; set; }
 	public string CoverImage { get; set; }
 	public string? SecondImage { get; set; }
+	public string? VideoUrl { get; set; }
+	public IEnumerable<string>? Images { get; set; }
 	public decimal SellPrice { get; set; }
 	public int Discount { get; set; }
 
