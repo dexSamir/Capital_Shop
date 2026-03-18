@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit"
 import { apiClient } from "../../api/client"
-import { getCategories } from "../../middleware/products"
+import { getCategories, getBrands } from "../../middleware/products"
 
 export interface Product {
   id: number
@@ -11,6 +11,7 @@ export interface Product {
   category: string
   size?: string
   color?: string
+  brand?: string
 }
 
 interface ProductsState {
@@ -55,9 +56,10 @@ const initialState: ProductsState = {
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_, { rejectWithValue }) => {
   try {
-    const [response, categories] = await Promise.all([
+    const [response, categories, brands] = await Promise.all([
       apiClient.get("/Products/GetAllAsync"),
       getCategories(),
+      getBrands(),
     ])
     const data = response.data as Array<{
       id: number
@@ -66,9 +68,11 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_
       sellPrice: number
       discount: number
       categoryId: number
+      brandId?: number
     }>
 
     const categoryMap = new Map(categories.map((c) => [c.id, c.name]))
+    const brandMap = new Map(brands.map((b) => [b.id, b.name]))
 
     const mapped: Product[] = data.map((p) => {
       const price = Number(p.sellPrice)
@@ -85,6 +89,7 @@ export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_
         withoutDiscount,
         img: p.coverImage,
         category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
+        brand: p.brandId != null ? brandMap.get(p.brandId) || "Unknown" : undefined,
       }
     })
 
@@ -106,6 +111,7 @@ export const fetchProductById = createAsyncThunk(
         sellPrice: number
         discount: number
         categoryId: number
+        brandId?: number
       }
 
       const price = Number(p.sellPrice)
@@ -116,7 +122,9 @@ export const fetchProductById = createAsyncThunk(
           : price
 
       const categories = await getCategories()
+      const brands = await getBrands()
       const categoryMap = new Map(categories.map((c) => [c.id, c.name]))
+      const brandMap = new Map(brands.map((b) => [b.id, b.name]))
 
       const mapped: Product = {
         id: p.id,
@@ -125,6 +133,7 @@ export const fetchProductById = createAsyncThunk(
         withoutDiscount,
         img: p.coverImage,
         category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
+        brand: p.brandId != null ? brandMap.get(p.brandId) || "Unknown" : undefined,
       }
 
       return mapped
@@ -160,13 +169,14 @@ const productSlice = createSlice({
         const categoryMatch = state.filters.category === "All" || product.category === state.filters.category
         const sizeMatch = state.filters.size === "All" || product.size === state.filters.size
         const colorMatch = state.filters.color === "All" || product.color === state.filters.color
+        const brandMatch = state.filters.brand === "All" || (product.brand && product.brand === state.filters.brand)
         const searchMatch =
           !state.filters.search || product.name.toLowerCase().includes(state.filters.search.toLowerCase())
         const priceMatch =
           product.price >= Number.parseFloat(state.filters.priceMin) &&
           product.price <= Number.parseFloat(state.filters.priceMax)
 
-        return categoryMatch && sizeMatch && colorMatch && searchMatch && priceMatch
+        return categoryMatch && sizeMatch && colorMatch && brandMatch && searchMatch && priceMatch
       })
 
       if (state.filters.sortBy && state.filters.sortOrder) {

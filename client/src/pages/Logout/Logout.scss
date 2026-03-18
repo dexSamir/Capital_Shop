@@ -80,5 +80,17 @@
         left: 0;
       }
     }
+
+    &--danger {
+      background-color: #ff4d4f;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+
+      &:hover {
+        color: #ff4d4f;
+      }
+    }
   }
 }

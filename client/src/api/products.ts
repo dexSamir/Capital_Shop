@@ -33,11 +33,13 @@ export interface ProductApiItem {
 }
 
 export const fetchProducts = async (): Promise<ProductApiItem[]> => {
-  const response = await apiClient.get("/Products/GetAllAsync");
+  const response = await apiClient.get("/Products/GetAll");
   return response.data as ProductApiItem[];
 };
 
-export const fetchProductById = async (id: number | string): Promise<ProductApiItem> => {
+export const fetchProductById = async (
+  id: number | string,
+): Promise<ProductApiItem> => {
   const response = await apiClient.get(`/Products/GetById/${id}`);
   return response.data as ProductApiItem;
 };
@@ -82,9 +84,6 @@ export const updateProduct = async (
   id: number,
   payload: AdminProductPayload,
 ) => {
-<<<<<<< HEAD
-  const formData = buildProductFormData(payload);
-=======
   const formData = new FormData();
 
   formData.append("SellPrice", String(payload.sellPrice));
@@ -105,7 +104,6 @@ export const updateProduct = async (
     formData.append("SecondImage", payload.secondImage);
   }
 
->>>>>>> 0ed783f38e342c9e547fd9b8e8bde0b14500914b
   const response = await apiClient.patch(`/Products/Update/${id}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
