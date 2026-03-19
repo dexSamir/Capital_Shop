@@ -86,8 +86,8 @@ function Reviews() {
       await likeReview(reviewId);
       const newReviews = await fetchProductReviews(Number(id));
       setReviewsRaw(newReviews);
-    } catch (err) {
-      alert("Failed to like the review. Make sure you are logged in.");
+    } catch (err: any) {
+      alert(err?.response?.data?.message || err.message || "Failed to like the review. Make sure you are logged in.");
     }
   }
 
@@ -96,8 +96,8 @@ function Reviews() {
       await dislikeReview(reviewId);
       const newReviews = await fetchProductReviews(Number(id));
       setReviewsRaw(newReviews);
-    } catch (err) {
-      alert("Failed to dislike the review. Make sure you are logged in.");
+    } catch (err: any) {
+      alert(err?.response?.data?.message || err.message || "Failed to dislike the review. Make sure you are logged in.");
     }
   }
 
@@ -106,8 +106,8 @@ function Reviews() {
     try {
       await deleteReview(reviewId);
       setReviewsRaw(prev => prev.filter(r => r.id !== reviewId));
-    } catch (err) {
-      alert("Failed to delete review. You may not have permission.");
+    } catch (err: any) {
+      alert(err?.response?.data?.message || err.message || "Failed to delete review. You may not have permission.");
     }
   }
 

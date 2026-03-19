@@ -184,10 +184,9 @@ function Detail() {
 
     zoomResult.style.backgroundImage = `url(${mainImage.src})`
 
-    const cx = zoomResult.offsetWidth / lens.offsetWidth
-    const cy = zoomResult.offsetHeight / lens.offsetHeight
-    
-    zoomResult.style.backgroundSize = `${mainImage.width * cx}px ${mainImage.height * cy}px`
+    // Calculate dynamic ratios later when element is visible
+    let cx = 0;
+    let cy = 0;
 
     const getCursorPos = (e: MouseEvent) => {
       const rect = mainImage.getBoundingClientRect()
@@ -198,6 +197,12 @@ function Detail() {
 
     const moveLens = (e: MouseEvent) => {
       e.preventDefault()
+
+      if (cx === 0 && lens.offsetWidth > 0) {
+        cx = zoomResult.offsetWidth / lens.offsetWidth
+        cy = zoomResult.offsetHeight / lens.offsetHeight
+        zoomResult.style.backgroundSize = `${mainImage.width * cx}px ${mainImage.height * cy}px`
+      }
 
       const pos = getCursorPos(e)
 
@@ -460,8 +465,8 @@ function Detail() {
       setUploadedImages([]);
       if (fileInput) fileInput.value = '';
       alert("Review submitted successfully!");
-    } catch (err) {
-      alert("Failed to submit review. Make sure you are logged in.");
+    } catch (err: any) {
+      alert(err?.response?.data?.message || err.message || "Failed to submit review. Make sure you are logged in.");
     }
   };
 
@@ -732,7 +737,12 @@ function Detail() {
               >
                 {isInWishlist ? <IoIosHeart /> : <IoIosHeartEmpty />}
               </button>
-              <button className="detail__share-button" title="Share Product">
+              <button className="detail__share-button" title="Share Product" onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                navigator.clipboard.writeText(window.location.href);
+                showNotification("Link copied to clipboard!", "wishlist");
+              }}>
                 <FaShareAlt />
               </button>
             </div>
@@ -1477,7 +1487,7 @@ function Detail() {
               <iframe
                 width="100%"
                 height="315"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                src={selectedProduct?.videoUrl?.includes("youtube.com/watch?v=") ? selectedProduct.videoUrl.replace("watch?v=", "embed/") : "https://www.youtube.com/embed/aqz-KE-bpKQ"}
                 title="Product Video"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

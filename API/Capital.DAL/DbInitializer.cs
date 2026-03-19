@@ -62,7 +62,7 @@ public static class DbInitializer
                     SellPrice = 29.99m, CostPrice = 12.00m, Discount = 0, Quantity = 100,
                     SKU = "MEN-ITM-001", CoverImage = "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -78,7 +78,7 @@ public static class DbInitializer
                     SellPrice = 59.99m, CostPrice = 24.00m, Discount = 0, Quantity = 100,
                     SKU = "MEN-ITM-002", CoverImage = "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -94,7 +94,7 @@ public static class DbInitializer
                     SellPrice = 149.99m, CostPrice = 60.00m, Discount = 0, Quantity = 100,
                     SKU = "MEN-ITM-003", CoverImage = "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -110,7 +110,7 @@ public static class DbInitializer
                     SellPrice = 44.99m, CostPrice = 18.00m, Discount = 0, Quantity = 100,
                     SKU = "MEN-ITM-004", CoverImage = "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -126,7 +126,7 @@ public static class DbInitializer
                     SellPrice = 49.99m, CostPrice = 20.00m, Discount = 15, Quantity = 100,
                     SKU = "MEN-ITM-005", CoverImage = "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -142,7 +142,7 @@ public static class DbInitializer
                     SellPrice = 39.99m, CostPrice = 16.00m, Discount = 15, Quantity = 100,
                     SKU = "MEN-ITM-006", CoverImage = "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -158,7 +158,7 @@ public static class DbInitializer
                     SellPrice = 34.99m, CostPrice = 14.00m, Discount = 15, Quantity = 100,
                     SKU = "MEN-ITM-007", CoverImage = "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -174,7 +174,7 @@ public static class DbInitializer
                     SellPrice = 79.99m, CostPrice = 32.00m, Discount = 15, Quantity = 100,
                     SKU = "MEN-ITM-008", CoverImage = "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -190,7 +190,7 @@ public static class DbInitializer
                     SellPrice = 35.99m, CostPrice = 14.40m, Discount = 0, Quantity = 100,
                     SKU = "MEN-ITM-009", CoverImage = "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -206,7 +206,7 @@ public static class DbInitializer
                     SellPrice = 25.99m, CostPrice = 10.40m, Discount = 0, Quantity = 100,
                     SKU = "MEN-ITM-010", CoverImage = "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -222,7 +222,7 @@ public static class DbInitializer
                     SellPrice = 79.99m, CostPrice = 32.00m, Discount = 0, Quantity = 100,
                     SKU = "WOM-ITM-011", CoverImage = "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -238,7 +238,7 @@ public static class DbInitializer
                     SellPrice = 54.99m, CostPrice = 22.00m, Discount = 0, Quantity = 100,
                     SKU = "WOM-ITM-012", CoverImage = "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -254,7 +254,7 @@ public static class DbInitializer
                     SellPrice = 64.99m, CostPrice = 26.00m, Discount = 0, Quantity = 100,
                     SKU = "WOM-ITM-013", CoverImage = "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -270,7 +270,7 @@ public static class DbInitializer
                     SellPrice = 119.99m, CostPrice = 48.00m, Discount = 0, Quantity = 100,
                     SKU = "WOM-ITM-014", CoverImage = "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -286,7 +286,7 @@ public static class DbInitializer
                     SellPrice = 59.99m, CostPrice = 24.00m, Discount = 15, Quantity = 100,
                     SKU = "WOM-ITM-015", CoverImage = "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -302,7 +302,7 @@ public static class DbInitializer
                     SellPrice = 29.99m, CostPrice = 12.00m, Discount = 15, Quantity = 100,
                     SKU = "WOM-ITM-016", CoverImage = "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -318,7 +318,7 @@ public static class DbInitializer
                     SellPrice = 45.99m, CostPrice = 18.40m, Discount = 15, Quantity = 100,
                     SKU = "WOM-ITM-017", CoverImage = "https://images.unsplash.com/photo-1434389674669-e08b4cac3105?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -334,7 +334,7 @@ public static class DbInitializer
                     SellPrice = 49.99m, CostPrice = 20.00m, Discount = 15, Quantity = 100,
                     SKU = "WOM-ITM-018", CoverImage = "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -350,7 +350,7 @@ public static class DbInitializer
                     SellPrice = 129.99m, CostPrice = 52.00m, Discount = 0, Quantity = 100,
                     SKU = "WOM-ITM-019", CoverImage = "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -366,7 +366,7 @@ public static class DbInitializer
                     SellPrice = 89.99m, CostPrice = 36.00m, Discount = 15, Quantity = 100,
                     SKU = "WOM-ITM-020", CoverImage = "https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -382,7 +382,7 @@ public static class DbInitializer
                     SellPrice = 24.99m, CostPrice = 10.00m, Discount = 15, Quantity = 100,
                     SKU = "BAB-ITM-021", CoverImage = "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -398,7 +398,7 @@ public static class DbInitializer
                     SellPrice = 34.99m, CostPrice = 14.00m, Discount = 0, Quantity = 100,
                     SKU = "BAB-ITM-022", CoverImage = "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -414,7 +414,7 @@ public static class DbInitializer
                     SellPrice = 19.99m, CostPrice = 8.00m, Discount = 0, Quantity = 100,
                     SKU = "BAB-ITM-023", CoverImage = "https://images.unsplash.com/photo-1434389674669-e08b4cac3105?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -430,7 +430,7 @@ public static class DbInitializer
                     SellPrice = 22.99m, CostPrice = 9.20m, Discount = 0, Quantity = 100,
                     SKU = "BAB-ITM-024", CoverImage = "https://images.unsplash.com/photo-1604467794349-0b74285de7e7?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -446,7 +446,7 @@ public static class DbInitializer
                     SellPrice = 14.99m, CostPrice = 6.00m, Discount = 0, Quantity = 100,
                     SKU = "BAB-ITM-025", CoverImage = "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -462,7 +462,7 @@ public static class DbInitializer
                     SellPrice = 28.99m, CostPrice = 11.60m, Discount = 15, Quantity = 100,
                     SKU = "BAB-ITM-026", CoverImage = "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -478,7 +478,7 @@ public static class DbInitializer
                     SellPrice = 18.99m, CostPrice = 7.60m, Discount = 15, Quantity = 100,
                     SKU = "BAB-ITM-027", CoverImage = "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -494,7 +494,7 @@ public static class DbInitializer
                     SellPrice = 89.99m, CostPrice = 36.00m, Discount = 0, Quantity = 100,
                     SKU = "ACC-ITM-028", CoverImage = "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -510,7 +510,7 @@ public static class DbInitializer
                     SellPrice = 39.99m, CostPrice = 16.00m, Discount = 0, Quantity = 100,
                     SKU = "ACC-ITM-029", CoverImage = "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -526,7 +526,7 @@ public static class DbInitializer
                     SellPrice = 49.99m, CostPrice = 20.00m, Discount = 0, Quantity = 100,
                     SKU = "ACC-ITM-030", CoverImage = "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -542,7 +542,7 @@ public static class DbInitializer
                     SellPrice = 150m, CostPrice = 60.00m, Discount = 15, Quantity = 100,
                     SKU = "ACC-ITM-031", CoverImage = "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -558,7 +558,7 @@ public static class DbInitializer
                     SellPrice = 25.99m, CostPrice = 10.40m, Discount = 15, Quantity = 100,
                     SKU = "ACC-ITM-032", CoverImage = "https://images.unsplash.com/photo-1604467794349-0b74285de7e7?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -574,7 +574,7 @@ public static class DbInitializer
                     SellPrice = 22.99m, CostPrice = 9.20m, Discount = 0, Quantity = 100,
                     SKU = "ACC-ITM-033", CoverImage = "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -590,7 +590,7 @@ public static class DbInitializer
                     SellPrice = 65.99m, CostPrice = 26.40m, Discount = 0, Quantity = 100,
                     SKU = "ACC-ITM-034", CoverImage = "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -606,7 +606,7 @@ public static class DbInitializer
                     SellPrice = 45.99m, CostPrice = 18.40m, Discount = 0, Quantity = 100,
                     SKU = "ACC-ITM-035", CoverImage = "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -622,7 +622,7 @@ public static class DbInitializer
                     SellPrice = 129.99m, CostPrice = 52.00m, Discount = 0, Quantity = 100,
                     SKU = "FOO-ITM-036", CoverImage = "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -638,7 +638,7 @@ public static class DbInitializer
                     SellPrice = 84.99m, CostPrice = 34.00m, Discount = 0, Quantity = 100,
                     SKU = "FOO-ITM-037", CoverImage = "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -654,7 +654,7 @@ public static class DbInitializer
                     SellPrice = 179.99m, CostPrice = 72.00m, Discount = 0, Quantity = 100,
                     SKU = "FOO-ITM-038", CoverImage = "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -670,7 +670,7 @@ public static class DbInitializer
                     SellPrice = 89.99m, CostPrice = 36.00m, Discount = 0, Quantity = 100,
                     SKU = "FOO-ITM-039", CoverImage = "https://images.unsplash.com/photo-1614252235314-8561cd9d569f?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -686,7 +686,7 @@ public static class DbInitializer
                     SellPrice = 59.99m, CostPrice = 24.00m, Discount = 0, Quantity = 100,
                     SKU = "FOO-ITM-040", CoverImage = "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -702,7 +702,7 @@ public static class DbInitializer
                     SellPrice = 140m, CostPrice = 56.00m, Discount = 0, Quantity = 100,
                     SKU = "FOO-ITM-041", CoverImage = "https://images.unsplash.com/photo-1552346154-21d32810baa3?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -718,7 +718,7 @@ public static class DbInitializer
                     SellPrice = 120m, CostPrice = 48.00m, Discount = 0, Quantity = 100,
                     SKU = "FOO-ITM-042", CoverImage = "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -734,7 +734,7 @@ public static class DbInitializer
                     SellPrice = 45m, CostPrice = 18.00m, Discount = 15, Quantity = 100,
                     SKU = "FOO-ITM-043", CoverImage = "https://images.unsplash.com/photo-1620809241838-8c1dcd53e20e?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -750,7 +750,7 @@ public static class DbInitializer
                     SellPrice = 69.99m, CostPrice = 28.00m, Discount = 15, Quantity = 100,
                     SKU = "ELE-ITM-044", CoverImage = "https://images.unsplash.com/photo-1590658268037-6bf12f032f55?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -766,7 +766,7 @@ public static class DbInitializer
                     SellPrice = 99.99m, CostPrice = 40.00m, Discount = 0, Quantity = 100,
                     SKU = "ELE-ITM-045", CoverImage = "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -782,7 +782,7 @@ public static class DbInitializer
                     SellPrice = 44.99m, CostPrice = 18.00m, Discount = 0, Quantity = 100,
                     SKU = "ELE-ITM-046", CoverImage = "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -798,7 +798,7 @@ public static class DbInitializer
                     SellPrice = 199.99m, CostPrice = 80.00m, Discount = 0, Quantity = 100,
                     SKU = "ELE-ITM-047", CoverImage = "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -814,7 +814,7 @@ public static class DbInitializer
                     SellPrice = 249.99m, CostPrice = 100.00m, Discount = 0, Quantity = 100,
                     SKU = "ELE-ITM-048", CoverImage = "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -830,7 +830,7 @@ public static class DbInitializer
                     SellPrice = 150m, CostPrice = 60.00m, Discount = 0, Quantity = 100,
                     SKU = "ELE-ITM-049", CoverImage = "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
@@ -846,7 +846,7 @@ public static class DbInitializer
                     SellPrice = 29.99m, CostPrice = 12.00m, Discount = 0, Quantity = 100,
                     SKU = "ELE-ITM-050", CoverImage = "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
                     SecondImage = "https://images.unsplash.com/photo-1515347619362-e6bd24269e83?w=500",
-                    VideoUrl = "https://www.youtube.com/watch?v=yAOze-iC0oE",
+                    VideoUrl = "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
                     Images = new List<ProductImage> {
                         new() { ImageUrl = "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500", IsPrimary = false, IsSecondary = false },
                         new() { ImageUrl = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500", IsPrimary = false, IsSecondary = false },
