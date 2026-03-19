@@ -41,7 +41,7 @@ public class ProductService : IProductService
         dto.Page,
         dto.PageSize,
         true,
-        "Brand", "Category"
+        "Brand", "Category", "Images"
     );
         return _mapper.Map<IEnumerable<ProductGetDto>>(products);
     }
@@ -51,7 +51,7 @@ public class ProductService : IProductService
         if (!await _repo.IsExistAsync(id))
             throw new NotFoundException<Product>();
 
-        var data = await _repo.GetByIdAsync(id, "Brand", "Category");
+        var data = await _repo.GetByIdAsync(id, "Brand", "Category", "Images");
         return _mapper.Map<ProductDetailDto>(data); 
     }
 

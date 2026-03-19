@@ -21,8 +21,12 @@
       transform: translateY(0);
     }
 
-    .card__image {
-      transform: scale(1.05);
+    .card__image--primary {
+      opacity: 0;
+    }
+
+    .card__image--secondary {
+      opacity: 1;
     }
   }
 
@@ -82,7 +86,20 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.4s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &--primary {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    &--secondary {
+      opacity: 0;
+      z-index: 0;
+    }
   }
 
   &__discount-badge {

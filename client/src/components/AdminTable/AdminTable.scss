@@ -2,9 +2,8 @@
 @use "../../styles/mixins" as *;
 
 .admin-table {
-  margin: $spacing-xl auto;
-  max-width: 100%;
-  padding: 0 $spacing-xl;
+  width: 100%;
+  margin-top: $spacing-lg;
   overflow-x: auto;
 
   &__container {

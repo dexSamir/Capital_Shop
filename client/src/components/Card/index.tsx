@@ -1,5 +1,3 @@
-"use client"
-
 import type React from "react"
 import { useNavigate } from "react-router-dom"
 import { PiShoppingCartLight } from "react-icons/pi"
@@ -15,6 +13,7 @@ interface Product {
   price: number
   withoutDiscount: number
   img: string
+  secondImg?: string
   category: string
   count?: number
 }
@@ -24,11 +23,12 @@ interface CardProps {
   price: number
   withoutDiscount: number
   img: string
+  secondImg?: string
   id: number
   product: Product
 }
 
-function Card({ name, price, withoutDiscount, img, id, product }: CardProps) {
+function Card({ name, price, withoutDiscount, img, secondImg, id, product }: CardProps) {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const wishlistItems = useAppSelector((state) => state.wishlist.items)
@@ -111,7 +111,10 @@ function Card({ name, price, withoutDiscount, img, id, product }: CardProps) {
       </div>
       <div className="card__image-container">
         {discountPercentage > 0 && <div className="card__discount-badge">-{discountPercentage}%</div>}
-        <img src={img || "/placeholder.svg"} alt={name} className="card__image" />
+        <img src={img || "/placeholder.svg"} alt={name} className="card__image card__image--primary" />
+        {secondImg && (
+          <img src={secondImg} alt={`${name} hover`} className="card__image card__image--secondary" />
+        )}
       </div>
       <div className="card__content">
         <div className="card__category">{product.category}</div>

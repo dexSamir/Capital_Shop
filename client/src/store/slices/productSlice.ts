@@ -12,6 +12,7 @@ export interface Product {
   price: number;
   withoutDiscount: number;
   img: string;
+  secondImg?: string;
   category: string;
   size?: string;
   color?: string;
@@ -67,6 +68,7 @@ export const fetchProducts = createAsyncThunk(
         id: number;
         title: string;
         coverImage: string;
+        secondImage?: string;
         sellPrice: number;
         discount: number;
         categoryId: number;
@@ -90,6 +92,7 @@ export const fetchProducts = createAsyncThunk(
           price,
           withoutDiscount,
           img: getImageUrl(p.coverImage),
+          secondImg: p.secondImage ? getImageUrl(p.secondImage) : undefined,
           category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
           brand:
             p.brandId != null
@@ -114,6 +117,7 @@ export const fetchProductById = createAsyncThunk(
         id: number;
         title: string;
         coverImage: string;
+        secondImage?: string;
         sellPrice: number;
         discount: number;
         categoryId: number;
@@ -140,6 +144,7 @@ export const fetchProductById = createAsyncThunk(
         price,
         withoutDiscount,
         img: getImageUrl(p.coverImage),
+        secondImg: p.secondImage ? getImageUrl(p.secondImage) : undefined,
         category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
         brand:
           p.brandId != null ? brandMap.get(p.brandId) || "Unknown" : undefined,

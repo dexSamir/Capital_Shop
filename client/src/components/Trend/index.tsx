@@ -123,6 +123,7 @@ function Trend() {
                     id={item.id}
                     name={item.name}
                     img={item.img}
+                    secondImg={(item as any).secondImg}
                     price={item.price}
                     withoutDiscount={item.withoutDiscount}
                     product={item}

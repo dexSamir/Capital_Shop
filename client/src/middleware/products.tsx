@@ -45,6 +45,7 @@ export async function getAllproducts() {
     id: number;
     title: string;
     coverImage: string;
+    secondImage?: string;
     sellPrice: number;
     discount: number;
     categoryId: number;
@@ -67,6 +68,7 @@ export async function getAllproducts() {
       price,
       withoutDiscount,
       img: getImageUrl(p.coverImage),
+      secondImg: p.secondImage ? getImageUrl(p.secondImage) : undefined,
       category: categoryMap.get(p.categoryId) || `Category ${p.categoryId}`,
     };
   });

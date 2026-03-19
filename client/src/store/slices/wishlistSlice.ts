@@ -6,6 +6,7 @@ export interface WishlistItem {
   price: number;
   withoutDiscount: number;
   img: string;
+  secondImg?: string;
   category: string;
 }
 

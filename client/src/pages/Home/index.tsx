@@ -61,6 +61,7 @@ function Home() {
                   id={product.id}
                   name={product.name}
                   img={product.img}
+                  secondImg={(product as any).secondImg}
                   price={product.price}
                   withoutDiscount={product.withoutDiscount}
                   product={product as any}

@@ -30,6 +30,7 @@ function Wishlist() {
                 id={product.id}
                 name={product.name}
                 img={product.img}
+                secondImg={product.secondImg}
                 price={product.price}
                 withoutDiscount={product.withoutDiscount}
                 product={product}

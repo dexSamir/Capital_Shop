@@ -33,12 +33,7 @@ import { fetchProductReviews, createReview, likeReview, dislikeReview, type Revi
 import { getImageUrl } from "../../api/client"
 import "./Detail.scss"
 
-const additionalImages = [
-  "https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest1.jpg",
-  "https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest2.jpg",
-  "https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest3.jpg",
-  "https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest4.jpg",
-]
+// Images now come from the API via selectedProduct.images
 
 
 
@@ -565,25 +560,24 @@ function Detail() {
               >
                 <img src={selectedProduct.img || "/placeholder.svg"} alt={selectedProduct.name} />
               </div>
-              {selectedProduct.images && selectedProduct.images.length > 0 
-                ? selectedProduct.images.map((img, index) => (
-                    <div
-                      key={index}
-                      className={`detail__thumbnail ${mainImage === img ? "active" : ""}`}
-                      onClick={() => handleImageClick(img)}
-                    >
-                      <img src={img || "/placeholder.svg"} alt={`${selectedProduct.name} view ${index + 1}`} />
-                    </div>
-                  ))
-                : additionalImages.map((img, index) => (
-                    <div
-                      key={index}
-                      className={`detail__thumbnail ${mainImage === img ? "active" : ""}`}
-                      onClick={() => handleImageClick(img)}
-                    >
-                      <img src={img || "/placeholder.svg"} alt={`${selectedProduct.name} view ${index + 1}`} />
-                    </div>
-                  ))}
+              {selectedProduct.secondImg && (
+                <div
+                  className={`detail__thumbnail ${mainImage === selectedProduct.secondImg ? "active" : ""}`}
+                  onClick={() => handleImageClick(selectedProduct.secondImg!)}
+                >
+                  <img src={selectedProduct.secondImg} alt={`${selectedProduct.name} alternate`} />
+                </div>
+              )}
+              {selectedProduct.images && selectedProduct.images.length > 0 &&
+                selectedProduct.images.map((img, index) => (
+                  <div
+                    key={index}
+                    className={`detail__thumbnail ${mainImage === img ? "active" : ""}`}
+                    onClick={() => handleImageClick(img)}
+                  >
+                    <img src={img || "/placeholder.svg"} alt={`${selectedProduct.name} view ${index + 1}`} />
+                  </div>
+                ))}
             </div>
           </div>
 
