@@ -57,13 +57,30 @@ const initialState: ProductsState = {
 
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async (_, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
-      const [response, categories, brands] = await Promise.all([
-        apiClient.get("/Products/GetAll"),
+      const state = getState() as any; // typing as any or RootState equivalent
+      const { category, brand, search, priceMin, priceMax } = state.products.filters;
+
+      const [categories, brands] = await Promise.all([
         getCategories(),
         getBrands(),
       ]);
+
+      const params = new URLSearchParams();
+      if (category && category !== "All") {
+        const cat = categories.find((c: any) => c.name === category);
+        if (cat) params.append("CategoryId", cat.id.toString());
+      }
+      if (brand && brand !== "All") {
+        const br = brands.find((b: any) => b.name === brand);
+        if (br) params.append("BrandId", br.id.toString());
+      }
+      if (search) params.append("Search", search);
+      if (priceMin && priceMin !== "0") params.append("MinPrice", priceMin);
+      if (priceMax && priceMax !== "1000") params.append("MaxPrice", priceMax);
+
+      const response = await apiClient.get(`/Products/GetAll?${params.toString()}`);
       const data = response.data as Array<{
         id: number;
         title: string;
@@ -186,54 +203,6 @@ const productSlice = createSlice({
         ...state.filters,
         [key]: value,
       };
-
-      state.filteredItems = state.items.filter((product) => {
-        const categoryMatch =
-          state.filters.category === "All" ||
-          product.category === state.filters.category;
-        const brandMatch =
-          state.filters.brand === "All" ||
-          (product.brand && product.brand === state.filters.brand);
-        const searchMatch =
-          !state.filters.search ||
-          product.name
-            .toLowerCase()
-            .includes(state.filters.search.toLowerCase());
-        const priceMatch =
-          product.price >= Number.parseFloat(state.filters.priceMin) &&
-          product.price <= Number.parseFloat(state.filters.priceMax);
-
-        return (
-          categoryMatch &&
-          brandMatch &&
-          searchMatch &&
-          priceMatch
-        );
-      });
-
-      if (state.filters.sortBy && state.filters.sortOrder) {
-        state.filteredItems.sort((a, b) => {
-          const sortBy = state.filters.sortBy as keyof Product;
-          const sortOrder = state.filters.sortOrder;
-
-          if (sortBy === "name") {
-            return sortOrder === "asc"
-              ? a.name.localeCompare(b.name)
-              : b.name.localeCompare(a.name);
-          } else if (sortBy === "price") {
-            return sortOrder === "asc" ? a.price - b.price : b.price - a.price;
-          } else if (sortBy === "withoutDiscount") {
-            const discountA =
-              ((a.withoutDiscount - a.price) / a.withoutDiscount) * 100;
-            const discountB =
-              ((b.withoutDiscount - b.price) / b.withoutDiscount) * 100;
-            return sortOrder === "asc"
-              ? discountA - discountB
-              : discountB - discountA;
-          }
-          return 0;
-        });
-      }
     },
     resetFilters: (state) => {
       state.filters = {

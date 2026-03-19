@@ -14,168 +14,33 @@ import {
 } from "react-icons/fa"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { fetchProductById } from "../../store/slices/productSlice"
+import { fetchProductReviews, likeReview, dislikeReview, deleteReview, type ReviewDto } from "../../api/reviews"
+import { getImageUrl } from "../../api/client"
 import "./Reviews.scss"
-
-const reviews = [
-  {
-    id: 1,
-    name: "John Doe",
-    rating: 5,
-    date: "2023-05-15",
-    comment:
-      "Great product! The quality is excellent and it fits perfectly. I would definitely recommend it to anyone looking for a stylish and comfortable piece.",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    verified: true,
-    images: [
-      "https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest1.jpg",
-      "https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest2.jpg",
-    ],
-    likes: 12,
-    dislikes: 2,
-    size: "M",
-    color: "Black",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    rating: 4,
-    date: "2023-04-22",
-    comment:
-      "I really like this product. The material is good quality and the design is beautiful. The only reason I'm giving 4 stars instead of 5 is because the color is slightly different from what I expected.",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    verified: true,
-    images: [],
-    likes: 8,
-    dislikes: 1,
-    size: "S",
-    color: "White",
-  },
-  {
-    id: 3,
-    name: "Michael Brown",
-    rating: 5,
-    date: "2023-03-10",
-    comment:
-      "Absolutely love it! Fast shipping and the product exceeded my expectations. Will definitely buy from this store again.",
-    avatar: "https://randomuser.me/api/portraits/men/22.jpg",
-    verified: false,
-    images: ["https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest3.jpg"],
-    likes: 15,
-    dislikes: 0,
-    size: "L",
-    color: "Blue",
-  },
-  {
-    id: 4,
-    name: "Emily Johnson",
-    rating: 3,
-    date: "2023-02-18",
-    comment:
-      "The product is okay, but I expected better quality for the price. The stitching is a bit loose in some areas, and it doesn't feel as durable as I hoped. The design is nice though.",
-    avatar: "https://randomuser.me/api/portraits/women/28.jpg",
-    verified: true,
-    images: [],
-    likes: 5,
-    dislikes: 3,
-    size: "XL",
-    color: "Red",
-  },
-  {
-    id: 5,
-    name: "David Wilson",
-    rating: 5,
-    date: "2023-01-05",
-    comment:
-      "Perfect fit and excellent quality! I've been using this product for a month now and it still looks brand new. The material is breathable and comfortable for all-day wear.",
-    avatar: "https://randomuser.me/api/portraits/men/52.jpg",
-    verified: true,
-    images: ["https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest4.jpg"],
-    likes: 20,
-    dislikes: 1,
-    size: "M",
-    color: "Black",
-  },
-  {
-    id: 6,
-    name: "Sarah Johnson",
-    rating: 4,
-    date: "2022-12-15",
-    comment:
-      "I'm very happy with this purchase. The product arrived quickly and was exactly as described. The quality is good for the price point.",
-    avatar: "https://randomuser.me/api/portraits/women/33.jpg",
-    verified: true,
-    images: [],
-    likes: 7,
-    dislikes: 0,
-    size: "S",
-    color: "Blue",
-  },
-  {
-    id: 7,
-    name: "Robert Garcia",
-    rating: 2,
-    date: "2022-11-28",
-    comment:
-      "Disappointed with this purchase. The product doesn't match the description and the quality is poor. Would not recommend.",
-    avatar: "https://randomuser.me/api/portraits/men/41.jpg",
-    verified: true,
-    images: [],
-    likes: 3,
-    dislikes: 8,
-    size: "L",
-    color: "Black",
-  },
-  {
-    id: 8,
-    name: "Jennifer Lee",
-    rating: 5,
-    date: "2022-10-17",
-    comment:
-      "Absolutely perfect! The quality exceeds my expectations and the fit is great. I've already received many compliments on it.",
-    avatar: "https://randomuser.me/api/portraits/women/56.jpg",
-    verified: false,
-    images: ["https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest2.jpg"],
-    likes: 18,
-    dislikes: 1,
-    size: "M",
-    color: "White",
-  },
-  {
-    id: 9,
-    name: "Thomas Wright",
-    rating: 3,
-    date: "2022-09-05",
-    comment:
-      "It's an average product. Not bad, but not great either. The material is decent but I've seen better for this price range.",
-    avatar: "https://randomuser.me/api/portraits/men/62.jpg",
-    verified: true,
-    images: [],
-    likes: 4,
-    dislikes: 2,
-    size: "XL",
-    color: "Red",
-  },
-  {
-    id: 10,
-    name: "Lisa Martinez",
-    rating: 5,
-    date: "2022-08-22",
-    comment:
-      "I love everything about this product! The design is beautiful, the quality is excellent, and it's very comfortable. Highly recommend!",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    verified: true,
-    images: ["https://preview.colorlib.com/theme/capitalshop/assets/img/gallery/latest4.jpg"],
-    likes: 25,
-    dislikes: 0,
-    size: "S",
-    color: "Black",
-  },
-]
 
 function Reviews() {
   const { id } = useParams<{ id: string }>()
   const dispatch = useAppDispatch()
   const { selectedProduct, loading } = useAppSelector((state) => state.products)
+  const { user: currentUser } = useAppSelector((state) => state.auth)
+  const [reviewsRaw, setReviewsRaw] = useState<ReviewDto[]>([])
+
+  const reviews = reviewsRaw.map((r) => ({
+    id: r.id,
+    userId: r.userId,
+    name: r.userName,
+    rating: r.rating || 0,
+    date: new Date(r.createdTime).toLocaleDateString(),
+    comment: r.comment,
+    avatar: "https://randomuser.me/api/portraits/lego/1.jpg",
+    verified: true,
+    images: r.images ? r.images.map(img => getImageUrl(img)) : [],
+    likes: r.likes || 0,
+    dislikes: r.dislikes || 0,
+    userReaction: r.userReaction,
+    size: "M",
+    color: "Black",
+  }))
   const [selectedReviewImage, setSelectedReviewImage] = useState("")
   const [showReviewImages, setShowReviewImages] = useState(false)
   const [filters, setFilters] = useState({
@@ -192,6 +57,7 @@ function Reviews() {
   useEffect(() => {
     if (id) {
       dispatch(fetchProductById(id))
+      fetchProductReviews(Number(id)).then(setReviewsRaw).catch(console.error)
     }
   }, [dispatch, id])
 
@@ -215,12 +81,34 @@ function Reviews() {
     setShowFilters(!showFilters)
   }
 
-  const handleLikeReview = (reviewId: number) => {
-    console.log(`Liked review ${reviewId}`)
+  const handleLikeReview = async (reviewId: number) => {
+    try {
+      await likeReview(reviewId);
+      const newReviews = await fetchProductReviews(Number(id));
+      setReviewsRaw(newReviews);
+    } catch (err) {
+      alert("Failed to like the review. Make sure you are logged in.");
+    }
   }
 
-  const handleDislikeReview = (reviewId: number) => {
-    console.log(`Disliked review ${reviewId}`)
+  const handleDislikeReview = async (reviewId: number) => {
+    try {
+      await dislikeReview(reviewId);
+      const newReviews = await fetchProductReviews(Number(id));
+      setReviewsRaw(newReviews);
+    } catch (err) {
+      alert("Failed to dislike the review. Make sure you are logged in.");
+    }
+  }
+
+  const handleDeleteReview = async (reviewId: number) => {
+    if (!window.confirm("Are you sure you want to delete this review?")) return;
+    try {
+      await deleteReview(reviewId);
+      setReviewsRaw(prev => prev.filter(r => r.id !== reviewId));
+    } catch (err) {
+      alert("Failed to delete review. You may not have permission.");
+    }
   }
 
   const handleReportReview = (reviewId: number) => {
@@ -563,15 +451,24 @@ function Reviews() {
                       )}
 
                       <div className="reviews__item-actions">
-                        <button className="reviews__item-action" onClick={() => handleLikeReview(review.id)}>
+                        <button className={`reviews__item-action ${review.userReaction === 'Like' ? 'active' : ''}`} style={{ color: review.userReaction === 'Like' ? 'blue' : 'inherit' }} onClick={() => handleLikeReview(review.id)}>
                           <FaThumbsUp /> Helpful ({review.likes})
                         </button>
-                        <button className="reviews__item-action" onClick={() => handleDislikeReview(review.id)}>
+                        <button className={`reviews__item-action ${review.userReaction === 'Dislike' ? 'active' : ''}`} style={{ color: review.userReaction === 'Dislike' ? 'red' : 'inherit' }} onClick={() => handleDislikeReview(review.id)}>
                           <FaThumbsDown /> Not Helpful ({review.dislikes})
                         </button>
                         <button className="reviews__item-action" onClick={() => handleReportReview(review.id)}>
                           <FaFlag /> Report
                         </button>
+                        {currentUser && (currentUser.id === review.userId || currentUser.isAdmin) && (
+                          <button
+                            className="reviews__item-action"
+                            onClick={() => handleDeleteReview(review.id)}
+                            style={{ color: 'red', border: '1px solid currentColor', padding: '0.2rem 0.6rem', borderRadius: '4px' }}
+                          >
+                            Delete
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

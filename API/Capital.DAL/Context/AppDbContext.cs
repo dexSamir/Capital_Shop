@@ -14,6 +14,7 @@ public class AppDbContext : IdentityDbContext<User>
 
     public DbSet<Product> Products { get; set; }
 	public DbSet<Review> Reviews { get; set; }
+	public DbSet<ReviewReaction> ReviewReactions { get; set; }
 	public DbSet<Brand> Brands { get; set; }
 	public DbSet<ProductRating> Ratings { get; set; }
 	public DbSet<ProductImage> Images { get; set; }

@@ -10,6 +10,7 @@ export interface ReviewDto {
   createdTime: string;
   likes: number;
   dislikes: number;
+  userReaction?: string;
   images?: string[];
 }
 
@@ -42,4 +43,13 @@ export const likeReview = async (id: number): Promise<void> => {
 
 export const dislikeReview = async (id: number): Promise<void> => {
   await apiClient.put(`/Reviews/${id}/dislike`);
+};
+
+export const updateReview = async (id: number, comment: string, rating?: number): Promise<ReviewDto> => {
+  const { data } = await apiClient.put<ReviewDto>(`/Reviews/${id}`, { comment, rating });
+  return data;
+};
+
+export const deleteReview = async (id: number): Promise<void> => {
+  await apiClient.delete(`/Reviews/${id}`);
 };

@@ -35,9 +35,22 @@ export async function getBrands(): Promise<BrandDto[]> {
   }
 }
 
-export async function getAllproducts() {
+export async function getAllproducts(filters?: {
+  categoryId?: number;
+  brandId?: number;
+  search?: string;
+  minPrice?: number;
+  maxPrice?: number;
+}) {
+  const params = new URLSearchParams();
+  if (filters?.categoryId) params.append("CategoryId", filters.categoryId.toString());
+  if (filters?.brandId) params.append("BrandId", filters.brandId.toString());
+  if (filters?.search) params.append("Search", filters.search);
+  if (filters?.minPrice) params.append("MinPrice", filters.minPrice.toString());
+  if (filters?.maxPrice) params.append("MaxPrice", filters.maxPrice.toString());
+
   const [productsResponse, categories] = await Promise.all([
-    apiClient.get("/Products/GetAll"),
+    apiClient.get(`/Products/GetAll?${params.toString()}`),
     getCategories(),
   ]);
 

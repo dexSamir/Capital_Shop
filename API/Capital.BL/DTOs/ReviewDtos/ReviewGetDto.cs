@@ -10,6 +10,7 @@ public class ReviewGetDto
     public string UserName { get; set; } = null!;
     public int Likes { get; set; }
     public int Dislikes { get; set; }
+    public string? UserReaction { get; set; }
     public IEnumerable<string>? Images { get; set; }
     public DateTime CreatedTime { get; set; }
 }

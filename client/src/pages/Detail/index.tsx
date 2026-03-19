@@ -29,7 +29,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { fetchProductById, clearSelectedProduct, fetchProducts } from "../../store/slices/productSlice"
 import { addToCart } from "../../store/slices/cartSlice"
 import { toggleWishlistItem } from "../../store/slices/wishlistSlice"
-import { fetchProductReviews, createReview, likeReview, dislikeReview, type ReviewDto } from "../../api/reviews"
+import { fetchProductReviews, createReview, likeReview, dislikeReview, deleteReview, updateReview, type ReviewDto } from "../../api/reviews"
 import { getImageUrl } from "../../api/client"
 import "./Detail.scss"
 
@@ -97,6 +97,7 @@ function Detail() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { selectedProduct, loading, error, items } = useAppSelector((state) => state.products)
+  const { user: currentUser } = useAppSelector((state) => state.auth)
   const wishlistItems = useAppSelector((state) => state.wishlist.items)
   const isInWishlist = selectedProduct ? wishlistItems.some((item) => item.id === selectedProduct.id) : false
   const [mainImage, setMainImage] = useState("")
@@ -120,6 +121,7 @@ function Detail() {
 
   const reviews = reviewsRaw.map((r) => ({
     id: r.id,
+    userId: r.userId,
     name: r.userName,
     rating: r.rating || 0,
     date: new Date(r.createdTime).toLocaleDateString(),
@@ -129,6 +131,7 @@ function Detail() {
     images: r.images ? r.images.map(img => getImageUrl(img)) : [],
     likes: r.likes || 0,
     dislikes: r.dislikes || 0,
+    userReaction: r.userReaction,
     size: "M",
     color: "Black",
   }))
@@ -465,7 +468,8 @@ function Detail() {
   const handleLikeReview = async (reviewId: number) => {
     try {
       await likeReview(reviewId);
-      setReviewsRaw(prev => prev.map(r => r.id === reviewId ? { ...r, likes: (r.likes || 0) + 1 } : r));
+      const newReviews = await fetchProductReviews(Number(id));
+      setReviewsRaw(newReviews);
     } catch (err) {
       alert("Failed to like the review. Make sure you are logged in.");
     }
@@ -474,9 +478,20 @@ function Detail() {
   const handleDislikeReview = async (reviewId: number) => {
     try {
       await dislikeReview(reviewId);
-      setReviewsRaw(prev => prev.map(r => r.id === reviewId ? { ...r, dislikes: (r.dislikes || 0) + 1 } : r));
+      const newReviews = await fetchProductReviews(Number(id));
+      setReviewsRaw(newReviews);
     } catch (err) {
       alert("Failed to dislike the review. Make sure you are logged in.");
+    }
+  };
+
+  const handleDeleteReview = async (reviewId: number) => {
+    if (!window.confirm("Are you sure you want to delete this review?")) return;
+    try {
+      await deleteReview(reviewId);
+      setReviewsRaw(prev => prev.filter(r => r.id !== reviewId));
+    } catch (err) {
+      alert("Failed to delete review. You may not have permission.");
     }
   };
 
@@ -1118,15 +1133,32 @@ function Detail() {
                             )}
 
                             <div className="detail__review-actions">
-                              <button className="detail__review-helpful" onClick={() => handleLikeReview(review.id)}>
+                              <button 
+                                className={`detail__review-helpful ${review.userReaction === 'Like' ? 'active' : ''}`} 
+                                onClick={() => handleLikeReview(review.id)}
+                                style={{ color: review.userReaction === 'Like' ? 'blue' : 'inherit' }}
+                              >
                                 <FaThumbsUp /> Helpful ({review.likes})
                               </button>
-                              <button className="detail__review-not-helpful" onClick={() => handleDislikeReview(review.id)}>
+                              <button 
+                                className={`detail__review-not-helpful ${review.userReaction === 'Dislike' ? 'active' : ''}`} 
+                                onClick={() => handleDislikeReview(review.id)}
+                                style={{ color: review.userReaction === 'Dislike' ? 'red' : 'inherit' }}
+                              >
                                 <FaThumbsDown /> Not Helpful ({review.dislikes})
                               </button>
                               <button className="detail__review-report">
                                 <FaFlag /> Report
                               </button>
+                              {currentUser && (currentUser.id === review.userId || currentUser.isAdmin) && (
+                                <button
+                                  className="detail__review-delete"
+                                  onClick={() => handleDeleteReview(review.id)}
+                                  style={{ color: 'red', marginLeft: 'auto', border: '1px solid currentColor', padding: '0.2rem 0.6rem', borderRadius: '4px' }}
+                                >
+                                  Delete
+                                </button>
+                              )}
                             </div>
                           </div>
                         ))}

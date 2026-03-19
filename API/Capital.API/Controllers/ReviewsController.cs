@@ -20,7 +20,8 @@ public class ReviewsController : ControllerBase
     [HttpGet("product/{productId}")]
     public async Task<IActionResult> GetByProduct(int productId)
     {
-        var reviews = await _reviewService.GetByProductIdAsync(productId);
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var reviews = await _reviewService.GetByProductIdAsync(productId, userId);
         return Ok(reviews);
     }
 
@@ -36,16 +37,47 @@ public class ReviewsController : ControllerBase
     }
 
     [HttpPut("{id}/like")]
+    [Authorize]
     public async Task<IActionResult> Like(int id)
     {
-        await _reviewService.LikeAsync(id);
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+        await _reviewService.LikeAsync(id, userId);
         return Ok();
     }
 
     [HttpPut("{id}/dislike")]
+    [Authorize]
     public async Task<IActionResult> Dislike(int id)
     {
-        await _reviewService.DislikeAsync(id);
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+        await _reviewService.DislikeAsync(id, userId);
         return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+        bool isAdmin = User.IsInRole("Admin");
+        await _reviewService.DeleteAsync(id, userId, isAdmin);
+        return Ok();
+    }
+
+    [HttpPut("{id}")]
+    [Authorize]
+    public async Task<IActionResult> Update(int id, [FromBody] ReviewUpdateDto dto)
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userId)) return Unauthorized();
+
+        var review = await _reviewService.UpdateAsync(id, dto, userId);
+        return Ok(review);
     }
 }

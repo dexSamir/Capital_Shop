@@ -48,15 +48,17 @@ function Products() {
   }
 
   useEffect(() => {
-    dispatch(fetchProducts())
-
     getCategories().then((cats) => {
       setCategories(["All", ...cats.map((c) => c.name)])
     })
     getBrands().then((b) => {
       setBrands(["All", ...b.map((br) => br.name)])
     })
-  }, [dispatch])
+  }, [])
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [filters, dispatch])
 
   useEffect(() => {
     const searchQuery = searchParams.get("search")
