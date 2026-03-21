@@ -49,10 +49,13 @@ function Products() {
 
   useEffect(() => {
     getCategories().then((cats) => {
-      setCategories(["All", ...cats.map((c) => c.name)])
+      setCategories([
+        "All",
+        ...cats.map((c) => c.title || c.name || "").filter(Boolean),
+      ])
     })
     getBrands().then((b) => {
-      setBrands(["All", ...b.map((br) => br.name)])
+      setBrands(["All", ...b.map((br) => br.title || br.name || "").filter(Boolean)])
     })
   }, [])
 
@@ -114,7 +117,7 @@ function Products() {
       </div>
 
       <div className="products__content">
-        <div className="products__sidebar">
+        <div className={`products__sidebar ${showFilters ? "active" : ""}`}>
           <div className="products__filters">
             <div className="products__filter-header">
               <h3>Filters</h3>

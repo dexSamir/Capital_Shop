@@ -2,12 +2,14 @@ import { apiClient, getImageUrl } from "../api/client";
 
 interface CategoryDto {
   id: number;
-  name: string;
+  title?: string;
+  name?: string;
 }
 
 interface BrandDto {
   id: number;
-  name: string;
+  title?: string;
+  name?: string;
 }
 
 let categoriesCache: CategoryDto[] | null = null;
@@ -65,7 +67,9 @@ export async function getAllproducts(filters?: {
     brandId?: number;
   }>;
 
-  const categoryMap = new Map(categories.map((c) => [c.id, c.name]));
+  const categoryMap = new Map(
+    categories.map((c) => [c.id, c.title || c.name || `Category ${c.id}`]),
+  );
 
   return data.map((p) => {
     const price = Number(p.sellPrice);

@@ -76,11 +76,13 @@ export const fetchProducts = createAsyncThunk(
 
       const params = new URLSearchParams();
       if (category && category !== "All") {
-        const cat = categories.find((c: any) => c.name === category);
+        const cat = categories.find(
+          (c: any) => (c.title || c.name) === category,
+        );
         if (cat) params.append("CategoryId", cat.id.toString());
       }
       if (brand && brand !== "All") {
-        const br = brands.find((b: any) => b.name === brand);
+        const br = brands.find((b: any) => (b.title || b.name) === brand);
         if (br) params.append("BrandId", br.id.toString());
       }
       if (search) params.append("Search", search);
@@ -103,8 +105,12 @@ export const fetchProducts = createAsyncThunk(
         brandId?: number;
       }>;
 
-      const categoryMap = new Map(categories.map((c) => [c.id, c.name]));
-      const brandMap = new Map(brands.map((b) => [b.id, b.name]));
+      const categoryMap = new Map(
+        categories.map((c: any) => [c.id, c.title || c.name || `Category ${c.id}`]),
+      );
+      const brandMap = new Map(
+        brands.map((b: any) => [b.id, b.title || b.name || `Brand ${b.id}`]),
+      );
 
       const mapped: Product[] = data.map((p) => {
         const price = Number(p.sellPrice);
@@ -174,8 +180,12 @@ export const fetchProductById = createAsyncThunk(
 
       const categories = await getCategories();
       const brands = await getBrands();
-      const categoryMap = new Map(categories.map((c) => [c.id, c.name]));
-      const brandMap = new Map(brands.map((b) => [b.id, b.name]));
+      const categoryMap = new Map(
+        categories.map((c: any) => [c.id, c.title || c.name || `Category ${c.id}`]),
+      );
+      const brandMap = new Map(
+        brands.map((b: any) => [b.id, b.title || b.name || `Brand ${b.id}`]),
+      );
 
       const mapped: Product = {
         id: p.id,

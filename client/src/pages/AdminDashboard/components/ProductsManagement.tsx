@@ -17,6 +17,8 @@ const ProductsManagement: React.FC = () => {
   const [brands, setBrands] = useState<BrandDto[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | "all">("all");
+  const [selectedBrandId, setSelectedBrandId] = useState<number | "all">("all");
 
   const [editingProduct, setEditingProduct] = useState<ProductApiItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -76,31 +78,65 @@ const ProductsManagement: React.FC = () => {
   const categoryMap = new Map(categories.map((c) => [c.id, c.title]));
   const brandMap = new Map(brands.map((b) => [b.id, b.title]));
 
-  const filtered = products.filter((p) =>
-    !search || p.title.toLowerCase().includes(search.toLowerCase()) || (p.sku || "").toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = products.filter((p) => {
+    const searchMatch =
+      !search ||
+      p.title.toLowerCase().includes(search.toLowerCase()) ||
+      (p.sku || "").toLowerCase().includes(search.toLowerCase());
+    const categoryMatch =
+      selectedCategoryId === "all" || p.categoryId === selectedCategoryId;
+    const brandMatch =
+      selectedBrandId === "all" || p.brandId === selectedBrandId;
+
+    return searchMatch && categoryMatch && brandMatch;
+  });
 
   return (
     <div className="admin-dashboard__section">
       <div className="admin-dashboard__header">
         <h1><FaBoxOpen style={{ marginRight: 10, color: "var(--admin-primary)", fontSize: 22 }} />Products</h1>
-        <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+        <div className="admin-dashboard__products-toolbar">
+          <div className="admin-dashboard__products-toolbar-filters">
           <input
             type="text"
             placeholder="Search by title or SKU..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            style={{
-              background: "rgba(0,0,0,0.3)",
-              border: "1px solid var(--admin-card-border)",
-              color: "var(--admin-text)",
-              padding: "10px 16px",
-              borderRadius: 8,
-              fontFamily: "inherit",
-              fontSize: 14,
-              minWidth: 220,
-            }}
+            className="admin-dashboard__products-search"
           />
+            <select
+              value={selectedCategoryId}
+              onChange={(e) =>
+                setSelectedCategoryId(
+                  e.target.value === "all" ? "all" : Number(e.target.value),
+                )
+              }
+              className="admin-dashboard__products-select"
+            >
+              <option value="all">All Categories</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.title}
+                </option>
+              ))}
+            </select>
+            <select
+              value={selectedBrandId}
+              onChange={(e) =>
+                setSelectedBrandId(
+                  e.target.value === "all" ? "all" : Number(e.target.value),
+                )
+              }
+              className="admin-dashboard__products-select"
+            >
+              <option value="all">All Brands</option>
+              {brands.map((brand) => (
+                <option key={brand.id} value={brand.id}>
+                  {brand.title}
+                </option>
+              ))}
+            </select>
+          </div>
           <button className="admin-dashboard__add-button" onClick={handleOpenAdd}>
             <FaPlus /> Add Product
           </button>
