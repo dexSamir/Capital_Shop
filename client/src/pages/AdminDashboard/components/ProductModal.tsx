@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { type CategoryDto } from "../../../api/categories";
 import { type BrandDto } from "../../../api/brands";
-import { createProduct, updateProduct, type AdminProductPayload, type ProductApiItem } from "../../../../api/products";
+import { createProduct, updateProduct, type AdminProductPayload, type ProductApiItem } from "../../../api/products";
 import {
   getImagesByProductId,
   addImages,
