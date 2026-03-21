@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import AdminSearchbar from "../../components/AdminSearchbar"
 import AdminTable from "../../components/AdminTable"

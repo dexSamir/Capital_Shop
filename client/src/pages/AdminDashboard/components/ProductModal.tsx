@@ -1,33 +1,39 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { type Product } from "../../../store/slices/productSlice";
 import { type CategoryDto } from "../../../api/categories";
 import { type BrandDto } from "../../../api/brands";
-import { createProduct, updateProduct, type AdminProductPayload } from "../../../api/products";
+import { createProduct, updateProduct, type AdminProductPayload, type ProductApiItem } from "../../../../api/products";
 import {
   getImagesByProductId,
   addImages,
   deleteImages,
   setPrimaryImage,
   setSecondaryImage,
-  type ProductImageDto
+  updateAltText,
+  type ProductImageDto,
 } from "../../../api/productImages";
 import {
   getSpecificationsByProductId,
   createSpecification,
+  updateSpecification,
   deleteSpecification,
-  type ProductSpecificationDto
+  type ProductSpecificationDto,
 } from "../../../api/productSpecifications";
 import {
   getProductAttributes,
   assignAttributeValueToProduct,
   removeAttributeValueFromProduct,
-  type ProductAttributeValueDto
+  type ProductAttributeValueDto,
 } from "../../../api/productAttributes";
-import { FaTrash, FaStar, FaRegStar, FaImage, FaPlus } from "react-icons/fa";
+import { getImageUrl } from "../../../api/client";
+import {
+  FaTrash, FaStar, FaRegStar, FaImage, FaPlus, FaEdit,
+  FaCheck, FaTimes, FaLayerGroup, FaTags, FaCube,
+} from "react-icons/fa";
+import { MdPhotoLibrary } from "react-icons/md";
 
 interface ProductModalProps {
-  product: Product | null;
+  product: ProductApiItem | null;
   categories: CategoryDto[];
   brands: BrandDto[];
   onClose: () => void;
@@ -35,397 +41,436 @@ interface ProductModalProps {
 
 type TabType = "basic" | "images" | "specs" | "attributes";
 
-const ProductModal: React.FC<ProductModalProps> = ({
-  product,
-  categories,
-  brands,
-  onClose,
-}) => {
-  const [activeTab, setActiveTab] = useState<TabType>("basic");
+const toast = (icon: "success" | "error", title: string) =>
+  Swal.fire({ toast: true, position: "top-end", icon, title, showConfirmButton: false, timer: 1800, background: "#0d1117", color: "#e6edf3" });
 
-  // Basic Info State
-  const [savingProduct, setSavingProduct] = useState(false);
+const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands, onClose }) => {
+  const [activeTab, setActiveTab] = useState<TabType>("basic");
+  const [saving, setSaving] = useState(false);
   const [currentProductId, setCurrentProductId] = useState<number | null>(product?.id || null);
 
-  // Images State
+  // ── Images ──────────────────────────────────────────────────────
   const [images, setImages] = useState<ProductImageDto[]>([]);
   const [uploadLoading, setUploadLoading] = useState(false);
 
-  // Specs State
+  // ── Specs ────────────────────────────────────────────────────────
   const [specs, setSpecs] = useState<ProductSpecificationDto[]>([]);
   const [newSpecKey, setNewSpecKey] = useState("");
   const [newSpecValue, setNewSpecValue] = useState("");
+  const [editingSpec, setEditingSpec] = useState<{ id: number; key: string; value: string } | null>(null);
 
-  // Attributes State
+  // ── Attributes ───────────────────────────────────────────────────
   const [attributes, setAttributes] = useState<ProductAttributeValueDto[]>([]);
-  const [newAttributeValId, setNewAttributeValId] = useState(""); // Simplified: just entering an ID or selecting from a generic list if we had one.
+  const [newAttributeValId, setNewAttributeValId] = useState("");
 
+  // ─────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (currentProductId) {
-      loadImages();
-      loadSpecs();
-      loadAttributes();
+      void loadImages();
+      void loadSpecs();
+      void loadAttributes();
     }
   }, [currentProductId]);
 
   const loadImages = async () => {
     if (!currentProductId) return;
-    try {
-      const data = await getImagesByProductId(currentProductId);
-      setImages(data);
-    } catch { /* ignore */ }
+    try { setImages(await getImagesByProductId(currentProductId)); } catch { /* ignore */ }
   };
-
   const loadSpecs = async () => {
     if (!currentProductId) return;
-    try {
-      const data = await getSpecificationsByProductId(currentProductId);
-      setSpecs(data);
-    } catch { /* ignore */ }
+    try { setSpecs(await getSpecificationsByProductId(currentProductId)); } catch { /* ignore */ }
   };
-
   const loadAttributes = async () => {
     if (!currentProductId) return;
-    try {
-      const data = await getProductAttributes(currentProductId);
-      setAttributes(data);
-    } catch { /* ignore */ }
+    try { setAttributes(await getProductAttributes(currentProductId)); } catch { /* ignore */ }
   };
 
-  const handleSaveBasic = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-
+  // ── Basic Save ───────────────────────────────────────────────────
+  const handleSaveBasic = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
     const payload: AdminProductPayload = {
-      title: String(formData.get("title") || ""),
-      description: String(formData.get("description") || ""),
-      sellPrice: Number(formData.get("sellPrice") || 0),
-      costPrice: Number(formData.get("costPrice") || 0),
-      discount: Number(formData.get("discount") || 0),
-      quantity: Number(formData.get("quantity") || 0),
-      sku: String(formData.get("sku") || ""),
-      brandId: Number(formData.get("brandId") || 1),
-      categoryId: Number(formData.get("categoryId") || 1),
-      coverImage: (formData.get("coverImage") as File) || null,
-      secondImage: (formData.get("secondImage") as File) || null,
+      title: String(fd.get("title") || ""),
+      description: String(fd.get("description") || ""),
+      sellPrice: Number(fd.get("sellPrice") || 0),
+      costPrice: Number(fd.get("costPrice") || 0),
+      discount: Number(fd.get("discount") || 0),
+      quantity: Number(fd.get("quantity") || 0),
+      sku: String(fd.get("sku") || ""),
+      brandId: Number(fd.get("brandId") || 1),
+      categoryId: Number(fd.get("categoryId") || 1),
+      coverImage: (fd.get("coverImage") as File)?.size ? (fd.get("coverImage") as File) : null,
+      secondImage: (fd.get("secondImage") as File)?.size ? (fd.get("secondImage") as File) : null,
     };
-
-    setSavingProduct(true);
+    setSaving(true);
     try {
       if (currentProductId) {
         await updateProduct(currentProductId, payload);
-        Swal.fire({ toast: true, position: "top-end", icon: "success", title: "Product updated!", showConfirmButton: false, timer: 1500, background: "#1a1a2e", color: "#fff" });
+        toast("success", "Product updated!");
         onClose();
       } else {
         const result = await createProduct(payload);
-        // Assuming result contains the new product ID. If not, we just close.
-        if (result && result.id) {
+        if (result?.id) {
           setCurrentProductId(result.id);
-          Swal.fire({ toast: true, position: "top-end", icon: "success", title: "Product created! You can now add images & specs.", showConfirmButton: false, timer: 3000, background: "#1a1a2e", color: "#fff" });
+          toast("success", "Product created! Now add images & specs.");
           setActiveTab("images");
         } else {
-          Swal.fire({ toast: true, position: "top-end", icon: "success", title: "Product created!", showConfirmButton: false, timer: 1500, background: "#1a1a2e", color: "#fff" });
+          toast("success", "Product created!");
           onClose();
         }
       }
     } catch {
-      Swal.fire({ icon: "error", title: "Error", text: "Failed to save product", background: "#1a1a2e", color: "#fff" });
+      Swal.fire({ icon: "error", title: "Error", text: "Failed to save product", background: "#0d1117", color: "#e6edf3" });
     } finally {
-      setSavingProduct(false);
+      setSaving(false);
     }
   };
 
+  // ── Images ───────────────────────────────────────────────────────
   const handleAddImages = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.length || !currentProductId) return;
-    const formData = new FormData();
-    // Assuming the DTOs expect files we'll append them.
-    // The endpoint expects IList<ProductImageCreateDto>, which usually binds from FormData fields.
-    // Let's adapt base API approach:
-    Array.from(e.target.files).forEach((file, ind) => {
-      formData.append(`dtos[${ind}].File`, file);
-      formData.append(`dtos[${ind}].AltText`, product?.name || "Product Image");
+    const fd = new FormData();
+    Array.from(e.target.files).forEach((file, i) => {
+      fd.append(`dtos[${i}].File`, file);
+      fd.append(`dtos[${i}].AltText`, product?.title || "Product Image");
     });
-
     setUploadLoading(true);
     try {
-      await addImages(currentProductId, formData);
+      await addImages(currentProductId, fd);
       await loadImages();
-      Swal.fire({ toast: true, position: "top-end", icon: "success", title: "Images uploaded!", showConfirmButton: false, timer: 1500, background: "#1a1a2e", color: "#fff" });
+      toast("success", "Images uploaded!");
     } catch {
-      Swal.fire({ icon: "error", title: "Error", text: "Upload failed", background: "#1a1a2e", color: "#fff" });
+      toast("error", "Upload failed");
     } finally {
       setUploadLoading(false);
     }
+    e.target.value = "";
   };
 
   const handleDeleteImage = async (imageId: number) => {
-    try {
-      // Hard delete
-      await deleteImages([imageId], 1);
-      await loadImages();
-    } catch {
-      Swal.fire({ icon: "error", title: "Error", text: "Delete failed", background: "#1a1a2e", color: "#fff" });
-    }
+    try { await deleteImages([imageId], 1); await loadImages(); }
+    catch { toast("error", "Delete failed"); }
   };
 
   const handleSetPrimary = async (imageId: number) => {
     if (!currentProductId) return;
-    try {
-      await setPrimaryImage(currentProductId, imageId);
-      await loadImages();
-    } catch {
-      Swal.fire({ icon: "error", title: "Error", text: "Update failed", background: "#1a1a2e", color: "#fff" });
-    }
+    try { await setPrimaryImage(currentProductId, imageId); await loadImages(); toast("success", "Primary image set!"); }
+    catch { toast("error", "Update failed"); }
   };
 
+  const handleSetSecondary = async (imageId: number) => {
+    if (!currentProductId) return;
+    try { await setSecondaryImage(currentProductId, imageId); await loadImages(); toast("success", "Secondary image set!"); }
+    catch { toast("error", "Update failed"); }
+  };
+
+  // ── Specs ────────────────────────────────────────────────────────
   const handleAddSpec = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!currentProductId || !newSpecKey || !newSpecValue) return;
+    if (!currentProductId || !newSpecKey.trim() || !newSpecValue.trim()) return;
     try {
-      await createSpecification(currentProductId, newSpecKey, newSpecValue);
-      setNewSpecKey("");
-      setNewSpecValue("");
-      await loadSpecs();
-    } catch {
-      Swal.fire({ icon: "error", title: "Error", text: "Failed to add spec", background: "#1a1a2e", color: "#fff" });
-    }
+      await createSpecification(currentProductId, newSpecKey.trim(), newSpecValue.trim());
+      setNewSpecKey(""); setNewSpecValue("");
+      await loadSpecs(); toast("success", "Spec added!");
+    } catch { toast("error", "Failed to add spec"); }
+  };
+
+  const handleSaveEditSpec = async () => {
+    if (!editingSpec) return;
+    try {
+      await updateSpecification(editingSpec.id, editingSpec.key, editingSpec.value);
+      setEditingSpec(null);
+      await loadSpecs(); toast("success", "Spec updated!");
+    } catch { toast("error", "Failed to update spec"); }
   };
 
   const handleDeleteSpec = async (id: number) => {
-    try {
-      await deleteSpecification(id);
-      await loadSpecs();
-    } catch {
-      Swal.fire({ icon: "error", title: "Error", text: "Failed to delete spec", background: "#1a1a2e", color: "#fff" });
-    }
+    try { await deleteSpecification(id); await loadSpecs(); }
+    catch { toast("error", "Failed to delete spec"); }
   };
 
+  // ── Attributes ────────────────────────────────────────────────────
   const handleAssignAttribute = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentProductId || !newAttributeValId) return;
     try {
       await assignAttributeValueToProduct(currentProductId, Number(newAttributeValId));
-      setNewAttributeValId("");
-      await loadAttributes();
-    } catch {
-      Swal.fire({ icon: "error", title: "Error", text: "Failed to assign", background: "#1a1a2e", color: "#fff" });
-    }
-  }
+      setNewAttributeValId(""); await loadAttributes(); toast("success", "Attribute assigned!");
+    } catch { toast("error", "Failed to assign attribute"); }
+  };
 
   const handleRemoveAttribute = async (valId: number) => {
     if (!currentProductId) return;
-    try {
-      await removeAttributeValueFromProduct(currentProductId, valId);
-      await loadAttributes();
-    } catch {
-      Swal.fire({ icon: "error", title: "Error", text: "Failed to remove", background: "#1a1a2e", color: "#fff" });
-    }
-  }
+    try { await removeAttributeValueFromProduct(currentProductId, valId); await loadAttributes(); }
+    catch { toast("error", "Failed to remove attribute"); }
+  };
 
+  // ─────────────────────────────────────────────────────────────────
   return (
     <div className="admin-dashboard__modal">
+      {/* Header */}
       <div className="admin-dashboard__modal-header">
-        <h2>{product ? `Edit: ${product.name}` : "Add New Product"}</h2>
+        <h2>{product ? `Edit: ${product.title}` : "Add New Product"}</h2>
         <button className="admin-dashboard__close-btn" onClick={onClose}>&times;</button>
       </div>
 
+      {/* Tabs */}
       <div className="admin-dashboard__modal-tabs">
-        <button className={activeTab === 'basic' ? 'active' : ''} onClick={() => setActiveTab('basic')}>Basic Info</button>
-        <button
-          className={activeTab === 'images' ? 'active' : ''}
-          onClick={() => setActiveTab('images')}
-          disabled={!currentProductId}
-        >Images</button>
-        <button
-          className={activeTab === 'specs' ? 'active' : ''}
-          onClick={() => setActiveTab('specs')}
-          disabled={!currentProductId}
-        >Specifications</button>
-        <button
-          className={activeTab === 'attributes' ? 'active' : ''}
-          onClick={() => setActiveTab('attributes')}
-          disabled={!currentProductId}
-        >Attributes</button>
+        {(["basic", "images", "specs", "attributes"] as TabType[]).map((tab) => {
+          const labels: Record<TabType, React.ReactNode> = {
+            basic: <><FaCube style={{ marginRight: 6 }} />Basic Info</>,
+            images: <><MdPhotoLibrary style={{ marginRight: 6 }} />Images {images.length > 0 && `(${images.length})`}</>,
+            specs: <><FaLayerGroup style={{ marginRight: 6 }} />Specs {specs.length > 0 && `(${specs.length})`}</>,
+            attributes: <><FaTags style={{ marginRight: 6 }} />Attributes {attributes.length > 0 && `(${attributes.length})`}</>,
+          };
+          return (
+            <button
+              key={tab}
+              className={activeTab === tab ? "active" : ""}
+              onClick={() => setActiveTab(tab)}
+              disabled={tab !== "basic" && !currentProductId}
+            >
+              {labels[tab]}
+            </button>
+          );
+        })}
       </div>
 
+      {/* Body */}
       <div className="admin-dashboard__modal-body">
-        {(!currentProductId && activeTab !== 'basic') && (
+        {!currentProductId && activeTab !== "basic" && (
           <div className="admin-dashboard__warn-banner">
-            Please save the basic product information first.
+            ⚠ Save the basic product info first before adding images, specs, or attributes.
           </div>
         )}
 
-        {activeTab === 'basic' && (
-          <form className="admin-dashboard__form" onSubmit={handleSaveBasic}>
-            <div className="admin-dashboard__form-row">
-              <div className="admin-dashboard__form-group">
-                <label htmlFor="title">Title</label>
-                <input
-                  id="title"
-                  name="title"
-                  defaultValue={product?.name ?? ""}
-                  required
-                />
+        {/* ───── BASIC TAB ───── */}
+        {activeTab === "basic" && (
+          <div className="admin-dashboard__tab-pane">
+            <form onSubmit={handleSaveBasic}>
+              <div className="admin-dashboard__form-row">
+                <div className="admin-dashboard__form-group">
+                  <label>Title *</label>
+                  <input name="title" defaultValue={product?.title ?? ""} placeholder="Product title" required />
+                </div>
+                <div className="admin-dashboard__form-group">
+                  <label>SKU *</label>
+                  <input name="sku" defaultValue={product?.sku ?? ""} placeholder="SKU-001" required />
+                </div>
               </div>
-              <div className="admin-dashboard__form-group">
-                <label htmlFor="sku">SKU</label>
-                <input id="sku" name="sku" defaultValue={product?.sku ?? ""} required />
-              </div>
-            </div>
 
-            <div className="admin-dashboard__form-row">
-              <div className="admin-dashboard__form-group">
-                <label htmlFor="sellPrice">Sell Price</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  id="sellPrice"
-                  name="sellPrice"
-                  defaultValue={product?.price ?? 0}
-                  required
-                />
+              <div className="admin-dashboard__form-row" style={{ gridTemplateColumns: "1fr 1fr 1fr 1fr" }}>
+                <div className="admin-dashboard__form-group">
+                  <label>Sell Price *</label>
+                  <input type="number" step="0.01" min="0" name="sellPrice" defaultValue={product?.sellPrice ?? 0} required />
+                </div>
+                <div className="admin-dashboard__form-group">
+                  <label>Cost Price *</label>
+                  <input type="number" step="0.01" min="0" name="costPrice" defaultValue={product?.costPrice ?? 0} required />
+                </div>
+                <div className="admin-dashboard__form-group">
+                  <label>Discount (%)</label>
+                  <input type="number" min="0" max="100" name="discount" defaultValue={product?.discount ?? 0} />
+                </div>
+                <div className="admin-dashboard__form-group">
+                  <label>Quantity *</label>
+                  <input type="number" min="0" name="quantity" defaultValue={product?.quantity ?? 1} required />
+                </div>
               </div>
-              <div className="admin-dashboard__form-group">
-                <label htmlFor="costPrice">Cost Price</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  id="costPrice"
-                  name="costPrice"
-                  defaultValue={product?.price ?? 0} /* Assuming same for mockup */
-                  required
-                />
-              </div>
-              <div className="admin-dashboard__form-group">
-                <label htmlFor="discount">Discount (%)</label>
-                <input
-                  type="number"
-                  id="discount"
-                  name="discount"
-                  defaultValue={0}
-                />
-              </div>
-              <div className="admin-dashboard__form-group">
-                <label htmlFor="quantity">Quantity</label>
-                <input
-                  type="number"
-                  id="quantity"
-                  name="quantity"
-                  defaultValue={1}
-                  required
-                />
-              </div>
-            </div>
 
-            <div className="admin-dashboard__form-row">
-              <div className="admin-dashboard__form-group">
-                <label htmlFor="categoryId">Category</label>
-                <select id="categoryId" name="categoryId" defaultValue={product?.categoryId ?? ""}>
-                  <option value="">Select category</option>
-                  {categories.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.title}
-                    </option>
-                  ))}
-                </select>
+              <div className="admin-dashboard__form-row">
+                <div className="admin-dashboard__form-group">
+                  <label>Category</label>
+                  <select name="categoryId" defaultValue={product?.categoryId ?? ""}>
+                    <option value="">Select category</option>
+                    {categories.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
+                  </select>
+                </div>
+                <div className="admin-dashboard__form-group">
+                  <label>Brand</label>
+                  <select name="brandId" defaultValue={product?.brandId ?? ""}>
+                    <option value="">Select brand</option>
+                    {brands.map((b) => <option key={b.id} value={b.id}>{b.title}</option>)}
+                  </select>
+                </div>
               </div>
-              <div className="admin-dashboard__form-group">
-                <label htmlFor="brandId">Brand</label>
-                <select id="brandId" name="brandId" defaultValue={product?.brandId ?? ""}>
-                  <option value="">Select brand</option>
-                  {brands.map((b) => (
-                    <option key={b.id} value={b.id}>
-                      {b.title}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
 
-            <div className="admin-dashboard__form-group">
-              <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                name="description"
-                rows={3}
-                defaultValue={product?.description ?? ""}
-              />
-            </div>
-
-            <hr className="admin-dashboard__divider" />
-            <p className="admin-dashboard__note">For main layout images (Fallback endpoints)</p>
-            <div className="admin-dashboard__form-row">
               <div className="admin-dashboard__form-group">
-                <label htmlFor="coverImage">Cover Image</label>
-                <input
-                  id="coverImage"
-                  name="coverImage"
-                  type="file"
-                  accept="image/*"
-                />
+                <label>Description</label>
+                <textarea name="description" rows={3} defaultValue={product?.description ?? ""} placeholder="Product description..." />
               </div>
-              <div className="admin-dashboard__form-group">
-                <label htmlFor="secondImage">Second Image</label>
-                <input
-                  id="secondImage"
-                  name="secondImage"
-                  type="file"
-                  accept="image/*"
-                />
-              </div>
-            </div>
 
-            <div className="admin-dashboard__form-actions align-right">
-              <button type="submit" className="admin-dashboard__button admin-dashboard__button--primary" disabled={savingProduct}>
-                {savingProduct ? "Saving..." : "Save Product Data"}
-              </button>
-            </div>
-          </form>
+              <hr className="admin-dashboard__divider" />
+              <p className="admin-dashboard__note">
+                <FaImage /> Main layout images (cover &amp; second) — also manageable in the Images tab for more control
+              </p>
+
+              <div className="admin-dashboard__form-row">
+                <div className="admin-dashboard__form-group">
+                  <label>Cover Image {currentProductId && "(leave empty to keep)"}</label>
+                  <input name="coverImage" type="file" accept="image/*" />
+                  {product?.coverImage && (
+                    <img src={getImageUrl(product.coverImage)} alt="cover" className="admin-dashboard__preview-thumb" />
+                  )}
+                </div>
+                <div className="admin-dashboard__form-group">
+                  <label>Second Image {currentProductId && "(leave empty to keep)"}</label>
+                  <input name="secondImage" type="file" accept="image/*" />
+                  {product?.secondImage && (
+                    <img src={getImageUrl(product.secondImage)} alt="second" className="admin-dashboard__preview-thumb" />
+                  )}
+                </div>
+              </div>
+
+              <div className="admin-dashboard__form-actions align-right">
+                <button type="button" className="admin-dashboard__button admin-dashboard__button--ghost" onClick={onClose}>
+                  <FaTimes /> Cancel
+                </button>
+                <button type="submit" className="admin-dashboard__button admin-dashboard__button--primary" disabled={saving}>
+                  {saving ? "Saving..." : currentProductId ? "Update Product" : "Create Product"}
+                </button>
+              </div>
+            </form>
+          </div>
         )}
 
-        {activeTab === 'images' && currentProductId && (
+        {/* ───── IMAGES TAB ───── */}
+        {activeTab === "images" && currentProductId && (
           <div className="admin-dashboard__tab-pane">
             <div className="admin-dashboard__upload-area">
               <label className="admin-dashboard__upload-label">
-                <FaImage /> {uploadLoading ? "Uploading..." : "Upload Extra Images"}
-                <input type="file" multiple accept="image/*" onChange={handleAddImages} disabled={uploadLoading} hidden />
+                <FaImage />
+                {uploadLoading ? "Uploading..." : "Click to upload images"}
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleAddImages}
+                  disabled={uploadLoading}
+                  hidden
+                />
+                <small>PNG, JPG, WEBP · Multiple files supported</small>
               </label>
             </div>
 
             <div className="admin-dashboard__image-grid">
-              {images.map(img => (
-                <div key={img.id} className={`admin-dashboard__image-card ${img.isPrimary ? 'primary' : ''}`}>
-                  <img src={img.imageUrl} alt={img.altText} />
+              {images.map((img) => (
+                <div
+                  key={img.id}
+                  className={`admin-dashboard__image-card ${img.isPrimary ? "primary" : ""} ${img.isSecondary ? "secondary" : ""}`}
+                >
+                  <img src={getImageUrl(img.imageUrl)} alt={img.altText} onError={(e) => { (e.target as HTMLImageElement).src = "/placeholder.svg"; }} />
+                  {img.isPrimary && <span className="admin-dashboard__image-label admin-dashboard__image-label--primary">Primary</span>}
+                  {img.isSecondary && !img.isPrimary && <span className="admin-dashboard__image-label admin-dashboard__image-label--secondary">Secondary</span>}
                   <div className="admin-dashboard__image-actions">
-                    <button onClick={() => handleSetPrimary(img.id)} title="Set Primary" className={img.isPrimary ? 'active-star' : ''}>
+                    <button
+                      onClick={() => handleSetPrimary(img.id)}
+                      title="Set as Primary"
+                      className={img.isPrimary ? "active-star" : ""}
+                    >
                       {img.isPrimary ? <FaStar /> : <FaRegStar />}
                     </button>
-                    <button onClick={() => handleDeleteImage(img.id)} className="danger">
+                    <button
+                      onClick={() => handleSetSecondary(img.id)}
+                      title="Set as Secondary"
+                      className={img.isSecondary ? "active-secondary" : ""}
+                      style={{ fontSize: 12, fontWeight: 700 }}
+                    >
+                      2nd
+                    </button>
+                    <button onClick={() => handleDeleteImage(img.id)} className="danger" title="Delete">
                       <FaTrash />
                     </button>
                   </div>
                 </div>
               ))}
-              {images.length === 0 && <p>No extra images found.</p>}
+              {images.length === 0 && (
+                <p style={{ gridColumn: "1/-1", color: "var(--admin-text-muted)", textAlign: "center", marginTop: 20 }}>
+                  No extra images yet. Upload some above.
+                </p>
+              )}
+            </div>
+
+            <div style={{ marginTop: 20, padding: "14px 16px", background: "rgba(88,166,255,0.05)", borderRadius: 10, border: "1px solid rgba(88,166,255,0.15)", fontSize: 13, color: "var(--admin-text-muted)" }}>
+              <strong style={{ color: "var(--admin-text-secondary)" }}>⭐ Primary</strong> — main display image &nbsp;·&nbsp;
+              <strong style={{ color: "#d2a8ff" }}>2nd Secondary</strong> — hover/secondary display image
             </div>
           </div>
         )}
 
-        {activeTab === 'specs' && currentProductId && (
+        {/* ───── SPECS TAB ───── */}
+        {activeTab === "specs" && currentProductId && (
           <div className="admin-dashboard__tab-pane">
             <form onSubmit={handleAddSpec} className="admin-dashboard__inline-form">
-              <input type="text" placeholder="Key (e.g. Color)" value={newSpecKey} onChange={(e) => setNewSpecKey(e.target.value)} required />
-              <input type="text" placeholder="Value (e.g. Red)" value={newSpecValue} onChange={(e) => setNewSpecValue(e.target.value)} required />
-              <button type="submit" className="admin-dashboard__button admin-dashboard__button--primary"><FaPlus /> Add Spec</button>
+              <input
+                type="text"
+                placeholder="Key (e.g. Color)"
+                value={newSpecKey}
+                onChange={(e) => setNewSpecKey(e.target.value)}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Value (e.g. Midnight Black)"
+                value={newSpecValue}
+                onChange={(e) => setNewSpecValue(e.target.value)}
+                required
+              />
+              <button type="submit" className="admin-dashboard__button admin-dashboard__button--primary">
+                <FaPlus /> Add
+              </button>
             </form>
+
             <table className="admin-dashboard__sub-table">
-              <thead><tr><th>Key</th><th>Value</th><th></th></tr></thead>
+              <thead>
+                <tr><th>Key</th><th>Value</th><th style={{ width: 100 }}>Actions</th></tr>
+              </thead>
               <tbody>
-                {specs.map(spec => (
+                {specs.length === 0 && (
+                  <tr><td colSpan={3} className="admin-dashboard__empty-cell">No specifications yet</td></tr>
+                )}
+                {specs.map((spec) => (
                   <tr key={spec.id}>
-                    <td>{spec.key}</td>
-                    <td>{spec.value}</td>
-                    <td><button onClick={() => handleDeleteSpec(spec.id)} className="admin-dashboard__action-btn admin-dashboard__action-btn--delete"><FaTrash /></button></td>
+                    <td>
+                      {editingSpec?.id === spec.id ? (
+                        <input
+                          className="edit-input"
+                          value={editingSpec.key}
+                          onChange={(e) => setEditingSpec({ ...editingSpec, key: e.target.value })}
+                        />
+                      ) : spec.key}
+                    </td>
+                    <td>
+                      {editingSpec?.id === spec.id ? (
+                        <input
+                          className="edit-input"
+                          value={editingSpec.value}
+                          onChange={(e) => setEditingSpec({ ...editingSpec, value: e.target.value })}
+                        />
+                      ) : spec.value}
+                    </td>
+                    <td>
+                      {editingSpec?.id === spec.id ? (
+                        <>
+                          <button className="admin-dashboard__action-btn admin-dashboard__action-btn--edit" onClick={handleSaveEditSpec} title="Save" style={{ marginRight: 4 }}><FaCheck /></button>
+                          <button className="admin-dashboard__action-btn" onClick={() => setEditingSpec(null)} title="Cancel"><FaTimes /></button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            className="admin-dashboard__action-btn admin-dashboard__action-btn--edit"
+                            onClick={() => setEditingSpec({ id: spec.id, key: spec.key, value: spec.value })}
+                            title="Edit"
+                            style={{ marginRight: 4 }}
+                          ><FaEdit /></button>
+                          <button
+                            className="admin-dashboard__action-btn admin-dashboard__action-btn--delete"
+                            onClick={() => handleDeleteSpec(spec.id)}
+                            title="Delete"
+                          ><FaTrash /></button>
+                        </>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -433,20 +478,50 @@ const ProductModal: React.FC<ProductModalProps> = ({
           </div>
         )}
 
-        {activeTab === 'attributes' && currentProductId && (
+        {/* ───── ATTRIBUTES TAB ───── */}
+        {activeTab === "attributes" && currentProductId && (
           <div className="admin-dashboard__tab-pane">
+            <div style={{ marginBottom: 20, padding: "12px 16px", background: "rgba(227,179,65,0.08)", border: "1px solid rgba(227,179,65,0.2)", borderRadius: 10, fontSize: 13, color: "var(--admin-warning)" }}>
+              Enter the Attribute Value ID from your backend to assign an attribute to this product.
+            </div>
+
             <form onSubmit={handleAssignAttribute} className="admin-dashboard__inline-form">
-              <input type="number" placeholder="Attribute Value ID (e.g. 1)" value={newAttributeValId} onChange={(e) => setNewAttributeValId(e.target.value)} required />
-              <button type="submit" className="admin-dashboard__button admin-dashboard__button--primary"><FaPlus /> Assign</button>
+              <input
+                type="number"
+                placeholder="Attribute Value ID (e.g. 5)"
+                value={newAttributeValId}
+                onChange={(e) => setNewAttributeValId(e.target.value)}
+                required
+                min="1"
+              />
+              <button type="submit" className="admin-dashboard__button admin-dashboard__button--primary">
+                <FaPlus /> Assign
+              </button>
             </form>
+
             <table className="admin-dashboard__sub-table">
-              <thead><tr><th>Attribute</th><th>Value</th><th></th></tr></thead>
+              <thead>
+                <tr><th>Attribute</th><th>Value</th><th style={{ width: 80 }}>Actions</th></tr>
+              </thead>
               <tbody>
-                {attributes.map(attr => (
+                {attributes.length === 0 && (
+                  <tr><td colSpan={3} className="admin-dashboard__empty-cell">No attributes assigned</td></tr>
+                )}
+                {attributes.map((attr) => (
                   <tr key={attr.id}>
-                    <td>{attr.attributeName}</td>
-                    <td>{attr.value}</td>
-                    <td><button onClick={() => handleRemoveAttribute(attr.id)} className="admin-dashboard__action-btn admin-dashboard__action-btn--delete"><FaTrash /></button></td>
+                    <td>
+                      <span className="admin-dashboard__tag-badge">{attr.attributeName}</span>
+                    </td>
+                    <td style={{ fontWeight: 500 }}>{attr.value}</td>
+                    <td>
+                      <button
+                        className="admin-dashboard__action-btn admin-dashboard__action-btn--delete"
+                        onClick={() => handleRemoveAttribute(attr.id)}
+                        title="Remove"
+                      >
+                        <FaTrash />
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
