@@ -19,6 +19,13 @@ export interface Product {
   brand?: string;
   images?: string[];
   videoUrl?: string;
+  sku?: string;
+  description?: string;
+  costPrice?: number;
+  discount?: number;
+  quantity?: number;
+  categoryId?: number;
+  brandId?: number;
 }
 
 interface ProductsState {
@@ -87,7 +94,11 @@ export const fetchProducts = createAsyncThunk(
         coverImage: string;
         secondImage?: string;
         sellPrice: number;
+        costPrice?: number;
         discount: number;
+        quantity?: number;
+        sku?: string;
+        description?: string;
         categoryId: number;
         brandId?: number;
       }>;
@@ -115,6 +126,13 @@ export const fetchProducts = createAsyncThunk(
             p.brandId != null
               ? brandMap.get(p.brandId) || "Unknown"
               : undefined,
+          sku: p.sku,
+          description: p.description,
+          costPrice: p.costPrice,
+          discount: p.discount,
+          quantity: p.quantity,
+          categoryId: p.categoryId,
+          brandId: p.brandId,
         };
       });
 
@@ -136,7 +154,11 @@ export const fetchProductById = createAsyncThunk(
         coverImage: string;
         secondImage?: string;
         sellPrice: number;
+        costPrice?: number;
         discount: number;
+        quantity?: number;
+        sku?: string;
+        description?: string;
         categoryId: number;
         brandId?: number;
         images?: string[];
@@ -167,6 +189,13 @@ export const fetchProductById = createAsyncThunk(
           p.brandId != null ? brandMap.get(p.brandId) || "Unknown" : undefined,
         images: p.images ? p.images.map(img => getImageUrl(img)) : [],
         videoUrl: p.videoUrl,
+        sku: p.sku,
+        description: p.description,
+        costPrice: p.costPrice,
+        discount: p.discount,
+        quantity: p.quantity,
+        categoryId: p.categoryId,
+        brandId: p.brandId,
       };
 
       return mapped;

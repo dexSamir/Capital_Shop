@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import Swal from "sweetalert2";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   fetchProducts,
   deleteProduct,
   setFilter,
   type Product,
-} from "../../../../store/slices/productSlice";
-import { fetchCategories, type CategoryDto } from "../../../../api/categories";
-import { fetchBrands, type BrandDto } from "../../../../api/brands";
+} from "../../../store/slices/productSlice";
+import { fetchCategories, type CategoryDto } from "../../../api/categories";
+import { fetchBrands, type BrandDto } from "../../../api/brands";
 import AdminSearchbar from "../../../components/AdminSearchbar";
 import AdminTable from "../../../components/AdminTable";
 import ProductModal from "./ProductModal";
@@ -19,11 +19,11 @@ const ProductsManagement: React.FC = () => {
   const { filteredItems, loading, error } = useAppSelector(
     (state) => state.products,
   );
-  
+
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState<CategoryDto[]>([]);
   const [brands, setBrands] = useState<BrandDto[]>([]);
-  
+
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 

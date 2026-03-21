@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { fetchAllOrders, updateOrderStatus, type AdminOrder } from "../../../../api/orders";
+import { fetchAllOrders, updateOrderStatus, type AdminOrder } from "../../../api/orders";
 
 const OrdersManagement: React.FC = () => {
   const [orders, setOrders] = useState<AdminOrder[]>([]);

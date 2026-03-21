@@ -6,7 +6,7 @@ import {
   createBrand,
   deleteBrand,
   type BrandDto,
-} from "../../../../api/brands";
+} from "../../../api/brands";
 
 const BrandsManagement: React.FC = () => {
   const [brands, setBrands] = useState<BrandDto[]>([]);

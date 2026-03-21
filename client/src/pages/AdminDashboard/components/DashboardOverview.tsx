@@ -1,7 +1,7 @@
 import React from "react";
 import { FaMoneyBillWave, FaShoppingCart, FaTags, FaBoxOpen, FaDownload, FaCalendarAlt, FaEllipsisV } from "react-icons/fa";
-import { type CategoryDto } from "../../../../api/categories";
-import { type BrandDto } from "../../../../api/brands";
+import { type CategoryDto } from "../../../api/categories";
+import { type BrandDto } from "../../../api/brands";
 
 interface DashboardOverviewProps {
   dateRange: string;

@@ -6,7 +6,7 @@ import {
   createCategory,
   deleteCategory,
   type CategoryDto,
-} from "../../../../api/categories";
+} from "../../../api/categories";
 
 const CategoriesManagement: React.FC = () => {
   const [categories, setCategories] = useState<CategoryDto[]>([]);

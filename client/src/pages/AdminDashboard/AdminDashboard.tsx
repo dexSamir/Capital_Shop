@@ -53,7 +53,7 @@ const categoryData = [
 function Dashboard() {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.products);
-  
+
   const [activeTab, setActiveTab] = useState("dashboard");
   const [dateRange, setDateRange] = useState("This Month");
   const [categories, setCategories] = useState<CategoryDto[]>([]);
@@ -177,13 +177,13 @@ function Dashboard() {
             categoryData={categoryData}
           />
         )}
-        
+
         {activeTab === "products" && <ProductsManagement />}
         {activeTab === "categories" && <CategoriesManagement />}
         {activeTab === "brands" && <BrandsManagement />}
         {activeTab === "orders" && <OrdersManagement />}
         {activeTab === "users" && <UsersManagement />}
-        
+
         {/* Reusing DashboardOverview for Analytics for now, per original design */}
         {activeTab === "analytics" && (
           <DashboardOverview

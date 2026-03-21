@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { type UserDto, fetchAllUsers, assignRole, removeRole } from "../../../../api/users";
+import { type UserDto, fetchAllUsers, assignRole, removeRole } from "../../../api/users";
 
 const UsersManagement: React.FC = () => {
   const [users, setUsers] = useState<UserDto[]>([]);
@@ -100,11 +100,10 @@ const UsersManagement: React.FC = () => {
                     </td>
                     <td>
                       <button
-                        className={`admin-dashboard__action-button ${
-                          isAdmin
+                        className={`admin-dashboard__action-button ${isAdmin
                             ? "admin-dashboard__action-button--delete"
                             : "admin-dashboard__action-button--edit"
-                        }`}
+                          }`}
                         onClick={() => handleToggleAdmin(u.id, isAdmin)}
                       >
                         {isAdmin ? "Remove Admin" : "Make Admin"}
