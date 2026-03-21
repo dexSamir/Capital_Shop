@@ -45,8 +45,10 @@ public static class DbInitializer
 
         if (shouldRefreshProducts)
         {
-            await context.Ratings.ExecuteDeleteAsync();
+            await context.ReviewReactions.ExecuteDeleteAsync();
             await context.Reviews.ExecuteDeleteAsync();
+            await context.Ratings.ExecuteDeleteAsync();
+            await context.ProductAttributeValues.ExecuteDeleteAsync();
             await context.Specifications.ExecuteDeleteAsync();
             await context.Images.ExecuteDeleteAsync();
             await context.Products.ExecuteDeleteAsync();
