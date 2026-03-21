@@ -74,10 +74,16 @@ public class ReviewService : IReviewService
         if (dto.Images != null && dto.Images.Any())
         {
             var imagesList = new List<ProductImage>();
+            var rootPath = _env.WebRootPath;
+            if (string.IsNullOrWhiteSpace(rootPath))
+            {
+                rootPath = Path.Combine(_env.ContentRootPath, "wwwroot");
+            }
+
             foreach (var img in dto.Images)
             {
                 if (!Capital.BL.Extensions.FileExtension.IsValidType(img, "image")) continue;
-                string fileName = await Capital.BL.Extensions.FileExtension.UploadAysnc(img, _env.WebRootPath, "Images", "Reviews");
+                string fileName = await Capital.BL.Extensions.FileExtension.UploadAysnc(img, rootPath, "Images", "Reviews");
                 imagesList.Add(new ProductImage
                 {
                     ImageUrl = $"Images/Reviews/{fileName}",

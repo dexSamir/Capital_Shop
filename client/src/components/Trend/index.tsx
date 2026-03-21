@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import Carousel from "react-multi-carousel"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { testimonials } from "../../data/Data"
@@ -77,24 +78,24 @@ function Trend() {
         <div className="trend__categories">
           <ul className="trend__category-list">
             <li className="trend__category-item">
-              <a href="#" className="trend__category-link">
+              <Link to="/products?category=Men%27s%20Clothing" className="trend__category-link">
                 Men
-              </a>
+              </Link>
             </li>
             <li className="trend__category-item">
-              <a href="#" className="trend__category-link">
+              <Link to="/products?category=Women%27s%20Clothing" className="trend__category-link">
                 Women
-              </a>
+              </Link>
             </li>
             <li className="trend__category-item">
-              <a href="#" className="trend__category-link">
+              <Link to="/products?search=Baby" className="trend__category-link">
                 Baby
-              </a>
+              </Link>
             </li>
             <li className="trend__category-item">
-              <a href="#" className="trend__category-link">
+              <Link to="/products" className="trend__category-link">
                 Fashion
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

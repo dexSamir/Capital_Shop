@@ -292,7 +292,10 @@
     tbody tr {
       transition: var(--admin-transition);
       &:last-child td { border-bottom: none; }
-      &:hover { background: rgba(255, 255, 255, 0.025); }
+      &:hover {
+        background: rgba(88, 166, 255, 0.1);
+        td { color: var(--admin-text); }
+      }
     }
   }
 
@@ -415,7 +418,12 @@
     color: var(--admin-text-muted);
     font-size: 14px;
 
-    &:hover { transform: scale(1.05); }
+    &:hover {
+      transform: scale(1.05);
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.26);
+      color: var(--admin-text);
+    }
     &--delete {
       color: var(--admin-danger);
       &:hover { background: var(--admin-danger-bg); border-color: rgba(248, 81, 73, 0.3); }

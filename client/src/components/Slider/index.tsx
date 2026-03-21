@@ -120,7 +120,7 @@ function Slider() {
           <div className="category-section__grid">
             <div className="category-section__item">
               <h1 className="category-section__title">Men's Fashion</h1>
-              <Link to="/products" className="category-section__link">
+              <Link to="/products?category=Men%27s%20Clothing" className="category-section__link">
                 Shop Now
               </Link>
               <img src={item1 || "/placeholder.svg"} alt="Men's Fashion" className="category-section__image" />
@@ -128,7 +128,7 @@ function Slider() {
             </div>
             <div className="category-section__item">
               <h1 className="category-section__title">Women's Fashion</h1>
-              <Link to="/products" className="category-section__link">
+              <Link to="/products?category=Women%27s%20Clothing" className="category-section__link">
                 Shop Now
               </Link>
               <img src={item2 || "/placeholder.svg"} alt="Women's Fashion" className="category-section__image" />
@@ -136,7 +136,7 @@ function Slider() {
             </div>
             <div className="category-section__item">
               <h1 className="category-section__title">Baby Fashion</h1>
-              <Link to="/products" className="category-section__link">
+              <Link to="/products?search=Baby" className="category-section__link">
                 Shop Now
               </Link>
               <img src={item3 || "/placeholder.svg"} alt="Baby Fashion" className="category-section__image" />

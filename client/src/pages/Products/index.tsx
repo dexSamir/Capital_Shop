@@ -65,8 +65,17 @@ function Products() {
 
   useEffect(() => {
     const searchQuery = searchParams.get("search")
+    const categoryQuery = searchParams.get("category")
+    const brandQuery = searchParams.get("brand")
+
     if (searchQuery) {
       dispatch(setFilter({ key: "search", value: searchQuery }))
+    }
+    if (categoryQuery) {
+      dispatch(setFilter({ key: "category", value: categoryQuery }))
+    }
+    if (brandQuery) {
+      dispatch(setFilter({ key: "brand", value: brandQuery }))
     }
   }, [searchParams, dispatch])
 
