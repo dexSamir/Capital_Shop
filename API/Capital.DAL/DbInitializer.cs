@@ -12,27 +12,45 @@ public static class DbInitializer
     {
         await context.Database.MigrateAsync();
 
-        if (!await context.Categories.AnyAsync())
+        var requiredCategories = new List<Category>
         {
-            await context.Categories.AddRangeAsync(
-                new Category { Title = "Men's Clothing", ImageUrl = "https://picsum.photos/id/1005/600/600", CreatedTime = DateTime.UtcNow },
-                new Category { Title = "Women's Clothing", ImageUrl = "https://picsum.photos/id/1011/600/600", CreatedTime = DateTime.UtcNow },
-                new Category { Title = "Accessories", ImageUrl = "https://picsum.photos/id/1025/600/600", CreatedTime = DateTime.UtcNow },
-                new Category { Title = "Footwear", ImageUrl = "https://picsum.photos/id/21/600/600", CreatedTime = DateTime.UtcNow },
-                new Category { Title = "Electronics", ImageUrl = "https://picsum.photos/id/180/600/600", CreatedTime = DateTime.UtcNow }
-            );
+            new() { Title = "Men's Clothing", ImageUrl = "https://picsum.photos/id/1005/600/600", CreatedTime = DateTime.UtcNow },
+            new() { Title = "Women's Clothing", ImageUrl = "https://picsum.photos/id/1011/600/600", CreatedTime = DateTime.UtcNow },
+            new() { Title = "Accessories", ImageUrl = "https://picsum.photos/id/1025/600/600", CreatedTime = DateTime.UtcNow },
+            new() { Title = "Footwear", ImageUrl = "https://picsum.photos/id/21/600/600", CreatedTime = DateTime.UtcNow },
+            new() { Title = "Electronics", ImageUrl = "https://picsum.photos/id/180/600/600", CreatedTime = DateTime.UtcNow }
+        };
+
+        var existingCategoryTitles = await context.Categories
+            .Select(c => c.Title)
+            .ToListAsync();
+        var missingCategories = requiredCategories
+            .Where(c => !existingCategoryTitles.Contains(c.Title))
+            .ToList();
+        if (missingCategories.Count > 0)
+        {
+            await context.Categories.AddRangeAsync(missingCategories);
             await context.SaveChangesAsync();
         }
 
-        if (!await context.Brands.AnyAsync())
+        var requiredBrands = new List<Brand>
         {
-            await context.Brands.AddRangeAsync(
-                new Brand { Title = "Nike", Website = "https://www.nike.com", LogoUrl = "https://logo.clearbit.com/nike.com", CreatedTime = DateTime.UtcNow },
-                new Brand { Title = "Adidas", Website = "https://www.adidas.com", LogoUrl = "https://logo.clearbit.com/adidas.com", CreatedTime = DateTime.UtcNow },
-                new Brand { Title = "Zara", Website = "https://www.zara.com", LogoUrl = "https://logo.clearbit.com/zara.com", CreatedTime = DateTime.UtcNow },
-                new Brand { Title = "Puma", Website = "https://us.puma.com", LogoUrl = "https://logo.clearbit.com/puma.com", CreatedTime = DateTime.UtcNow },
-                new Brand { Title = "Apple", Website = "https://www.apple.com", LogoUrl = "https://logo.clearbit.com/apple.com", CreatedTime = DateTime.UtcNow }
-            );
+            new() { Title = "Nike", Website = "https://www.nike.com", LogoUrl = "https://logo.clearbit.com/nike.com", CreatedTime = DateTime.UtcNow },
+            new() { Title = "Adidas", Website = "https://www.adidas.com", LogoUrl = "https://logo.clearbit.com/adidas.com", CreatedTime = DateTime.UtcNow },
+            new() { Title = "Zara", Website = "https://www.zara.com", LogoUrl = "https://logo.clearbit.com/zara.com", CreatedTime = DateTime.UtcNow },
+            new() { Title = "Puma", Website = "https://us.puma.com", LogoUrl = "https://logo.clearbit.com/puma.com", CreatedTime = DateTime.UtcNow },
+            new() { Title = "Apple", Website = "https://www.apple.com", LogoUrl = "https://logo.clearbit.com/apple.com", CreatedTime = DateTime.UtcNow }
+        };
+
+        var existingBrandTitles = await context.Brands
+            .Select(b => b.Title)
+            .ToListAsync();
+        var missingBrands = requiredBrands
+            .Where(b => !existingBrandTitles.Contains(b.Title))
+            .ToList();
+        if (missingBrands.Count > 0)
+        {
+            await context.Brands.AddRangeAsync(missingBrands);
             await context.SaveChangesAsync();
         }
 
