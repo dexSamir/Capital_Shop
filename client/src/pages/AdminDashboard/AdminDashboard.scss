@@ -5,8 +5,8 @@
 
 .admin-dashboard {
   --admin-bg: #060b14;
-  /* Navbar (40px) + Header top bar (100px) — keeps fixed sidebar under site chrome */
-  --admin-chrome-top: 140px;
+  /* Admin layout is full-screen (no shop navbar/header); sidebar sticks to top-left */
+  --admin-chrome-top: 0px;
   --admin-sidebar-bg: rgba(10, 15, 26, 0.95);
   --admin-card-bg: rgba(16, 22, 36, 0.8);
   --admin-card-border: rgba(255, 255, 255, 0.07);
