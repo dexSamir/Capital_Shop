@@ -14,7 +14,6 @@ import BrandsManagement from "./components/BrandsManagement";
 import OrdersManagement from "./components/OrdersManagement";
 import UsersManagement from "./components/UsersManagement";
 
-// We will build this in the next steps
 import ProductsManagement from "./components/ProductsManagement";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -25,7 +24,6 @@ import { fetchAllOrders, type AdminOrder } from "../../api/orders";
 
 import "./AdminDashboard.scss";
 
-// Dummy data for analytics
 const monthlyRevenue = [
   { month: "Jan", revenue: 12500 },
   { month: "Feb", revenue: 18200 },
@@ -84,7 +82,6 @@ function Dashboard() {
         const data = await fetchAllOrders();
         setOrders(data);
       } catch {
-        // Handle gracefully
       }
     };
     void loadCategories();
@@ -182,7 +179,6 @@ function Dashboard() {
         {activeTab === "orders" && <OrdersManagement />}
         {activeTab === "users" && <UsersManagement />}
 
-        {/* Reusing DashboardOverview for Analytics for now, per original design */}
         {activeTab === "analytics" && (
           <DashboardOverview
             dateRange={dateRange}

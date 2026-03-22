@@ -1,4 +1,3 @@
-"use client"
 
 import { useState, useEffect } from "react"
 import { useFormik } from "formik"
@@ -72,8 +71,6 @@ function Login() {
             },
           }),
         )
-        
-        // Sync cart after successful login
         dispatch(syncCartToServer())
 
         if (data.isAdmin) {

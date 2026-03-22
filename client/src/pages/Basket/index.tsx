@@ -1,5 +1,3 @@
-"use client";
-
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { MdDelete } from "react-icons/md";

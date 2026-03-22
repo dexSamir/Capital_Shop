@@ -1,5 +1,3 @@
-"use client"
-
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
@@ -32,9 +30,6 @@ import { toggleWishlistItem } from "../../store/slices/wishlistSlice"
 import { fetchProductReviews, createReview, likeReview, dislikeReview, deleteReview, updateReview, type ReviewDto } from "../../api/reviews"
 import { getImageUrl } from "../../api/client"
 import "./Detail.scss"
-
-// Images now come from the API via selectedProduct.images
-
 
 
 const productSpecifications = {
@@ -171,22 +166,27 @@ function Detail() {
     const zoomContainer = zoomContainerRef.current
     const zoomResult = zoomResultRef.current
 
-    let lens = zoomLensRef.current
-    if (!lens) {
-      lens = document.createElement("div")
-      lens.classList.add("detail__zoom-lens")
-      zoomContainer.appendChild(lens)
-      zoomLensRef.current = lens
-    }
+    zoomResult.style.display = "none"
+    zoomResult.style.visibility = "hidden"
 
     const mainImage = zoomContainer.querySelector("img") as HTMLImageElement
     if (!mainImage) return
 
+    let lens = zoomLensRef.current
+    if (!lens) {
+      lens = document.createElement("div")
+      lens.classList.add("detail__zoom-lens")
+      lens.setAttribute("aria-hidden", "true")
+      zoomContainer.appendChild(lens)
+      zoomLensRef.current = lens
+    }
+    lens.style.display = "none"
+    lens.style.visibility = "hidden"
+
     zoomResult.style.backgroundImage = `url(${mainImage.src})`
 
-    // Calculate dynamic ratios later when element is visible
-    let cx = 0;
-    let cy = 0;
+    let cx = 0
+    let cy = 0
 
     const getCursorPos = (e: MouseEvent) => {
       const rect = mainImage.getBoundingClientRect()
@@ -222,20 +222,24 @@ function Detail() {
         y = 0
       }
 
-      lens.style.left = x + "px"
-      lens.style.top = y + "px"
+      lens.style.left = `${x}px`
+      lens.style.top = `${y}px`
 
       zoomResult.style.backgroundPosition = `-${x * cx}px -${y * cy}px`
     }
 
     const handleMouseEnter = () => {
       lens.style.display = "block"
+      lens.style.visibility = "visible"
       zoomResult.style.display = "block"
+      zoomResult.style.visibility = "visible"
     }
 
     const handleMouseLeave = () => {
       lens.style.display = "none"
+      lens.style.visibility = "hidden"
       zoomResult.style.display = "none"
+      zoomResult.style.visibility = "hidden"
     }
 
     zoomContainer.addEventListener("mousemove", moveLens)
@@ -246,6 +250,10 @@ function Detail() {
       zoomContainer.removeEventListener("mousemove", moveLens)
       zoomContainer.removeEventListener("mouseenter", handleMouseEnter)
       zoomContainer.removeEventListener("mouseleave", handleMouseLeave)
+      zoomResult.style.display = "none"
+      zoomResult.style.visibility = "hidden"
+      lens.style.display = "none"
+      lens.style.visibility = "hidden"
     }
   }, [mainImage])
 

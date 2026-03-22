@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
@@ -145,18 +143,33 @@ function Checkout() {
 
   if (activeStep === 3) {
     return (
-      <div className="checkout">
-        <div className="checkout__header">
-          <h1 className="checkout__title">Order Confirmed</h1>
-        </div>
-        <div className="checkout__confirmation">
-          <div className="checkout__confirmation-icon">&#10003;</div>
-          <h2>Thank you for your order!</h2>
-          <p>Your order has been placed successfully. You will receive a confirmation email shortly.</p>
-          <div className="checkout__confirmation-actions">
-            <Link to="/orders" className="checkout__next-button">View My Orders</Link>
-            <Link to="/products" className="checkout__back-button">Continue Shopping</Link>
+      <div className="checkout checkout--success">
+        <div className="checkout__success">
+          <div className="checkout__success-visual" aria-hidden>
+            <div className="checkout__success-ring" />
+            <div className="checkout__success-checkmark">
+              <svg viewBox="0 0 52 52" className="checkout__success-checkmark-svg">
+                <circle className="checkout__success-checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+                <path className="checkout__success-checkmark-check" fill="none" d="M14 27l8 8 16-16" />
+              </svg>
+            </div>
           </div>
+          <p className="checkout__success-kicker">Sifariş təsdiqləndi</p>
+          <h1 className="checkout__success-title">Çox sağ olun!</h1>
+          <p className="checkout__success-text">
+            Sifarişiniz qəbul edildi. Tezliklə təsdiq e-poçtu alacaqsınız; sifariş statusunu “Sifarişlərim” bölməsindən izləyə bilərsiniz.
+          </p>
+          <div className="checkout__success-actions">
+            <Link to="/orders" className="checkout__success-btn checkout__success-btn--primary">
+              Sifarişlərimə keç
+            </Link>
+            <Link to="/products" className="checkout__success-btn checkout__success-btn--ghost">
+              Alış-verişə davam et
+            </Link>
+          </div>
+          <Link to="/" className="checkout__success-home">
+            Ana səhifəyə qayıt
+          </Link>
         </div>
       </div>
     );

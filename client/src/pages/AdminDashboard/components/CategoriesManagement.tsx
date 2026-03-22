@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaTrash, FaEdit, FaPlus, FaCheck, FaTimes, FaTag } from "react-icons/fa";
+import { FaTrash, FaEdit, FaPlus, FaTimes, FaTag } from "react-icons/fa";
 import Swal from "sweetalert2";
 import {
   fetchCategories,
@@ -16,7 +16,6 @@ const CategoriesManagement: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  // Form state
   const [editingId, setEditingId] = useState<number | null>(null);
   const [title, setTitle] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -120,7 +119,6 @@ const CategoriesManagement: React.FC = () => {
       </div>
 
       <div className="admin-dashboard__crud-layout">
-        {/* Form */}
         <div className="admin-dashboard__crud-form-card">
           <h3>
             {editingId ? <><FaEdit /> Edit Category</> : <><FaPlus /> New Category</>}
@@ -162,7 +160,6 @@ const CategoriesManagement: React.FC = () => {
           </form>
         </div>
 
-        {/* Table */}
         <div className="admin-dashboard__crud-list">
           <div className="admin-dashboard__table-container">
             {loading ? (

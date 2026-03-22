@@ -5,7 +5,6 @@
 
 .admin-dashboard {
   --admin-bg: #060b14;
-  /* Admin layout is full-screen (no shop navbar/header); sidebar sticks to top-left */
   --admin-chrome-top: 0px;
   --admin-sidebar-bg: rgba(10, 15, 26, 0.95);
   --admin-card-bg: rgba(16, 22, 36, 0.8);
@@ -32,7 +31,7 @@
 
   width: 100%;
   display: flex;
-  min-height: calc(100vh - var(--admin-chrome-top));
+  min-height: calc(100vh - var(--admin-chrome-top)); 
   background: var(--admin-bg);
   background-image:
     radial-gradient(ellipse 60% 50% at 90% 10%, rgba(88, 166, 255, 0.08) 0%, transparent 60%),
@@ -43,7 +42,6 @@
 
   * { box-sizing: border-box; }
 
-  // ─── Sidebar ─────────────────────────────────────────────────
   &__sidebar {
     width: 260px;
     background: var(--admin-sidebar-bg);
@@ -131,7 +129,6 @@
 
   &__nav-icon { font-size: 18px; flex-shrink: 0; }
 
-  // ─── Main Content ─────────────────────────────────────────────
   &__main {
     flex: 1;
     margin-left: 260px;
@@ -211,7 +208,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  // ─── Summary Cards ────────────────────────────────────────────
   &__summary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -304,7 +300,6 @@
     }
   }
 
-  // ─── Charts (Revenue Overview & category breakdown) ─────────────
   &__charts {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
@@ -518,7 +513,6 @@
     font-variant-numeric: tabular-nums;
   }
 
-  // ─── Tables ───────────────────────────────────────────────────
   &__table-container {
     background: var(--admin-card-bg);
     backdrop-filter: var(--admin-glass);
@@ -587,7 +581,6 @@
     font-size: 14px;
   }
 
-  // ─── Status Badges ────────────────────────────────────────────
   &__status {
     padding: 4px 10px;
     border-radius: 20px;
@@ -614,7 +607,6 @@
     border: 1px solid rgba(88, 166, 255, 0.2);
   }
 
-  // ─── Buttons ──────────────────────────────────────────────────
   &__button {
     padding: 10px 20px;
     border-radius: var(--admin-radius-sm);
@@ -708,7 +700,6 @@
     }
   }
 
-  // ─── CRUD Layout ──────────────────────────────────────────────
   &__crud-layout {
     display: grid;
     grid-template-columns: 340px 1fr;
@@ -745,7 +736,6 @@
     min-width: 0;
   }
 
-  // ─── Forms ────────────────────────────────────────────────────
   &__form-group {
     margin-bottom: 16px;
 
@@ -849,9 +839,8 @@
     gap: 8px;
   }
 
-  &__form { /* wrapper for the basic tab form – just a passthrough */ }
+  &__form { }
 
-  // ─── Image preview in form ────────────────────────────────────
   &__preview-thumb {
     width: 64px; height: 64px;
     border-radius: var(--admin-radius-sm);
@@ -860,7 +849,6 @@
     margin-top: 8px;
   }
 
-  // ─── Modal ────────────────────────────────────────────────────
   &__modal-backdrop {
     position: fixed;
     inset: 0;
@@ -978,7 +966,6 @@
     gap: 8px;
   }
 
-  // ─── Dividers / Notes ─────────────────────────────────────────
   &__divider {
     border: none;
     height: 1px;
@@ -995,7 +982,6 @@
     gap: 6px;
   }
 
-  // ─── Images (modal) ───────────────────────────────────────────
   &__image-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -1087,7 +1073,6 @@
     small { display: block; color: var(--admin-text-muted); font-size: 12px; margin-top: 4px; font-weight: 400; }
   }
 
-  // ─── Inline form (specs / attributes) ────────────────────────
   &__inline-form {
     display: flex;
     gap: 10px;
@@ -1144,7 +1129,6 @@
     }
   }
 
-  // ─── Loading state ────────────────────────────────────────────
   &__loading {
     display: flex;
     flex-direction: column;
@@ -1169,7 +1153,6 @@
     to { transform: rotate(360deg); }
   }
 
-  // ─── Error state ──────────────────────────────────────────────
   &__error {
     background: var(--admin-danger-bg);
     border: 1px solid rgba(248, 81, 73, 0.2);
@@ -1179,7 +1162,6 @@
     font-size: 14px;
   }
 
-  // ─── Link ─────────────────────────────────────────────────────
   &__link {
     color: var(--admin-primary);
     text-decoration: none;
@@ -1188,7 +1170,6 @@
     &:hover { text-decoration: underline; }
   }
 
-  // ─── Chart wrapper ────────────────────────────────────────────
   &__chart-wrapper {
     background: var(--admin-card-bg);
     border: 1px solid var(--admin-card-border);
@@ -1200,7 +1181,6 @@
     h3 { margin: 0 0 20px; font-size: 16px; font-weight: 600; }
   }
 
-  // ─── Overview grid ────────────────────────────────────────────
   &__overview-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -1209,7 +1189,6 @@
     @include responsive(md) { grid-template-columns: 1fr; }
   }
 
-  // ─── Date range picker ────────────────────────────────────────
   &__date-range {
     display: flex;
     align-items: center;
@@ -1230,7 +1209,6 @@
     }
   }
 
-  // ─── Recent activity ──────────────────────────────────────────
   &__activity-item {
     display: flex;
     align-items: center;
@@ -1255,7 +1233,6 @@
     small { color: var(--admin-text-muted); font-size: 12px; }
   }
 
-  // ─── Sidebar footer / user info ───────────────────────────────
   &__sidebar-footer {
     margin-top: auto;
     padding-top: 16px;

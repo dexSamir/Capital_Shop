@@ -6,7 +6,6 @@ public class AttributeGetDto
 	public string Name { get; set; }
 	public DateTime CreatedTime { get; set; }
 
-	//AttributeValueGetDto list
 	public ICollection<AttributeValueGetDto> Values { get; set; }
 }
 

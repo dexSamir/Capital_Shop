@@ -7,7 +7,6 @@ public static class AdminSeeder
 {
     public static async Task SeedAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
     {
-        // Roles
         string[] roles = ["Admin", "User"];
         foreach (var role in roles)
         {
@@ -15,7 +14,6 @@ public static class AdminSeeder
                 await roleManager.CreateAsync(new IdentityRole(role));
         }
 
-        // Admin user
         string adminEmail = "hebibovsamir26@gmail.com";
         string adminPassword = "hebibovS13!";
 
@@ -40,7 +38,6 @@ public static class AdminSeeder
         }
         else
         {
-            // User var, amma Admin rolu yoxdursa əlavə et
             if (!await userManager.IsInRoleAsync(existingAdmin, "Admin"))
                 await userManager.AddToRoleAsync(existingAdmin, "Admin");
         }

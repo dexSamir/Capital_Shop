@@ -1,94 +1,386 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
 .orders {
-  padding: 4rem 2rem;
-  max-width: 900px;
-  margin: 0 auto;
+  width: 100%;
+  background-color: var(--background-color);
 
-  &__header {
-    margin-bottom: 2rem;
+  &__hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    padding: $spacing-xl $spacing-md;
+    text-align: center;
+    background:
+      radial-gradient(
+        ellipse 65% 50% at 50% 0%,
+        color-mix(in srgb, var(--primary-color) 10%, transparent),
+        transparent
+      ),
+      var(--light-background);
+    border-bottom: 1px solid var(--border-color);
   }
 
-  &__title {
-    font-size: 2rem;
-    font-weight: 600;
+  &__breadcrumb {
+    @include flex(row, center, center);
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+    font-size: $font-size-sm;
   }
 
-  &__status {
-    margin-top: 1rem;
-    color: #555;
+  &__breadcrumb-link {
+    color: var(--light-text-color);
+    text-decoration: none;
+    transition: color $transition-fast;
 
-    &--error {
-      color: #e63946;
+    &:hover {
+      color: var(--primary-color);
     }
   }
 
-  &__not-auth,
-  &__empty {
-    margin-top: 1.5rem;
+  &__breadcrumb-sep {
+    width: 1px;
+    height: 14px;
+    background: var(--light-text-color);
+    opacity: 0.45;
   }
 
-  &__link {
-    display: inline-block;
-    margin-top: 0.5rem;
-    color: #2563eb;
+  &__breadcrumb-current {
+    font-weight: $font-weight-medium;
+    color: var(--primary-color);
+  }
+
+  &__hero-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: $spacing-md;
+    border-radius: 50%;
+    @include flex(row, center, center);
+    background: linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--primary-color) 14%, transparent),
+      transparent
+    );
+    border: 1px solid color-mix(in srgb, var(--primary-color) 22%, var(--border-color));
+    color: var(--primary-color);
+    font-size: 26px;
+  }
+
+  &__title {
+    margin: 0 0 $spacing-sm;
+    font-size: clamp($font-size-xl, 4vw, $font-size-xxl);
+    font-weight: $font-weight-semibold;
+    color: var(--text-color);
+  }
+
+  &__subtitle {
+    margin: 0;
+    max-width: 520px;
+    font-size: $font-size-base;
+    line-height: 1.55;
+    color: var(--light-text-color);
+  }
+
+  &__main {
+    padding: $spacing-xl $spacing-md $spacing-xxl;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  &__loading {
+    @include flex(row, center, center);
+    gap: $spacing-md;
+    padding: $spacing-xl;
+    color: var(--light-text-color);
+    font-size: $font-size-base;
+  }
+
+  &__spinner {
+    font-size: 22px;
+    color: var(--primary-color);
+    animation: orders-spin 0.85s linear infinite;
+  }
+
+  &__message {
+    padding: $spacing-md $spacing-lg;
+    border-radius: $border-radius-lg;
+    font-size: $font-size-base;
+
+    &--error {
+      background: color-mix(in srgb, #e63946 12%, var(--card-background));
+      border: 1px solid color-mix(in srgb, #e63946 35%, var(--border-color));
+      color: var(--text-color);
+    }
+  }
+
+  &__panel {
+    padding: $spacing-xl * 1.25 $spacing-xl;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow:
+      0 8px 40px rgba(0, 0, 0, 0.06),
+      0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+    text-align: center;
+
+    &--empty {
+      max-width: 440px;
+      margin: 0 auto;
+    }
+  }
+
+  &__panel-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto $spacing-lg;
+    border-radius: 50%;
+    @include flex(row, center, center);
+    background: linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--primary-color) 12%, transparent),
+      transparent
+    );
+    border: 1px solid color-mix(in srgb, var(--primary-color) 20%, var(--border-color));
+    color: var(--primary-color);
+    font-size: 28px;
+  }
+
+  &__panel-title {
+    margin: 0 0 $spacing-sm;
+    font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+    font-weight: $font-weight-bold;
+    color: var(--text-color);
+  }
+
+  &__panel-text {
+    margin: 0 0 $spacing-xl;
+    font-size: $font-size-base;
+    line-height: 1.6;
+    color: var(--light-text-color);
+  }
+
+  &__btn {
+    @include flex(row, center, center);
+    gap: 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 12px;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    font-family: inherit;
     text-decoration: none;
-    font-weight: 500;
+    cursor: pointer;
+    transition: transform $transition-fast, box-shadow $transition-fast;
+
+    &--primary {
+      color: #fff;
+      background: linear-gradient(145deg, #c42b3a, #e84555);
+      box-shadow: 0 6px 22px rgba(200, 50, 65, 0.35);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(200, 50, 65, 0.42);
+      }
+    }
+  }
+
+  &__panel-link {
+    display: inline-block;
+    margin-top: $spacing-lg;
+    font-size: $font-size-sm;
+    color: var(--light-text-color);
+    text-decoration: none;
+    transition: color $transition-fast;
 
     &:hover {
-      text-decoration: underline;
+      color: var(--primary-color);
+    }
+
+    &--inline {
+      @include flex(row, center, center);
+      gap: 8px;
+      margin-top: $spacing-md;
     }
   }
 
   &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: $spacing-lg;
   }
 
-  &__item {
-    border: 1px solid #e5e7eb;
-    border-radius: 0.75rem;
-    padding: 1.25rem 1.5rem;
-    background: #fff;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  &__card {
+    padding: $spacing-lg $spacing-xl;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    transition: box-shadow $transition-fast, border-color $transition-fast;
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--primary-color) 25%, var(--border-color));
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+    }
   }
 
-  &__item-row {
+  &__card-top {
+    @include flex(row, space-between, flex-start);
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  &__card-id {
+    @include flex(column, flex-start, flex-start);
+    gap: 2px;
+  }
+
+  &__card-id-label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: var(--light-text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__card-id-value {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: var(--text-color);
+    line-height: 1.2;
+  }
+
+  &__meta {
+    margin: 0;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.25rem;
+    flex-direction: column;
+    gap: $spacing-sm;
   }
 
-  &__label {
-    font-weight: 500;
-    color: #6b7280;
+  &__meta-row {
+    @include flex(row, space-between, center);
+    gap: $spacing-md;
+    font-size: $font-size-base;
+
+    dt {
+      margin: 0;
+      font-weight: $font-weight-medium;
+      color: var(--light-text-color);
+    }
+
+    dd {
+      margin: 0;
+      text-align: right;
+      color: var(--text-color);
+    }
   }
 
-  &__value {
-    font-weight: 500;
-    color: #111827;
+  &__meta-total {
+    font-weight: $font-weight-bold;
+    font-size: $font-size-lg;
+    color: var(--primary-color);
   }
 
   &__status-badge {
-    display: inline-block;
-    padding: 0.15rem 0.6rem;
-    border-radius: 999px;
-    font-size: 0.8rem;
-    font-weight: 500;
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: $border-radius-full;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    line-height: 1.2;
+    text-align: center;
 
     &--pending {
-      background: #fef3c7;
-      color: #92400e;
+      background: color-mix(in srgb, #f59e0b 18%, var(--card-background));
+      color: #b45309;
+    }
+
+    &--processing {
+      background: color-mix(in srgb, #3b82f6 16%, var(--card-background));
+      color: #1d4ed8;
+    }
+
+    &--shipped {
+      background: color-mix(in srgb, #8b5cf6 16%, var(--card-background));
+      color: #5b21b6;
     }
 
     &--completed {
-      background: #dcfce7;
-      color: #166534;
+      background: color-mix(in srgb, #22c55e 18%, var(--card-background));
+      color: #15803d;
     }
 
     &--cancelled {
-      background: #fee2e2;
-      color: #991b1b;
+      background: color-mix(in srgb, #ef4444 16%, var(--card-background));
+      color: #b91c1c;
+    }
+
+    &--default {
+      background: var(--light-background);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
     }
   }
 }
 
+[data-theme="dark"] .orders {
+  &__status-badge {
+    &--pending {
+      color: #fbbf24;
+    }
+
+    &--processing {
+      color: #93c5fd;
+    }
+
+    &--shipped {
+      color: #c4b5fd;
+    }
+
+    &--completed {
+      color: #86efac;
+    }
+
+    &--cancelled {
+      color: #fca5a5;
+    }
+  }
+}
+
+@keyframes orders-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@include responsive(md) {
+  .orders {
+    &__main {
+      padding-left: $spacing-lg;
+      padding-right: $spacing-lg;
+    }
+
+    &__card {
+      padding: $spacing-md $spacing-lg;
+    }
+
+    &__card-top {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__status-badge {
+      align-self: flex-start;
+    }
+  }
+}

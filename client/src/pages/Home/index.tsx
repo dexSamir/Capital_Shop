@@ -29,7 +29,6 @@ function Home() {
     getAllproducts()
       .then((res) => {
         setProducts(res)
-        // Ensure we handle duplicate randoms safely, or just pick first 4
         const shuffled = [...res].sort(() => 0.5 - Math.random())
         setFeaturedProducts(shuffled.slice(0, 4))
       })

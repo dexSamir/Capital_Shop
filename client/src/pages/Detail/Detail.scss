@@ -208,12 +208,14 @@
     }
 
     &:hover img {
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
   }
 
   &__zoom-lens {
     position: absolute;
+    display: none;
+    visibility: hidden;
     border: 1px solid var(--primary-color);
     width: 100px;
     height: 100px;
@@ -224,6 +226,8 @@
   }
 
   &__zoom-result {
+    display: none;
+    visibility: hidden;
     position: fixed;
     top: 50%;
     right: 20%;
@@ -246,6 +250,7 @@
 
     @include responsive(md) {
       display: none !important;
+      visibility: hidden !important;
     }
   }
 

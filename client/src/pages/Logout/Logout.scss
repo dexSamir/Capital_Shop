@@ -1,96 +1,119 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
-@use "../../styles/theme.scss" as *;
 
 .logout {
+  min-height: calc(100vh - 140px);
   display: flex;
-  height: 100vh;
   align-items: center;
   justify-content: center;
+  padding: $spacing-xl $spacing-md;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, color-mix(in srgb, var(--primary-color) 12%, transparent), transparent),
+    var(--background-color);
 
-  &__container {
-    min-width: 700px;
-    background-color: white;
-    padding: 55px 60px 50px 50px;
-    box-shadow: 0px 10px 30px 0px rgba(13, 12, 13, 0.2);
-
-    @include responsive(md) {
-      min-width: auto;
-      width: 90%;
-      padding: $spacing-xl;
-    }
+  &__panel {
+    width: 100%;
+    max-width: 440px;
+    padding: $spacing-xl * 2 $spacing-xl;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow:
+      0 8px 40px rgba(0, 0, 0, 0.08),
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+    text-align: center;
   }
 
-  &__header {
-    text-align: center;
-    margin-bottom: $spacing-xl;
+  &__icon-wrap {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto $spacing-lg;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, color-mix(in srgb, var(--primary-color) 15%, transparent), transparent);
+    border: 1px solid color-mix(in srgb, var(--primary-color) 25%, var(--border-color));
+  }
+
+  &__icon {
+    font-size: 28px;
+    color: var(--primary-color);
   }
 
   &__title {
-    margin-bottom: $spacing-md;
-    font-size: $font-size-xl;
-    font-weight: $font-weight-semibold;
-    color: #140c40;
+    margin: 0 0 $spacing-md;
+    font-size: clamp(1.35rem, 3vw, 1.6rem);
+    font-weight: $font-weight-bold;
+    color: var(--text-color);
+    line-height: 1.3;
   }
 
   &__text {
-    margin-bottom: $spacing-md;
+    margin: 0 0 $spacing-xl;
     font-size: $font-size-base;
-    font-weight: $font-weight-normal;
-    line-height: 1.5;
-    color: #301a22;
+    line-height: 1.6;
+    color: var(--light-text-color);
   }
 
   &__actions {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: $spacing-md;
+    margin-bottom: $spacing-lg;
   }
 
-  &__button {
-    position: relative;
-    overflow: hidden;
-    border-radius: 50px;
-    background-color: var(--primary-color);
-    padding: $spacing-md $spacing-lg;
-    font-size: $font-size-sm;
-    font-weight: $font-weight-medium;
-    color: white;
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 22px;
+    border-radius: 12px;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    font-family: inherit;
     text-decoration: none;
-    z-index: 1;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 
-    &::before {
-      content: "";
-      position: absolute;
-      left: -100%;
-      top: 0;
-      z-index: -1;
-      height: 100%;
-      width: 100%;
-      background-color: white;
-      transition: all $transition-normal;
+    &--confirm {
+      border: none;
+      color: #fff;
+      background: linear-gradient(145deg, #c42b3a, #e84555);
+      box-shadow: 0 6px 22px rgba(200, 50, 65, 0.35);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px rgba(200, 50, 65, 0.45);
+      }
     }
+
+    &--ghost {
+      background: var(--light-background);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+
+      &:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: $font-size-sm;
+    color: var(--light-text-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
 
     &:hover {
       color: var(--primary-color);
-
-      &::before {
-        left: 0;
-      }
-    }
-
-    &--danger {
-      background-color: #ff4d4f;
-      border: none;
-      color: white;
-      cursor: pointer;
-      font-family: inherit;
-
-      &:hover {
-        color: #ff4d4f;
-      }
     }
   }
 }

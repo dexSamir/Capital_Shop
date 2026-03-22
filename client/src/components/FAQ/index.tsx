@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import { FaChevronDown, FaChevronUp } from "react-icons/fa"
 import "./FAQ.scss"

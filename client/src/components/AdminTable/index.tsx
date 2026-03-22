@@ -1,5 +1,3 @@
-"use client"
-
 import { Link, useNavigate } from "react-router-dom"
 import { MdDelete } from "react-icons/md"
 import { FaRegEdit } from "react-icons/fa"

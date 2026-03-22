@@ -44,7 +44,6 @@ const calculateTotals = (items: CartItem[]) => {
   );
 };
 
-// Sync local cart to server when user logs in
 export const syncCartToServer = createAsyncThunk(
   "cart/syncToServer",
   async (_, { getState }) => {
@@ -55,7 +54,6 @@ export const syncCartToServer = createAsyncThunk(
       try {
         await addOrUpdateCartItem(item.id, item.count);
       } catch {
-        // ignore individual item sync failures
       }
     }
 
@@ -72,9 +70,9 @@ export const fetchCartFromServer = createAsyncThunk(
          id: i.productId,
          name: i.productTitle,
          price: i.unitPrice,
-         withoutDiscount: i.unitPrice, // Ideally backend should provide original price, but we use unitPrice for now
+         withoutDiscount: i.unitPrice,
          img: i.productImage,
-         category: "Unknown", // Required but missing in DTO
+         category: "Unknown",
          count: i.quantity,
       }));
       return mappedItems;
@@ -151,8 +149,6 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCartFromServer.fulfilled, (state, action) => {
-      // Merge server items with local items (or replace)
-      // For simplicity, replace if local is empty, else keep local (syncCartToServer pushes local to server)
       if (state.items.length === 0 && action.payload.length > 0) {
         state.items = action.payload;
         const { totalAmount, totalCount } = calculateTotals(state.items);

@@ -9,7 +9,6 @@ public static class DbInitializer
 {
     private const string DemoVideoUrl = "https://samplelib.com/lib/preview/mp4/sample-5s.mp4";
 
-    /// <summary>Deterministic demo SKU + stock per seeded product title.</summary>
     private static readonly Dictionary<string, (string Sku, int Quantity)> ProductSkuQuantityByTitle =
         new(StringComparer.Ordinal)
         {
@@ -21,7 +20,6 @@ public static class DbInitializer
             ["Wireless Noise-Cancel Headphones"] = ("ELE-001", 72),
         };
 
-    /// <summary>Reliable placeholder logos (ClearBit often blocks hotlinking).</summary>
     private static readonly Dictionary<string, string> BrandLogoUrlByTitle =
         new(StringComparer.OrdinalIgnoreCase)
         {

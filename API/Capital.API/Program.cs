@@ -20,10 +20,8 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
 
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
@@ -38,10 +36,8 @@ public class Program
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
-        // Jwt options
         builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.Jwt));
 
-        // Authentication & JWT bearer
         var jwtSettings = builder.Configuration.GetSection(JwtOptions.Jwt).Get<JwtOptions>();
         var key = Encoding.UTF8.GetBytes(jwtSettings.SecretKey);
 
@@ -63,7 +59,6 @@ public class Program
             };
         });
 
-        // CORS for frontend SPA
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowClient", policy =>
@@ -85,7 +80,6 @@ public class Program
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();

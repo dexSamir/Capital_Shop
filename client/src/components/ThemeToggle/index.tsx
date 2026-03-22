@@ -1,5 +1,3 @@
-"use client"
-
 import { FiSun, FiMoon } from "react-icons/fi"
 import { useTheme } from "../../context/ThemeContext"
 import "./ThemeToggle.scss"

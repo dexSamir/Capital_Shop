@@ -8,7 +8,6 @@ export const API_ROOT_URL = API_BASE_URL.replace("/api", "");
 export const getImageUrl = (imagePath: string | null | undefined) => {
   if (!imagePath) return "/placeholder.svg";
   if (imagePath.startsWith("http") || imagePath.startsWith("data:")) return imagePath;
-  // Make sure we don't double slash
   const cleanPath = imagePath.startsWith("/") ? imagePath.slice(1) : imagePath;
   return `${API_ROOT_URL}/${cleanPath}`;
 };

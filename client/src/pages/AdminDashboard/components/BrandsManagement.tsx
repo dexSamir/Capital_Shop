@@ -16,7 +16,6 @@ const BrandsManagement: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  // Form state
   const [editingId, setEditingId] = useState<number | null>(null);
   const [title, setTitle] = useState("");
   const [website, setWebsite] = useState("");
@@ -123,7 +122,6 @@ const BrandsManagement: React.FC = () => {
       </div>
 
       <div className="admin-dashboard__crud-layout">
-        {/* Form */}
         <div className="admin-dashboard__crud-form-card">
           <h3>
             {editingId ? <><FaEdit /> Edit Brand</> : <><FaPlus /> New Brand</>}
@@ -174,7 +172,6 @@ const BrandsManagement: React.FC = () => {
           </form>
         </div>
 
-        {/* Table */}
         <div className="admin-dashboard__crud-list">
           <div className="admin-dashboard__table-container">
             {loading ? (

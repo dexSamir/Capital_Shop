@@ -49,21 +49,17 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
   const [saving, setSaving] = useState(false);
   const [currentProductId, setCurrentProductId] = useState<number | null>(product?.id || null);
 
-  // ── Images ──────────────────────────────────────────────────────
   const [images, setImages] = useState<ProductImageDto[]>([]);
   const [uploadLoading, setUploadLoading] = useState(false);
 
-  // ── Specs ────────────────────────────────────────────────────────
   const [specs, setSpecs] = useState<ProductSpecificationDto[]>([]);
   const [newSpecKey, setNewSpecKey] = useState("");
   const [newSpecValue, setNewSpecValue] = useState("");
   const [editingSpec, setEditingSpec] = useState<{ id: number; key: string; value: string } | null>(null);
 
-  // ── Attributes ───────────────────────────────────────────────────
   const [attributes, setAttributes] = useState<ProductAttributeValueDto[]>([]);
   const [newAttributeValId, setNewAttributeValId] = useState("");
 
-  // ─────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (currentProductId) {
       void loadImages();
@@ -85,7 +81,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
     try { setAttributes(await getProductAttributes(currentProductId)); } catch { /* ignore */ }
   };
 
-  // ── Basic Save ───────────────────────────────────────────────────
   const handleSaveBasic = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
@@ -126,7 +121,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
     }
   };
 
-  // ── Images ───────────────────────────────────────────────────────
   const handleAddImages = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.length || !currentProductId) return;
     const fd = new FormData();
@@ -164,7 +158,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
     catch { toast("error", "Update failed"); }
   };
 
-  // ── Specs ────────────────────────────────────────────────────────
   const handleAddSpec = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentProductId || !newSpecKey.trim() || !newSpecValue.trim()) return;
@@ -189,7 +182,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
     catch { toast("error", "Failed to delete spec"); }
   };
 
-  // ── Attributes ────────────────────────────────────────────────────
   const handleAssignAttribute = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!currentProductId || !newAttributeValId) return;
@@ -205,16 +197,13 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
     catch { toast("error", "Failed to remove attribute"); }
   };
 
-  // ─────────────────────────────────────────────────────────────────
   return (
     <div className="admin-dashboard__modal">
-      {/* Header */}
       <div className="admin-dashboard__modal-header">
         <h2>{product ? `Edit: ${product.title}` : "Add New Product"}</h2>
         <button className="admin-dashboard__close-btn" onClick={onClose}>&times;</button>
       </div>
 
-      {/* Tabs */}
       <div className="admin-dashboard__modal-tabs">
         {(["basic", "images", "specs", "attributes"] as TabType[]).map((tab) => {
           const labels: Record<TabType, React.ReactNode> = {
@@ -236,7 +225,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
         })}
       </div>
 
-      {/* Body */}
       <div className="admin-dashboard__modal-body">
         {!currentProductId && activeTab !== "basic" && (
           <div className="admin-dashboard__warn-banner">
@@ -244,7 +232,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
           </div>
         )}
 
-        {/* ───── BASIC TAB ───── */}
         {activeTab === "basic" && (
           <div className="admin-dashboard__tab-pane">
             <form onSubmit={handleSaveBasic}>
@@ -334,7 +321,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
           </div>
         )}
 
-        {/* ───── IMAGES TAB ───── */}
         {activeTab === "images" && currentProductId && (
           <div className="admin-dashboard__tab-pane">
             <div className="admin-dashboard__upload-area">
@@ -398,7 +384,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
           </div>
         )}
 
-        {/* ───── SPECS TAB ───── */}
         {activeTab === "specs" && currentProductId && (
           <div className="admin-dashboard__tab-pane">
             <form onSubmit={handleAddSpec} className="admin-dashboard__inline-form">
@@ -478,7 +463,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, categories, brands
           </div>
         )}
 
-        {/* ───── ATTRIBUTES TAB ───── */}
         {activeTab === "attributes" && currentProductId && (
           <div className="admin-dashboard__tab-pane">
             <div style={{ marginBottom: 20, padding: "12px 16px", background: "rgba(227,179,65,0.08)", border: "1px solid rgba(227,179,65,0.2)", borderRadius: 10, fontSize: 13, color: "var(--admin-warning)" }}>

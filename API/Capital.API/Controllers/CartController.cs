@@ -17,7 +17,6 @@ public class CartController : ControllerBase
         _cartService = cartService;
     }
 
-    // GET: api/Cart
     [HttpGet]
     public async Task<IActionResult> Get()
     {
@@ -25,7 +24,6 @@ public class CartController : ControllerBase
         return Ok(cart);
     }
 
-    // POST: api/Cart/items
     [HttpPost("items")]
     public async Task<IActionResult> AddOrUpdateItem(CartItemUpdateDto dto)
     {
@@ -33,7 +31,6 @@ public class CartController : ControllerBase
         return Ok(cart);
     }
 
-    // DELETE: api/Cart/items/{productId}
     [HttpDelete("items/{productId}")]
     public async Task<IActionResult> RemoveItem(int productId)
     {
@@ -41,7 +38,6 @@ public class CartController : ControllerBase
         return Ok(cart);
     }
 
-    // DELETE: api/Cart
     [HttpDelete]
     public async Task<IActionResult> Clear()
     {

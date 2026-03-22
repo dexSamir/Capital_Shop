@@ -17,7 +17,6 @@ public class OrdersController : ControllerBase
         _orderService = orderService;
     }
 
-    // Create order for current user
     [HttpPost]
     public async Task<IActionResult> Create(OrderCreateDto dto)
     {
@@ -25,7 +24,6 @@ public class OrdersController : ControllerBase
         return Ok(result);
     }
 
-    // Current user's orders
     [HttpGet("my")]
     public async Task<IActionResult> GetMyOrders()
     {
@@ -33,7 +31,6 @@ public class OrdersController : ControllerBase
         return Ok(result);
     }
 
-    // Order details (user can see own orders; admin can see all)
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -41,7 +38,6 @@ public class OrdersController : ControllerBase
         return Ok(result);
     }
 
-    // Admin: list all orders
     [HttpGet]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetAll()
@@ -50,7 +46,6 @@ public class OrdersController : ControllerBase
         return Ok(result);
     }
 
-    // Admin: update order status
     [HttpPatch("{id}/status")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateStatus(int id, OrderStatusUpdateDto dto)

@@ -50,7 +50,7 @@ const ProductsManagement: React.FC = () => {
     setIsModalOpen(false);
     setEditingProduct(null);
     void loadAll();
-    dispatch(fetchProductsRedux()); // keep redux in sync
+    dispatch(fetchProductsRedux());
   };
 
   const handleDelete = async (id: number, title: string) => {

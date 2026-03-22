@@ -1,7 +1,6 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
-/* Full-screen admin shell: no shop Navbar / Header / Footer */
 .admin-layout {
   display: flex;
   flex-direction: column;
