@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Capital.Core.Entities;
 using Capital.DAL.Context;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,29 @@ namespace Capital.DAL;
 public static class DbInitializer
 {
     private const string DemoVideoUrl = "https://samplelib.com/lib/preview/mp4/sample-5s.mp4";
+
+    /// <summary>Deterministic demo SKU + stock per seeded product title.</summary>
+    private static readonly Dictionary<string, (string Sku, int Quantity)> ProductSkuQuantityByTitle =
+        new(StringComparer.Ordinal)
+        {
+            ["Premium Cotton T-Shirt"] = ("MEN-001", 128),
+            ["Urban Denim Jacket"] = ("MEN-002", 96),
+            ["Elegant Silk Dress"] = ("WOM-001", 84),
+            ["Classic Leather Belt"] = ("ACC-001", 200),
+            ["Runner Pro Sneakers"] = ("FOO-001", 156),
+            ["Wireless Noise-Cancel Headphones"] = ("ELE-001", 72),
+        };
+
+    /// <summary>Reliable placeholder logos (ClearBit often blocks hotlinking).</summary>
+    private static readonly Dictionary<string, string> BrandLogoUrlByTitle =
+        new(StringComparer.OrdinalIgnoreCase)
+        {
+            ["Nike"] = "https://picsum.photos/seed/capital-brand-nike/240/240",
+            ["Adidas"] = "https://picsum.photos/seed/capital-brand-adidas/240/240",
+            ["Zara"] = "https://picsum.photos/seed/capital-brand-zara/240/240",
+            ["Puma"] = "https://picsum.photos/seed/capital-brand-puma/240/240",
+            ["Apple"] = "https://picsum.photos/seed/capital-brand-apple/240/240",
+        };
 
     public static async Task SeedAsync(AppDbContext context)
     {
@@ -35,11 +59,11 @@ public static class DbInitializer
 
         var requiredBrands = new List<Brand>
         {
-            new() { Title = "Nike", Website = "https://www.nike.com", LogoUrl = "https://logo.clearbit.com/nike.com", CreatedTime = DateTime.UtcNow },
-            new() { Title = "Adidas", Website = "https://www.adidas.com", LogoUrl = "https://logo.clearbit.com/adidas.com", CreatedTime = DateTime.UtcNow },
-            new() { Title = "Zara", Website = "https://www.zara.com", LogoUrl = "https://logo.clearbit.com/zara.com", CreatedTime = DateTime.UtcNow },
-            new() { Title = "Puma", Website = "https://us.puma.com", LogoUrl = "https://logo.clearbit.com/puma.com", CreatedTime = DateTime.UtcNow },
-            new() { Title = "Apple", Website = "https://www.apple.com", LogoUrl = "https://logo.clearbit.com/apple.com", CreatedTime = DateTime.UtcNow }
+            new() { Title = "Nike", Website = "https://www.nike.com", LogoUrl = BrandLogoUrlByTitle["Nike"], CreatedTime = DateTime.UtcNow },
+            new() { Title = "Adidas", Website = "https://www.adidas.com", LogoUrl = BrandLogoUrlByTitle["Adidas"], CreatedTime = DateTime.UtcNow },
+            new() { Title = "Zara", Website = "https://www.zara.com", LogoUrl = BrandLogoUrlByTitle["Zara"], CreatedTime = DateTime.UtcNow },
+            new() { Title = "Puma", Website = "https://us.puma.com", LogoUrl = BrandLogoUrlByTitle["Puma"], CreatedTime = DateTime.UtcNow },
+            new() { Title = "Apple", Website = "https://www.apple.com", LogoUrl = BrandLogoUrlByTitle["Apple"], CreatedTime = DateTime.UtcNow }
         };
 
         var existingBrandTitles = await context.Brands
@@ -158,6 +182,51 @@ public static class DbInitializer
             await context.Products.AddRangeAsync(products);
             await context.SaveChangesAsync();
         }
+
+        await SyncBrandLogosAsync(context);
+        await RefreshAllProductSkuAndQuantityAsync(context);
+    }
+
+    private static async Task SyncBrandLogosAsync(AppDbContext context)
+    {
+        var brands = await context.Brands.ToListAsync();
+        var changed = false;
+        foreach (var b in brands)
+        {
+            if (!BrandLogoUrlByTitle.TryGetValue(b.Title, out var url))
+                continue;
+            if (string.IsNullOrWhiteSpace(b.LogoUrl) ||
+                b.LogoUrl.Contains("clearbit", StringComparison.OrdinalIgnoreCase))
+            {
+                b.LogoUrl = url;
+                changed = true;
+            }
+        }
+        if (changed)
+            await context.SaveChangesAsync();
+    }
+
+    private static async Task RefreshAllProductSkuAndQuantityAsync(AppDbContext context)
+    {
+        var products = await context.Products.ToListAsync();
+        if (products.Count == 0)
+            return;
+
+        foreach (var p in products.OrderBy(x => x.Id))
+        {
+            if (ProductSkuQuantityByTitle.TryGetValue(p.Title, out var sq))
+            {
+                p.SKU = sq.Sku;
+                p.Quantity = sq.Quantity;
+            }
+            else
+            {
+                p.SKU = $"CS-{p.Id:D5}";
+                p.Quantity = 48 + (p.Id % 152);
+            }
+        }
+
+        await context.SaveChangesAsync();
     }
 
     private static Product BuildProduct(

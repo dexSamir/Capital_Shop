@@ -67,7 +67,7 @@ const ProductsManagement: React.FC = () => {
     });
     if (!result.isConfirmed) return;
     try {
-      dispatch(deleteProduct(id));
+      await dispatch(deleteProduct(id)).unwrap();
       setProducts((prev) => prev.filter((p) => p.id !== id));
       Swal.fire({ toast: true, position: "top-end", icon: "success", title: "Deleted!", showConfirmButton: false, timer: 1200, background: "#0d1117", color: "#e6edf3" });
     } catch {

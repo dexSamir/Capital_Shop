@@ -1,29 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "n2I79EQGTc4=",
-  "success": true,
+  "dgSpecHash": "JR7GLwSXBs8=",
+  "success": false,
   "projectFilePath": "/Users/samirhebibov/Documents/Capital_Shop/API/Capital.Core/Capital.Core.csproj",
-  "expectedPackageFiles": [
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.aspnetcore.cryptography.internal/8.0.15/microsoft.aspnetcore.cryptography.internal.8.0.15.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.aspnetcore.cryptography.keyderivation/8.0.15/microsoft.aspnetcore.cryptography.keyderivation.8.0.15.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.aspnetcore.identity.entityframeworkcore/8.0.15/microsoft.aspnetcore.identity.entityframeworkcore.8.0.15.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.entityframeworkcore/8.0.15/microsoft.entityframeworkcore.8.0.15.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.entityframeworkcore.abstractions/8.0.15/microsoft.entityframeworkcore.abstractions.8.0.15.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.entityframeworkcore.analyzers/8.0.15/microsoft.entityframeworkcore.analyzers.8.0.15.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.entityframeworkcore.relational/8.0.15/microsoft.entityframeworkcore.relational.8.0.15.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.caching.abstractions/8.0.0/microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.caching.memory/8.0.1/microsoft.extensions.caching.memory.8.0.1.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.configuration.abstractions/8.0.0/microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.dependencyinjection/8.0.1/microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.identity.core/8.0.15/microsoft.extensions.identity.core.8.0.15.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.identity.stores/8.0.15/microsoft.extensions.identity.stores.8.0.15.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.logging/8.0.1/microsoft.extensions.logging.8.0.1.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.logging.abstractions/8.0.2/microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.netcore.app.ref/8.0.15/microsoft.netcore.app.ref.8.0.15.nupkg.sha512",
-    "/var/folders/0c/zd13s_717dn405b6y9qqh48r0000gn/T/cursor-sandbox-cache/e69cf05ed6d373dc7e017e10df2a3710/nuget/microsoft.aspnetcore.app.ref/8.0.15/microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512"
-  ],
-  "logs": []
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "Unable to load the service index for source https://api.nuget.org/v3/index.json.\n  The type initializer for 'System.Net.CookieContainer' threw an exception.\n  GetDomainName: -1",
+      "libraryId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore"
+    },
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
+    }
+  ]
 }

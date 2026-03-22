@@ -201,7 +201,12 @@ const BrandsManagement: React.FC = () => {
                       <td style={{ color: "var(--admin-text-muted)", fontSize: 13 }}>#{brand.id}</td>
                       <td>
                         {brand.logoUrl ? (
-                          <img src={getImageUrl(brand.logoUrl)} alt={brand.title} className="admin-dashboard__table-img" />
+                          <img
+                            src={getImageUrl(brand.logoUrl)}
+                            alt={brand.title}
+                            className="admin-dashboard__table-img admin-dashboard__table-img--brand"
+                            onError={(e) => { (e.target as HTMLImageElement).src = "/placeholder.svg"; }}
+                          />
                         ) : (
                           <div style={{ width: 44, height: 44, borderRadius: 8, background: "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--admin-text-muted)" }}>
                             <FaIndustry />

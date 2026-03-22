@@ -44,7 +44,7 @@ public class ProductsController : ControllerBase
 
     [HttpPatch("{id}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Update(int id, ProductUpdateDto dto)
+    public async Task<IActionResult> Update(int id, [FromForm] ProductUpdateDto dto)
     {
         return Ok(await _service.UpdateAsync(id, dto));
     }

@@ -18,7 +18,7 @@ public class ProductCreateDto
     public string? VideoUrl { get; set; }
 
     public int BrandId { get; set; }
-    public int CaategoryId { get; set; }
+    public int CategoryId { get; set; }
 
     public decimal Weight { get; set; }
     public decimal? Length { get; set; }
